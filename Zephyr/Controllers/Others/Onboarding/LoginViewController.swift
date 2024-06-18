@@ -8,7 +8,18 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBAction func loginButtonPressed(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func registerButtonPressed(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "toRegisterView", sender: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
