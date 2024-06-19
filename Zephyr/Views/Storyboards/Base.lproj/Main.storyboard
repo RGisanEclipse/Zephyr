@@ -268,7 +268,7 @@
                         <outlet property="emailTextField" destination="BAf-1f-mXU" id="vqc-cA-gN0"/>
                         <outlet property="errorLabel" destination="Ybr-oU-CIG" id="Vwj-XA-Tku"/>
                         <outlet property="passwordTextField" destination="twc-VA-XiR" id="0TN-pK-539"/>
-                        <segue destination="WmD-b2-ELX" kind="presentation" identifier="toRegisterView" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="AUe-XG-RPf"/>
+                        <segue destination="WmD-b2-ELX" kind="presentation" identifier="toRegisterView" id="AUe-XG-RPf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MXx-JL-KQg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -280,7 +280,7 @@
             <objects>
                 <viewController storyboardIdentifier="RegisterViewController" id="WmD-b2-ELX" customClass="RegisterViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kIT-AU-Dcl">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoImage" translatesAutoresizingMaskIntoConstraints="NO" id="NGn-cl-e5K">

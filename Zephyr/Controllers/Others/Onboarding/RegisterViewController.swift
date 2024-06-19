@@ -15,11 +15,15 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBAction func registerButtonPressed(_ sender: UIButton) {
+        updateErrors()
         let areFieldsEmpty = checkIfEmptyInputs()
         if areFieldsEmpty{
-            throwEmptyError(Constants.Onboarding.emptyError)
+            throwError(Constants.Onboarding.emptyError)
         } else{
-            // Registration Logic
+            let password = passwordTextField.text
+            if password!.count < 8{
+                throwError(Constants.Onboarding.smallPasswordError)
+            }
         }
     }
     
@@ -27,13 +31,13 @@ class RegisterViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func throwEmptyError(_ text: String){
+    func throwError(_ text: String){
         errorLabel.text = text
         errorLabel.isHidden = false
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        errorLabel.isHidden = true
+        updateErrors()
         userNameTextField.delegate = self
         emailTextField.delegate = self
         passwordTextField.delegate = self
@@ -48,6 +52,10 @@ class RegisterViewController: UIViewController {
             return true
         }
         return false
+    }
+    
+    func updateErrors(){
+        errorLabel.isHidden = true
     }
     
 }
