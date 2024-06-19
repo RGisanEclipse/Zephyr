@@ -22,17 +22,33 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
-        guard let email = emailTextField.text, !email.isEmpty,
-                  let password = passwordTextField.text, !password.isEmpty else {
-            errorLabel.text = Constants.Onboarding.emptyError
-            errorLabel.isHidden = false
-                return
-            }
+        let areFieldsEmpty = checkIfEmptyInputs()
+        if areFieldsEmpty{
+            throwEmptyError(Constants.Onboarding.emptyError)
+        } else{
+            // Login Logic
+        }
     }
 
     @IBAction func registerButtonPressed(_ sender: UIButton) {
         self.performSegue(withIdentifier: Constants.Onboarding.registerSegue, sender: self)
     }
+    
+    func throwEmptyError(_ text: String){
+        errorLabel.text = text
+        errorLabel.isHidden = false
+    }
+    
+    func checkIfEmptyInputs()->Bool{
+        guard
+            let safeEmail = emailTextField.text, !safeEmail.isEmpty,
+            let safePassword = passwordTextField.text, !safePassword.isEmpty
+        else {
+            return true
+        }
+        return false
+    }
+    
 }
 
 // MARK: - UITextFieldDelegate
