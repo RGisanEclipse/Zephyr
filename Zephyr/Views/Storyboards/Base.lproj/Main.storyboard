@@ -12,7 +12,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Op7-aN-xgL">
             <objects>
-                <tabBarController id="SG9-ol-v5D" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="SG9-ol-v5D" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XDX-Yc-oJc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -51,7 +51,7 @@
         <!--Home View Controller-->
         <scene sceneID="axS-dU-gjq">
             <objects>
-                <viewController id="oke-Cf-pJc" customClass="HomeViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="oke-Cf-pJc" customClass="HomeViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ctr-BK-lak">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -292,7 +292,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="xbY-Hz-vzY">
                                 <rect key="frame" x="0.0" y="220.00000000000003" width="430" height="337.66666666666674"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ij4-Kr-sLf">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ij4-Kr-sLf">
                                         <rect key="frame" x="0.0" y="0.0" width="430" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="ITv-jR-OJ3"/>

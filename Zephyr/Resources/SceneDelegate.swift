@@ -19,10 +19,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             if Auth.auth().currentUser != nil {
                 // User is logged in, show HomeViewController
-                guard let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController else {
-                    fatalError("Unable to instantiate HomeViewController from storyboard")
+                guard let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else {
+                    fatalError("Unable to instantiate TabBarController from storyboard")
                 }
-                window.rootViewController = homeViewController
+                window.rootViewController = tabBarController
             } else {
                 // User is not logged in, show LoginViewController
                 guard let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else {

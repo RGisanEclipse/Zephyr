@@ -12,12 +12,10 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         handleNotAuthenticated()
-        
     }
     private func handleNotAuthenticated(){
         // Checking Authentication Status

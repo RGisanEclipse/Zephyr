@@ -23,6 +23,20 @@ class RegisterViewController: UIViewController {
             let password = passwordTextField.text
             if password!.count < 8{
                 throwError(Constants.Onboarding.smallPasswordError)
+            } else{
+                AuthManager.shared.registerNewUser(userName: userNameTextField.text!, email: emailTextField.text!, password: password!) { registered in
+                    if registered{
+                        DispatchQueue.main.async {
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController {
+                                tabBarVC.modalPresentationStyle = .fullScreen
+                                self.present(tabBarVC, animated: true, completion: nil)
+                            } else {
+                                print("HomeViewController could not be instantiated")
+                            }
+                        }
+                    }
+                }
             }
         }
     }
