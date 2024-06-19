@@ -10,29 +10,24 @@ import UIKit
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var ueInvalidLabel: UILabel!
-    @IBOutlet weak var wrongPasswordLabel: UILabel!
+    @IBOutlet weak var errorLabel: UILabel!
+    
     @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ueInvalidLabel.isHidden = true
-        wrongPasswordLabel.isHidden = true
+        errorLabel.isHidden = true
         emailTextField.delegate = self
         passwordTextField.delegate = self
     }
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
-        if let safeEmailText = emailTextField.text, !safeEmailText.isEmpty{
-            if let safePassword = passwordTextField.text, !safePassword.isEmpty{
-            } else{
-                wrongPasswordLabel.text = Constants.Onboarding.emptyError
-                wrongPasswordLabel.isHidden = false
+        guard let email = emailTextField.text, !email.isEmpty,
+                  let password = passwordTextField.text, !password.isEmpty else {
+            errorLabel.text = Constants.Onboarding.emptyError
+            errorLabel.isHidden = false
+                return
             }
-        } else{
-            ueInvalidLabel.text = Constants.Onboarding.emptyError
-            ueInvalidLabel.isHidden = false
-        }
     }
 
     @IBAction func registerButtonPressed(_ sender: UIButton) {
@@ -45,8 +40,7 @@ class LoginViewController: UIViewController {
 extension LoginViewController: UITextFieldDelegate{
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        ueInvalidLabel.isHidden = true
-        wrongPasswordLabel.isHidden = true
+        errorLabel.isHidden = true
     }
     
     private func textFieldShouldEndEditing(_ textField: UITextField) {
