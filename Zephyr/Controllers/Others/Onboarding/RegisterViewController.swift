@@ -13,6 +13,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var registerButton: UIButton!
     
     @IBAction func registerButtonPressed(_ sender: UIButton) {
         updateErrors()
@@ -24,6 +25,7 @@ class RegisterViewController: UIViewController {
             if password!.count < 8{
                 throwError(Constants.Onboarding.smallPasswordError)
             } else{
+                registerButton.isEnabled = false
                 AuthManager.shared.registerNewUser(userName: userNameTextField.text!, email: emailTextField.text!, password: password!) { registered in
                     if registered{
                         DispatchQueue.main.async {
@@ -36,6 +38,7 @@ class RegisterViewController: UIViewController {
                             }
                         }
                     }
+                    self.registerButton.isEnabled = true
                 }
             }
         }

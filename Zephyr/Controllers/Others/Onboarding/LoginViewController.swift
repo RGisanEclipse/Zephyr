@@ -12,6 +12,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
     
+    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
@@ -28,6 +29,7 @@ class LoginViewController: UIViewController {
             throwError(Constants.Onboarding.emptyError)
         } else{
             // Login Logic
+            loginButton.isEnabled = false
             var userName: String?
             var email: String?
             if emailTextField.text!.contains("@"), emailTextField.text!.contains("."){
@@ -51,6 +53,7 @@ class LoginViewController: UIViewController {
                     } else{
                         self.throwError(Constants.Onboarding.invalidError)
                     }
+                    self.loginButton.isEnabled = true
                 }
             }
         }

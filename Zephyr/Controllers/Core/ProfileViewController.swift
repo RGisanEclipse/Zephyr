@@ -8,11 +8,15 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    @IBAction func settingsButtonPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: Constants.settingsSegue, sender: self)
+    }
+    
 
 }

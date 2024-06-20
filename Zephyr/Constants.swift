@@ -7,6 +7,7 @@
 
 import Foundation
 struct Constants{
+    static let settingsSegue = "toSettingsView"
     struct Onboarding{
         static let registerSegue = "toRegisterView"
         static let emptyError = "Fields cannot be empty"
