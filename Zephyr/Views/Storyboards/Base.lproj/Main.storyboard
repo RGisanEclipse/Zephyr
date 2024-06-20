@@ -193,7 +193,7 @@
         <!--Login View Controller-->
         <scene sceneID="Iic-1G-60h">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="2Kt-iP-46d" customClass="LoginViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" modalTransitionStyle="flipHorizontal" id="2Kt-iP-46d" customClass="LoginViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="p5i-hn-ZCn">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -535,8 +535,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <segue destination="SG9-ol-v5D" kind="presentation" identifier="toMainVC" animates="NO" modalPresentationStyle="fullScreen" id="lhF-E3-Dfb"/>
-                        <segue destination="2Kt-iP-46d" kind="presentation" identifier="toLoginVC" animates="NO" modalPresentationStyle="fullScreen" id="pVq-m1-z0r"/>
+                        <segue destination="SG9-ol-v5D" kind="presentation" identifier="toMainVC" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="lhF-E3-Dfb"/>
+                        <segue destination="2Kt-iP-46d" kind="presentation" identifier="toLoginVC" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="pVq-m1-z0r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvC-qr-Qef" userLabel="First Responder" sceneMemberID="firstResponder"/>
