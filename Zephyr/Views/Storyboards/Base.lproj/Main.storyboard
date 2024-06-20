@@ -96,7 +96,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="vlg-ox-Hv9">
-                                <rect key="frame" x="0.0" y="103" width="430" height="734"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="837"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -204,7 +204,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="RTU-PG-crw">
-                                <rect key="frame" x="0.0" y="279" width="430" height="283.66666666666674"/>
+                                <rect key="frame" x="0.0" y="279" width="430" height="281.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0U-Rv-Q2S">
                                         <rect key="frame" x="0.0" y="0.0" width="430" height="40"/>
@@ -262,18 +262,20 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="left" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rfi-V8-XCz">
-                                        <rect key="frame" x="111.33333333333331" y="249.3333333333334" width="207.66666666666669" height="34.333333333333343"/>
+                                        <rect key="frame" x="120.33333333333333" y="249.33333333333337" width="189.33333333333337" height="32"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to Zephyr?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WWL-G5-YbQ">
-                                                <rect key="frame" x="0.0" y="6.9999999999999982" width="120.66666666666667" height="20.333333333333329"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <rect key="frame" x="0.0" y="7" width="108.66666666666667" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kXD-xd-nIp">
-                                                <rect key="frame" x="120.66666666666669" y="0.0" width="87" height="34.333333333333336"/>
+                                                <rect key="frame" x="108.66666666666666" y="0.0" width="80.666666666666657" height="32"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Register"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Register">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="15"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <action selector="registerButtonPressed:" destination="2Kt-iP-46d" eventType="touchUpInside" id="0dJ-Uo-iW3"/>
                                                 </connections>
@@ -313,7 +315,7 @@
                         <outlet property="errorLabel" destination="Ybr-oU-CIG" id="Vwj-XA-Tku"/>
                         <outlet property="loginButton" destination="pCB-pl-fzo" id="2aO-U5-eCj"/>
                         <outlet property="passwordTextField" destination="twc-VA-XiR" id="0TN-pK-539"/>
-                        <segue destination="WmD-b2-ELX" kind="presentation" identifier="toRegisterView" modalPresentationStyle="fullScreen" id="AUe-XG-RPf"/>
+                        <segue destination="WmD-b2-ELX" kind="presentation" identifier="toRegisterView" id="AUe-XG-RPf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MXx-JL-KQg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -325,7 +327,7 @@
             <objects>
                 <viewController storyboardIdentifier="RegisterViewController" id="WmD-b2-ELX" customClass="RegisterViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kIT-AU-Dcl">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoImage" translatesAutoresizingMaskIntoConstraints="NO" id="NGn-cl-e5K">
@@ -335,7 +337,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="xbY-Hz-vzY">
-                                <rect key="frame" x="0.0" y="220.00000000000003" width="430" height="337.66666666666674"/>
+                                <rect key="frame" x="0.0" y="219.99999999999997" width="430" height="335.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ij4-Kr-sLf">
                                         <rect key="frame" x="0.0" y="0.0" width="430" height="40"/>
@@ -388,18 +390,20 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="left" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="agd-6j-7BP">
-                                        <rect key="frame" x="84.666666666666657" y="303.33333333333337" width="260.66666666666674" height="34.333333333333314"/>
+                                        <rect key="frame" x="96.333333333333329" y="303.33333333333337" width="237.33333333333337" height="32"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxg-Uc-LDR">
-                                                <rect key="frame" x="0.0" y="6.9999999999999982" width="195" height="20.333333333333329"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <rect key="frame" x="0.0" y="7" width="175.66666666666666" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r2o-dc-Mtb">
-                                                <rect key="frame" x="195" y="0.0" width="65.666666666666686" height="34.333333333333336"/>
+                                                <rect key="frame" x="175.66666666666669" y="0.0" width="61.666666666666657" height="32"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Login"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Login">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="15"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <action selector="loginButtonPressed:" destination="WmD-b2-ELX" eventType="touchUpInside" id="e3h-kH-jPN"/>
                                                 </connections>
@@ -428,7 +432,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="30N-z8-wW1"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="WB"/>
                         <constraints>
                             <constraint firstItem="NGn-cl-e5K" firstAttribute="leading" secondItem="30N-z8-wW1" secondAttribute="leading" id="1us-Zc-2gv"/>
                             <constraint firstItem="xbY-Hz-vzY" firstAttribute="leading" secondItem="30N-z8-wW1" secondAttribute="leading" id="KoX-Hy-aVH"/>
