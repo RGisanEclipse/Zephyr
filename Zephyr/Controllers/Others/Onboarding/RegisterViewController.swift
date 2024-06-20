@@ -26,7 +26,7 @@ class RegisterViewController: UIViewController {
                 throwError(Constants.Onboarding.smallPasswordError)
             } else{
                 registerButton.isEnabled = false
-                AuthManager.shared.registerNewUser(userName: userNameTextField.text!, email: emailTextField.text!, password: password!) { registered in
+                AuthManager.shared.registerNewUser(userName: userNameTextField.text!, email: emailTextField.text!, password: password!) { registered, error in
                     if registered{
                         DispatchQueue.main.async {
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -38,7 +38,9 @@ class RegisterViewController: UIViewController {
                             }
                         }
                     } else{
-                        
+                        if let error = error as NSError? {
+                            self.throwError(error.domain)
+                        }
                     }
                     self.registerButton.isEnabled = true
                 }
