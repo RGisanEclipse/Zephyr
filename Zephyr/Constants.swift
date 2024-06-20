@@ -22,5 +22,7 @@ struct Constants{
     }
     struct Settings{
         static let cellIdentifier = "settingsOptions"
+        static let logoutTitle = "Logout"
+        static let logoutMessage = "Are you sure you want to log out?"
     }
 }

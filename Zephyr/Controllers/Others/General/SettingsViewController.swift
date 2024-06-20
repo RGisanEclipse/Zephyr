@@ -34,19 +34,28 @@ class SettingsViewController: UIViewController {
     }
     
     private func handleLogout() {
-        AuthManager.shared.logOutUser { loggedOut in
-            if loggedOut{
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                guard let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else {
-                    print("LoginViewController could not be instantiated")
-                    return
+        let actionSheet = UIAlertController(title: Constants.Settings.logoutTitle, message: Constants.Settings.logoutMessage, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Log out", style: .destructive, handler: { _ in
+            AuthManager.shared.logOutUser { loggedOut in
+                DispatchQueue.main.async{
+                    if loggedOut{
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        guard let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else {
+                            print("LoginViewController could not be instantiated")
+                            return
+                        }
+                        loginVC.modalPresentationStyle = .fullScreen
+                        self.present(loginVC, animated: true, completion: nil)
+                    } else{
+                        // Error Occurred
+                    }
                 }
-                loginVC.modalPresentationStyle = .fullScreen
-                self.present(loginVC, animated: true, completion: nil)
-            } else{
-                // Error Occurred
             }
-        }
+        }))
+        actionSheet.popoverPresentationController?.sourceView = settingsTableView
+        actionSheet.popoverPresentationController?.sourceRect = settingsTableView.bounds
+        present(actionSheet, animated: true)
     }
 }
 

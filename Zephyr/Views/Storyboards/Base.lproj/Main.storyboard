@@ -74,7 +74,7 @@
                         <viewLayoutGuide key="safeArea" id="prZ-xC-Ybc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Rrl-1I-ptq">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="Rrl-1I-ptq">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="gear" catalog="system" id="A2a-ai-l7L">
                             <color key="tintColor" name="BW"/>
                             <connections>
@@ -87,7 +87,7 @@
             </objects>
             <point key="canvasLocation" x="3572" y="1170"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Settings-->
         <scene sceneID="MwO-6w-i1d">
             <objects>
                 <viewController id="WAF-FT-JNO" customClass="SettingsViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
@@ -114,7 +114,7 @@
                         <viewLayoutGuide key="safeArea" id="fU2-3V-gcl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="kds-62-dEd"/>
+                    <navigationItem key="navigationItem" title="Settings" id="kds-62-dEd"/>
                     <connections>
                         <outlet property="settingsTableView" destination="vlg-ox-Hv9" id="8XD-T8-Wvl"/>
                     </connections>
@@ -262,7 +262,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="left" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rfi-V8-XCz">
-                                        <rect key="frame" x="111.33333333333333" y="249.3333333333334" width="207.66666666666669" height="34.333333333333343"/>
+                                        <rect key="frame" x="111.33333333333331" y="249.3333333333334" width="207.66666666666669" height="34.333333333333343"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to Zephyr?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WWL-G5-YbQ">
                                                 <rect key="frame" x="0.0" y="6.9999999999999982" width="120.66666666666667" height="20.333333333333329"/>
