@@ -21,7 +21,6 @@ class LoginViewController: UIViewController {
         emailTextField.delegate = self
         passwordTextField.delegate = self
     }
-    
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         updateErrors()
         let areFieldsEmpty = checkIfEmptyInputs()
@@ -60,6 +59,9 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func registerButtonPressed(_ sender: UIButton) {
+        updateErrors()
+        emailTextField.text = Constants.empty
+        passwordTextField.text = Constants.empty
         self.performSegue(withIdentifier: Constants.Onboarding.registerSegue, sender: self)
     }
     

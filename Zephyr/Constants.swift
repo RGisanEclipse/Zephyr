@@ -8,8 +8,11 @@
 import Foundation
 struct Constants{
     static let settingsSegue = "toSettingsView"
+    static let empty = ""
     struct Onboarding{
         static let registerSegue = "toRegisterView"
+        static let launchLoginSegue = "toLoginVC"
+        static let launchHomeSegue = "toMainVC"
         static let emptyError = "Fields cannot be empty"
         static let invalidError = "Invalid Credentials"
         static let wrongPasswordError = "Wrong Password"

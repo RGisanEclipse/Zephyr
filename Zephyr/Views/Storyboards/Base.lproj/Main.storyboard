@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SG9-ol-v5D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MBn-Ii-JE3">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
@@ -13,6 +13,7 @@
         <scene sceneID="Op7-aN-xgL">
             <objects>
                 <tabBarController storyboardIdentifier="TabBarController" id="SG9-ol-v5D" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="aQI-Ov-JuP"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XDX-Yc-oJc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -37,7 +38,7 @@
                 <navigationController id="htS-kX-sN9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="house.fill" catalog="system" id="yaj-uD-1HF"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uK7-Su-YnL">
-                        <rect key="frame" x="0.0" y="59" width="430" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -177,7 +178,7 @@
                 <navigationController id="4Nk-YH-7ho" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="person.fill" catalog="system" id="Uz2-Fq-Wvm"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="i1Q-hC-oiH">
-                        <rect key="frame" x="0.0" y="59" width="430" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" name="BW"/>
                     </navigationBar>
@@ -198,13 +199,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoImage" translatesAutoresizingMaskIntoConstraints="NO" id="m8G-5x-el1">
-                                <rect key="frame" x="0.0" y="129" width="430" height="100"/>
+                                <rect key="frame" x="0.0" y="70" width="430" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="ebq-OM-nSv"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="RTU-PG-crw">
-                                <rect key="frame" x="0.0" y="279" width="430" height="281.33333333333326"/>
+                                <rect key="frame" x="0.0" y="219.99999999999997" width="430" height="281.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0U-Rv-Q2S">
                                         <rect key="frame" x="0.0" y="0.0" width="430" height="40"/>
@@ -262,7 +263,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="left" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rfi-V8-XCz">
-                                        <rect key="frame" x="120.33333333333333" y="249.33333333333337" width="189.33333333333337" height="32"/>
+                                        <rect key="frame" x="120.33333333333333" y="249.33333333333331" width="189.33333333333337" height="32"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to Zephyr?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WWL-G5-YbQ">
                                                 <rect key="frame" x="0.0" y="7" width="108.66666666666667" height="18"/>
@@ -310,6 +311,7 @@
                             <constraint firstItem="m8G-5x-el1" firstAttribute="leading" secondItem="o88-oB-e8V" secondAttribute="leading" id="M71-PJ-aAT"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="0g7-xA-3um"/>
                     <connections>
                         <outlet property="emailTextField" destination="BAf-1f-mXU" id="vqc-cA-gN0"/>
                         <outlet property="errorLabel" destination="Ybr-oU-CIG" id="Vwj-XA-Tku"/>
@@ -461,7 +463,7 @@
                 <navigationController id="F5J-3y-rIF" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="bell.fill" catalog="system" id="1OS-cN-epm"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IpI-2R-2cw">
-                        <rect key="frame" x="0.0" y="59" width="430" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -478,7 +480,7 @@
                 <navigationController id="b4A-pq-ioM" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="plus.app" catalog="system" id="nKP-e4-8hD"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gDe-Qy-Ikk">
-                        <rect key="frame" x="0.0" y="59" width="430" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -495,7 +497,7 @@
                 <navigationController id="Ksr-g3-xLP" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="magnifyingglass" catalog="system" id="c4w-9A-qpl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GxK-h1-YaD">
-                        <rect key="frame" x="0.0" y="59" width="430" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -506,8 +508,44 @@
             </objects>
             <point key="canvasLocation" x="915" y="448"/>
         </scene>
+        <!--Splash Screen View Controller-->
+        <scene sceneID="fQs-UE-UY7">
+            <objects>
+                <viewController storyboardIdentifier="SplashScreenViewController" id="MBn-Ii-JE3" customClass="SplashScreenViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cnN-og-MDu">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Te8-0H-prY">
+                                <rect key="frame" x="130" y="259" width="170" height="339"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="aaf-fg-diw">
+                                        <rect key="frame" x="0.0" y="0.0" width="170" height="339"/>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="GWe-84-F41"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="GWe-84-F41" firstAttribute="bottom" secondItem="Te8-0H-prY" secondAttribute="bottom" constant="300" id="2AE-VP-4lG"/>
+                            <constraint firstItem="Te8-0H-prY" firstAttribute="top" secondItem="GWe-84-F41" secondAttribute="top" constant="200" id="Jmy-23-c1L"/>
+                            <constraint firstAttribute="trailing" secondItem="Te8-0H-prY" secondAttribute="trailing" constant="130" id="RkS-pS-LeV"/>
+                            <constraint firstItem="Te8-0H-prY" firstAttribute="leading" secondItem="GWe-84-F41" secondAttribute="leading" constant="130" id="yau-wC-gZO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="SG9-ol-v5D" kind="presentation" identifier="toMainVC" animates="NO" modalPresentationStyle="fullScreen" id="lhF-E3-Dfb"/>
+                        <segue destination="2Kt-iP-46d" kind="presentation" identifier="toLoginVC" animates="NO" modalPresentationStyle="fullScreen" id="pVq-m1-z0r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gvC-qr-Qef" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="64" y="-323"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="LaunchImage" width="1008" height="910"/>
         <image name="LogoImage" width="1008" height="916"/>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="gear" catalog="system" width="128" height="122"/>

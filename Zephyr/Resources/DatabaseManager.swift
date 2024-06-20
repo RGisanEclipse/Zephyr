@@ -67,8 +67,7 @@ public class DatabaseManager{
     func getEmail(for username: String, completion: @escaping (String?) -> Void) {
         let usersCollection = db.collection("users")
         usersCollection.whereField("userName", isEqualTo: username).getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error getting documents: \(error)")
+            if let _ = error {
                 completion(nil)
                 return
             } else if let document = querySnapshot?.documents.first {
@@ -85,8 +84,7 @@ public class DatabaseManager{
         let usersCollection = db.collection("users")
         usersCollection.whereField("email", isEqualTo: email).getDocuments{
             (querySnapshot, error) in
-            if let error = error{
-                print("Error getting documents: \(error)")
+            if let _ = error{
                 completion(nil)
                 return
             } else if let document = querySnapshot?.documents.first{

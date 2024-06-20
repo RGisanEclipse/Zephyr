@@ -4,7 +4,6 @@
 //
 //  Created by Eclipse on 18/06/24.
 //
-import FirebaseAuth
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -12,28 +11,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-            guard let windowScene = (scene as? UIWindowScene) else { return }
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let window = UIWindow(windowScene: windowScene)
-            
-            if Auth.auth().currentUser != nil {
-                // User is logged in, show HomeViewController
-                guard let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else {
-                    fatalError("Unable to instantiate TabBarController from storyboard")
-                }
-                window.rootViewController = tabBarController
-            } else {
-                // User is not logged in, show LoginViewController
-                guard let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else {
-                    fatalError("Unable to instantiate LoginViewController from storyboard")
-                }
-                window.rootViewController = loginViewController
-            }
-            
-            self.window = window
-            window.makeKeyAndVisible()
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let window = UIWindow(windowScene: windowScene)
+        
+        // Instantiate SplashScreenViewController
+        guard let splashScreenViewController = storyboard.instantiateViewController(withIdentifier: "SplashScreenViewController") as? SplashScreenViewController else {
+            fatalError("Unable to instantiate SplashScreenViewController from storyboard")
         }
+        
+        window.rootViewController = splashScreenViewController
+        self.window = window
+        window.makeKeyAndVisible()
+    }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
@@ -62,7 +53,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
-
