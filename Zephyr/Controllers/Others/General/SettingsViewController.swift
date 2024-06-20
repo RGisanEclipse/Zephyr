@@ -34,17 +34,18 @@ class SettingsViewController: UIViewController {
     }
     
     private func handleLogout() {
-        do {
-            try Auth.auth().signOut()
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else {
-                print("LoginViewController could not be instantiated")
-                return
+        AuthManager.shared.logOutUser { loggedOut in
+            if loggedOut{
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                guard let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else {
+                    print("LoginViewController could not be instantiated")
+                    return
+                }
+                loginVC.modalPresentationStyle = .fullScreen
+                self.present(loginVC, animated: true, completion: nil)
+            } else{
+                // Error Occurred
             }
-            loginVC.modalPresentationStyle = .fullScreen
-            self.present(loginVC, animated: true, completion: nil)
-        } catch {
-            print("Error signing out: \(error)")
         }
     }
 }
