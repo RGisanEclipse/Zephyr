@@ -179,6 +179,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="i1Q-hC-oiH">
                         <rect key="frame" x="0.0" y="59" width="430" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="BW"/>
                     </navigationBar>
                     <connections>
                         <segue destination="a4E-Pd-ncB" kind="relationship" relationship="rootViewController" id="lLr-m3-ToB"/>
