@@ -6,3 +6,7 @@
 //
 
 import Foundation
+struct SettingsModel{
+    let title: String?
+    let handler: () -> Void
+}

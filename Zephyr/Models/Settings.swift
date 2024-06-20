@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import FirebaseAuth
+import UIKit
+struct Settings{
+    
+    ]
+    func getOptions()->[SettingsModel]{
+        return options
+    }
+}

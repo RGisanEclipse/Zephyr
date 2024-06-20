@@ -81,7 +81,7 @@ class LoginViewController: UIViewController {
     func updateErrors(){
         errorLabel.isHidden = true
     }
-    
+
 }
 
 // MARK: - UITextFieldDelegate

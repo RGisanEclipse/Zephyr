@@ -20,4 +20,7 @@ struct Constants{
         static let userName = "userName"
         static let email = "email"
     }
+    struct Settings{
+        static let cellIdentifier = "settingsOptions"
+    }
 }

@@ -37,6 +37,8 @@ class RegisterViewController: UIViewController {
                                 print("HomeViewController could not be instantiated")
                             }
                         }
+                    } else{
+                        
                     }
                     self.registerButton.isEnabled = true
                 }

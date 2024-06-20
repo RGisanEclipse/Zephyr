@@ -6,24 +6,70 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SettingsViewController: UIViewController {
-
+    
+    var options: [SettingsModel] = []
+    
+    @IBOutlet weak var settingsTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        setupOptions()
+        
+        settingsTableView.delegate = self
+        settingsTableView.dataSource = self
+        
+        settingsTableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.Settings.cellIdentifier)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupOptions() {
+        options = [
+            SettingsModel(title: "Logout") { [weak self] in
+                self?.handleLogout()
+            }
+        ]
     }
-    */
+    
+    private func handleLogout() {
+        do {
+            try Auth.auth().signOut()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else {
+                print("LoginViewController could not be instantiated")
+                return
+            }
+            loginVC.modalPresentationStyle = .fullScreen
+            self.present(loginVC, animated: true, completion: nil)
+        } catch {
+            print("Error signing out: \(error)")
+        }
+    }
+}
 
+// MARK: - UITableViewDelegate
+extension SettingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        options[indexPath.row].handler()
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension SettingsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return options.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Settings.cellIdentifier, for: indexPath)
+        
+        var content = cell.defaultContentConfiguration()
+        content.text = options[indexPath.row].title
+        cell.contentConfiguration = content
+        
+        return cell
+    }
 }
