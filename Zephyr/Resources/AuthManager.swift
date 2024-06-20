@@ -49,7 +49,21 @@ public class AuthManager{
             }
         }
         else if let safeUserName = userName{
-            print(safeUserName)
+            DatabaseManager.shared.getEmail(for: safeUserName) { email in
+                if let safeEmail = email{
+                    Auth.auth().signIn(withEmail: safeEmail, password: password) { authResult, error in
+                        guard authResult != nil, error == nil
+                        else{
+                            completion(false)
+                            return
+                        }
+                        completion(true)
+                        return
+                    }
+                } else{
+                    completion(false)
+                }
+            }
         }
     }
 }
