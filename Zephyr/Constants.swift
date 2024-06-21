@@ -27,13 +27,16 @@ struct Constants{
         static let cellIdentifier = "settingsOptions"
         static let logoutTitle = "Logout"
         static let logoutMessage = "Are you sure you want to log out?"
+        static let toEditProfile = "toEditProfileVC"
     }
     struct Errors{
         static let emailAlreadyInUse = "Email already in use"
         static let userNameAlreadyExists = "Username taken"
+        static let emailDoesntExist = "Email doesn't exist"
     }
     struct ErrorCodes{
         static let emailAlreadyInUse = 401
         static let userNameAlreadyExists = 402
+        static let emailDoesntExist = 403
     }
 }

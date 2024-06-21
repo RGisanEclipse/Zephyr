@@ -16,7 +16,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.navigationBar.topItem?.title = " "
         setupOptions()
         
         settingsTableView.delegate = self
@@ -27,6 +27,9 @@ class SettingsViewController: UIViewController {
     
     private func setupOptions() {
         options = [
+            SettingsModel(title: "Edit Profile", handler: { [weak self] in
+                self?.handleEditProfile()
+            }),
             SettingsModel(title: "Logout") { [weak self] in
                 self?.handleLogout()
             }
@@ -56,6 +59,9 @@ class SettingsViewController: UIViewController {
         actionSheet.popoverPresentationController?.sourceView = settingsTableView
         actionSheet.popoverPresentationController?.sourceRect = settingsTableView.bounds
         present(actionSheet, animated: true)
+    }
+    private func handleEditProfile(){
+        self.performSegue(withIdentifier: Constants.Settings.toEditProfile, sender: self)
     }
 }
 
