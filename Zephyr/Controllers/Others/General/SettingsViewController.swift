@@ -10,7 +10,7 @@ import FirebaseAuth
 
 class SettingsViewController: UIViewController {
     
-    var options: [SettingsModel] = []
+    private var options: [SettingsModel] = []
     
     @IBOutlet weak var settingsTableView: UITableView!
     

@@ -28,6 +28,10 @@ struct Constants{
         static let logoutTitle = "Logout"
         static let logoutMessage = "Are you sure you want to log out?"
         static let toEditProfile = "toEditProfileVC"
+        struct EditProfile{
+            static let cellIdentifier = "editProfileTableViewCell"
+            static let cellNibName = "FormTableViewCell"
+        }
     }
     struct Errors{
         static let emailAlreadyInUse = "Email already in use"

@@ -157,16 +157,72 @@
                     <view key="view" contentMode="scaleToFill" id="ENF-1S-tAS">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zDq-P6-MgW">
+                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zac-OU-9y6">
+                                        <rect key="frame" x="150" y="0.0" width="130" height="130"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Zac-OU-9y6" secondAttribute="height" multiplier="1:1" id="9j9-7v-L1b"/>
+                                            <constraint firstAttribute="height" constant="130" id="cug-U0-tMU"/>
+                                        </constraints>
+                                        <color key="tintColor" name="BW"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray">
+                                            <backgroundConfiguration key="background" cornerRadius="0.0" image="person.circle.fill" catalog="system" imageContentMode="scaleAspectFill" strokeWidth="0.0"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didTapProfilePhotoButton:" destination="MN1-c5-rbP" eventType="touchUpInside" id="ifA-Qh-9bI"/>
+                                        </connections>
+                                    </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1Az-5O-oMo">
+                                        <rect key="frame" x="0.0" y="140" width="430" height="699"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="editProfileTableViewCell" id="PFX-hi-cbT">
+                                                <rect key="frame" x="0.0" y="50" width="430" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PFX-hi-cbT" id="bAE-I3-CGJ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Zac-OU-9y6" firstAttribute="top" secondItem="zDq-P6-MgW" secondAttribute="top" id="77z-Y6-V6Y"/>
+                                    <constraint firstItem="1Az-5O-oMo" firstAttribute="leading" secondItem="zDq-P6-MgW" secondAttribute="leading" id="LcZ-fN-hVm"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Az-5O-oMo" secondAttribute="trailing" id="ThT-NN-QdL"/>
+                                    <constraint firstAttribute="bottom" secondItem="1Az-5O-oMo" secondAttribute="bottom" id="hN4-wW-q36"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="chk-ZR-vw3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="chk-ZR-vw3" firstAttribute="bottom" secondItem="zDq-P6-MgW" secondAttribute="bottom" id="550-hC-A9d"/>
+                            <constraint firstItem="zDq-P6-MgW" firstAttribute="leading" secondItem="chk-ZR-vw3" secondAttribute="leading" id="Cv1-Sa-WTl"/>
+                            <constraint firstItem="zDq-P6-MgW" firstAttribute="top" secondItem="chk-ZR-vw3" secondAttribute="top" id="F1S-P0-Z0R"/>
+                            <constraint firstItem="zDq-P6-MgW" firstAttribute="trailing" secondItem="chk-ZR-vw3" secondAttribute="trailing" id="eoa-oN-RqO"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="m9q-Gq-2yD">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="JHm-tt-a26"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="JHm-tt-a26">
+                            <connections>
+                                <action selector="didTapSave:" destination="MN1-c5-rbP" id="yRO-Q9-loA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="profilePictureButton" destination="Zac-OU-9y6" id="l8x-lS-Zm2"/>
+                        <outlet property="tableView" destination="1Az-5O-oMo" id="jtA-PS-xHp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u94-VF-WdB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3572" y="2699"/>
+            <point key="canvasLocation" x="3570.6976744186045" y="2698.7124463519317"/>
         </scene>
         <!--Notifications-->
         <scene sceneID="xMl-EY-HFr">
@@ -631,6 +687,7 @@
         <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
         <namedColor name="BW">
