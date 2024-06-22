@@ -96,13 +96,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="u7M-dH-xxv">
-                                <rect key="frame" x="20" y="44" width="390" height="110"/>
+                                <rect key="frame" x="15" y="44" width="405" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7uX-lg-9hB">
-                                        <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="7uX-lg-9hB" secondAttribute="height" multiplier="1:1" id="GFX-q6-ZEx"/>
-                                            <constraint firstAttribute="height" constant="110" id="UA6-rX-saA"/>
+                                            <constraint firstAttribute="height" constant="100" id="UA6-rX-saA"/>
                                         </constraints>
                                         <color key="tintColor" name="BW"/>
                                         <state key="normal" title="Button"/>
@@ -110,74 +110,136 @@
                                             <backgroundConfiguration key="background" image="person.circle.fill" catalog="system"/>
                                         </buttonConfiguration>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xH0-Eg-hy9">
-                                        <rect key="frame" x="120" y="0.0" width="270" height="110"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xH0-Eg-hy9">
+                                        <rect key="frame" x="110" y="0.0" width="295" height="100"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H41-gr-EaJ">
-                                                <rect key="frame" x="0.0" y="34" width="83.333333333333329" height="42.333333333333343"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="H41-gr-EaJ">
+                                                <rect key="frame" x="0.0" y="27.000000000000004" width="95" height="46.333333333333343"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0T-rj-fqF">
-                                                        <rect key="frame" x="36.666666666666657" y="0.0" width="10.333333333333336" height="18"/>
+                                                        <rect key="frame" x="42.333333333333343" y="0.0" width="10.333333333333336" height="18"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="posts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="psI-iZ-Aea">
-                                                        <rect key="frame" x="26" y="27.999999999999996" width="31.333333333333329" height="14.333333333333332"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cCR-GE-jXi">
+                                                        <rect key="frame" x="20.000000000000004" y="18" width="55.333333333333343" height="28.333333333333329"/>
+                                                        <color key="tintColor" name="BW"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="posts">
+                                                            <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                                                        </buttonConfiguration>
+                                                    </button>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1R8-y9-wYM">
-                                                <rect key="frame" x="93.333333333333343" y="34" width="83.333333333333343" height="42.333333333333343"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xI0-Ei-ATg">
+                                                <rect key="frame" x="100" y="27.000000000000004" width="95" height="46.333333333333343"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iq-8o-pEs">
-                                                        <rect key="frame" x="32.999999999999972" y="0.0" width="17.666666666666671" height="18"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjT-97-KLy">
+                                                        <rect key="frame" x="38.666666666666686" y="0.0" width="17.666666666666671" height="18"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plm-H0-M1c">
-                                                        <rect key="frame" x="16.333333333333314" y="27.999999999999996" width="51" height="14.333333333333332"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U6e-Tf-B4C">
+                                                        <rect key="frame" x="10" y="18" width="75" height="28.333333333333329"/>
+                                                        <color key="tintColor" name="BW"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="followers">
+                                                            <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                                                        </buttonConfiguration>
+                                                    </button>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tJy-Zn-NvX">
-                                                <rect key="frame" x="186.66666666666669" y="34" width="83.333333333333314" height="42.333333333333343"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZYG-xF-3nT">
+                                                <rect key="frame" x="200" y="27.000000000000004" width="95" height="46.333333333333343"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJJ-ft-w4q">
-                                                        <rect key="frame" x="33" y="0.0" width="17.666666666666671" height="18"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Za-Z4-nPs">
+                                                        <rect key="frame" x="38.666666666666686" y="0.0" width="17.666666666666671" height="18"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="following" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xuw-fb-ogm">
-                                                        <rect key="frame" x="16.333333333333311" y="27.999999999999996" width="50.666666666666657" height="14.333333333333332"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4tp-LJ-2bD">
+                                                        <rect key="frame" x="10.333333333333314" y="18" width="74.666666666666671" height="28.333333333333329"/>
+                                                        <color key="tintColor" name="BW"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="following">
+                                                            <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                                                        </buttonConfiguration>
+                                                    </button>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="1jK-q4-e4c">
+                                <rect key="frame" x="15" y="154" width="405" height="39.666666666666657"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F02-8E-Y0U">
+                                        <rect key="frame" x="0.0" y="0.0" width="405" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ryl-yZ-4LU">
+                                        <rect key="frame" x="0.0" y="24" width="405" height="15.666666666666664"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="8rr-Ah-MFN">
+                                <rect key="frame" x="15" y="233.66666666666666" width="400" height="34.333333333333343"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0g-8r-4BL">
+                                        <rect key="frame" x="0.0" y="0.0" width="133.33333333333334" height="34.333333333333336"/>
+                                        <color key="tintColor" name="BW"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <imageReference key="image" image="squareshape.split.3x3" catalog="system" symbolScale="large"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zqk-Ey-wnl">
+                                        <rect key="frame" x="133.33333333333331" y="0.0" width="133.33333333333331" height="34.333333333333336"/>
+                                        <color key="tintColor" name="BW"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <imageReference key="image" image="film" catalog="system" symbolScale="large"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2oI-xC-DMy">
+                                        <rect key="frame" x="266.66666666666669" y="0.0" width="133.33333333333331" height="34.333333333333336"/>
+                                        <color key="tintColor" name="BW"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <imageReference key="image" image="at.circle" catalog="system" symbolScale="large"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="prZ-xC-Ybc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="prZ-xC-Ybc" firstAttribute="trailing" secondItem="u7M-dH-xxv" secondAttribute="trailing" constant="20" id="5cM-vp-mMZ"/>
-                            <constraint firstItem="u7M-dH-xxv" firstAttribute="leading" secondItem="prZ-xC-Ybc" secondAttribute="leading" constant="20" id="T8U-kt-RAf"/>
+                            <constraint firstItem="prZ-xC-Ybc" firstAttribute="trailing" secondItem="u7M-dH-xxv" secondAttribute="trailing" constant="10" id="5cM-vp-mMZ"/>
+                            <constraint firstItem="8rr-Ah-MFN" firstAttribute="top" secondItem="1jK-q4-e4c" secondAttribute="bottom" constant="40" id="7fm-go-Lfs"/>
+                            <constraint firstItem="prZ-xC-Ybc" firstAttribute="trailing" secondItem="1jK-q4-e4c" secondAttribute="trailing" constant="10" id="Jzw-JC-Hd9"/>
+                            <constraint firstItem="1jK-q4-e4c" firstAttribute="top" secondItem="u7M-dH-xxv" secondAttribute="bottom" constant="10" id="RhU-8F-nf7"/>
+                            <constraint firstItem="u7M-dH-xxv" firstAttribute="leading" secondItem="prZ-xC-Ybc" secondAttribute="leading" constant="15" id="T8U-kt-RAf"/>
+                            <constraint firstItem="1jK-q4-e4c" firstAttribute="leading" secondItem="prZ-xC-Ybc" secondAttribute="leading" constant="15" id="XTn-sl-Sy5"/>
+                            <constraint firstItem="8rr-Ah-MFN" firstAttribute="leading" secondItem="prZ-xC-Ybc" secondAttribute="leading" constant="15" id="kQ9-NV-jDL"/>
                             <constraint firstItem="u7M-dH-xxv" firstAttribute="top" secondItem="prZ-xC-Ybc" secondAttribute="top" id="mrV-lC-Skz"/>
+                            <constraint firstItem="prZ-xC-Ybc" firstAttribute="trailing" secondItem="8rr-Ah-MFN" secondAttribute="trailing" constant="15" id="o33-MA-xyv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="Rrl-1I-ptq">
+                        <barButtonItem key="leftBarButtonItem" title="Username" id="8bV-76-n6k">
+                            <color key="tintColor" name="BW"/>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" id="A2a-ai-l7L">
                             <imageReference key="image" image="line.3.horizontal" catalog="system" symbolScale="large"/>
                             <color key="tintColor" name="BW"/>
@@ -767,13 +829,16 @@
     <resources>
         <image name="LaunchImage" width="1008" height="910"/>
         <image name="LogoImage" width="1008" height="916"/>
+        <image name="at.circle" catalog="system" width="128" height="123"/>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
+        <image name="film" catalog="system" width="128" height="93"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
+        <image name="squareshape.split.3x3" catalog="system" width="128" height="114"/>
         <namedColor name="BW">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

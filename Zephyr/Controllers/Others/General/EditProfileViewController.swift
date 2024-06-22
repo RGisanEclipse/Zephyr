@@ -20,6 +20,8 @@ class EditProfileViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.Settings.EditProfile.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.Settings.EditProfile.cellIdentifier)
         configureModels()
         profilePictureButton.layer.cornerRadius = profilePictureButton.frame.size.width / 2
+        profilePictureButton.layer.borderWidth = 1
+        profilePictureButton.layer.borderColor = CGColor(red: 90, green: 90, blue: 90, alpha: 1)
         profilePictureButton.layer.masksToBounds = true
     }
     @IBAction func didTapSave(_ sender: UIBarButtonItem) {
