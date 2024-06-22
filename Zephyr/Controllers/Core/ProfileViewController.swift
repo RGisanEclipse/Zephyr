@@ -9,10 +9,11 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    @IBOutlet weak var profilePictureButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        profilePictureButton.layer.cornerRadius = profilePictureButton.frame.size.width / 2
+        profilePictureButton.layer.masksToBounds = true
     }
     @IBAction func settingsButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: Constants.settingsSegue, sender: self)
