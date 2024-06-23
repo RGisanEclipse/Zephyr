@@ -29,7 +29,22 @@ class EditProfileViewController: UIViewController {
     }
 
     @IBAction func didTapProfilePhotoButton(_ sender: UIButton) {
-        
+        let actionSheet = UIAlertController(title: Constants.Settings.EditProfile.editProfilePictureTitle, message: Constants.Settings.EditProfile.editProfilePictureMessage, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { _ in
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Choose from Library", style: .default, handler: { _ in
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Remove Profile Picture", style: .destructive, handler: { _ in
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            
+        }))
+        actionSheet.popoverPresentationController?.sourceView = view
+        actionSheet.popoverPresentationController?.sourceRect = view.bounds
+        present(actionSheet, animated: true)
     }
     
     private func configureModels(){

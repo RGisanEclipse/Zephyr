@@ -31,16 +31,24 @@ struct Constants{
         struct EditProfile{
             static let cellIdentifier = "editProfileTableViewCell"
             static let cellNibName = "FormTableViewCell"
+            static let editProfilePictureTitle = "Profile Picture"
+            static let editProfilePictureMessage = "Change Profile Picture"
         }
+    }
+    struct Profile{
+        static let cellIdentifier = "profileCVCell"
+        static let cellNibName = "ProfileCollectionViewCell"
     }
     struct Errors{
         static let emailAlreadyInUse = "Email already in use"
         static let userNameAlreadyExists = "Username taken"
         static let emailDoesntExist = "Email doesn't exist"
+        static let failedToDownload = "Failed to download image"
     }
     struct ErrorCodes{
         static let emailAlreadyInUse = 401
         static let userNameAlreadyExists = 402
         static let emailDoesntExist = 403
+        static let failedToDownload = 404
     }
 }

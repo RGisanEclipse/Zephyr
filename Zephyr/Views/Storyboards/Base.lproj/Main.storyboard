@@ -221,13 +221,38 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sjB-B6-9iV">
+                                <rect key="frame" x="0.0" y="278" width="430" height="605"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7xd-6N-2Ca">
+                                    <size key="itemSize" width="128" height="118"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="profileCVCell" id="KRS-VR-wuU">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="118"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="EQu-tr-uJ3">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="118"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="128" height="118"/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="prZ-xC-Ybc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="prZ-xC-Ybc" firstAttribute="trailing" secondItem="u7M-dH-xxv" secondAttribute="trailing" constant="10" id="5cM-vp-mMZ"/>
                             <constraint firstItem="8rr-Ah-MFN" firstAttribute="top" secondItem="1jK-q4-e4c" secondAttribute="bottom" constant="40" id="7fm-go-Lfs"/>
+                            <constraint firstItem="sjB-B6-9iV" firstAttribute="leading" secondItem="prZ-xC-Ybc" secondAttribute="leading" id="GXh-ZV-nbA"/>
                             <constraint firstItem="prZ-xC-Ybc" firstAttribute="trailing" secondItem="1jK-q4-e4c" secondAttribute="trailing" constant="10" id="Jzw-JC-Hd9"/>
+                            <constraint firstItem="sjB-B6-9iV" firstAttribute="top" secondItem="8rr-Ah-MFN" secondAttribute="bottom" constant="10" id="PTS-Ya-eNK"/>
+                            <constraint firstItem="sjB-B6-9iV" firstAttribute="bottom" secondItem="prZ-xC-Ybc" secondAttribute="bottom" id="QNR-Zo-1EP"/>
+                            <constraint firstItem="prZ-xC-Ybc" firstAttribute="trailing" secondItem="sjB-B6-9iV" secondAttribute="trailing" id="QxZ-uN-hFu"/>
                             <constraint firstItem="1jK-q4-e4c" firstAttribute="top" secondItem="u7M-dH-xxv" secondAttribute="bottom" constant="10" id="RhU-8F-nf7"/>
                             <constraint firstItem="u7M-dH-xxv" firstAttribute="leading" secondItem="prZ-xC-Ybc" secondAttribute="leading" constant="15" id="T8U-kt-RAf"/>
                             <constraint firstItem="1jK-q4-e4c" firstAttribute="leading" secondItem="prZ-xC-Ybc" secondAttribute="leading" constant="15" id="XTn-sl-Sy5"/>
@@ -250,7 +275,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionView" destination="sjB-B6-9iV" id="zeo-p4-ow5"/>
                         <outlet property="profilePictureButton" destination="7uX-lg-9hB" id="nMa-Zi-aqH"/>
+                        <outlet property="userNameButton" destination="8bV-76-n6k" id="FnL-qV-q6h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t7g-gt-pjI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
