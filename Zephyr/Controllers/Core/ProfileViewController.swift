@@ -12,6 +12,9 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userNameButton: UIBarButtonItem!
     @IBOutlet weak var profilePictureButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var postsButton: UIButton!
+    @IBOutlet weak var videosButton: UIButton!
+    @IBOutlet weak var taggedPostsButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +29,20 @@ class ProfileViewController: UIViewController {
     @IBAction func settingsButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: Constants.settingsSegue, sender: self)
     }
+    
+    @IBAction func postsButtonPressed(_ sender: UIButton) {
+        
+    }
+    @IBAction func videosButtonPressed(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func taggedPostsButtonPressed(_ sender: UIButton) {
+        
+    }
+    
+    
+    
 }
 
 // MARK: - UICollectionViewDataSource

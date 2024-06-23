@@ -177,7 +177,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="1jK-q4-e4c">
                                 <rect key="frame" x="15" y="154" width="405" height="39.666666666666657"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F02-8E-Y0U">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F02-8E-Y0U">
                                         <rect key="frame" x="0.0" y="0.0" width="405" height="17"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <nil key="textColor"/>
@@ -200,15 +200,22 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <imageReference key="image" image="squareshape.split.3x3" catalog="system" symbolScale="large"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="postsButtonPressed:" destination="a4E-Pd-ncB" eventType="touchUpInside" id="3ZS-Kl-ttb"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zqk-Ey-wnl">
                                         <rect key="frame" x="133.33333333333331" y="0.0" width="133.33333333333331" height="34.333333333333336"/>
                                         <color key="tintColor" name="BW"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
-                                            <imageReference key="image" image="film" catalog="system" symbolScale="large"/>
+                                            <imageReference key="image" image="video" catalog="system" symbolScale="large"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="videosButtonPressed:" destination="a4E-Pd-ncB" eventType="touchUpInside" id="0GF-F6-U2L"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2oI-xC-DMy">
                                         <rect key="frame" x="266.66666666666669" y="0.0" width="133.33333333333331" height="34.333333333333336"/>
@@ -218,6 +225,9 @@
                                             <imageReference key="image" image="at.circle" catalog="system" symbolScale="large"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="taggedPostsButtonPressed:" destination="a4E-Pd-ncB" eventType="touchUpInside" id="obY-jr-P5w"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -276,8 +286,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="sjB-B6-9iV" id="zeo-p4-ow5"/>
+                        <outlet property="postsButton" destination="N0g-8r-4BL" id="F33-Dd-zRc"/>
                         <outlet property="profilePictureButton" destination="7uX-lg-9hB" id="nMa-Zi-aqH"/>
+                        <outlet property="taggedPostsButton" destination="2oI-xC-DMy" id="D0t-CQ-9JF"/>
                         <outlet property="userNameButton" destination="8bV-76-n6k" id="FnL-qV-q6h"/>
+                        <outlet property="videosButton" destination="Zqk-Ey-wnl" id="7tH-Sb-kbd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t7g-gt-pjI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -438,7 +451,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" placeholder="Explore" translatesAutoresizingMaskIntoConstraints="NO" id="MwF-Ch-GJh">
-                                <rect key="frame" x="0.0" y="32" width="430" height="56"/>
+                                <rect key="frame" x="0.0" y="44" width="430" height="56"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="BW"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
@@ -450,27 +463,6 @@
                                     <outlet property="delegate" destination="7hf-bm-mMK" id="JJ8-27-zbK"/>
                                 </connections>
                             </searchBar>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="s0N-DX-c2a">
-                                <rect key="frame" x="20" y="88" width="390" height="795"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oTs-EB-MvW">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="ExploreCollectionCell" id="Dp4-qk-I2D">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ddL-A9-pew">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4tB-sY-fJV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -858,7 +850,6 @@
         <image name="LogoImage" width="1008" height="916"/>
         <image name="at.circle" catalog="system" width="128" height="123"/>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
-        <image name="film" catalog="system" width="128" height="93"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
@@ -866,6 +857,7 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
         <image name="squareshape.split.3x3" catalog="system" width="128" height="114"/>
+        <image name="video" catalog="system" width="128" height="82"/>
         <namedColor name="BW">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
