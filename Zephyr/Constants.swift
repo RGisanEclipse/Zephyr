@@ -38,6 +38,8 @@ struct Constants{
     struct Profile{
         static let cellIdentifier = "profileCVCell"
         static let cellNibName = "ProfileCollectionViewCell"
+        static let followersSegue = "toFollowersVC"
+        static let followingSegue = "toFollowingVC"
     }
     struct Errors{
         static let emailAlreadyInUse = "Email already in use"

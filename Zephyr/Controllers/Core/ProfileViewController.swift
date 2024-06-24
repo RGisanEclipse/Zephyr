@@ -41,8 +41,22 @@ class ProfileViewController: UIViewController {
         
     }
     
+    @IBAction func followersButtonPressed(_ sender: UIButton) {
+        
+    }
     
-    
+    @IBAction func followingButtonPressed(_ sender: UIButton) {
+        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Profile.followersSegue{
+            let destinationVC = segue.destination as! ListViewController
+            destinationVC.viewTitle = "Followers"
+        } else if segue.identifier == Constants.Profile.followingSegue{
+            let destinationVC = segue.destination as! ListViewController
+            destinationVC.viewTitle = "Following"
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource

@@ -148,6 +148,10 @@
                                                         <buttonConfiguration key="configuration" style="plain" title="followers">
                                                             <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="followersButtonPressed:" destination="a4E-Pd-ncB" eventType="touchUpInside" id="nM2-5o-zIX"/>
+                                                            <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowersVC" id="eti-qX-aKf"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -167,6 +171,10 @@
                                                         <buttonConfiguration key="configuration" style="plain" title="following">
                                                             <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="followingButtonPressed:" destination="a4E-Pd-ncB" eventType="touchUpInside" id="sBk-Zv-YSP"/>
+                                                            <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowingVC" id="YgH-Os-SOa"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -442,7 +450,7 @@
             </objects>
             <point key="canvasLocation" x="1818" y="1170"/>
         </scene>
-        <!--Explore View Controller-->
+        <!--Explore-->
         <scene sceneID="9Lo-Rv-hVs">
             <objects>
                 <viewController id="7hf-bm-mMK" customClass="ExploreViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
@@ -450,9 +458,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" placeholder="Explore" translatesAutoresizingMaskIntoConstraints="NO" id="MwF-Ch-GJh">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Explore" translatesAutoresizingMaskIntoConstraints="NO" id="MwF-Ch-GJh">
                                 <rect key="frame" x="0.0" y="44" width="430" height="56"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="BW"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
                                 <scopeButtonTitles>
@@ -466,8 +473,13 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4tB-sY-fJV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="MwF-Ch-GJh" firstAttribute="trailing" secondItem="4tB-sY-fJV" secondAttribute="trailing" id="TMV-fe-MyT"/>
+                            <constraint firstItem="MwF-Ch-GJh" firstAttribute="top" secondItem="4tB-sY-fJV" secondAttribute="top" id="jaf-z0-D36"/>
+                            <constraint firstItem="MwF-Ch-GJh" firstAttribute="leading" secondItem="4tB-sY-fJV" secondAttribute="leading" id="nsc-Sw-4LQ"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="4AF-hY-W0h"/>
+                    <navigationItem key="navigationItem" title="Explore" id="4AF-hY-W0h"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jFJ-gd-qhA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -844,7 +856,26 @@
             </objects>
             <point key="canvasLocation" x="64" y="-323"/>
         </scene>
+        <!--List View Controller-->
+        <scene sceneID="JIw-3b-DsZ">
+            <objects>
+                <viewController id="7nC-wE-8Je" customClass="ListViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5fg-lY-BBi">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="KKx-pX-eG5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="qJ4-SF-ztd"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dxE-02-gsT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4614" y="1170"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="YgH-Os-SOa"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="LaunchImage" width="1008" height="910"/>
         <image name="LogoImage" width="1008" height="916"/>
