@@ -149,7 +149,6 @@
                                                             <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                         </buttonConfiguration>
                                                         <connections>
-                                                            <action selector="followersButtonPressed:" destination="a4E-Pd-ncB" eventType="touchUpInside" id="nM2-5o-zIX"/>
                                                             <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowersVC" id="eti-qX-aKf"/>
                                                         </connections>
                                                     </button>
@@ -172,7 +171,6 @@
                                                             <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                         </buttonConfiguration>
                                                         <connections>
-                                                            <action selector="followingButtonPressed:" destination="a4E-Pd-ncB" eventType="touchUpInside" id="sBk-Zv-YSP"/>
                                                             <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowingVC" id="YgH-Os-SOa"/>
                                                         </connections>
                                                     </button>

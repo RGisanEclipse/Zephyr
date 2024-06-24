@@ -9,6 +9,11 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    var selectedButton: UIButton?
+    var postsData = [String]()
+    var videosData = [String]()
+    var taggedPostsData = [String]()
+    
     @IBOutlet weak var userNameButton: UIBarButtonItem!
     @IBOutlet weak var profilePictureButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -25,28 +30,24 @@ class ProfileViewController: UIViewController {
         collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
+        selectButton(postsButton)
     }
     @IBAction func settingsButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: Constants.settingsSegue, sender: self)
     }
     
     @IBAction func postsButtonPressed(_ sender: UIButton) {
-        
+        selectButton(sender)
+        collectionView.reloadData()
     }
     @IBAction func videosButtonPressed(_ sender: UIButton) {
-        
+        selectButton(sender)
+        collectionView.reloadData()
     }
     
     @IBAction func taggedPostsButtonPressed(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func followersButtonPressed(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func followingButtonPressed(_ sender: UIButton) {
-        
+        selectButton(sender)
+        collectionView.reloadData()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Profile.followersSegue{
@@ -57,17 +58,35 @@ class ProfileViewController: UIViewController {
             destinationVC.viewTitle = "Following"
         }
     }
+    private func selectButton(_ button: UIButton) {
+       selectedButton = button
+   }
 }
 
 // MARK: - UICollectionViewDataSource
 extension ProfileViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        if selectedButton == postsButton {
+            return postsData.count
+        } else if selectedButton == videosButton {
+            return videosData.count
+        } else if selectedButton == taggedPostsButton {
+            return taggedPostsData.count
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Profile.cellIdentifier, for: indexPath) as! ProfileCollectionViewCell
-        let imageURLString = "https://w0.peakpx.com/wallpaper/547/513/HD-wallpaper-square-top-mountain-and-the-green-river-wyoming-mountain-river-water-sky.jpg"
+        var imageURLString = ""
+        if selectedButton == postsButton {
+            imageURLString = postsData[indexPath.item]
+        } else if selectedButton == videosButton {
+            imageURLString = videosData[indexPath.item]
+        } else if selectedButton == taggedPostsButton {
+            imageURLString = taggedPostsData[indexPath.item]
+        }
         if let imageURL = URL(string: imageURLString){
             cell.configure(with: imageURL)
         }
