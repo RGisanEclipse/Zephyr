@@ -53,4 +53,8 @@ struct Constants{
         static let emailDoesntExist = 403
         static let failedToDownload = 404
     }
+    struct List{
+        static let cellIdentifier = "listViewCell"
+        static let cellNibName = "ListTableViewCell"
+    }
 }

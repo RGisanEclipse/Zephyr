@@ -20,6 +20,17 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var postsButton: UIButton!
     @IBOutlet weak var videosButton: UIButton!
     @IBOutlet weak var taggedPostsButton: UIButton!
+
+
+    func updateUIForCurrentInterfaceStyle() {
+        if self.traitCollection.userInterfaceStyle == .dark {
+            // Configure your app for dark mode
+            view.backgroundColor = .black
+        } else {
+            // Configure your app for light mode
+            view.backgroundColor = .white
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +42,10 @@ class ProfileViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         selectButton(postsButton)
+        let topBorderLayer = CALayer()
+        topBorderLayer.backgroundColor = UIColor.gray.cgColor
+        topBorderLayer.frame = CGRect(x: 0, y: 0, width: collectionView.frame.size.width, height: 1.0)
+        collectionView.layer.addSublayer(topBorderLayer)
     }
     @IBAction func settingsButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: Constants.settingsSegue, sender: self)
@@ -102,7 +117,7 @@ extension ProfileViewController: UICollectionViewDelegate{
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension ProfileViewController:UICollectionViewDelegateFlowLayout{
+extension ProfileViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let collectionViewWidth = collectionView.frame.width
         return CGSize(width: collectionViewWidth/3 - 1, height: collectionViewWidth/3 - 1)
