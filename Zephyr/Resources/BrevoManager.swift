@@ -9,9 +9,9 @@ import Foundation
 
 struct BrevoManager {
     static let shared = BrevoManager()
-    let apiKey = ""
-    let apiURL = ""
-    let senderEmail = ""
+    let apiKey = Brevo.key
+    let apiURL = Brevo.url
+    let senderEmail = Brevo.senderEmail
     
     func sendEmail(to recipientEmail: String, subject: String, body: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let emailData: [String: Any] = [

@@ -50,6 +50,7 @@
 		B98FC06D2C2830D7002B9194 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B98FC06C2C2830D7002B9194 /* FirebaseStorage */; };
 		B9AA62832C26077C00D35CD8 /* EditProfileFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA62822C26077C00D35CD8 /* EditProfileFormModel.swift */; };
 		B9C237452C235D7E00AAE120 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B9C237442C235D7E00AAE120 /* FirebaseFirestore */; };
+		B9E2B7F92C2B75C300023DE8 /* Brevo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2B7F82C2B75C300023DE8 /* Brevo.swift */; };
 		B9E8B1112C259F4800CBA09B /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9E8B1102C259F4800CBA09B /* PostTableViewCell.xib */; };
 		B9E8B1122C259F4800CBA09B /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8B10F2C259F4800CBA09B /* PostTableViewCell.swift */; };
 		B9E8B1182C25A0BA00CBA09B /* PostHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9E8B1172C25A0BA00CBA09B /* PostHeaderTableViewCell.xib */; };
@@ -99,6 +100,7 @@
 		B98FC0632C2815E5002B9194 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		B98FC0642C2815E5002B9194 /* ProfileCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCollectionViewCell.xib; sourceTree = "<group>"; };
 		B9AA62822C26077C00D35CD8 /* EditProfileFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFormModel.swift; sourceTree = "<group>"; };
+		B9E2B7F82C2B75C300023DE8 /* Brevo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brevo.swift; sourceTree = "<group>"; };
 		B9E8B10F2C259F4800CBA09B /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		B9E8B1102C259F4800CBA09B /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		B9E8B1162C25A0BA00CBA09B /* PostHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				B9ED55932C21B72200CC9D35 /* AuthManager.swift */,
 				B9ED55952C21B77E00CC9D35 /* StorageManager.swift */,
 				B96230922C2B55990034F64A /* BrevoManager.swift */,
+				B9E2B7F82C2B75C300023DE8 /* Brevo.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				B91B509E2C21A90400DC212E /* LoginViewController.swift in Sources */,
 				B94DF7462C260E0B00C8EE94 /* FormTableViewCell.swift in Sources */,
 				B9E8B1192C25A0BA00CBA09B /* PostHeaderTableViewCell.swift in Sources */,
+				B9E2B7F92C2B75C300023DE8 /* Brevo.swift in Sources */,
 				B91B50AA2C21A9BB00DC212E /* SearchViewController.swift in Sources */,
 				B91B50992C21A80200DC212E /* ProfileViewController.swift in Sources */,
 				B9ED55942C21B72200CC9D35 /* AuthManager.swift in Sources */,
