@@ -862,16 +862,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IHn-D3-gSl">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IHn-D3-gSl">
                                 <rect key="frame" x="0.0" y="0.0" width="430" height="883"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listViewCell" id="NTE-M8-T3S">
-                                        <rect key="frame" x="0.0" y="50" width="430" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="430" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NTE-M8-T3S" id="BA4-qm-TXa">
-                                            <rect key="frame" x="0.0" y="0.0" width="430" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -880,8 +879,17 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KKx-pX-eG5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="IHn-D3-gSl" firstAttribute="top" secondItem="5fg-lY-BBi" secondAttribute="top" id="Erd-d2-s3z"/>
+                            <constraint firstItem="IHn-D3-gSl" firstAttribute="leading" secondItem="KKx-pX-eG5" secondAttribute="leading" id="F4w-p0-Uie"/>
+                            <constraint firstItem="IHn-D3-gSl" firstAttribute="bottom" secondItem="KKx-pX-eG5" secondAttribute="bottom" id="I1Z-jF-1pc"/>
+                            <constraint firstItem="IHn-D3-gSl" firstAttribute="trailing" secondItem="KKx-pX-eG5" secondAttribute="trailing" id="wie-hB-Rv2"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qJ4-SF-ztd"/>
+                    <connections>
+                        <outlet property="tableView" destination="IHn-D3-gSl" id="f85-A0-48p"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxE-02-gsT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

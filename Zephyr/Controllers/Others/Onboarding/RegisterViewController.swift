@@ -29,7 +29,8 @@ class RegisterViewController: UIViewController {
                 AuthManager.shared.registerNewUser(userName: userNameTextField.text!, email: emailTextField.text!, password: password!) { registered, error in
                     if registered{
                         DispatchQueue.main.async {
-                            BrevoManager.shared.sendEmail(to: self.emailTextField.text!, subject: Constants.Onboarding.sucessEmailSubject, body: Constants.Onboarding.successEmailBody) { result in
+                            let EmailModel = EmailModel(name: self.userNameTextField.text!)
+                            BrevoManager.shared.sendEmail(to: self.emailTextField.text!, subject: Constants.Onboarding.sucessEmailSubject, body: EmailModel.getEmailBody()) { result in
                                 switch result {
                                     case .success():
                                         print("Email sent successfully!")
