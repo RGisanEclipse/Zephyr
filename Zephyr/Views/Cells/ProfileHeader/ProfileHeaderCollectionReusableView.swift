@@ -6,9 +6,16 @@
 //
 
 import UIKit
-
+protocol ProfileHeaderCollectionReusableViewDelegate{
+    func profileHeaderDidTapPostsButton(_ header: ProfileHeaderCollectionReusableView)
+    func profileHeaderDidTapFollowersButton(_ header: ProfileHeaderCollectionReusableView)
+    func profileHeaderDidTapFollowingButton(_ header: ProfileHeaderCollectionReusableView)
+}
 class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var profilePictureButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var bioLabel: UILabel!
+    public var delegate: ProfileHeaderCollectionReusableViewDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
         profilePictureButton.layer.cornerRadius = profilePictureButton.frame.size.width / 2
@@ -17,4 +24,13 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         profilePictureButton.layer.masksToBounds = true
     }
     
+    @IBAction func postsButtonPressed(_ sender: UIButton) {
+        delegate?.profileHeaderDidTapPostsButton(self)
+    }
+    @IBAction func followersButtonPressed(_ sender: UIButton){
+        delegate?.profileHeaderDidTapFollowersButton(self)
+    }
+    @IBAction func followingButtonPressed(_ sender: UIButton){
+        delegate?.profileHeaderDidTapFollowingButton(self)
+    }
 }

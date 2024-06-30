@@ -47,6 +47,11 @@
                 <constraint firstItem="Otm-5F-3Mr" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="vdn-KF-V6Z"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="Otm-5F-3Mr" secondAttribute="bottom" id="whD-2J-fS1"/>
             </constraints>
+            <connections>
+                <outlet property="postsButton" destination="UWO-YX-Vdy" id="Z4s-ve-pqz"/>
+                <outlet property="taggedUserPostsButton" destination="h1L-ER-Qvk" id="zrB-m8-Dp4"/>
+                <outlet property="videoPostsButton" destination="Q3g-kD-DEQ" id="TeS-O5-JfG"/>
+            </connections>
             <point key="canvasLocation" x="-183.20610687022901" y="-63.380281690140848"/>
         </collectionReusableView>
     </objects>

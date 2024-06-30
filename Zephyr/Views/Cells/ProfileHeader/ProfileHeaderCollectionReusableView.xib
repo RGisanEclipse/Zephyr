@@ -48,6 +48,9 @@
                                             <buttonConfiguration key="configuration" style="plain" title="posts">
                                                 <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                             </buttonConfiguration>
+                                            <connections>
+                                                <action selector="postsButtonPressed:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="xbU-Fm-PbL"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </stackView>
@@ -67,6 +70,9 @@
                                             <buttonConfiguration key="configuration" style="plain" title="followers">
                                                 <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                             </buttonConfiguration>
+                                            <connections>
+                                                <action selector="followersButtonPressed:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="M3F-In-NFo"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </stackView>
@@ -86,6 +92,9 @@
                                             <buttonConfiguration key="configuration" style="plain" title="following">
                                                 <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                             </buttonConfiguration>
+                                            <connections>
+                                                <action selector="followingButtonPressed:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="3TQ-sk-1eb"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </stackView>
@@ -120,6 +129,8 @@
                 <constraint firstItem="6bx-em-4bD" firstAttribute="top" secondItem="foI-AB-LuK" secondAttribute="bottom" constant="10" id="e8L-jW-KxL"/>
             </constraints>
             <connections>
+                <outlet property="bioLabel" destination="0Z1-HL-BlW" id="WCO-aY-ZVu"/>
+                <outlet property="nameLabel" destination="5D6-7Q-hiM" id="ZEz-KE-DIA"/>
                 <outlet property="profilePictureButton" destination="qLS-bU-1oE" id="2Kr-iT-ggB"/>
             </connections>
             <point key="canvasLocation" x="67.938931297709928" y="32.04225352112676"/>

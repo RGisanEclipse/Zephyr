@@ -90,7 +90,6 @@
         <!--Profile View Controller-->
         <scene sceneID="Vey-oh-cpl">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="t7g-gt-pjI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="a4E-Pd-ncB" customClass="ProfileViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Odw-0O-oUY">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
@@ -146,10 +145,13 @@
                     <connections>
                         <outlet property="collectionView" destination="sjB-B6-9iV" id="zeo-p4-ow5"/>
                         <outlet property="userNameButton" destination="8bV-76-n6k" id="FnL-qV-q6h"/>
+                        <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowersVC" id="o66-rl-iad"/>
+                        <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowingVC" id="ZgJ-tn-cdZ"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t7g-gt-pjI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3570.6976744186045" y="1169.7424892703864"/>
+            <point key="canvasLocation" x="3571" y="1170"/>
         </scene>
         <!--Settings-->
         <scene sceneID="MwO-6w-i1d">
@@ -711,7 +713,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IHn-D3-gSl">
-                                <rect key="frame" x="0.0" y="0.0" width="430" height="898"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="883"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listViewCell" id="NTE-M8-T3S">
@@ -744,6 +746,9 @@
             <point key="canvasLocation" x="4613.0232558139533" y="1169.7424892703864"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="o66-rl-iad"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="LaunchImage" width="1008" height="910"/>
         <image name="LogoImage" width="1008" height="916"/>

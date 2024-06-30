@@ -38,7 +38,7 @@ extension ProfileViewController: UICollectionViewDataSource{
         if section == 0{
             return 0
         } else{
-            return 30
+            return 4
         }
     }
     
@@ -60,6 +60,7 @@ extension ProfileViewController: UICollectionViewDataSource{
         }
         
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.headerIdentifier, for: indexPath) as! ProfileHeaderCollectionReusableView
+        header.delegate = self
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -89,5 +90,29 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout{
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1
+    }
+}
+
+// MARK: - ProfileHeaderCollectionReusableViewDelegate
+extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
+    func profileHeaderDidTapPostsButton(_ header: ProfileHeaderCollectionReusableView) {
+        collectionView.scrollToItem(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
+    }
+    
+    func profileHeaderDidTapFollowersButton(_ header: ProfileHeaderCollectionReusableView) {
+        self.performSegue(withIdentifier: Constants.Profile.followersSegue, sender: self)
+    }
+    
+    func profileHeaderDidTapFollowingButton(_ header: ProfileHeaderCollectionReusableView) {
+        self.performSegue(withIdentifier: Constants.Profile.followingSegue, sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Profile.followersSegue{
+            let destinationVC = segue.destination as! ListViewController
+            destinationVC.viewTitle = "Followers"
+        } else if segue.identifier == Constants.Profile.followingSegue{
+            let destinationVC = segue.destination as! ListViewController
+            destinationVC.viewTitle = "Following"
+        }
     }
 }
