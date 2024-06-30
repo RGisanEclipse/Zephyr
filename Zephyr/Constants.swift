@@ -41,6 +41,8 @@ struct Constants{
         static let cellNibName = "ProfileCollectionViewCell"
         static let followersSegue = "toFollowersVC"
         static let followingSegue = "toFollowingVC"
+        static let headerIdentifier = "ProfileHeaderCollectionReusableView"
+        static let tabsIdentifier = "ProfileTabsCollectionReusableView"
     }
     struct Errors{
         static let emailAlreadyInUse = "Email already in use"

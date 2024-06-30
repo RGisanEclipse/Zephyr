@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B9152F062C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9152F052C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib */; };
+		B9152F072C314780006B22D6 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9152F042C314780006B22D6 /* ProfileHeaderCollectionReusableView.swift */; };
+		B9152F0D2C315209006B22D6 /* ProfileTabsCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9152F0C2C315209006B22D6 /* ProfileTabsCollectionReusableView.xib */; };
+		B9152F0E2C315209006B22D6 /* ProfileTabsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9152F0B2C315209006B22D6 /* ProfileTabsCollectionReusableView.swift */; };
 		B91B507A2C21A61200DC212E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50792C21A61200DC212E /* AppDelegate.swift */; };
 		B91B507C2C21A61200DC212E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B507B2C21A61200DC212E /* SceneDelegate.swift */; };
 		B91B507E2C21A61200DC212E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B507D2C21A61200DC212E /* HomeViewController.swift */; };
@@ -65,6 +69,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B9152F042C314780006B22D6 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		B9152F052C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
+		B9152F0B2C315209006B22D6 /* ProfileTabsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabsCollectionReusableView.swift; sourceTree = "<group>"; };
+		B9152F0C2C315209006B22D6 /* ProfileTabsCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTabsCollectionReusableView.xib; sourceTree = "<group>"; };
 		B91B50762C21A61200DC212E /* Zephyr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zephyr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B91B50792C21A61200DC212E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B91B507B2C21A61200DC212E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +143,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B9152F032C31473D006B22D6 /* ProfileHeader */ = {
+			isa = PBXGroup;
+			children = (
+				B9152F042C314780006B22D6 /* ProfileHeaderCollectionReusableView.swift */,
+				B9152F052C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib */,
+			);
+			path = ProfileHeader;
+			sourceTree = "<group>";
+		};
+		B9152F082C3151C7006B22D6 /* ProfileTabs */ = {
+			isa = PBXGroup;
+			children = (
+				B9152F0B2C315209006B22D6 /* ProfileTabsCollectionReusableView.swift */,
+				B9152F0C2C315209006B22D6 /* ProfileTabsCollectionReusableView.xib */,
+			);
+			path = ProfileTabs;
+			sourceTree = "<group>";
+		};
 		B91B506D2C21A61200DC212E = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +320,8 @@
 		B9E8B10E2C259F1900CBA09B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B9152F032C31473D006B22D6 /* ProfileHeader */,
+				B9152F082C3151C7006B22D6 /* ProfileTabs */,
 				B959C4EE2C2A145C001C106E /* ListView */,
 				B9E8B1132C25A04600CBA09B /* HomeFeed */,
 				B959C4EC2C2A141E001C106E /* EditProfile */,
@@ -392,9 +420,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9E8B1182C25A0BA00CBA09B /* PostHeaderTableViewCell.xib in Resources */,
+				B9152F062C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib in Resources */,
 				B91B50832C21A61300DC212E /* Assets.xcassets in Resources */,
 				B9E8B1112C259F4800CBA09B /* PostTableViewCell.xib in Resources */,
 				B98194D92C21B10600C7D62C /* GoogleService-Info.plist in Resources */,
+				B9152F0D2C315209006B22D6 /* ProfileTabsCollectionReusableView.xib in Resources */,
 				B98FC0652C2815E5002B9194 /* ProfileCollectionViewCell.xib in Resources */,
 				B9E8B1202C25A11600CBA09B /* PostGeneralTableViewCell.xib in Resources */,
 				B94DF7452C260E0B00C8EE94 /* FormTableViewCell.xib in Resources */,
@@ -421,6 +451,7 @@
 				B91B50B02C21AA1200DC212E /* PublishPostViewController.swift in Sources */,
 				B91B50932C21A7C800DC212E /* ExploreViewController.swift in Sources */,
 				B91B50952C21A7ED00DC212E /* CameraViewController.swift in Sources */,
+				B9152F072C314780006B22D6 /* ProfileHeaderCollectionReusableView.swift in Sources */,
 				B91B507E2C21A61200DC212E /* HomeViewController.swift in Sources */,
 				B9AA62832C26077C00D35CD8 /* EditProfileFormModel.swift in Sources */,
 				B91B50AE2C21AA0000DC212E /* PostEditorViewController.swift in Sources */,
@@ -432,6 +463,7 @@
 				B91B50972C21A7F800DC212E /* NotificationsViewController.swift in Sources */,
 				B959C4F22C2A1494001C106E /* ListTableViewCell.swift in Sources */,
 				B95DABCE2C22E34C00BB478F /* Constants.swift in Sources */,
+				B9152F0E2C315209006B22D6 /* ProfileTabsCollectionReusableView.swift in Sources */,
 				B91B50AC2C21A9CC00DC212E /* SearchResultViewController.swift in Sources */,
 				B91B509E2C21A90400DC212E /* LoginViewController.swift in Sources */,
 				B94DF7462C260E0B00C8EE94 /* FormTableViewCell.swift in Sources */,
