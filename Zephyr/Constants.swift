@@ -57,7 +57,7 @@ struct Constants{
         static let failedToDownload = 404
     }
     struct List{
-        static let cellIdentifier = "listViewCell"
+        static let cellIdentifier = "ListTableViewCell"
         static let cellNibName = "ListTableViewCell"
     }
 }

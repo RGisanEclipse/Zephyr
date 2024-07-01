@@ -9,6 +9,8 @@ import UIKit
 
 class ListViewController: UIViewController {
     
+    var data = [UserRelationship]()
+    
     @IBOutlet weak var tableView: UITableView!
     
     var viewTitle: String?
@@ -26,11 +28,13 @@ class ListViewController: UIViewController {
 
 extension ListViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "listViewCell", for: indexPath) as! ListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.List.cellIdentifier, for: indexPath) as! ListTableViewCell
+        cell.configure(with: data[indexPath.row])
+        cell.delegate = self
         return cell
     }
     
@@ -40,5 +44,19 @@ extension ListViewController: UITableViewDataSource{
 extension ListViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+// MARK: - UserFollowTableViewCellDelegate
+extension ListViewController: UserFollowTableViewCellDelegate{
+    func didTapFollowButton(model: UserRelationship) {
+        switch model.type{
+        case .following:
+            // Unfollow Logic
+            break
+        case.notFollowing:
+            // Follow Logic
+            break
+        }
     }
 }

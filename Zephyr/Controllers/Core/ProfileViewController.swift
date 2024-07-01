@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
+    private var testData = [UserRelationship]()
     var postsData = [String]()
     var videosData = [String]()
     var taggedPostsData = [String]()
@@ -110,9 +110,11 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
         if segue.identifier == Constants.Profile.followersSegue{
             let destinationVC = segue.destination as! ListViewController
             destinationVC.viewTitle = "Followers"
+            destinationVC.data = testData
         } else if segue.identifier == Constants.Profile.followingSegue{
             let destinationVC = segue.destination as! ListViewController
             destinationVC.viewTitle = "Following"
+            destinationVC.data = testData
         }
     }
 }
