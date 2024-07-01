@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationFollowTableViewCell" rowHeight="69" id="KGk-i7-Jjw" customClass="NotificationFollowTableViewCell" customModule="Zephyr" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="502" height="69"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="502" height="69"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="127" translatesAutoresizingMaskIntoConstraints="NO" id="sog-8a-ltP">
+                        <rect key="frame" x="10" y="10" width="482" height="50"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="25d-li-dv0">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="bFv-NO-cmM"/>
+                                    <constraint firstAttribute="width" constant="50" id="jhg-yn-3ej"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <backgroundConfiguration key="background" image="person.circle.fill" catalog="system"/>
+                                </buttonConfiguration>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rRg-aV-U28">
+                                <rect key="frame" x="70" y="0.0" width="292" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n9B-qg-HYc">
+                                <rect key="frame" x="382" y="10" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="EdD-Kg-Q4r"/>
+                                    <constraint firstAttribute="height" constant="30" id="lj2-Kw-ng9"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Follow">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="13"/>
+                                </buttonConfiguration>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="n9B-qg-HYc" firstAttribute="leading" secondItem="rRg-aV-U28" secondAttribute="trailing" constant="20" id="8JJ-1b-dJ5"/>
+                            <constraint firstItem="n9B-qg-HYc" firstAttribute="top" secondItem="sog-8a-ltP" secondAttribute="top" constant="10" id="9Yo-gM-z0x"/>
+                            <constraint firstItem="rRg-aV-U28" firstAttribute="leading" secondItem="25d-li-dv0" secondAttribute="trailing" constant="20" id="HJb-5U-W2e"/>
+                            <constraint firstAttribute="bottom" secondItem="n9B-qg-HYc" secondAttribute="bottom" constant="10" id="Nmd-6g-9lP"/>
+                            <constraint firstAttribute="trailing" secondItem="n9B-qg-HYc" secondAttribute="trailing" id="OIh-sx-yWm"/>
+                            <constraint firstItem="25d-li-dv0" firstAttribute="top" secondItem="sog-8a-ltP" secondAttribute="top" id="Zpz-ce-wXx"/>
+                            <constraint firstItem="25d-li-dv0" firstAttribute="leading" secondItem="sog-8a-ltP" secondAttribute="leading" id="uxj-Gb-4LO"/>
+                            <constraint firstAttribute="bottom" secondItem="25d-li-dv0" secondAttribute="bottom" id="xpu-1u-xGm"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="sog-8a-ltP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="7X9-SE-83h"/>
+                    <constraint firstItem="sog-8a-ltP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="8Me-l4-0Pp"/>
+                    <constraint firstAttribute="trailing" secondItem="sog-8a-ltP" secondAttribute="trailing" constant="10" id="Khd-q1-LeQ"/>
+                    <constraint firstAttribute="bottom" secondItem="sog-8a-ltP" secondAttribute="bottom" constant="10" id="LlE-l3-JOu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="135.87786259541986" y="28.52112676056338"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="person.circle.fill" catalog="system" width="128" height="123"/>
+    </resources>
+</document>

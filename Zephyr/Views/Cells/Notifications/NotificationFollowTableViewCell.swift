@@ -1,13 +1,13 @@
 //
-//  PostGeneralTableViewCell.swift
+//  NotificationFollowTableViewCell.swift
 //  Zephyr
 //
-//  Created by Eclipse on 21/06/24.
+//  Created by Eclipse on 01/07/24.
 //
 
 import UIKit
 
-class PostGeneralTableViewCell: UITableViewCell {
+class NotificationFollowTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

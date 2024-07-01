@@ -9,10 +9,14 @@ import UIKit
 
 class NotificationsViewController: UIViewController {
 
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var noNotificationsView: UIStackView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        tableView.isHidden = true
+//        noNotificationsView.isHidden = true
+//        spinner.startAnimating()
     }
-
+    
 }
