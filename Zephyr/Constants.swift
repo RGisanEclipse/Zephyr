@@ -60,4 +60,9 @@ struct Constants{
         static let cellIdentifier = "ListTableViewCell"
         static let cellNibName = "ListTableViewCell"
     }
+    struct Notifications{
+        static let likeCellIdentifier = "NotificationLikeTableViewCell"
+        static let followCellIdentifier = "NotificationFollowTableViewCell"
+        static let cellIdentifier = "NotificationsCellIdentifier"
+    }
 }

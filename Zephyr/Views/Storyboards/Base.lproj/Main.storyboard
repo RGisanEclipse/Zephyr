@@ -297,12 +297,11 @@
                                 <rect key="frame" x="196.66666666666666" y="447.66666666666669" width="37" height="37"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                             </activityIndicatorView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="t8h-pL-Vhx">
-                                <rect key="frame" x="0.0" y="0.0" width="430" height="883"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="t8h-pL-Vhx">
+                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="WNc-vX-PjS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationsCellIdentifier" id="WNc-vX-PjS">
                                         <rect key="frame" x="0.0" y="50" width="430" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WNc-vX-PjS" id="ChE-pv-UJZ">
@@ -318,9 +317,13 @@
                         <constraints>
                             <constraint firstItem="A7U-Jk-u1q" firstAttribute="trailing" secondItem="VNP-yN-lGN" secondAttribute="trailing" id="8Xc-gI-K5z"/>
                             <constraint firstItem="7zp-EQ-Lrs" firstAttribute="centerY" secondItem="sAY-nm-2dE" secondAttribute="centerY" id="Bp4-YE-QSY"/>
+                            <constraint firstItem="t8h-pL-Vhx" firstAttribute="top" secondItem="A7U-Jk-u1q" secondAttribute="top" id="Xmg-Rh-APm"/>
                             <constraint firstItem="7zp-EQ-Lrs" firstAttribute="centerX" secondItem="sAY-nm-2dE" secondAttribute="centerX" id="avl-mG-rUh"/>
+                            <constraint firstItem="t8h-pL-Vhx" firstAttribute="leading" secondItem="A7U-Jk-u1q" secondAttribute="leading" id="dny-Oz-yL1"/>
+                            <constraint firstItem="t8h-pL-Vhx" firstAttribute="trailing" secondItem="A7U-Jk-u1q" secondAttribute="trailing" id="eAg-Zi-EY1"/>
                             <constraint firstItem="VNP-yN-lGN" firstAttribute="leading" secondItem="A7U-Jk-u1q" secondAttribute="leading" id="gay-Jh-OB7"/>
                             <constraint firstItem="VNP-yN-lGN" firstAttribute="centerY" secondItem="sAY-nm-2dE" secondAttribute="centerY" id="i2q-zE-Kkv"/>
+                            <constraint firstItem="t8h-pL-Vhx" firstAttribute="bottom" secondItem="A7U-Jk-u1q" secondAttribute="bottom" id="zhd-RI-xe0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Notifications" id="gKj-mO-AzA"/>

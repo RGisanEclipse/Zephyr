@@ -8,6 +8,7 @@
 import Foundation
 struct UserModel{
     let userName: String
+    let profilePicture: URL
     let bio: String
     let name: (first: String, last: String)
     let birthDate: Date
@@ -31,7 +32,7 @@ struct UserPost{
     let postType: UserPostType
     let thumbnailImage: URL
     let postURL: URL
-    let caption: String
+    let caption: String?
     let likeCount: [PostLike]
     let comments: [PostComment]
     let createDate: Date
