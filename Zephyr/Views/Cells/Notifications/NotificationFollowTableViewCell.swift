@@ -44,5 +44,18 @@ class NotificationFollowTableViewCell: UITableViewCell {
         self.model = model
         contentLabel.text = model.text
         profilePictureButton.sd_setBackgroundImage(with: model.user.profilePicture, for: .normal, completed: nil)
+        switch model.type{
+        case .like(post: _):
+            break
+        case .follow(let state):
+            switch state{
+            case .following:
+                followButton.setTitle("Following", for: .normal)
+                followButton.tintColor = .lightGray
+            case .notFollowing:
+                followButton.setTitle("Follow", for: .normal)
+                followButton.tintColor = .link
+            }
+        }
     }
 }
