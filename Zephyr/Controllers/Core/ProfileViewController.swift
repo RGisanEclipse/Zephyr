@@ -7,11 +7,19 @@
 
 import UIKit
 
+enum selectedView{
+    case posts
+    case videoPosts
+    case taggedUserPosts
+}
+
 class ProfileViewController: UIViewController {
     private var testData = [UserRelationship]()
     var postsData = [String]()
     var videosData = [String]()
     var taggedPostsData = [String]()
+    
+    var currentView = selectedView.posts
     
     @IBOutlet weak var userNameButton: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -38,13 +46,28 @@ extension ProfileViewController: UICollectionViewDataSource{
         if section == 0{
             return 0
         } else{
-            return 4
+            switch currentView{
+            case .posts:
+                return postsData.count
+            case .videoPosts:
+                return videosData.count
+            case .taggedUserPosts:
+                return taggedPostsData.count
+            }
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Profile.cellIdentifier, for: indexPath) as! ProfileCollectionViewCell
-        let imageURLString = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYVx6CB56pxO8gwlzLLOkV8fPN0jfF3T_98w&s"
+        var imageURLString = ""
+        switch currentView{
+        case .posts:
+            imageURLString = postsData[indexPath.row]
+        case .videoPosts:
+            imageURLString = videosData[indexPath.row]
+        case .taggedUserPosts:
+            imageURLString = taggedPostsData[indexPath.row]
+        }
         if let imageURL = URL(string: imageURLString){
             cell.configure(with: imageURL)
         }
@@ -56,6 +79,7 @@ extension ProfileViewController: UICollectionViewDataSource{
         }
         if indexPath.section == 1{
             let tab = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.tabsIdentifier, for: indexPath) as! ProfileTabsCollectionReusableView
+            tab.delegate = self
             return tab
         }
         
@@ -116,5 +140,23 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
             destinationVC.viewTitle = "Following"
             destinationVC.data = testData
         }
+    }
+}
+
+// MARK: -
+extension ProfileViewController: ProfileTabsCollectionReusableViewDelegate{
+    func didTapPostsButton() {
+        currentView = .posts
+        collectionView.reloadData()
+    }
+    
+    func didTapVideoPostsButton() {
+        currentView = .videoPosts
+        collectionView.reloadData()
+    }
+    
+    func didTapTaggedUserPostsButton() {
+        currentView = .taggedUserPosts
+        collectionView.reloadData()
     }
 }

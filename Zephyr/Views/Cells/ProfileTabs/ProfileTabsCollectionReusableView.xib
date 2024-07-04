@@ -24,18 +24,27 @@
                             <buttonConfiguration key="configuration" style="plain" image="circle.grid.3x3.fill" catalog="system">
                                 <backgroundConfiguration key="background"/>
                             </buttonConfiguration>
+                            <connections>
+                                <action selector="postsButtonTapped:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="RKb-Y7-JMb"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q3g-kD-DEQ">
                             <rect key="frame" x="177.33333333333331" y="2" width="177.33333333333331" height="34.333333333333336"/>
                             <color key="tintColor" name="BW"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="video.fill" catalog="system"/>
+                            <connections>
+                                <action selector="videoPostsButtonTapped:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="4hq-61-8mT"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1L-ER-Qvk">
                             <rect key="frame" x="354.66666666666669" y="2" width="177.33333333333331" height="34.333333333333336"/>
                             <color key="tintColor" name="BW"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="at.circle.fill" catalog="system"/>
+                            <connections>
+                                <action selector="taggedUserPostsButtonTapped:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="kwt-bL-OLz"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>

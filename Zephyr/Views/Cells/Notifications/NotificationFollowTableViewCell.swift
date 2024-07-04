@@ -7,8 +7,8 @@
 
 import UIKit
 protocol NotificationFollowTableViewCellDelegate: AnyObject{
-    func didTapProfilePictureButton(with: UserNotification)
-    func didTapFollowButton(with: UserNotification)
+    func didTapProfilePictureButtonF(with model: UserNotification)
+    func didTapFollowButton(with model: UserNotification)
 }
 class NotificationFollowTableViewCell: UITableViewCell {
 
@@ -31,7 +31,7 @@ class NotificationFollowTableViewCell: UITableViewCell {
         guard let model = model else{
             return
         }
-        delegate?.didTapProfilePictureButton(with: model)
+        delegate?.didTapProfilePictureButtonF(with: model)
     }
     
     @IBAction func followButtonTapped(_ sender: UIButton) {

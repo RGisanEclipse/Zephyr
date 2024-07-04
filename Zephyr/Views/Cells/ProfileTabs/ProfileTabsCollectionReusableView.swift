@@ -6,15 +6,28 @@
 //
 
 import UIKit
-
+protocol ProfileTabsCollectionReusableViewDelegate: AnyObject{
+    func didTapPostsButton()
+    func didTapVideoPostsButton()
+    func didTapTaggedUserPostsButton()
+}
 class ProfileTabsCollectionReusableView: UICollectionReusableView {
 
     @IBOutlet weak var postsButton: UIButton!
     @IBOutlet weak var videoPostsButton: UIButton!
     @IBOutlet weak var taggedUserPostsButton: UIButton!
+    weak var delegate: ProfileTabsCollectionReusableViewDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+    }
+    @IBAction func postsButtonTapped(_ sender: UIButton) {
+        delegate?.didTapPostsButton()
+    }
+    @IBAction func videoPostsButtonTapped(_ sender: UIButton) {
+        delegate?.didTapVideoPostsButton()
     }
     
+    @IBAction func taggedUserPostsButtonTapped(_ sender: UIButton) {
+        delegate?.didTapTaggedUserPostsButton()
+    }
 }
