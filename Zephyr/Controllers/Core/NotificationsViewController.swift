@@ -79,20 +79,20 @@ extension NotificationsViewController: UITableViewDataSource{
 // MARK: - NotificationLikeTableViewCellDelegate
 extension NotificationsViewController: NotificationLikeTableViewCellDelegate{
     func didTapProfilePictureButton(with model: UserNotification) {
-        print("Tapped ProfilePictureButton")
+        
     }
     
     func didTapPostButton(with model: UserNotification) {
-        print("Tapped PostButton")
+        
     }
 }
 
 // MARK: - NotificationFollowTableViewCellDelegate
 extension NotificationsViewController: NotificationFollowTableViewCellDelegate{
     func didTapFollowButton(with model: UserNotification) {
-        print("Tapped FollowButton")
+        
     }
     func didTapProfilePictureButtonF(with model: UserNotification) {
-        print("Tapped ProfilePictureButtonF")
+        
     }
 }
