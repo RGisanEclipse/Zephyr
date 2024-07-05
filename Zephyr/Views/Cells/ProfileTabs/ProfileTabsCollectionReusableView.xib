@@ -30,7 +30,7 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q3g-kD-DEQ">
                             <rect key="frame" x="177.33333333333331" y="2" width="177.33333333333331" height="34.333333333333336"/>
-                            <color key="tintColor" name="BW"/>
+                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="video.fill" catalog="system"/>
                             <connections>
@@ -39,7 +39,7 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1L-ER-Qvk">
                             <rect key="frame" x="354.66666666666669" y="2" width="177.33333333333331" height="34.333333333333336"/>
-                            <color key="tintColor" name="BW"/>
+                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="at.circle.fill" catalog="system"/>
                             <connections>

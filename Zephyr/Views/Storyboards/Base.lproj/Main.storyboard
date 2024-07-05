@@ -153,6 +153,22 @@
             </objects>
             <point key="canvasLocation" x="3571" y="1170"/>
         </scene>
+        <!--Post-->
+        <scene sceneID="4U9-W3-8lp">
+            <objects>
+                <viewController id="Xwk-ch-pAD" customClass="PostViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tpF-Zu-KRA">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="LS0-Lf-ACW"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Post" id="8jG-jU-uNO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cvS-Pa-jtG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2720" y="1920"/>
+        </scene>
         <!--Settings-->
         <scene sceneID="MwO-6w-i1d">
             <objects>
@@ -331,6 +347,7 @@
                         <outlet property="noNotificationsView" destination="VNP-yN-lGN" id="IyE-xk-lcF"/>
                         <outlet property="spinner" destination="7zp-EQ-Lrs" id="QmZ-Mr-loo"/>
                         <outlet property="tableView" destination="t8h-pL-Vhx" id="5GA-iX-DPG"/>
+                        <segue destination="Xwk-ch-pAD" kind="show" identifier="notificationToPostVC" id="Ug1-UI-m2f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ilR-AU-poM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -804,6 +821,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="o66-rl-iad"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" name="BW"/>
     <resources>
         <image name="LaunchImage" width="1008" height="910"/>
         <image name="LogoImage" width="1008" height="916"/>

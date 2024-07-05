@@ -25,7 +25,7 @@ class NotificationsViewController: UIViewController {
     @IBOutlet weak var noNotificationsView: UIStackView!
     
     private var models = [UserNotification]()
-    
+    private var postModel: UserPost?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +74,12 @@ extension NotificationsViewController: UITableViewDataSource{
             return cell
         }
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Notifications.postSegue{
+            let destinationVC = segue.destination as! PostViewController
+            destinationVC.model = postModel
+        }
+    }
 }
 
 // MARK: - NotificationLikeTableViewCellDelegate
@@ -83,7 +89,14 @@ extension NotificationsViewController: NotificationLikeTableViewCellDelegate{
     }
     
     func didTapPostButton(with model: UserNotification) {
-        
+        switch model.type{
+        case .like(let post):
+            self.postModel = post
+        case .follow(_):
+            print("Dev issue! Should never be called")
+            break
+        }
+        self.performSegue(withIdentifier: Constants.Notifications.postSegue, sender: self)
     }
 }
 

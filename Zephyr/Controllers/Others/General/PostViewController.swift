@@ -8,11 +8,8 @@
 import UIKit
 
 class PostViewController: UIViewController {
-
+    var model: UserPost?
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
-
 }

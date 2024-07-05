@@ -64,5 +64,6 @@ struct Constants{
         static let likeCellIdentifier = "NotificationLikeTableViewCell"
         static let followCellIdentifier = "NotificationFollowTableViewCell"
         static let cellIdentifier = "NotificationsCellIdentifier"
+        static let postSegue = "notificationToPostVC"
     }
 }
