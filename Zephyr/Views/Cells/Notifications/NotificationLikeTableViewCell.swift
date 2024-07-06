@@ -8,8 +8,8 @@
 import UIKit
 import SDWebImage
 protocol NotificationLikeTableViewCellDelegate: AnyObject{
-    func didTapProfilePictureButton(with model: UserNotification)
-    func didTapPostButton(with model: UserNotification)
+    func didTapProfilePictureButton(with model: UserNotificationModel)
+    func didTapPostButton(with model: UserNotificationModel)
 }
 class NotificationLikeTableViewCell: UITableViewCell {
 
@@ -18,7 +18,7 @@ class NotificationLikeTableViewCell: UITableViewCell {
     @IBOutlet weak var postButton: UIButton!
     
     weak var delegate: NotificationLikeTableViewCellDelegate?
-    private var model: UserNotification?
+    private var model: UserNotificationModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,7 +39,7 @@ class NotificationLikeTableViewCell: UITableViewCell {
         }
         delegate?.didTapPostButton(with: model)
     }
-    func configure(with model: UserNotification){
+    func configure(with model: UserNotificationModel){
         self.model = model
         switch model.type{
         case.like(let post):

@@ -7,8 +7,8 @@
 
 import UIKit
 protocol NotificationFollowTableViewCellDelegate: AnyObject{
-    func didTapProfilePictureButtonF(with model: UserNotification)
-    func didTapFollowButton(with model: UserNotification)
+    func didTapProfilePictureButtonF(with model: UserNotificationModel)
+    func didTapFollowButton(with model: UserNotificationModel)
 }
 class NotificationFollowTableViewCell: UITableViewCell {
 
@@ -17,7 +17,7 @@ class NotificationFollowTableViewCell: UITableViewCell {
     @IBOutlet weak var followButton: UIButton!
     
     weak var delegate: NotificationFollowTableViewCellDelegate?
-    private var model: UserNotification?
+    private var model: UserNotificationModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,7 +40,7 @@ class NotificationFollowTableViewCell: UITableViewCell {
         }
         delegate?.didTapFollowButton(with: model)
     }
-    func configure(with model: UserNotification){
+    func configure(with model: UserNotificationModel){
         self.model = model
         contentLabel.text = model.text
         profilePictureButton.sd_setBackgroundImage(with: model.user.profilePicture, for: .normal, completed: nil)
