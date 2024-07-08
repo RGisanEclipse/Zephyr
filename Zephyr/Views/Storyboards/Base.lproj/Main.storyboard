@@ -59,16 +59,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wg3-wp-bqd">
-                                <rect key="frame" x="0.0" y="0.0" width="430" height="883"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wg3-wp-bqd">
+                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HomeViewCell" id="1Gq-F8-WDa">
-                                        <rect key="frame" x="0.0" y="50" width="430" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="430" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Gq-F8-WDa" id="mbB-XX-IXI">
-                                            <rect key="frame" x="0.0" y="0.0" width="430" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -77,6 +76,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2Tl-x1-sWA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Wg3-wp-bqd" firstAttribute="leading" secondItem="2Tl-x1-sWA" secondAttribute="leading" id="9dl-Ls-8dV"/>
+                            <constraint firstItem="Wg3-wp-bqd" firstAttribute="trailing" secondItem="2Tl-x1-sWA" secondAttribute="trailing" id="N7a-PA-El5"/>
+                            <constraint firstItem="Wg3-wp-bqd" firstAttribute="top" secondItem="2Tl-x1-sWA" secondAttribute="top" id="Y55-aY-VSM"/>
+                            <constraint firstItem="Wg3-wp-bqd" firstAttribute="bottom" secondItem="2Tl-x1-sWA" secondAttribute="bottom" id="uWm-yl-jaL"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="VHx-72-ZaF"/>
                     <connections>

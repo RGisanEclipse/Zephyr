@@ -77,4 +77,7 @@ struct Constants{
         static let actionsCellIdentifier = "PostActionsTableViewCell"
         static let generalCellIdentifier = "PostGeneralTableViewCell"
     }
+    struct Home{
+        static let logoCellIdentifier = "HomeLogoTableViewCell"
+    }
 }

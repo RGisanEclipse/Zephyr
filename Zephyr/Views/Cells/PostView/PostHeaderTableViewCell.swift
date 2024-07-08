@@ -9,15 +9,19 @@ import UIKit
 
 class PostHeaderTableViewCell: UITableViewCell {
 
+        
+    @IBOutlet weak var profilePictureButton: UIButton!
+    @IBOutlet weak var userNameLabel: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        profilePictureButton.layer.cornerRadius = profilePictureButton.frame.size.width / 2
+        profilePictureButton.layer.borderWidth = 1
+        profilePictureButton.layer.borderColor = CGColor.init(red: 90, green: 90, blue: 90, alpha: 1)
+        profilePictureButton.layer.masksToBounds = true
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func configure(with model: UserModel){
+        profilePictureButton.sd_setBackgroundImage(with: model.profilePicture, for: .normal, completed: nil)
+        userNameLabel.setTitle(model.userName, for: .normal)
     }
-    
 }

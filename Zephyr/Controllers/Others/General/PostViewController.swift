@@ -64,6 +64,7 @@ extension PostViewController: UITableViewDataSource{
             return cell
         case .header(let user):
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.headerCellIdentifier, for: indexPath) as! PostHeaderTableViewCell
+            cell.configure(with: user)
             return cell
         case .primaryContent(let post):
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.postCellIdentifier, for: indexPath) as! PostTableViewCell
