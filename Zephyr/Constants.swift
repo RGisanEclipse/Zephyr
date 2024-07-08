@@ -43,6 +43,7 @@ struct Constants{
         static let followingSegue = "toFollowingVC"
         static let headerIdentifier = "ProfileHeaderCollectionReusableView"
         static let tabsIdentifier = "ProfileTabsCollectionReusableView"
+        static let postSegue = "profileToPostVC"
     }
     struct Errors{
         static let emailAlreadyInUse = "Email already in use"
@@ -65,5 +66,15 @@ struct Constants{
         static let followCellIdentifier = "NotificationFollowTableViewCell"
         static let cellIdentifier = "NotificationsCellIdentifier"
         static let postSegue = "notificationToPostVC"
+    }
+    struct Explore{
+        static let postSegue = "exploreToPostVC"
+    }
+    struct Post{
+        static let cellIdentifier = "postTableViewReusableCell"
+        static let headerCellIdentifier = "PostHeaderTableViewCell"
+        static let postCellIdentifier = "PostTableViewCell"
+        static let actionsCellIdentifier = "PostActionsTableViewCell"
+        static let generalCellIdentifier = "PostGeneralTableViewCell"
     }
 }

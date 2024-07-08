@@ -34,6 +34,15 @@
 		B91B50AE2C21AA0000DC212E /* PostEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50AD2C21AA0000DC212E /* PostEditorViewController.swift */; };
 		B91B50B02C21AA1200DC212E /* PublishPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50AF2C21AA1200DC212E /* PublishPostViewController.swift */; };
 		B930612C2C246B5B001AA2A2 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930612B2C246B5B001AA2A2 /* SettingsModel.swift */; };
+		B933BD7A2C3BFA9E008D887D /* PostHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933BD782C3BFA9E008D887D /* PostHeaderTableViewCell.swift */; };
+		B933BD7B2C3BFA9E008D887D /* PostHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B933BD792C3BFA9E008D887D /* PostHeaderTableViewCell.xib */; };
+		B933BD7E2C3BFACF008D887D /* PostActionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933BD7C2C3BFACF008D887D /* PostActionsTableViewCell.swift */; };
+		B933BD7F2C3BFACF008D887D /* PostActionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B933BD7D2C3BFACF008D887D /* PostActionsTableViewCell.xib */; };
+		B933BD822C3BFADF008D887D /* PostGeneralTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933BD802C3BFADF008D887D /* PostGeneralTableViewCell.swift */; };
+		B933BD832C3BFADF008D887D /* PostGeneralTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B933BD812C3BFADF008D887D /* PostGeneralTableViewCell.xib */; };
+		B933BD862C3BFB9F008D887D /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933BD842C3BFB9F008D887D /* PostTableViewCell.swift */; };
+		B933BD872C3BFB9F008D887D /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B933BD852C3BFB9F008D887D /* PostTableViewCell.xib */; };
+		B933BD8B2C3BFEB1008D887D /* PostRenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933BD8A2C3BFEB1008D887D /* PostRenderViewModel.swift */; };
 		B943576A2C22EF5F00F52238 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B94357692C22EF5F00F52238 /* IQKeyboardManagerSwift */; };
 		B94DF7452C260E0B00C8EE94 /* FormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B94DF7442C260E0B00C8EE94 /* FormTableViewCell.xib */; };
 		B94DF7462C260E0B00C8EE94 /* FormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94DF7432C260E0B00C8EE94 /* FormTableViewCell.swift */; };
@@ -95,6 +104,15 @@
 		B91B50AD2C21AA0000DC212E /* PostEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEditorViewController.swift; sourceTree = "<group>"; };
 		B91B50AF2C21AA1200DC212E /* PublishPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishPostViewController.swift; sourceTree = "<group>"; };
 		B930612B2C246B5B001AA2A2 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		B933BD782C3BFA9E008D887D /* PostHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		B933BD792C3BFA9E008D887D /* PostHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		B933BD7C2C3BFACF008D887D /* PostActionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionsTableViewCell.swift; sourceTree = "<group>"; };
+		B933BD7D2C3BFACF008D887D /* PostActionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostActionsTableViewCell.xib; sourceTree = "<group>"; };
+		B933BD802C3BFADF008D887D /* PostGeneralTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGeneralTableViewCell.swift; sourceTree = "<group>"; };
+		B933BD812C3BFADF008D887D /* PostGeneralTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostGeneralTableViewCell.xib; sourceTree = "<group>"; };
+		B933BD842C3BFB9F008D887D /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		B933BD852C3BFB9F008D887D /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
+		B933BD8A2C3BFEB1008D887D /* PostRenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRenderViewModel.swift; sourceTree = "<group>"; };
 		B94DF7432C260E0B00C8EE94 /* FormTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTableViewCell.swift; sourceTree = "<group>"; };
 		B94DF7442C260E0B00C8EE94 /* FormTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FormTableViewCell.xib; sourceTree = "<group>"; };
 		B959C4EF2C2A1494001C106E /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
@@ -218,6 +236,7 @@
 				B97EE49E2C277BAC00B3CF6F /* UserModel.swift */,
 				B9907BE02C2E81D800984BB3 /* EmailModel.swift */,
 				B9BCCA942C3969AC0027405B /* UserNotificationModel.swift */,
+				B933BD8A2C3BFEB1008D887D /* PostRenderViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -308,6 +327,21 @@
 			path = ListView;
 			sourceTree = "<group>";
 		};
+		B97451222C3BF5AB00E9D63A /* PostView */ = {
+			isa = PBXGroup;
+			children = (
+				B933BD782C3BFA9E008D887D /* PostHeaderTableViewCell.swift */,
+				B933BD792C3BFA9E008D887D /* PostHeaderTableViewCell.xib */,
+				B933BD7C2C3BFACF008D887D /* PostActionsTableViewCell.swift */,
+				B933BD7D2C3BFACF008D887D /* PostActionsTableViewCell.xib */,
+				B933BD802C3BFADF008D887D /* PostGeneralTableViewCell.swift */,
+				B933BD812C3BFADF008D887D /* PostGeneralTableViewCell.xib */,
+				B933BD842C3BFB9F008D887D /* PostTableViewCell.swift */,
+				B933BD852C3BFB9F008D887D /* PostTableViewCell.xib */,
+			);
+			path = PostView;
+			sourceTree = "<group>";
+		};
 		B98194DA2C21B59000C7D62C /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,22 +360,15 @@
 		B9E8B10E2C259F1900CBA09B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B97451222C3BF5AB00E9D63A /* PostView */,
 				B9152F032C31473D006B22D6 /* ProfileHeader */,
 				B9152F082C3151C7006B22D6 /* ProfileTabs */,
 				B959C4EE2C2A145C001C106E /* ListView */,
-				B9E8B1132C25A04600CBA09B /* HomeFeed */,
 				B959C4EC2C2A141E001C106E /* EditProfile */,
 				B959C4ED2C2A1432001C106E /* ProfileCollection */,
 				B9013D272C33141900700932 /* Notifications */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		B9E8B1132C25A04600CBA09B /* HomeFeed */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = HomeFeed;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,12 +445,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B933BD7F2C3BFACF008D887D /* PostActionsTableViewCell.xib in Resources */,
 				B9152F062C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib in Resources */,
 				B96C7CD72C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib in Resources */,
 				B91B50832C21A61300DC212E /* Assets.xcassets in Resources */,
 				B98194D92C21B10600C7D62C /* GoogleService-Info.plist in Resources */,
 				B9152F0D2C315209006B22D6 /* ProfileTabsCollectionReusableView.xib in Resources */,
+				B933BD872C3BFB9F008D887D /* PostTableViewCell.xib in Resources */,
+				B933BD832C3BFADF008D887D /* PostGeneralTableViewCell.xib in Resources */,
 				B98FC0652C2815E5002B9194 /* ProfileCollectionViewCell.xib in Resources */,
+				B933BD7B2C3BFA9E008D887D /* PostHeaderTableViewCell.xib in Resources */,
 				B94DF7452C260E0B00C8EE94 /* FormTableViewCell.xib in Resources */,
 				B91B50862C21A61300DC212E /* Base in Resources */,
 				B959C4F12C2A1494001C106E /* ListTableViewCell.xib in Resources */,
@@ -444,6 +475,7 @@
 				B91B50A02C21A90F00DC212E /* RegisterViewController.swift in Sources */,
 				B930612C2C246B5B001AA2A2 /* SettingsModel.swift in Sources */,
 				B984836F2C24C4AE003570F3 /* SplashScreenViewController.swift in Sources */,
+				B933BD7E2C3BFACF008D887D /* PostActionsTableViewCell.swift in Sources */,
 				B96C7CD82C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift in Sources */,
 				B91B50B02C21AA1200DC212E /* PublishPostViewController.swift in Sources */,
 				B9013D252C33141000700932 /* NotificationLikeTableViewCell.swift in Sources */,
@@ -454,6 +486,7 @@
 				B9AA62832C26077C00D35CD8 /* EditProfileFormModel.swift in Sources */,
 				B91B50AE2C21AA0000DC212E /* PostEditorViewController.swift in Sources */,
 				B96230932C2B55990034F64A /* BrevoManager.swift in Sources */,
+				B933BD8B2C3BFEB1008D887D /* PostRenderViewModel.swift in Sources */,
 				B9ED55962C21B77E00CC9D35 /* StorageManager.swift in Sources */,
 				B91B50A22C21A93300DC212E /* PostViewController.swift in Sources */,
 				B98194DC2C21B65600C7D62C /* DatabaseManager.swift in Sources */,
@@ -462,14 +495,17 @@
 				B95DABCE2C22E34C00BB478F /* Constants.swift in Sources */,
 				B9BCCA952C3969AC0027405B /* UserNotificationModel.swift in Sources */,
 				B9152F0E2C315209006B22D6 /* ProfileTabsCollectionReusableView.swift in Sources */,
+				B933BD7A2C3BFA9E008D887D /* PostHeaderTableViewCell.swift in Sources */,
 				B91B50AC2C21A9CC00DC212E /* SearchResultViewController.swift in Sources */,
 				B91B509E2C21A90400DC212E /* LoginViewController.swift in Sources */,
+				B933BD862C3BFB9F008D887D /* PostTableViewCell.swift in Sources */,
 				B94DF7462C260E0B00C8EE94 /* FormTableViewCell.swift in Sources */,
 				B9E2B7F92C2B75C300023DE8 /* Brevo.swift in Sources */,
 				B91B50AA2C21A9BB00DC212E /* SearchViewController.swift in Sources */,
 				B91B50992C21A80200DC212E /* ProfileViewController.swift in Sources */,
 				B9ED55942C21B72200CC9D35 /* AuthManager.swift in Sources */,
 				B91B507A2C21A61200DC212E /* AppDelegate.swift in Sources */,
+				B933BD822C3BFADF008D887D /* PostGeneralTableViewCell.swift in Sources */,
 				B91B507C2C21A61200DC212E /* SceneDelegate.swift in Sources */,
 				B91B50A82C21A99600DC212E /* ListViewController.swift in Sources */,
 				B9907BE12C2E81D800984BB3 /* EmailModel.swift in Sources */,

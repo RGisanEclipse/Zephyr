@@ -147,6 +147,7 @@
                         <outlet property="userNameButton" destination="8bV-76-n6k" id="FnL-qV-q6h"/>
                         <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowersVC" id="o66-rl-iad"/>
                         <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowingVC" id="ZgJ-tn-cdZ"/>
+                        <segue destination="Xwk-ch-pAD" kind="show" identifier="profileToPostVC" id="iJ4-yY-iRW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t7g-gt-pjI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -160,14 +161,39 @@
                     <view key="view" contentMode="scaleToFill" id="tpF-Zu-KRA">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="BMq-E5-LRp">
+                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postTableViewReusableCell" id="xbo-Ul-hVA">
+                                        <rect key="frame" x="0.0" y="50" width="430" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xbo-Ul-hVA" id="nOe-4l-ZgD">
+                                            <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="LS0-Lf-ACW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BMq-E5-LRp" firstAttribute="bottom" secondItem="LS0-Lf-ACW" secondAttribute="bottom" id="3vj-O8-eEb"/>
+                            <constraint firstItem="BMq-E5-LRp" firstAttribute="top" secondItem="LS0-Lf-ACW" secondAttribute="top" id="Y5x-86-057"/>
+                            <constraint firstItem="BMq-E5-LRp" firstAttribute="leading" secondItem="LS0-Lf-ACW" secondAttribute="leading" id="iDq-9Z-2UB"/>
+                            <constraint firstItem="BMq-E5-LRp" firstAttribute="trailing" secondItem="LS0-Lf-ACW" secondAttribute="trailing" id="w4N-hy-hdU"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Post" id="8jG-jU-uNO"/>
+                    <connections>
+                        <outlet property="tableView" destination="BMq-E5-LRp" id="mch-M0-lbk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvS-Pa-jtG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2720" y="1920"/>
+            <point key="canvasLocation" x="2719.5348837209303" y="1919.7424892703864"/>
         </scene>
         <!--Settings-->
         <scene sceneID="MwO-6w-i1d">
@@ -400,6 +426,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Explore" id="4AF-hY-W0h"/>
+                    <connections>
+                        <segue destination="Xwk-ch-pAD" kind="show" identifier="exploreToPostVC" id="5km-SD-thz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jFJ-gd-qhA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -820,6 +849,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="o66-rl-iad"/>
+        <segue reference="5km-SD-thz"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BW"/>
     <resources>
