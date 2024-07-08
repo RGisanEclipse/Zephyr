@@ -68,6 +68,7 @@ extension PostViewController: UITableViewDataSource{
             return cell
         case .primaryContent(let post):
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.postCellIdentifier, for: indexPath) as! PostTableViewCell
+            cell.configure(with: post)
             return cell
         }
     }

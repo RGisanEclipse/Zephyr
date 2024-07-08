@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
         for x in 0..<2 {
             comments.append(PostComment(identifier: "\(x)", userName: "TheBatman", text: "Great Post!", createdDate: Date(), likes: []))
         }
-        for x in 0..<5{
+        for _ in 0..<5{
             let viewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://pbs.twimg.com/profile_images/1676116130275143680/BkUKyvp7_400x400.jpg")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()))),
                                                 post: PostRenderViewModel(renderType: .primaryContent(provider: post)),
                                                 actions: PostRenderViewModel(renderType: .actions(provider: "")),
@@ -110,6 +110,7 @@ extension HomeViewController: UITableViewDataSource{
             switch postModel.renderType{
             case .primaryContent(let post):
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.postCellIdentifier, for: indexPath) as! PostTableViewCell
+                cell.configure(with: post)
                 return cell
             case .header, .actions, .comments: return UITableViewCell()
             }

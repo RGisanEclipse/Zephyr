@@ -9,15 +9,13 @@ import UIKit
 
 class PostTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var postImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func configure(with model: UserPost){
+        let imageURL = model.thumbnailImage
+        postImageView.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"))
     }
-    
 }
