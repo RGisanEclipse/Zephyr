@@ -3,8 +3,8 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,15 +16,74 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pu0-T0-ZGW">
+                        <rect key="frame" x="10" y="12" width="35" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="4IZ-r6-mKz"/>
+                            <constraint firstAttribute="width" constant="35" id="oNZ-9w-ZTJ"/>
+                        </constraints>
+                        <color key="tintColor" name="BW"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" backgroundImage="suit.heart" catalog="system"/>
+                        <connections>
+                            <action selector="likeButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ix3-gw-s4Y"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lxm-g4-uuf">
+                        <rect key="frame" x="60" y="10.333333333333332" width="30" height="29.333333333333339"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="Q3V-pk-kbo"/>
+                            <constraint firstAttribute="width" constant="30" id="c3q-WC-vN9"/>
+                        </constraints>
+                        <color key="tintColor" name="BW"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" backgroundImage="message" catalog="system"/>
+                        <connections>
+                            <action selector="commentButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="RsF-UH-g1t"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHn-Pb-70N">
+                        <rect key="frame" x="275" y="10.33333333333333" width="30" height="29.666666666666671"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="DJT-ph-gGz"/>
+                            <constraint firstAttribute="width" constant="30" id="agU-bt-eti"/>
+                        </constraints>
+                        <color key="tintColor" name="BW"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" backgroundImage="bookmark" catalog="system"/>
+                        <connections>
+                            <action selector="saveButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UJk-OO-lbE"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="XHn-Pb-70N" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="BTc-iW-Esj"/>
+                    <constraint firstAttribute="bottom" secondItem="pu0-T0-ZGW" secondAttribute="bottom" constant="10" id="XZq-bv-BVa"/>
+                    <constraint firstAttribute="trailing" secondItem="XHn-Pb-70N" secondAttribute="trailing" constant="15" id="fBH-kB-5Jq"/>
+                    <constraint firstAttribute="bottom" secondItem="lxm-g4-uuf" secondAttribute="bottom" constant="10" id="gkE-iE-xSK"/>
+                    <constraint firstItem="pu0-T0-ZGW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="hnk-AK-rq1"/>
+                    <constraint firstItem="lxm-g4-uuf" firstAttribute="leading" secondItem="pu0-T0-ZGW" secondAttribute="trailing" constant="15" id="rcT-vF-JfN"/>
+                    <constraint firstAttribute="bottom" secondItem="XHn-Pb-70N" secondAttribute="bottom" constant="10" id="sdg-sA-66C"/>
+                    <constraint firstItem="pu0-T0-ZGW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="xfC-w9-Vpq"/>
+                    <constraint firstItem="lxm-g4-uuf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="yOV-fi-hbP"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <color key="backgroundColor" systemColor="systemTealColor"/>
+            <connections>
+                <outlet property="commentButton" destination="lxm-g4-uuf" id="6DS-Ad-6Sz"/>
+                <outlet property="likeButton" destination="pu0-T0-ZGW" id="4Yw-VZ-dXK"/>
+                <outlet property="saveButton" destination="XHn-Pb-70N" id="h0V-Ix-jqX"/>
+            </connections>
             <point key="canvasLocation" x="139" y="20"/>
         </tableViewCell>
     </objects>
     <resources>
-        <systemColor name="systemTealColor">
-            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="bookmark" catalog="system" width="110" height="128"/>
+        <image name="message" catalog="system" width="128" height="116"/>
+        <image name="suit.heart" catalog="system" width="128" height="107"/>
+        <namedColor name="BW">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

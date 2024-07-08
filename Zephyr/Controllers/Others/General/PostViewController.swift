@@ -64,6 +64,7 @@ extension PostViewController: UITableViewDataSource{
             return cell
         case .header(let user):
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.headerCellIdentifier, for: indexPath) as! PostHeaderTableViewCell
+            cell.delegate = self
             cell.configure(with: user)
             return cell
         case .primaryContent(let post):
@@ -86,4 +87,20 @@ extension PostViewController: UITableViewDataSource{
 // MARK: - UITableViewDelegate
 extension PostViewController: UITableViewDelegate{
     
+}
+
+// MARK: - PostHeaderTableViewCellDelegate
+
+extension PostViewController: PostHeaderTableViewCellDelegate{
+    func didTapMoreButton() {
+        let actionSheet = UIAlertController(title: "Post Options", message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: { [weak self] _ in
+            self?.reportPost()
+        }))
+        present(actionSheet, animated: true)
+    }
+    func reportPost(){
+        
+    }
 }

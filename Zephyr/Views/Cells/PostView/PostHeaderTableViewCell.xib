@@ -35,13 +35,28 @@
                             <color key="titleColor" name="BW"/>
                         </state>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5E-mK-Z9l">
+                        <rect key="frame" x="285" y="27.666666666666664" width="20" height="5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="RKK-DT-4Ff"/>
+                            <constraint firstAttribute="height" constant="20" id="XRW-jD-b5u"/>
+                        </constraints>
+                        <color key="tintColor" name="BW"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" backgroundImage="ellipsis" catalog="system"/>
+                        <connections>
+                            <action selector="moreButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fhT-D6-Uht"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="2F1-92-44Z" secondAttribute="bottom" constant="10" id="0mr-Cp-caT"/>
                     <constraint firstItem="2F1-92-44Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="8bl-2a-kgi"/>
                     <constraint firstAttribute="bottom" secondItem="lc5-fQ-iyi" secondAttribute="bottom" constant="15" id="MKU-bG-Jfg"/>
+                    <constraint firstItem="h5E-mK-Z9l" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="MTj-cj-qrW"/>
                     <constraint firstItem="lc5-fQ-iyi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hu8-N9-tr3"/>
                     <constraint firstItem="lc5-fQ-iyi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="j2H-8Z-Vud"/>
+                    <constraint firstAttribute="trailing" secondItem="h5E-mK-Z9l" secondAttribute="trailing" constant="15" id="kNn-Ef-cfH"/>
                     <constraint firstItem="lc5-fQ-iyi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="tBm-YH-jbQ"/>
                     <constraint firstItem="lc5-fQ-iyi" firstAttribute="leading" secondItem="2F1-92-44Z" secondAttribute="trailing" constant="10" id="tGl-sl-xMZ"/>
                     <constraint firstItem="2F1-92-44Z" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="uEy-uC-Owd"/>
@@ -56,6 +71,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <namedColor name="BW">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

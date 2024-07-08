@@ -24,14 +24,14 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7P-6I-mR1">
-                        <rect key="frame" x="277.33333333333331" y="7.3333333333333321" width="32.666666666666686" height="29.333333333333339"/>
+                        <rect key="frame" x="283" y="7.6666666666666643" width="27" height="26.333333333333336"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="c7P-6I-mR1" secondAttribute="height" multiplier="25:23" id="UCn-r0-X6g"/>
-                            <constraint firstAttribute="height" constant="30" id="tOY-Gs-aLO"/>
+                            <constraint firstAttribute="width" secondItem="c7P-6I-mR1" secondAttribute="height" multiplier="1:1" id="UCn-r0-X6g"/>
+                            <constraint firstAttribute="height" constant="27" id="tOY-Gs-aLO"/>
                         </constraints>
                         <color key="tintColor" name="BW"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" backgroundImage="message" catalog="system"/>
+                        <state key="normal" backgroundImage="paperplane.fill" catalog="system"/>
                         <connections>
                             <action selector="messagesButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lHl-le-gok"/>
                         </connections>
@@ -54,7 +54,7 @@
     </objects>
     <resources>
         <image name="logoText" width="423" height="78"/>
-        <image name="message" catalog="system" width="128" height="116"/>
+        <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <namedColor name="BW">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -6,12 +6,15 @@
 //
 
 import UIKit
-
+protocol PostHeaderTableViewCellDelegate: AnyObject{
+    func didTapMoreButton()
+}
 class PostHeaderTableViewCell: UITableViewCell {
 
-        
     @IBOutlet weak var profilePictureButton: UIButton!
     @IBOutlet weak var userNameLabel: UIButton!
+        
+    weak var delegate: PostHeaderTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,5 +26,8 @@ class PostHeaderTableViewCell: UITableViewCell {
     func configure(with model: UserModel){
         profilePictureButton.sd_setBackgroundImage(with: model.profilePicture, for: .normal, completed: nil)
         userNameLabel.setTitle(model.userName, for: .normal)
+    }
+    @IBAction func moreButtonPressed(_ sender: UIButton) {
+        delegate?.didTapMoreButton()
     }
 }

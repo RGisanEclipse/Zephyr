@@ -26,7 +26,7 @@ class HomeViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.Home.logoCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Home.logoCellIdentifier)
     }
     private func createMockModels(){
-        let post = UserPost(identifier: "", postType: .photo, thumbnailImage: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYVx6CB56pxO8gwlzLLOkV8fPN0jfF3T_98w&s")!, postURL: URL(string: "https://pbs.twimg.com/profile_images/1676116130275143680/BkUKyvp7_400x400.jpg")!, caption: nil, likeCount: [], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://pbs.twimg.com/profile_images/1676116130275143680/BkUKyvp7_400x400.jpg")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()))
+        let post = UserPost(identifier: "", postType: .video, thumbnailImage: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYVx6CB56pxO8gwlzLLOkV8fPN0jfF3T_98w&s")!, postURL: URL(string: "https://www.w3schools.com/html/mov_bbb.mp4")!, caption: nil, likeCount: [], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://pbs.twimg.com/profile_images/1676116130275143680/BkUKyvp7_400x400.jpg")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()))
         var comments = [PostComment]()
         for x in 0..<2 {
             comments.append(PostComment(identifier: "\(x)", userName: "TheBatman", text: "Great Post!", createdDate: Date(), likes: []))
@@ -101,6 +101,7 @@ extension HomeViewController: UITableViewDataSource{
             case .header(let user):
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.headerCellIdentifier, for: indexPath) as! PostHeaderTableViewCell
                 cell.configure(with: user)
+                cell.delegate = self
                 return cell
             case .actions, .primaryContent, .comments: return UITableViewCell()
             }
@@ -120,6 +121,7 @@ extension HomeViewController: UITableViewDataSource{
             switch actionsModel.renderType{
             case .actions(let provider):
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.actionsCellIdentifier, for: indexPath) as! PostActionsTableViewCell
+                cell.delegate = self
                 return cell
             case .header, .primaryContent, .comments: return UITableViewCell()
             }
@@ -160,3 +162,31 @@ extension HomeViewController: UITableViewDataSource{
         return subSection == 4 ? 30 : 0
     }
 }
+// MARK: - PostHeaderTableViewCellDelegate
+extension HomeViewController: PostHeaderTableViewCellDelegate{
+    func didTapMoreButton() {
+        let actionSheet = UIAlertController(title: "Post Options", message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: { [weak self] _ in
+            self?.reportPost()
+        }))
+        present(actionSheet, animated: true)
+    }
+    func reportPost(){
+        
+    }
+}
+
+// MARK: - PostActionsTableViewCellDelegate
+extension HomeViewController: PostActionsTableViewCellDelegate{
+    func didTapLikeButton() {
+        // Logic to like the post
+    }
+    func didTapCommentButton() {
+        // Logic to comment on the post
+    }
+    func didTapSaveButton() {
+        // Logic to save the post
+    }
+}
+

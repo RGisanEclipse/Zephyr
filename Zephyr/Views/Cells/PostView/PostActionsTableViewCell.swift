@@ -7,17 +7,31 @@
 
 import UIKit
 
+protocol PostActionsTableViewCellDelegate: AnyObject{
+    func didTapLikeButton()
+    func didTapCommentButton()
+    func didTapSaveButton()
+}
+
 class PostActionsTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
+    @IBOutlet weak var saveButton: UIButton!
+    
+    weak var delegate: PostActionsTableViewCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    @IBAction func likeButtonPressed(_ sender: UIButton) {
+        delegate?.didTapLikeButton()
     }
-    
+    @IBAction func commentButtonPressed(_ sender: UIButton) {
+        delegate?.didTapCommentButton()
+    }
+    @IBAction func saveButtonPressed(_ sender: UIButton) {
+        delegate?.didTapSaveButton()
+    }
 }
