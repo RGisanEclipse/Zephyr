@@ -421,17 +421,43 @@
                                     <outlet property="delegate" destination="7hf-bm-mMK" id="JJ8-27-zbK"/>
                                 </connections>
                             </searchBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mJQ-Uq-YTP">
+                                <rect key="frame" x="0.0" y="101" width="430" height="782"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Nep-kv-Uyk">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="RUf-bx-89Y">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rUG-o6-JP1">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4tB-sY-fJV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="mJQ-Uq-YTP" firstAttribute="leading" secondItem="4tB-sY-fJV" secondAttribute="leading" id="7T9-aq-iVZ"/>
+                            <constraint firstItem="mJQ-Uq-YTP" firstAttribute="trailing" secondItem="4tB-sY-fJV" secondAttribute="trailing" id="Ht6-wX-onq"/>
+                            <constraint firstItem="mJQ-Uq-YTP" firstAttribute="bottom" secondItem="4tB-sY-fJV" secondAttribute="bottom" id="Qup-7y-Yib"/>
                             <constraint firstItem="MwF-Ch-GJh" firstAttribute="trailing" secondItem="4tB-sY-fJV" secondAttribute="trailing" id="TMV-fe-MyT"/>
                             <constraint firstItem="MwF-Ch-GJh" firstAttribute="top" secondItem="4tB-sY-fJV" secondAttribute="top" id="jaf-z0-D36"/>
+                            <constraint firstItem="mJQ-Uq-YTP" firstAttribute="top" secondItem="MwF-Ch-GJh" secondAttribute="bottom" constant="1" id="my4-JD-8G3"/>
                             <constraint firstItem="MwF-Ch-GJh" firstAttribute="leading" secondItem="4tB-sY-fJV" secondAttribute="leading" id="nsc-Sw-4LQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Explore" id="4AF-hY-W0h"/>
                     <connections>
+                        <outlet property="collectionView" destination="mJQ-Uq-YTP" id="CND-0e-qsN"/>
+                        <outlet property="searchBar" destination="MwF-Ch-GJh" id="S5f-3z-IeK"/>
                         <segue destination="Xwk-ch-pAD" kind="show" identifier="exploreToPostVC" id="5km-SD-thz"/>
                     </connections>
                 </viewController>
@@ -854,7 +880,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="o66-rl-iad"/>
-        <segue reference="iJ4-yY-iRW"/>
+        <segue reference="5km-SD-thz"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BW"/>
     <resources>
