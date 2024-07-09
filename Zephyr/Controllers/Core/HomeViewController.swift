@@ -39,8 +39,8 @@ class HomeViewController: UIViewController {
     private func createMockModels(){
         let post = UserPost(identifier: "", postType: .video, thumbnailImage: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYVx6CB56pxO8gwlzLLOkV8fPN0jfF3T_98w&s")!, postURL: URL(string: "https://videos.pexels.com/video-files/3343679/3343679-hd_1920_1080_30fps.mp4")!, caption: nil, likeCount: [], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://pbs.twimg.com/profile_images/1676116130275143680/BkUKyvp7_400x400.jpg")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()))
         var comments = [PostComment]()
-        comments.append(PostComment(identifier: "x", user: UserModel(userName: "TheJoker", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()), text: "Great Post!", createdDate: Date(), likes: []))
-        comments.append(PostComment(identifier: "y", user: UserModel(userName: "TheRiddler", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()), text: "Let's meet at IceBerg Lounge :)", createdDate: Date(), likes: []))
+        comments.append(PostComment(identifier: "x", user: UserModel(userName: "TheJoker", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()), text: "Wanna know how I got that smile?", createdDate: Date(), likes: []))
+        comments.append(PostComment(identifier: "y", user: UserModel(userName: "TheRiddler", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()), text: "Let's meet at Iceberg Lounge :)", createdDate: Date(), likes: []))
         for _ in 0..<5{
             let viewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()))),
                                                 post: PostRenderViewModel(renderType: .primaryContent(provider: post)),
@@ -164,7 +164,7 @@ extension HomeViewController: UITableViewDataSource{
         } else if subSection == 3{
             return 50
         } else if subSection == 4{
-            return 70
+            return 60
         } else {
             return 0
         }

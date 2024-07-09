@@ -18,16 +18,14 @@
                     <rect key="frame" x="15" y="0.0" width="443" height="100"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLS-bU-1oE">
-                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                            <rect key="frame" x="0.0" y="1" width="100" height="98.666666666666671"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="100" id="wSm-h8-XKA"/>
                                 <constraint firstAttribute="width" secondItem="qLS-bU-1oE" secondAttribute="height" multiplier="1:1" id="zBS-Lz-3Y3"/>
                             </constraints>
                             <color key="tintColor" name="BW"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="gray">
-                                <backgroundConfiguration key="background" image="person.circle.fill" catalog="system"/>
-                            </buttonConfiguration>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" backgroundImage="person.circle.fill" catalog="system"/>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="IEE-Me-iAl">
                             <rect key="frame" x="110" y="0.0" width="333" height="100"/>
@@ -103,34 +101,43 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="6bx-em-4bD">
-                    <rect key="frame" x="14.999999999999996" y="110.00000000000001" width="38.666666666666657" height="39.666666666666671"/>
+                    <rect key="frame" x="15" y="110.00000000000001" width="443" height="39.666666666666671"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5D6-7Q-hiM">
-                            <rect key="frame" x="0.0" y="0.0" width="38.666666666666664" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="443" height="17"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Z1-HL-BlW">
-                            <rect key="frame" x="0.0" y="24" width="38.666666666666664" height="15.666666666666664"/>
+                            <rect key="frame" x="0.0" y="24" width="443" height="15.666666666666664"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="0Z1-HL-BlW" secondAttribute="trailing" id="QzG-5M-ugZ"/>
+                        <constraint firstItem="0Z1-HL-BlW" firstAttribute="leading" secondItem="6bx-em-4bD" secondAttribute="leading" id="h2b-Rh-bht"/>
+                    </constraints>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
             <constraints>
                 <constraint firstItem="foI-AB-LuK" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="15" id="1ch-zW-0yV"/>
                 <constraint firstItem="6bx-em-4bD" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="15" id="7qx-Nh-eXz"/>
+                <constraint firstItem="6bx-em-4bD" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="15" id="L27-Uo-19T"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="foI-AB-LuK" secondAttribute="trailing" constant="15" id="NZD-tz-1Bv"/>
                 <constraint firstItem="foI-AB-LuK" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="Qo3-qY-FIN"/>
                 <constraint firstItem="6bx-em-4bD" firstAttribute="top" secondItem="foI-AB-LuK" secondAttribute="bottom" constant="10" id="e8L-jW-KxL"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="6bx-em-4bD" secondAttribute="trailing" constant="15" id="vSQ-Qi-rZU"/>
             </constraints>
             <connections>
                 <outlet property="bioLabel" destination="0Z1-HL-BlW" id="WCO-aY-ZVu"/>
+                <outlet property="followingLabel" destination="daU-1O-V59" id="uIO-hR-mvZ"/>
                 <outlet property="nameLabel" destination="5D6-7Q-hiM" id="ZEz-KE-DIA"/>
+                <outlet property="numberOfFollowersLabel" destination="AQc-i9-j3R" id="cN3-Ev-yzu"/>
+                <outlet property="numberOfPostsLabel" destination="afy-Eh-gD0" id="CEo-q9-6YU"/>
                 <outlet property="profilePictureButton" destination="qLS-bU-1oE" id="2Kr-iT-ggB"/>
             </connections>
             <point key="canvasLocation" x="67.938931297709928" y="32.04225352112676"/>

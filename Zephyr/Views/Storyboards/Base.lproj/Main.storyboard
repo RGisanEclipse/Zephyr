@@ -149,7 +149,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="sjB-B6-9iV" id="zeo-p4-ow5"/>
-                        <outlet property="userNameButton" destination="8bV-76-n6k" id="FnL-qV-q6h"/>
+                        <outlet property="userNameTitleBarButton" destination="8bV-76-n6k" id="Ylb-9g-9ck"/>
                         <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowersVC" id="o66-rl-iad"/>
                         <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowingVC" id="ZgJ-tn-cdZ"/>
                         <segue destination="Xwk-ch-pAD" kind="show" identifier="profileToPostVC" id="iJ4-yY-iRW"/>
@@ -854,7 +854,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="o66-rl-iad"/>
-        <segue reference="5km-SD-thz"/>
+        <segue reference="iJ4-yY-iRW"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BW"/>
     <resources>

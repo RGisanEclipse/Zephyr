@@ -23,9 +23,9 @@ class NotificationLikeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         profilePictureButton.layer.cornerRadius = profilePictureButton.frame.size.width / 2
-        profilePictureButton.layer.borderWidth = 1
-        profilePictureButton.layer.borderColor = CGColor.init(red: 90, green: 90, blue: 90, alpha: 1)
         profilePictureButton.layer.masksToBounds = true
+        postButton.layer.cornerRadius = CGFloat(10)
+        postButton.layer.masksToBounds = true
     }
     @IBAction func profilePictureButtonTapped(_ sender: UIButton) {
         guard let model = model else{

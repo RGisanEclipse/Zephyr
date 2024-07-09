@@ -29,7 +29,7 @@
                         <state key="normal" backgroundImage="person.circle.fill" catalog="system"/>
                     </button>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="sma-ya-el7">
-                        <rect key="frame" x="60" y="5" width="198" height="59"/>
+                        <rect key="frame" x="60" y="5" width="74" height="59"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RcJ-8t-an7">
                                 <rect key="frame" x="0.0" y="0.0" width="74" height="42"/>
@@ -40,7 +40,7 @@
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcf-D5-MvI">
-                                <rect key="frame" x="0.0" y="42" width="198" height="17"/>
+                                <rect key="frame" x="0.0" y="42" width="74" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -63,26 +63,14 @@
                             <color key="titleColor" name="BW"/>
                         </state>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwJ-Cx-CCF">
-                        <rect key="frame" x="273" y="40" width="33" height="15.666666666666664"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="33" id="OFb-S2-gxy"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" systemColor="systemGrayColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="BwJ-Cx-CCF" firstAttribute="top" secondItem="vBN-bU-FmD" secondAttribute="bottom" constant="5" id="Eoj-hk-ON1"/>
                     <constraint firstItem="vBN-bU-FmD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="JJN-rj-XQI"/>
                     <constraint firstItem="sma-ya-el7" firstAttribute="leading" secondItem="MrZ-fQ-pfs" secondAttribute="trailing" constant="15" id="LMO-fW-Lde"/>
                     <constraint firstItem="sma-ya-el7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Qug-3Y-h6n"/>
                     <constraint firstAttribute="trailing" secondItem="vBN-bU-FmD" secondAttribute="trailing" constant="20" id="bWM-rV-NDF"/>
-                    <constraint firstItem="BwJ-Cx-CCF" firstAttribute="leading" secondItem="sma-ya-el7" secondAttribute="trailing" constant="15" id="gnQ-Bs-Fj8"/>
                     <constraint firstItem="MrZ-fQ-pfs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="mar-QQ-Hxt"/>
                     <constraint firstItem="MrZ-fQ-pfs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="qJ4-ZR-fZc"/>
-                    <constraint firstAttribute="trailing" secondItem="BwJ-Cx-CCF" secondAttribute="trailing" constant="14" id="vfZ-he-gzX"/>
                     <constraint firstAttribute="bottom" secondItem="sma-ya-el7" secondAttribute="bottom" constant="10" id="wjz-5Y-ukO"/>
                 </constraints>
             </tableViewCellContentView>
@@ -90,7 +78,6 @@
             <connections>
                 <outlet property="commentLabel" destination="hcf-D5-MvI" id="JLt-ZV-QcS"/>
                 <outlet property="commentLikeButton" destination="vBN-bU-FmD" id="Kwp-od-a0O"/>
-                <outlet property="commentNumberLabel" destination="BwJ-Cx-CCF" id="Qw7-cv-rVk"/>
                 <outlet property="profilePictureButton" destination="MrZ-fQ-pfs" id="YU5-fo-pkn"/>
                 <outlet property="userNameLabel" destination="RcJ-8t-an7" id="coY-mk-9Zm"/>
             </connections>
@@ -104,7 +91,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -18,11 +18,11 @@ class ProfileViewController: UIViewController {
     var postsData = [String]()
     var videosData = [String]()
     var taggedPostsData = [String]()
-    
+    private var userData = UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "It's not who you are underneath, it's what you do, that defines you.", name: (first: "Bruce", last: "Wayne"), birthDate: Date(), gender: .male, counts: UserCount(posts: 0, followers: 0, following: 0), joinDate: Date())
     var currentView = selectedView.posts
     
-    @IBOutlet weak var userNameButton: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var userNameTitleBarButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +31,7 @@ class ProfileViewController: UIViewController {
         collectionView.register(UINib(nibName: Constants.Profile.tabsIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.tabsIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
+        userNameTitleBarButton.title = userData.userName
     }
     @IBAction func settingsButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: Constants.settingsSegue, sender: self)
@@ -84,6 +85,7 @@ extension ProfileViewController: UICollectionViewDataSource{
         }
         
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.headerIdentifier, for: indexPath) as! ProfileHeaderCollectionReusableView
+        header.configure(with: userData)
         header.delegate = self
         return header
     }

@@ -20,6 +20,7 @@ class PostTableViewCell: UITableViewCell {
         super.awakeFromNib()
         contentView.layer.addSublayer(playerLayer)
         speakerButton.isHidden = true
+        spinner.isHidden = true
     }
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -48,6 +49,7 @@ class PostTableViewCell: UITableViewCell {
         super.layoutSubviews()
         playerLayer.frame = contentView.bounds
         contentView.bringSubviewToFront(speakerButton)
+        contentView.bringSubviewToFront(spinner)
     }
     
     @IBAction func speakerButtonPressed(_ sender: UIButton) {

@@ -32,9 +32,8 @@ class PostViewController: UIViewController {
         renderModels.append(PostRenderViewModel(renderType: .primaryContent(provider: userPostModel)))
         renderModels.append(PostRenderViewModel(renderType: .actions(provider: "")))
         var comments = [PostComment]()
-        for x in 0..<4 {
-            comments.append(PostComment(identifier: "123_\(x)", user: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://pbs.twimg.com/profile_images/1676116130275143680/BkUKyvp7_400x400.jpg")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()), text: "Great Post!", createdDate: Date(), likes: []))
-        }
+        comments.append(PostComment(identifier: "x", user: UserModel(userName: "TheJoker", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()), text: "Wanna know how I got that smile?", createdDate: Date(), likes: []))
+        comments.append(PostComment(identifier: "y", user: UserModel(userName: "TheRiddler", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()), text: "Let's meet at Iceberg Lounge :)", createdDate: Date(), likes: []))
         renderModels.append(PostRenderViewModel(renderType: .comments(comments: comments)))
     }
 }

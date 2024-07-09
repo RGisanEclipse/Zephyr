@@ -49,6 +49,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="postImageView" destination="YsY-Vt-hLC" id="sXd-bY-AOH"/>
                 <outlet property="speakerButton" destination="H4Z-Tt-v9H" id="4mm-oO-ZbF"/>
