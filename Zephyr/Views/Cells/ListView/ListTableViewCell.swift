@@ -31,8 +31,6 @@ class ListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         profilePictureButton.layer.cornerRadius = profilePictureButton.frame.width / 2
-        profilePictureButton.layer.borderWidth = 1
-        profilePictureButton.layer.borderColor = CGColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1)
         profilePictureButton.layer.masksToBounds = true
     }
     
