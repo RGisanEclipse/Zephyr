@@ -9,6 +9,7 @@ import UIKit
 import SDWebImage
 class ProfileCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var videoIndicator: UIImageView!
     @IBOutlet weak var cellImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -17,8 +18,8 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     func configure(with model: UserPost){
         let imageURL = model.thumbnailImage
         cellImage.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"))
-    }
-    func configure(with imageURL: URL){
-        cellImage.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"))
+        if model.postType == .video{
+            videoIndicator.image = UIImage(systemName: "video.fill")
+        }
     }
 }

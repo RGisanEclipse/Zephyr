@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,18 +25,35 @@
                             <constraint firstAttribute="height" constant="130" id="wOX-tR-bgS"/>
                         </constraints>
                     </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bPj-t4-WUy">
+                        <rect key="frame" x="202" y="7.6666666666666652" width="20" height="15.333333333333332"/>
+                        <color key="tintColor" systemColor="systemGrayColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="kn5-AG-zeh"/>
+                            <constraint firstAttribute="width" constant="20" id="rEd-n5-lbI"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="Fnn-LX-mll" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Atw-3G-z1a"/>
                 <constraint firstItem="Fnn-LX-mll" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="P9F-Pu-dyg"/>
+                <constraint firstAttribute="trailing" secondItem="bPj-t4-WUy" secondAttribute="trailing" constant="5" id="uuv-IM-gIT"/>
+                <constraint firstItem="bPj-t4-WUy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="ypo-Lc-hbD"/>
             </constraints>
             <size key="customSize" width="227" height="227"/>
             <connections>
                 <outlet property="cellImage" destination="Fnn-LX-mll" id="HcU-4h-2Nm"/>
+                <outlet property="videoIndicator" destination="bPj-t4-WUy" id="Dgx-ZU-cer"/>
             </connections>
             <point key="canvasLocation" x="87.786259541984734" y="22.183098591549296"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="video" catalog="system" width="128" height="82"/>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

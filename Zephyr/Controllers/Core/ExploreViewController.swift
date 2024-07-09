@@ -9,6 +9,9 @@ import UIKit
 
 class ExploreViewController: UIViewController {
     
+    private var postsData = [UserPost]()
+    private var postModel: UserPost?
+    @IBOutlet weak var dimView: UIView!
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -19,29 +22,44 @@ class ExploreViewController: UIViewController {
         collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
+        dimView.isHidden = true
+        searchBar.delegate = self
+        for _ in 0..<30{
+            postsData.append(UserPost(identifier: "", postType: .video, thumbnailImage: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, postURL: URL(string: "https://videos.pexels.com/video-files/3343679/3343679-hd_1920_1080_30fps.mp4")!, caption: nil, likeCount: [], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date())))
+        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
+        self.navigationController?.navigationBar.isHidden = true
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension ExploreViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return postsData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Profile.cellIdentifier, for: indexPath) as! ProfileCollectionViewCell
-        var imageURLString = "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509"
-        if let imageURL = URL(string: imageURLString){
-            cell.configure(with: imageURL)
-        }
+        let post = postsData[indexPath.row]
+        cell.configure(with: post)
         return cell
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Explore.postSegue{
+            let destinationVC = segue.destination as! PostViewController
+            destinationVC.model = postModel!
+        }
     }
 }
 
 // MARK: - UICollectionViewDelegate
 extension ExploreViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+        var post = postsData[indexPath.row]
+        self.postModel = post
+        self.performSegue(withIdentifier: Constants.Explore.postSegue, sender: self)
     }
 }
 
@@ -58,3 +76,13 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout{
         return 1
     }
 }
+
+extension ExploreViewController: UISearchBarDelegate{
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        dimView.isHidden = false
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        dimView.isHidden = true
+    }
+}
+

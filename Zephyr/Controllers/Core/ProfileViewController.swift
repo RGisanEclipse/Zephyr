@@ -15,11 +15,12 @@ enum selectedView{
 
 class ProfileViewController: UIViewController {
     private var testData = [UserRelationship]()
-    var postsData = [String]()
-    var videosData = [String]()
-    var taggedPostsData = [String]()
-    private var userData = UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "It's not who you are underneath, it's what you do, that defines you.", name: (first: "Bruce", last: "Wayne"), birthDate: Date(), gender: .male, counts: UserCount(posts: 0, followers: 0, following: 0), joinDate: Date())
+    private var postsData = [UserPost]()
+    private var videosData = [UserPost]()
+    private var taggedPostsData = [UserPost]()
+    private var userData = UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "It's not who you are underneath, it's what you do, that defines you.", name: (first: "Bruce", last: "Wayne"), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date())
     var currentView = selectedView.posts
+    private var postModel: UserPost?
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var userNameTitleBarButton: UIBarButtonItem!
@@ -32,6 +33,7 @@ class ProfileViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         userNameTitleBarButton.title = userData.userName
+        postsData.append(UserPost(identifier: "", postType: .video, thumbnailImage: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, postURL: URL(string: "https://videos.pexels.com/video-files/3343679/3343679-hd_1920_1080_30fps.mp4")!, caption: nil, likeCount: [], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date())))
     }
     @IBAction func settingsButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: Constants.settingsSegue, sender: self)
@@ -59,18 +61,16 @@ extension ProfileViewController: UICollectionViewDataSource{
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Profile.cellIdentifier, for: indexPath) as! ProfileCollectionViewCell
-        var imageURLString = ""
+        var post: UserPost
         switch currentView{
         case .posts:
-            imageURLString = postsData[indexPath.row]
+            post = postsData[indexPath.row]
         case .videoPosts:
-            imageURLString = videosData[indexPath.row]
+            post = videosData[indexPath.row]
         case .taggedUserPosts:
-            imageURLString = taggedPostsData[indexPath.row]
+            post = taggedPostsData[indexPath.row]
         }
-        if let imageURL = URL(string: imageURLString){
-            cell.configure(with: imageURL)
-        }
+        cell.configure(with: post)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -100,7 +100,17 @@ extension ProfileViewController: UICollectionViewDataSource{
 // MARK: - UICollectionViewDelegate
 extension ProfileViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+        var post: UserPost?
+        switch currentView{
+        case .posts:
+            post = postsData[indexPath.row]
+        case .videoPosts:
+            post = videosData[indexPath.row]
+        case .taggedUserPosts:
+            post = taggedPostsData[indexPath.row]
+        }
+        self.postModel = post
+        self.performSegue(withIdentifier: Constants.Profile.postSegue, sender: self)
     }
 }
 
@@ -149,6 +159,9 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
             let destinationVC = segue.destination as! ListViewController
             destinationVC.viewTitle = "Following"
             destinationVC.data = testData
+        } else if segue.identifier == Constants.Profile.postSegue{
+            let destinationVC = segue.destination as! PostViewController
+            destinationVC.model = postModel!
         }
     }
 }

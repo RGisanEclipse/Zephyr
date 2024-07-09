@@ -13,6 +13,7 @@ class PostViewController: UIViewController {
     private var renderModels = [PostRenderViewModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = false
         configureModels()
         guard model != nil else {
             fatalError("Model is nil")

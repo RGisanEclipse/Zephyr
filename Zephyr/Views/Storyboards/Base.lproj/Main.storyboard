@@ -441,22 +441,31 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ym8-RE-g2o">
+                                <rect key="frame" x="0.0" y="101" width="430" height="782"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4tB-sY-fJV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Ym8-RE-g2o" firstAttribute="trailing" secondItem="4tB-sY-fJV" secondAttribute="trailing" id="7FO-MU-F6P"/>
                             <constraint firstItem="mJQ-Uq-YTP" firstAttribute="leading" secondItem="4tB-sY-fJV" secondAttribute="leading" id="7T9-aq-iVZ"/>
                             <constraint firstItem="mJQ-Uq-YTP" firstAttribute="trailing" secondItem="4tB-sY-fJV" secondAttribute="trailing" id="Ht6-wX-onq"/>
+                            <constraint firstItem="Ym8-RE-g2o" firstAttribute="top" secondItem="MwF-Ch-GJh" secondAttribute="bottom" constant="1" id="NlX-gn-TyM"/>
+                            <constraint firstItem="Ym8-RE-g2o" firstAttribute="leading" secondItem="4tB-sY-fJV" secondAttribute="leading" id="PT2-yX-sb4"/>
                             <constraint firstItem="mJQ-Uq-YTP" firstAttribute="bottom" secondItem="4tB-sY-fJV" secondAttribute="bottom" id="Qup-7y-Yib"/>
                             <constraint firstItem="MwF-Ch-GJh" firstAttribute="trailing" secondItem="4tB-sY-fJV" secondAttribute="trailing" id="TMV-fe-MyT"/>
                             <constraint firstItem="MwF-Ch-GJh" firstAttribute="top" secondItem="4tB-sY-fJV" secondAttribute="top" id="jaf-z0-D36"/>
                             <constraint firstItem="mJQ-Uq-YTP" firstAttribute="top" secondItem="MwF-Ch-GJh" secondAttribute="bottom" constant="1" id="my4-JD-8G3"/>
                             <constraint firstItem="MwF-Ch-GJh" firstAttribute="leading" secondItem="4tB-sY-fJV" secondAttribute="leading" id="nsc-Sw-4LQ"/>
+                            <constraint firstItem="Ym8-RE-g2o" firstAttribute="bottom" secondItem="4tB-sY-fJV" secondAttribute="bottom" id="u5H-yy-ur1"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Explore" id="4AF-hY-W0h"/>
                     <connections>
                         <outlet property="collectionView" destination="mJQ-Uq-YTP" id="CND-0e-qsN"/>
+                        <outlet property="dimView" destination="Ym8-RE-g2o" id="30g-zg-4aZ"/>
                         <outlet property="searchBar" destination="MwF-Ch-GJh" id="S5f-3z-IeK"/>
                         <segue destination="Xwk-ch-pAD" kind="show" identifier="exploreToPostVC" id="5km-SD-thz"/>
                     </connections>
