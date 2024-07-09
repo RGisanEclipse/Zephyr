@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,10 +20,25 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YsY-Vt-hLC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="146"/>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H4Z-Tt-v9H">
+                        <rect key="frame" x="275" y="102" width="30" height="28.666666666666686"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="Xu8-Qf-W9O"/>
+                            <constraint firstAttribute="width" constant="30" id="fA2-lj-tGc"/>
+                        </constraints>
+                        <color key="tintColor" systemColor="systemGray2Color"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" backgroundImage="speaker.slash.circle.fill" catalog="system"/>
+                        <connections>
+                            <action selector="speakerButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="re9-dt-eyW"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="YsY-Vt-hLC" secondAttribute="bottom" id="Jrn-43-NQt"/>
+                    <constraint firstAttribute="trailing" secondItem="H4Z-Tt-v9H" secondAttribute="trailing" constant="15" id="MIJ-aB-wwB"/>
                     <constraint firstItem="YsY-Vt-hLC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="bdQ-nF-bAJ"/>
+                    <constraint firstAttribute="bottom" secondItem="H4Z-Tt-v9H" secondAttribute="bottom" constant="15" id="eTu-NM-f4e"/>
                     <constraint firstItem="YsY-Vt-hLC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fl0-co-c5c"/>
                     <constraint firstAttribute="trailing" secondItem="YsY-Vt-hLC" secondAttribute="trailing" id="gIj-zx-VMj"/>
                 </constraints>
@@ -30,8 +46,15 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="postImageView" destination="YsY-Vt-hLC" id="sXd-bY-AOH"/>
+                <outlet property="speakerButton" destination="H4Z-Tt-v9H" id="4mm-oO-ZbF"/>
             </connections>
             <point key="canvasLocation" x="138.93129770992365" y="4.2253521126760569"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="speaker.slash.circle.fill" catalog="system" width="128" height="123"/>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
