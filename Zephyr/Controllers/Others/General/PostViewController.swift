@@ -33,7 +33,7 @@ class PostViewController: UIViewController {
         renderModels.append(PostRenderViewModel(renderType: .actions(provider: "")))
         var comments = [PostComment]()
         for x in 0..<4 {
-            comments.append(PostComment(identifier: "123_\(x)", userName: "TheBatman", text: "Great Post!", createdDate: Date(), likes: []))
+            comments.append(PostComment(identifier: "123_\(x)", user: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://pbs.twimg.com/profile_images/1676116130275143680/BkUKyvp7_400x400.jpg")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()), text: "Great Post!", createdDate: Date(), likes: []))
         }
         renderModels.append(PostRenderViewModel(renderType: .comments(comments: comments)))
     }
@@ -61,6 +61,8 @@ extension PostViewController: UITableViewDataSource{
             return cell
         case .comments(let comments):
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.generalCellIdentifier, for: indexPath) as! PostGeneralTableViewCell
+            let comment = comments[indexPath.row]
+            cell.configure(with: comment)
             return cell
         case .header(let user):
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.headerCellIdentifier, for: indexPath) as! PostHeaderTableViewCell

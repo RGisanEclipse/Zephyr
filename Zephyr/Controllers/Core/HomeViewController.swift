@@ -25,14 +25,24 @@ class HomeViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.Post.generalCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.generalCellIdentifier)
         tableView.register(UINib(nibName: Constants.Home.logoCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Home.logoCellIdentifier)
     }
-    private func createMockModels(){
-        let post = UserPost(identifier: "", postType: .video, thumbnailImage: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYVx6CB56pxO8gwlzLLOkV8fPN0jfF3T_98w&s")!, postURL: URL(string: "https://www.w3schools.com/html/mov_bbb.mp4")!, caption: nil, likeCount: [], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://pbs.twimg.com/profile_images/1676116130275143680/BkUKyvp7_400x400.jpg")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()))
-        var comments = [PostComment]()
-        for x in 0..<2 {
-            comments.append(PostComment(identifier: "\(x)", userName: "TheBatman", text: "Great Post!", createdDate: Date(), likes: []))
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        scrollToTop()
+    }
+    func scrollToTop() {
+        if feedRenderModels.isEmpty {
+            return
         }
+        let indexPath = IndexPath(row: 0, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+    private func createMockModels(){
+        let post = UserPost(identifier: "", postType: .video, thumbnailImage: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYVx6CB56pxO8gwlzLLOkV8fPN0jfF3T_98w&s")!, postURL: URL(string: "https://videos.pexels.com/video-files/3343679/3343679-hd_1920_1080_30fps.mp4")!, caption: nil, likeCount: [], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://pbs.twimg.com/profile_images/1676116130275143680/BkUKyvp7_400x400.jpg")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()))
+        var comments = [PostComment]()
+        comments.append(PostComment(identifier: "x", user: UserModel(userName: "TheJoker", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()), text: "Great Post!", createdDate: Date(), likes: []))
+        comments.append(PostComment(identifier: "y", user: UserModel(userName: "TheRiddler", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()), text: "Let's meet at IceBerg Lounge :)", createdDate: Date(), likes: []))
         for _ in 0..<5{
-            let viewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://pbs.twimg.com/profile_images/1676116130275143680/BkUKyvp7_400x400.jpg")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()))),
+            let viewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()))),
                                                 post: PostRenderViewModel(renderType: .primaryContent(provider: post)),
                                                 actions: PostRenderViewModel(renderType: .actions(provider: "")),
                                                 comments: PostRenderViewModel(renderType: .comments(comments: comments)))
@@ -85,56 +95,61 @@ extension HomeViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let x = indexPath.section
         let model: HomeRenderViewModel
-        if x == 0{
+        if x == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Home.logoCellIdentifier, for: indexPath)
             return cell
-        }
-        else{
+        } else {
             let position = x % 5 == 0 ? x/5 : ((x - (x % 5)) / 5)
             model = feedRenderModels[position]
         }
         let subSection = x % 5
-        if subSection == 1{
+        if subSection == 1 {
             // Header
             let headerModel = model.header
-            switch headerModel.renderType{
+            switch headerModel.renderType {
             case .header(let user):
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.headerCellIdentifier, for: indexPath) as! PostHeaderTableViewCell
                 cell.configure(with: user)
                 cell.delegate = self
                 return cell
-            case .actions, .primaryContent, .comments: return UITableViewCell()
+            case .actions, .primaryContent, .comments:
+                return UITableViewCell()
             }
-        } else if subSection == 2{
+        } else if subSection == 2 {
             // Post
             let postModel = model.post
-            switch postModel.renderType{
+            switch postModel.renderType {
             case .primaryContent(let post):
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.postCellIdentifier, for: indexPath) as! PostTableViewCell
                 cell.configure(with: post)
                 return cell
-            case .header, .actions, .comments: return UITableViewCell()
+            case .header, .actions, .comments:
+                return UITableViewCell()
             }
-        } else if subSection == 3{
+        } else if subSection == 3 {
             // Actions
             let actionsModel = model.actions
-            switch actionsModel.renderType{
+            switch actionsModel.renderType {
             case .actions(let provider):
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.actionsCellIdentifier, for: indexPath) as! PostActionsTableViewCell
                 cell.delegate = self
                 return cell
-            case .header, .primaryContent, .comments: return UITableViewCell()
+            case .header, .primaryContent, .comments:
+                return UITableViewCell()
             }
-        } else if subSection == 4{
+        } else if subSection == 4 {
             // Comments
             let commentModel = model.comments
-            switch commentModel.renderType{
-            case .comments(comments: let comments):
+            switch commentModel.renderType {
+            case .comments(let comments):
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.generalCellIdentifier, for: indexPath) as! PostGeneralTableViewCell
+                let comment = comments[indexPath.row] // Get the specific comment for this row
+                cell.configure(with: comment) // Configure cell with comment data
                 return cell
-            case .header, .primaryContent, .actions: return UITableViewCell()
+            case .header, .primaryContent, .actions:
+                return UITableViewCell()
             }
-        } else{
+        } else {
             return UITableViewCell()
         }
     }
@@ -189,7 +204,7 @@ extension HomeViewController: PostHeaderTableViewCellDelegate{
         for cell in tableView.visibleCells{
             if let postCell = cell as? PostTableViewCell{
                 postCell.playVideo()
-                postCell.unMuteVideo()
+                postCell.muteVideo()
             }
         }
     }

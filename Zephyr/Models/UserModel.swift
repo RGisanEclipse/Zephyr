@@ -49,7 +49,7 @@ struct CommentLike{
 }
 struct PostComment{
     let identifier: String
-    let userName: String
+    let user: UserModel
     let text: String
     let createdDate: Date
     let likes: [CommentLike]
