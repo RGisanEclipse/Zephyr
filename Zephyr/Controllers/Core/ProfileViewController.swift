@@ -122,9 +122,18 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout{
 // MARK: - ProfileHeaderCollectionReusableViewDelegate
 extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
     func profileHeaderDidTapPostsButton(_ header: ProfileHeaderCollectionReusableView) {
-        collectionView.scrollToItem(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
+        let section = 1
+        let row = 0
+        if collectionView.numberOfSections > section {
+            if collectionView.numberOfItems(inSection: section) > row {
+                collectionView.scrollToItem(at: IndexPath(row: row, section: section), at: .top, animated: true)
+            } else {
+                return
+            }
+        } else {
+            return
+        }
     }
-    
     func profileHeaderDidTapFollowersButton(_ header: ProfileHeaderCollectionReusableView) {
         self.performSegue(withIdentifier: Constants.Profile.followersSegue, sender: self)
     }
