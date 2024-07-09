@@ -10,6 +10,7 @@ import UIKit
 class EditProfileViewController: UIViewController {
     
     private var models = [[EditProfileFormModel]]()
+    var userData: UserModel?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var profilePictureButton: UIButton!
@@ -23,6 +24,7 @@ class EditProfileViewController: UIViewController {
         profilePictureButton.layer.borderWidth = CGFloat(0.2)
         profilePictureButton.layer.borderColor = CGColor.init(red: 90, green: 90, blue: 90, alpha: 1)
         profilePictureButton.layer.masksToBounds = true
+        profilePictureButton.sd_setBackgroundImage(with: userData?.profilePicture, for: .normal, placeholderImage: UIImage(systemName: "person.circle.fill"))
     }
     @IBAction func didTapSave(_ sender: UIBarButtonItem) {
         navigationController?.popToRootViewController(animated: true)
@@ -47,18 +49,22 @@ class EditProfileViewController: UIViewController {
         present(actionSheet, animated: true)
     }
     
-    private func configureModels(){
-        let firstSectionLabels = ["Name", "Username", "Bio"]
-        var sectionOne = [EditProfileFormModel]()
-        for label in firstSectionLabels{
-            let model = EditProfileFormModel(label: label, placeholder: "Enter \(label)", value: nil)
-            sectionOne.append(model)
+    private func configureModels() {
+        guard let userData = userData else {
+            print("userData is nil")
+            return
         }
+        
+        var sectionOne = [EditProfileFormModel]()
+        sectionOne.append(EditProfileFormModel(label: "First Name", placeholder: userData.name.first, value: nil))
+        sectionOne.append(EditProfileFormModel(label: "Last Name", placeholder: userData.name.last, value: nil))
+        sectionOne.append(EditProfileFormModel(label: "Username", placeholder: userData.userName, value: nil))
+        sectionOne.append(EditProfileFormModel(label: "Bio", placeholder: userData.bio, value: nil))
         models.append(sectionOne)
         
         let secondSectionLabels = ["Email", "Phone", "Gender"]
         var sectionTwo = [EditProfileFormModel]()
-        for label in secondSectionLabels{
+        for label in secondSectionLabels {
             let model = EditProfileFormModel(label: label, placeholder: "Enter \(label)", value: nil)
             sectionTwo.append(model)
         }

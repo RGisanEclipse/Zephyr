@@ -35,8 +35,8 @@ class ProfileViewController: UIViewController {
         userNameTitleBarButton.title = userData.userName
         postsData.append(UserPost(identifier: "", postType: .video, thumbnailImage: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, postURL: URL(string: "https://videos.pexels.com/video-files/3343679/3343679-hd_1920_1080_30fps.mp4")!, caption: nil, likeCount: [], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date())))
     }
-    @IBAction func settingsButtonPressed(_ sender: Any) {
-        self.performSegue(withIdentifier: Constants.settingsSegue, sender: self)
+    @IBAction func settingsButtonPressed(_ sender: UIButton) {
+        self.performSegue(withIdentifier: Constants.Profile.settingsSegue, sender: self)
     }
 }
 
@@ -162,6 +162,9 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
         } else if segue.identifier == Constants.Profile.postSegue{
             let destinationVC = segue.destination as! PostViewController
             destinationVC.model = postModel!
+        } else if segue.identifier == Constants.Profile.settingsSegue{
+            let destinationVC = segue.destination as! SettingsViewController
+            destinationVC.userData = userData
         }
     }
 }

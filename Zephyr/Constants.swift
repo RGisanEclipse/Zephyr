@@ -7,7 +7,6 @@
 
 import Foundation
 struct Constants{
-    static let settingsSegue = "toSettingsView"
     static let empty = ""
     struct Onboarding{
         static let registerSegue = "toRegisterView"
@@ -44,6 +43,7 @@ struct Constants{
         static let headerIdentifier = "ProfileHeaderCollectionReusableView"
         static let tabsIdentifier = "ProfileTabsCollectionReusableView"
         static let postSegue = "profileToPostVC"
+        static let settingsSegue = "toSettingsView"
     }
     struct Errors{
         static let emailAlreadyInUse = "Email already in use"

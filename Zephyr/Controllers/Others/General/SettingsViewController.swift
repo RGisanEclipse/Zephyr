@@ -11,7 +11,7 @@ import FirebaseAuth
 class SettingsViewController: UIViewController {
     
     private var options: [SettingsModel] = []
-    
+    var userData: UserModel?
     @IBOutlet weak var settingsTableView: UITableView!
     
     override func viewDidLoad() {
@@ -62,6 +62,12 @@ class SettingsViewController: UIViewController {
     }
     private func handleEditProfile(){
         self.performSegue(withIdentifier: Constants.Settings.toEditProfile, sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Settings.toEditProfile{
+            let destinationVC = segue.destination as! EditProfileViewController
+            destinationVC.userData = userData
+        }
     }
 }
 

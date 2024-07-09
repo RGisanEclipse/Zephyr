@@ -143,7 +143,6 @@
                             <color key="tintColor" name="BW"/>
                             <connections>
                                 <action selector="settingsButtonPressed:" destination="a4E-Pd-ncB" id="GdF-gS-96E"/>
-                                <segue destination="WAF-FT-JNO" kind="show" id="mEE-fZ-CbT"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -153,6 +152,7 @@
                         <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowersVC" id="o66-rl-iad"/>
                         <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowingVC" id="ZgJ-tn-cdZ"/>
                         <segue destination="Xwk-ch-pAD" kind="show" identifier="profileToPostVC" id="iJ4-yY-iRW"/>
+                        <segue destination="WAF-FT-JNO" kind="show" identifier="toSettingsView" id="vOg-yV-Jq0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t7g-gt-pjI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -251,16 +251,14 @@
                                 <rect key="frame" x="0.0" y="44" width="430" height="839"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zac-OU-9y6">
-                                        <rect key="frame" x="150" y="0.0" width="130" height="130"/>
+                                        <rect key="frame" x="150" y="1" width="130" height="128.66666666666666"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Zac-OU-9y6" secondAttribute="height" multiplier="1:1" id="9j9-7v-L1b"/>
                                             <constraint firstAttribute="height" constant="130" id="cug-U0-tMU"/>
                                         </constraints>
                                         <color key="tintColor" name="BW"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain">
-                                            <backgroundConfiguration key="background" cornerRadius="0.0" image="person.circle.fill" catalog="system" imageContentMode="scaleAspectFill" strokeWidth="0.0"/>
-                                        </buttonConfiguration>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" backgroundImage="person.circle.fill" catalog="system"/>
                                         <connections>
                                             <action selector="didTapProfilePhotoButton:" destination="MN1-c5-rbP" eventType="touchUpInside" id="ifA-Qh-9bI"/>
                                         </connections>
@@ -431,7 +429,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="RUf-bx-89Y">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExploreCollectionViewReusableCell" id="RUf-bx-89Y">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rUG-o6-JP1">
@@ -889,7 +887,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="o66-rl-iad"/>
-        <segue reference="5km-SD-thz"/>
+        <segue reference="iJ4-yY-iRW"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BW"/>
     <resources>
