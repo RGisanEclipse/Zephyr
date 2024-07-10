@@ -136,7 +136,8 @@ extension HomeViewController: UITableViewDataSource{
         let x = indexPath.section
         let model: HomeRenderViewModel
         if x == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Home.logoCellIdentifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Home.logoCellIdentifier, for: indexPath) as! HomeLogoTableViewCell
+            cell.delegate = self
             return cell
         } else {
             let position = x % 6 == 0 ? x/6 : ((x - (x % 6)) / 6)
@@ -279,3 +280,13 @@ extension HomeViewController: PostLikesTableViewCellDelegate{
     }
 }
 
+// MARK: - HomeLogoTableViewCellDelegate
+extension HomeViewController: HomeLogoTableViewCellDelegate{
+    func didTapMessagesButton() {
+        let alert = UIAlertController(title: "Messages", message: "Feature coming soon!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default){ _ in
+            alert.dismiss(animated: true, completion: nil)
+        })
+        present(alert, animated: true, completion: nil)
+    }
+}
