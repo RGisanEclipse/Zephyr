@@ -7,7 +7,7 @@
 
 import UIKit
 import SDWebImage
-protocol ProfileHeaderCollectionReusableViewDelegate{
+protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject{
     func profileHeaderDidTapPostsButton(_ header: ProfileHeaderCollectionReusableView)
     func profileHeaderDidTapFollowersButton(_ header: ProfileHeaderCollectionReusableView)
     func profileHeaderDidTapFollowingButton(_ header: ProfileHeaderCollectionReusableView)
@@ -21,7 +21,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var numberOfFollowersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
     
-    public var delegate: ProfileHeaderCollectionReusableViewDelegate?
+    weak var delegate: ProfileHeaderCollectionReusableViewDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()

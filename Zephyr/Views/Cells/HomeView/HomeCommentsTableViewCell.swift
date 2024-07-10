@@ -6,12 +6,15 @@
 //
 
 import UIKit
+protocol HomeCommentsTableViewCellDelegate: AnyObject{
+    func didTapCommentsButton(with model: UserPost)
+}
 
 class HomeCommentsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var viewCommentsButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
-    
+    weak var delegate: HomeCommentsTableViewCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
     }

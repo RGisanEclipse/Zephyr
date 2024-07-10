@@ -6,13 +6,13 @@
 //
 
 import UIKit
-protocol PostLikesTableViewCellDelegate{
+protocol PostLikesTableViewCellDelegate: AnyObject{
     func didTapLikesButton(with likesData: [PostLike])
 }
 class PostLikesTableViewCell: UITableViewCell {
 
     @IBOutlet weak var likesButton: UIButton!
-    var delegate: PostLikesTableViewCellDelegate?
+    weak var delegate: PostLikesTableViewCellDelegate?
     var model: [PostLike]?
     override func awakeFromNib() {
         super.awakeFromNib()

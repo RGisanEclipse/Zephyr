@@ -6,13 +6,13 @@
 //
 
 import UIKit
-protocol HomeLogoTableViewCellDelegate{
+protocol HomeLogoTableViewCellDelegate: AnyObject{
     func didTapMessagesButton()
 }
 class HomeLogoTableViewCell: UITableViewCell {
 
     @IBOutlet weak var messagesButton: UIButton!
-    var delegate: HomeLogoTableViewCellDelegate?
+    weak var delegate: HomeLogoTableViewCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
     }

@@ -104,9 +104,6 @@ extension HomeViewController: UITableViewDataSource{
         if section == 0{
             return 1
         }
-        else{
-            let position = x % 7 == 0 ? x/7 : ((x - (x % 7)) / 7)
-        }
         let subSection = x % 7
         if subSection == 1{
             // Header
@@ -225,7 +222,7 @@ extension HomeViewController: UITableViewDataSource{
         } else if subSection == 3{
             return 50
         } else if subSection == 4{
-            return 30
+            return 20
         } else if subSection == 5{
             let position = indexPath.section % 7 == 0 ? indexPath.section / 7 : (indexPath.section - (indexPath.section % 7)) / 7
             let captionModel = feedRenderModels[position].caption

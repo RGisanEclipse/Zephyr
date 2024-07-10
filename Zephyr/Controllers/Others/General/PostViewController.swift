@@ -106,7 +106,7 @@ extension PostViewController: UITableViewDataSource{
         case .actions(_): return 50
         case .primaryContent(_): return view.frame.width
         case .comments(_): return 50
-        case .likes(_): return 30
+        case .likes(_): return 20
         case .caption(let caption):
             if caption.count == 0{
                 return 0
