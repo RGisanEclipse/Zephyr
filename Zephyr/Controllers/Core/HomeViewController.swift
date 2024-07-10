@@ -220,7 +220,7 @@ extension HomeViewController: UITableViewDataSource{
         } else if subSection == 4{
             return 30
         } else if subSection == 5{
-            return 60
+            return 55
         } else {
             return 0
         }

@@ -23,6 +23,7 @@ class ListTableViewCell: UITableViewCell {
         super.awakeFromNib()
         profilePictureButton.layer.cornerRadius = profilePictureButton.frame.width / 2
         profilePictureButton.layer.masksToBounds = true
+        followButton.layer.cornerRadius = CGFloat(8)
     }
     
     @IBAction func followButtonPressed(_ sender: UIButton) {
@@ -38,10 +39,10 @@ class ListTableViewCell: UITableViewCell {
         switch model.type {
         case .following:
             followButton.setTitle("Following", for: .normal)
-            followButton.tintColor = .systemGray
+            followButton.backgroundColor = .systemGray
         case .notFollowing:
             followButton.setTitle("Follow", for: .normal)
-            followButton.tintColor = .link
+            followButton.backgroundColor = .link
         }
     }
 }

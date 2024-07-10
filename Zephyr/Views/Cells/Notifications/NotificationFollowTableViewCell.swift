@@ -23,6 +23,7 @@ class NotificationFollowTableViewCell: UITableViewCell {
         super.awakeFromNib()
         profilePictureButton.layer.cornerRadius = profilePictureButton.frame.size.width / 2
         profilePictureButton.layer.masksToBounds = true
+        followButton.layer.cornerRadius = CGFloat(8)
     }
     
     @IBAction func profilePictureButtonTapped(_ sender: UIButton) {
@@ -49,10 +50,10 @@ class NotificationFollowTableViewCell: UITableViewCell {
             switch state{
             case .following:
                 followButton.setTitle("Following", for: .normal)
-                followButton.tintColor = .lightGray
+                followButton.backgroundColor = .lightGray
             case .notFollowing:
                 followButton.setTitle("Follow", for: .normal)
-                followButton.tintColor = .link
+                followButton.backgroundColor = .link
             }
         }
     }

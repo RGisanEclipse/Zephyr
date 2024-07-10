@@ -102,7 +102,7 @@ extension PostViewController: UITableViewDataSource{
         case .header(_): return 60
         case .actions(_): return 50
         case .primaryContent(_): return view.frame.width
-        case .comments(_): return 70
+        case .comments(_): return 60
         case .likes(_): return 30
         }
     }
