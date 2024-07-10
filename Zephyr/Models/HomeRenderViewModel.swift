@@ -11,5 +11,6 @@ struct HomeRenderViewModel{
     let post: PostRenderViewModel
     let actions: PostRenderViewModel
     let likes: PostRenderViewModel
+    let caption: PostRenderViewModel
     let comments: PostRenderViewModel
 }

@@ -30,7 +30,7 @@
                             <action selector="profilePictureButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1tt-2H-EyI"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5JO-ME-lpA">
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5JO-ME-lpA">
                         <rect key="frame" x="419" y="10" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="F9R-kf-R5R"/>

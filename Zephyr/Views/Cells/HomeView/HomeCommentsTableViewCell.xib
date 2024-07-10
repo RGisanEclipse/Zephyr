@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HomeCommentsTableViewCell" rowHeight="50" id="KGk-i7-Jjw" customClass="HomeCommentsTableViewCell" customModule="Zephyr" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="klZ-WY-IZn">
+                        <rect key="frame" x="0.0" y="0.0" width="113.66666666666667" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="HbU-jA-52s"/>
+                        </constraints>
+                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" title="View comments">
+                            <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                        </buttonConfiguration>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPA-5b-gTt">
+                        <rect key="frame" x="13.000000000000002" y="25" width="28.666666666666671" height="22"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="klZ-WY-IZn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Zzk-U6-3Jg"/>
+                    <constraint firstAttribute="bottom" secondItem="sPA-5b-gTt" secondAttribute="bottom" constant="3" id="efC-09-LLn"/>
+                    <constraint firstItem="sPA-5b-gTt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="frx-fE-z80"/>
+                    <constraint firstItem="sPA-5b-gTt" firstAttribute="top" secondItem="klZ-WY-IZn" secondAttribute="bottom" id="uIu-Fc-wrM"/>
+                    <constraint firstItem="klZ-WY-IZn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xhp-bY-Ssz"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="dateLabel" destination="sPA-5b-gTt" id="5ue-pk-V45"/>
+                <outlet property="viewCommentsButton" destination="klZ-WY-IZn" id="51A-wY-fX2"/>
+            </connections>
+            <point key="canvasLocation" x="138.93129770992365" y="21.83098591549296"/>
+        </tableViewCell>
+    </objects>
+</document>

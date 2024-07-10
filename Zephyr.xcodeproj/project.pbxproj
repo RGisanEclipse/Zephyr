@@ -52,6 +52,10 @@
 		B96230932C2B55990034F64A /* BrevoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96230922C2B55990034F64A /* BrevoManager.swift */; };
 		B96C7CD72C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96C7CD62C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib */; };
 		B96C7CD82C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96C7CD52C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift */; };
+		B97AC6B12C3EB820004C175E /* HomeCommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97AC6AF2C3EB820004C175E /* HomeCommentsTableViewCell.swift */; };
+		B97AC6B22C3EB820004C175E /* HomeCommentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B97AC6B02C3EB820004C175E /* HomeCommentsTableViewCell.xib */; };
+		B97AC6B92C3EC66F004C175E /* PostCaptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97AC6B72C3EC66F004C175E /* PostCaptionTableViewCell.swift */; };
+		B97AC6BA2C3EC66F004C175E /* PostCaptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B97AC6B82C3EC66F004C175E /* PostCaptionTableViewCell.xib */; };
 		B97EE49F2C277BAC00B3CF6F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE49E2C277BAC00B3CF6F /* UserModel.swift */; };
 		B98194D12C21B08100C7D62C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B98194D02C21B08100C7D62C /* FirebaseAnalytics */; };
 		B98194D32C21B08100C7D62C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B98194D22C21B08100C7D62C /* FirebaseAuth */; };
@@ -126,6 +130,10 @@
 		B96230922C2B55990034F64A /* BrevoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrevoManager.swift; sourceTree = "<group>"; };
 		B96C7CD52C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFollowTableViewCell.swift; sourceTree = "<group>"; };
 		B96C7CD62C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationFollowTableViewCell.xib; sourceTree = "<group>"; };
+		B97AC6AF2C3EB820004C175E /* HomeCommentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommentsTableViewCell.swift; sourceTree = "<group>"; };
+		B97AC6B02C3EB820004C175E /* HomeCommentsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCommentsTableViewCell.xib; sourceTree = "<group>"; };
+		B97AC6B72C3EC66F004C175E /* PostCaptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCaptionTableViewCell.swift; sourceTree = "<group>"; };
+		B97AC6B82C3EC66F004C175E /* PostCaptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCaptionTableViewCell.xib; sourceTree = "<group>"; };
 		B97EE49E2C277BAC00B3CF6F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		B98194D82C21B10600C7D62C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B98194DB2C21B65600C7D62C /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -351,6 +359,8 @@
 				B933BD852C3BFB9F008D887D /* PostTableViewCell.xib */,
 				B9CADB742C3E6B900023B7E8 /* PostLikesTableViewCell.swift */,
 				B9CADB752C3E6B900023B7E8 /* PostLikesTableViewCell.xib */,
+				B97AC6B72C3EC66F004C175E /* PostCaptionTableViewCell.swift */,
+				B97AC6B82C3EC66F004C175E /* PostCaptionTableViewCell.xib */,
 			);
 			path = PostView;
 			sourceTree = "<group>";
@@ -375,6 +385,8 @@
 			children = (
 				B9DE03CA2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift */,
 				B9DE03CB2C3C2B3B00662FFE /* HomeLogoTableViewCell.xib */,
+				B97AC6AF2C3EB820004C175E /* HomeCommentsTableViewCell.swift */,
+				B97AC6B02C3EB820004C175E /* HomeCommentsTableViewCell.xib */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -474,6 +486,8 @@
 				B91B50832C21A61300DC212E /* Assets.xcassets in Resources */,
 				B98194D92C21B10600C7D62C /* GoogleService-Info.plist in Resources */,
 				B9152F0D2C315209006B22D6 /* ProfileTabsCollectionReusableView.xib in Resources */,
+				B97AC6BA2C3EC66F004C175E /* PostCaptionTableViewCell.xib in Resources */,
+				B97AC6B22C3EB820004C175E /* HomeCommentsTableViewCell.xib in Resources */,
 				B933BD872C3BFB9F008D887D /* PostTableViewCell.xib in Resources */,
 				B9DE03CC2C3C2B3B00662FFE /* HomeLogoTableViewCell.xib in Resources */,
 				B933BD832C3BFADF008D887D /* PostGeneralTableViewCell.xib in Resources */,
@@ -497,6 +511,7 @@
 			files = (
 				B98FC0662C2815E5002B9194 /* ProfileCollectionViewCell.swift in Sources */,
 				B91B50A42C21A96800DC212E /* EditProfileViewController.swift in Sources */,
+				B97AC6B92C3EC66F004C175E /* PostCaptionTableViewCell.swift in Sources */,
 				B91B50A02C21A90F00DC212E /* RegisterViewController.swift in Sources */,
 				B930612C2C246B5B001AA2A2 /* SettingsModel.swift in Sources */,
 				B984836F2C24C4AE003570F3 /* SplashScreenViewController.swift in Sources */,
@@ -538,6 +553,7 @@
 				B91B50A82C21A99600DC212E /* ListViewController.swift in Sources */,
 				B9907BE12C2E81D800984BB3 /* EmailModel.swift in Sources */,
 				B97EE49F2C277BAC00B3CF6F /* UserModel.swift in Sources */,
+				B97AC6B12C3EB820004C175E /* HomeCommentsTableViewCell.swift in Sources */,
 				B91B50A62C21A98900DC212E /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

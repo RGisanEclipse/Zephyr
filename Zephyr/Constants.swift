@@ -78,10 +78,12 @@ struct Constants{
         static let likesCellIdentifier = "PostLikesTableViewCell"
         static let generalCellIdentifier = "PostGeneralTableViewCell"
         static let likesSegue = "postToLikesView"
+        static let captionCellIdentifier = "PostCaptionTableViewCell"
     }
     struct Home{
         static let logoCellIdentifier = "HomeLogoTableViewCell"
         static let likesSegue = "homeToLikesView"
         static let postSegue = "homeToPostVC"
+        static let commentsCellIdentifier = "HomeCommentsTableViewCell"
     }
 }

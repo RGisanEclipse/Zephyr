@@ -14,5 +14,6 @@ enum PostRenderType{
     case primaryContent(provider: UserPost)
     case actions(provider: UserPost)
     case likes(provider: [PostLike])
-    case comments(comments: [PostComment])
+    case caption(provider: String)
+    case comments(provider: UserPost)
 }
