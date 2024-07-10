@@ -69,6 +69,8 @@
 		B9AA62832C26077C00D35CD8 /* EditProfileFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA62822C26077C00D35CD8 /* EditProfileFormModel.swift */; };
 		B9BCCA952C3969AC0027405B /* UserNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BCCA942C3969AC0027405B /* UserNotificationModel.swift */; };
 		B9C237452C235D7E00AAE120 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B9C237442C235D7E00AAE120 /* FirebaseFirestore */; };
+		B9CADB762C3E6B900023B7E8 /* PostLikesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9CADB752C3E6B900023B7E8 /* PostLikesTableViewCell.xib */; };
+		B9CADB772C3E6B900023B7E8 /* PostLikesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CADB742C3E6B900023B7E8 /* PostLikesTableViewCell.swift */; };
 		B9DE03CC2C3C2B3B00662FFE /* HomeLogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9DE03CB2C3C2B3B00662FFE /* HomeLogoTableViewCell.xib */; };
 		B9DE03CD2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE03CA2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift */; };
 		B9DE03CF2C3C358100662FFE /* HomeRenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE03CE2C3C358100662FFE /* HomeRenderViewModel.swift */; };
@@ -133,6 +135,8 @@
 		B9907BE02C2E81D800984BB3 /* EmailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailModel.swift; sourceTree = "<group>"; };
 		B9AA62822C26077C00D35CD8 /* EditProfileFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFormModel.swift; sourceTree = "<group>"; };
 		B9BCCA942C3969AC0027405B /* UserNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationModel.swift; sourceTree = "<group>"; };
+		B9CADB742C3E6B900023B7E8 /* PostLikesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLikesTableViewCell.swift; sourceTree = "<group>"; };
+		B9CADB752C3E6B900023B7E8 /* PostLikesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostLikesTableViewCell.xib; sourceTree = "<group>"; };
 		B9DE03CA2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLogoTableViewCell.swift; sourceTree = "<group>"; };
 		B9DE03CB2C3C2B3B00662FFE /* HomeLogoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeLogoTableViewCell.xib; sourceTree = "<group>"; };
 		B9DE03CE2C3C358100662FFE /* HomeRenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRenderViewModel.swift; sourceTree = "<group>"; };
@@ -345,6 +349,8 @@
 				B933BD812C3BFADF008D887D /* PostGeneralTableViewCell.xib */,
 				B933BD842C3BFB9F008D887D /* PostTableViewCell.swift */,
 				B933BD852C3BFB9F008D887D /* PostTableViewCell.xib */,
+				B9CADB742C3E6B900023B7E8 /* PostLikesTableViewCell.swift */,
+				B9CADB752C3E6B900023B7E8 /* PostLikesTableViewCell.xib */,
 			);
 			path = PostView;
 			sourceTree = "<group>";
@@ -471,6 +477,7 @@
 				B933BD872C3BFB9F008D887D /* PostTableViewCell.xib in Resources */,
 				B9DE03CC2C3C2B3B00662FFE /* HomeLogoTableViewCell.xib in Resources */,
 				B933BD832C3BFADF008D887D /* PostGeneralTableViewCell.xib in Resources */,
+				B9CADB762C3E6B900023B7E8 /* PostLikesTableViewCell.xib in Resources */,
 				B98FC0652C2815E5002B9194 /* ProfileCollectionViewCell.xib in Resources */,
 				B933BD7B2C3BFA9E008D887D /* PostHeaderTableViewCell.xib in Resources */,
 				B94DF7452C260E0B00C8EE94 /* FormTableViewCell.xib in Resources */,
@@ -520,6 +527,7 @@
 				B91B509E2C21A90400DC212E /* LoginViewController.swift in Sources */,
 				B933BD862C3BFB9F008D887D /* PostTableViewCell.swift in Sources */,
 				B94DF7462C260E0B00C8EE94 /* FormTableViewCell.swift in Sources */,
+				B9CADB772C3E6B900023B7E8 /* PostLikesTableViewCell.swift in Sources */,
 				B9E2B7F92C2B75C300023DE8 /* Brevo.swift in Sources */,
 				B91B50AA2C21A9BB00DC212E /* SearchViewController.swift in Sources */,
 				B91B50992C21A80200DC212E /* ProfileViewController.swift in Sources */,

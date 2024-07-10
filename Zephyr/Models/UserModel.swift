@@ -15,6 +15,17 @@ struct UserModel{
     let gender: Gender
     let counts: UserCount
     let joinDate: Date
+    let followers: [String]
+    let following: [String]
+    func isFollower(userName: String) -> Bool {
+        return followers.contains(userName)
+    }
+    func convertPostLikesToUserRelationships(postLikes: [PostLike]) -> [UserRelationship] {
+        return postLikes.map { like in
+            let followState: FollowState = isFollower(userName: like.userName) ? .following : .notFollowing
+            return UserRelationship(username: like.userName, type: followState)
+        }
+    }
 }
 enum Gender{
     case male, female, other
@@ -53,4 +64,12 @@ struct PostComment{
     let text: String
     let createdDate: Date
     let likes: [CommentLike]
+}
+enum FollowState {
+    case following, notFollowing
+}
+
+struct UserRelationship {
+    let username: String
+    var type: FollowState
 }

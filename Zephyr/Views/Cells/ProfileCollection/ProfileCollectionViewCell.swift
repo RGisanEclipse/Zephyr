@@ -20,6 +20,8 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         cellImage.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"))
         if model.postType == .video{
             videoIndicator.image = UIImage(systemName: "video.fill")
+        } else{
+            videoIndicator.isHidden = true
         }
     }
 }

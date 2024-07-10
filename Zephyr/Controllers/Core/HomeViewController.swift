@@ -11,19 +11,42 @@ import UIKit
 class HomeViewController: UIViewController {
     
     private var feedRenderModels = [HomeRenderViewModel]()
+    private var likesData: [PostLike]?
+    private var postSegueModel: UserPost?
+    private var userData = UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "It's not who you are underneath, it's what you do, that defines you.", name: (first: "Bruce", last: "Wayne"), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: ["TheJoker"], following: [])
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         createMockModels()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = true
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: Constants.Post.headerCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.headerCellIdentifier)
         tableView.register(UINib(nibName: Constants.Post.postCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.postCellIdentifier)
         tableView.register(UINib(nibName: Constants.Post.actionsCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.actionsCellIdentifier)
+        tableView.register(UINib(nibName: Constants.Post.likesCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.likesCellIdentifier)
         tableView.register(UINib(nibName: Constants.Post.generalCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.generalCellIdentifier)
         tableView.register(UINib(nibName: Constants.Home.logoCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Home.logoCellIdentifier)
+        for cell in tableView.visibleCells{
+            if let postCell = cell as? PostTableViewCell{
+                postCell.playVideo()
+                postCell.muteVideo()
+            }
+        }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        for cell in tableView.visibleCells{
+            if let postCell = cell as? PostTableViewCell {
+                postCell.pauseVideo()
+                postCell.muteVideo()
+            }
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -37,16 +60,30 @@ class HomeViewController: UIViewController {
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     private func createMockModels(){
-        let post = UserPost(identifier: "", postType: .video, thumbnailImage: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYVx6CB56pxO8gwlzLLOkV8fPN0jfF3T_98w&s")!, postURL: URL(string: "https://videos.pexels.com/video-files/3343679/3343679-hd_1920_1080_30fps.mp4")!, caption: nil, likeCount: [], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://pbs.twimg.com/profile_images/1676116130275143680/BkUKyvp7_400x400.jpg")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()))
+        let post = UserPost(identifier: "", postType: .photo, thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postURL: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, caption: nil, likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "x")], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []))
         var comments = [PostComment]()
-        comments.append(PostComment(identifier: "x", user: UserModel(userName: "TheJoker", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()), text: "Wanna know how I got that smile?", createdDate: Date(), likes: []))
-        comments.append(PostComment(identifier: "y", user: UserModel(userName: "TheRiddler", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()), text: "Let's meet at Iceberg Lounge :)", createdDate: Date(), likes: []))
+        comments.append(PostComment(identifier: "x", user: UserModel(userName: "TheJoker", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []), text: "Wanna know how I got that smile?", createdDate: Date(), likes: []))
+        comments.append(PostComment(identifier: "y", user: UserModel(userName: "TheRiddler", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []), text: "Let's meet at Iceberg Lounge :)", createdDate: Date(), likes: []))
         for _ in 0..<5{
-            let viewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date()))),
+            let viewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []))),
                                                 post: PostRenderViewModel(renderType: .primaryContent(provider: post)),
-                                                actions: PostRenderViewModel(renderType: .actions(provider: "")),
+                                                actions: PostRenderViewModel(renderType: .actions(provider: post)),
+                                                likes: PostRenderViewModel(renderType: .likes(provider: post.likeCount)),
                                                 comments: PostRenderViewModel(renderType: .comments(comments: comments)))
             feedRenderModels.append(viewModel)
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Home.likesSegue{
+            let destinationVC = segue.destination as! ListViewController
+            destinationVC.viewTitle = "Likes"
+            guard let likesSafeData = likesData else{
+                return
+            }
+            destinationVC.data = userData.convertPostLikesToUserRelationships(postLikes: likesSafeData)
+        } else if segue.identifier == Constants.Home.postSegue{
+            let destinationVC = segue.destination as! PostViewController
+            destinationVC.model = postSegueModel
         }
     }
 }
@@ -59,7 +96,7 @@ extension HomeViewController: UITableViewDelegate{
 // MARK: - UITableViewDataSource
 extension HomeViewController: UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
-        return feedRenderModels.count * 4 + 1
+        return feedRenderModels.count * 6
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let x = section
@@ -68,10 +105,10 @@ extension HomeViewController: UITableViewDataSource{
             return 1
         }
         else{
-            let position = x % 5 == 0 ? x/5 : ((x - (x % 5)) / 5)
+            let position = x % 6 == 0 ? x/6 : ((x - (x % 6)) / 6)
             model = feedRenderModels[position]
         }
-        let subSection = x % 5
+        let subSection = x % 6
         if subSection == 1{
             // Header
             return 1
@@ -82,11 +119,14 @@ extension HomeViewController: UITableViewDataSource{
             // Actions
             return 1
         } else if subSection == 4{
+            // Likes
+            return 1
+        } else if subSection == 5{
             // Comments
             let commentModel = model.comments
             switch commentModel.renderType{
             case .comments(comments: let comments): return comments.count > 2 ? 2 : comments.count
-            case .header, .actions, .primaryContent: return 0
+            case .header, .actions, .likes, .primaryContent: return 0
             }
         } else{
             return 0
@@ -99,10 +139,10 @@ extension HomeViewController: UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Home.logoCellIdentifier, for: indexPath)
             return cell
         } else {
-            let position = x % 5 == 0 ? x/5 : ((x - (x % 5)) / 5)
+            let position = x % 6 == 0 ? x/6 : ((x - (x % 6)) / 6)
             model = feedRenderModels[position]
         }
-        let subSection = x % 5
+        let subSection = x % 6
         if subSection == 1 {
             // Header
             let headerModel = model.header
@@ -112,7 +152,7 @@ extension HomeViewController: UITableViewDataSource{
                 cell.configure(with: user)
                 cell.delegate = self
                 return cell
-            case .actions, .primaryContent, .comments:
+            case .actions, .primaryContent, .likes, .comments:
                 return UITableViewCell()
             }
         } else if subSection == 2 {
@@ -123,7 +163,7 @@ extension HomeViewController: UITableViewDataSource{
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.postCellIdentifier, for: indexPath) as! PostTableViewCell
                 cell.configure(with: post)
                 return cell
-            case .header, .actions, .comments:
+            case .header, .actions, .likes, .comments:
                 return UITableViewCell()
             }
         } else if subSection == 3 {
@@ -132,12 +172,25 @@ extension HomeViewController: UITableViewDataSource{
             switch actionsModel.renderType {
             case .actions(let provider):
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.actionsCellIdentifier, for: indexPath) as! PostActionsTableViewCell
+                cell.configure(with: provider, userName: userData.userName)
                 cell.delegate = self
                 return cell
-            case .header, .primaryContent, .comments:
+            case .header, .primaryContent, .likes, .comments:
                 return UITableViewCell()
             }
-        } else if subSection == 4 {
+        } else if subSection == 4{
+            // Likes
+            let likesModel = model.likes
+            switch likesModel.renderType{
+            case .likes(let likes):
+                let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.likesCellIdentifier, for: indexPath) as! PostLikesTableViewCell
+                cell.configure(with: likes)
+                cell.delegate = self
+                return cell
+            case .header, .primaryContent, .actions, .comments:
+                return UITableViewCell()
+            }
+        } else if subSection == 5 {
             // Comments
             let commentModel = model.comments
             switch commentModel.renderType {
@@ -146,7 +199,7 @@ extension HomeViewController: UITableViewDataSource{
                 let comment = comments[indexPath.row] // Get the specific comment for this row
                 cell.configure(with: comment) // Configure cell with comment data
                 return cell
-            case .header, .primaryContent, .actions:
+            case .header, .primaryContent, .actions, .likes:
                 return UITableViewCell()
             }
         } else {
@@ -154,7 +207,7 @@ extension HomeViewController: UITableViewDataSource{
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let subSection = indexPath.section % 5
+        let subSection = indexPath.section % 6
         if subSection == 0{
             return 40
         } else if subSection == 1{
@@ -164,6 +217,8 @@ extension HomeViewController: UITableViewDataSource{
         } else if subSection == 3{
             return 50
         } else if subSection == 4{
+            return 30
+        } else if subSection == 5{
             return 60
         } else {
             return 0
@@ -173,8 +228,8 @@ extension HomeViewController: UITableViewDataSource{
         return UIView()
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        let subSection = section % 5
-        return subSection == 4 ? 30 : 0
+        let subSection = section % 6
+        return subSection == 5 ? 30 : 0
     }
 }
 // MARK: - PostHeaderTableViewCellDelegate
@@ -199,36 +254,28 @@ extension HomeViewController: PostHeaderTableViewCellDelegate{
             }
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        for cell in tableView.visibleCells{
-            if let postCell = cell as? PostTableViewCell{
-                postCell.playVideo()
-                postCell.muteVideo()
-            }
-        }
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        for cell in tableView.visibleCells{
-            if let postCell = cell as? PostTableViewCell {
-                postCell.pauseVideo()
-                postCell.muteVideo()
-            }
-        }
-    }
 }
 
 // MARK: - PostActionsTableViewCellDelegate
 extension HomeViewController: PostActionsTableViewCellDelegate{
+    func didTapCommentButton(with model: UserPost) {
+        self.postSegueModel = model
+        self.performSegue(withIdentifier: Constants.Home.postSegue, sender: self)
+    }
     func didTapLikeButton() {
         // Logic to like the post
     }
-    func didTapCommentButton() {
-        // Logic to comment on the post
-    }
+    
     func didTapSaveButton() {
         // Logic to save the post
+    }
+}
+
+// MARK: - PostLikesTableViewCellDelegate
+extension HomeViewController: PostLikesTableViewCellDelegate{
+    func didTapLikesButton(with likesData: [PostLike]) {
+        self.likesData = likesData
+        self.performSegue(withIdentifier: Constants.Home.likesSegue, sender: self)
     }
 }
 

@@ -86,6 +86,8 @@
                     <navigationItem key="navigationItem" id="VHx-72-ZaF"/>
                     <connections>
                         <outlet property="tableView" destination="Wg3-wp-bqd" id="uBb-Xz-FhF"/>
+                        <segue destination="7nC-wE-8Je" kind="show" identifier="homeToLikesView" id="yeI-wc-WIq"/>
+                        <segue destination="Xwk-ch-pAD" kind="show" identifier="homeToPostVC" id="WLz-h5-9iH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CfY-iB-9FU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -194,6 +196,7 @@
                     <navigationItem key="navigationItem" title="Post" id="8jG-jU-uNO"/>
                     <connections>
                         <outlet property="tableView" destination="BMq-E5-LRp" id="mch-M0-lbk"/>
+                        <segue destination="7nC-wE-8Je" kind="show" identifier="postToLikesView" id="2yp-pk-8zc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvS-Pa-jtG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -251,7 +254,7 @@
                                 <rect key="frame" x="0.0" y="44" width="430" height="839"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zac-OU-9y6">
-                                        <rect key="frame" x="150" y="1" width="130" height="128.66666666666666"/>
+                                        <rect key="frame" x="150" y="0.50000000000000178" width="130" height="128.99999999999997"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Zac-OU-9y6" secondAttribute="height" multiplier="1:1" id="9j9-7v-L1b"/>
                                             <constraint firstAttribute="height" constant="130" id="cug-U0-tMU"/>
@@ -323,7 +326,7 @@
                                 <rect key="frame" x="0.0" y="426" width="430" height="80.333333333333314"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bell.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="OIR-BQ-EzY">
-                                        <rect key="frame" x="190" y="0.33333333333333215" width="50" height="49.333333333333343"/>
+                                        <rect key="frame" x="190" y="0.5" width="50" height="49.500000000000028"/>
                                         <color key="tintColor" name="BW"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="FmQ-eT-j6X"/>
@@ -851,6 +854,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SHw-UX-IqO">
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="883"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dIR-PX-VIw">
+                                        <rect key="frame" x="0.0" y="0.0" width="430" height="883"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CR6-W4-mei">
+                                                <rect key="frame" x="215" y="0.0" width="0.0" height="883"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" name="BW"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="dIR-PX-VIw" secondAttribute="bottom" id="62w-C3-g3x"/>
+                                    <constraint firstItem="dIR-PX-VIw" firstAttribute="top" secondItem="SHw-UX-IqO" secondAttribute="top" id="Fn7-zk-lkA"/>
+                                    <constraint firstItem="dIR-PX-VIw" firstAttribute="leading" secondItem="SHw-UX-IqO" secondAttribute="leading" id="SCe-1m-0hw"/>
+                                    <constraint firstAttribute="trailing" secondItem="dIR-PX-VIw" secondAttribute="trailing" id="bfN-i3-1vB"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IHn-D3-gSl">
                                 <rect key="frame" x="0.0" y="0.0" width="430" height="883"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -869,14 +895,20 @@
                         <viewLayoutGuide key="safeArea" id="KKx-pX-eG5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="SHw-UX-IqO" firstAttribute="bottom" secondItem="KKx-pX-eG5" secondAttribute="bottom" id="3dr-u9-Vzv"/>
                             <constraint firstItem="IHn-D3-gSl" firstAttribute="top" secondItem="5fg-lY-BBi" secondAttribute="top" id="Erd-d2-s3z"/>
                             <constraint firstItem="IHn-D3-gSl" firstAttribute="leading" secondItem="KKx-pX-eG5" secondAttribute="leading" id="F4w-p0-Uie"/>
                             <constraint firstItem="IHn-D3-gSl" firstAttribute="bottom" secondItem="KKx-pX-eG5" secondAttribute="bottom" id="I1Z-jF-1pc"/>
+                            <constraint firstItem="SHw-UX-IqO" firstAttribute="top" secondItem="5fg-lY-BBi" secondAttribute="top" id="eFt-gY-ALR"/>
+                            <constraint firstItem="SHw-UX-IqO" firstAttribute="trailing" secondItem="KKx-pX-eG5" secondAttribute="trailing" id="eyG-f2-U2I"/>
+                            <constraint firstItem="SHw-UX-IqO" firstAttribute="leading" secondItem="KKx-pX-eG5" secondAttribute="leading" id="kkD-xU-WbR"/>
                             <constraint firstItem="IHn-D3-gSl" firstAttribute="trailing" secondItem="KKx-pX-eG5" secondAttribute="trailing" id="wie-hB-Rv2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qJ4-SF-ztd"/>
                     <connections>
+                        <outlet property="emptyLabel" destination="CR6-W4-mei" id="cHb-hg-kbt"/>
+                        <outlet property="emptyView" destination="SHw-UX-IqO" id="mo7-FA-pDi"/>
                         <outlet property="tableView" destination="IHn-D3-gSl" id="f85-A0-48p"/>
                     </connections>
                 </viewController>
@@ -886,8 +918,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="o66-rl-iad"/>
-        <segue reference="iJ4-yY-iRW"/>
+        <segue reference="yeI-wc-WIq"/>
+        <segue reference="WLz-h5-9iH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BW"/>
     <resources>

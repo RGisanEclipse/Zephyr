@@ -12,6 +12,7 @@ struct PostRenderViewModel{
 enum PostRenderType{
     case header(provider: UserModel)
     case primaryContent(provider: UserPost)
-    case actions(provider: String)
+    case actions(provider: UserPost)
+    case likes(provider: [PostLike])
     case comments(comments: [PostComment])
 }

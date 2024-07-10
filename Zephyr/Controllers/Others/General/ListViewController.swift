@@ -11,13 +11,22 @@ class ListViewController: UIViewController {
     
     var data = [UserRelationship]()
     
+    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emptyLabel: UILabel!
     
     var viewTitle: String?
     override func viewDidLoad() {
         super.viewDidLoad()
+        emptyView.isHidden = true
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.topItem?.title = " "
         self.navigationItem.title = viewTitle ?? "List View"
+        if data.isEmpty{
+            tableView.isHidden = true
+            emptyView.isHidden = false
+            emptyLabel.text = "No \(viewTitle ?? "")"
+        }
         tableView.register(UINib(nibName: Constants.List.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.List.cellIdentifier)
         tableView.dataSource = self
     }

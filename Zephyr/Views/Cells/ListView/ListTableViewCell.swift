@@ -10,15 +10,6 @@ protocol UserFollowTableViewCellDelegate: AnyObject {
     func didTapFollowButton(model: UserRelationship)
 }
 
-enum FollowState {
-    case following, notFollowing
-}
-
-struct UserRelationship {
-    let username: String
-    var type: FollowState
-}
-
 class ListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profilePictureButton: UIButton!
@@ -46,7 +37,7 @@ class ListTableViewCell: UITableViewCell {
         usernameButton.setTitle(model.username, for: .normal)
         switch model.type {
         case .following:
-            followButton.setTitle("Unfollow", for: .normal)
+            followButton.setTitle("Following", for: .normal)
             followButton.tintColor = .systemGray
         case .notFollowing:
             followButton.setTitle("Follow", for: .normal)
