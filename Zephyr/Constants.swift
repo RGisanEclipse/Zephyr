@@ -89,4 +89,7 @@ struct Constants{
         static let commentsCellIdentifier = "HomeCommentsTableViewCell"
         static let commentsSegue = "homeToCommentsVC"
     }
+    struct UploadMedia{
+        static let collectionCellIdentifier = "UploadMediaCollectionViewCell"
+    }
 }

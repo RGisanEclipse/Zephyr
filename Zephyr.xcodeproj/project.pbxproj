@@ -20,7 +20,7 @@
 		B91B50832C21A61300DC212E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B91B50822C21A61300DC212E /* Assets.xcassets */; };
 		B91B50862C21A61300DC212E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B91B50852C21A61300DC212E /* Base */; };
 		B91B50932C21A7C800DC212E /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50922C21A7C800DC212E /* ExploreViewController.swift */; };
-		B91B50952C21A7ED00DC212E /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50942C21A7ED00DC212E /* CameraViewController.swift */; };
+		B91B50952C21A7ED00DC212E /* UploadMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50942C21A7ED00DC212E /* UploadMediaViewController.swift */; };
 		B91B50972C21A7F800DC212E /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50962C21A7F800DC212E /* NotificationsViewController.swift */; };
 		B91B50992C21A80200DC212E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50982C21A80200DC212E /* ProfileViewController.swift */; };
 		B91B509E2C21A90400DC212E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B509D2C21A90400DC212E /* LoginViewController.swift */; };
@@ -84,6 +84,8 @@
 		B9E2B7F92C2B75C300023DE8 /* Brevo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2B7F82C2B75C300023DE8 /* Brevo.swift */; };
 		B9ED55942C21B72200CC9D35 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED55932C21B72200CC9D35 /* AuthManager.swift */; };
 		B9ED55962C21B77E00CC9D35 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED55952C21B77E00CC9D35 /* StorageManager.swift */; };
+		B9F16B3F2C401B28002497D7 /* UploadMediaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F16B3D2C401B28002497D7 /* UploadMediaCollectionViewCell.swift */; };
+		B9F16B402C401B28002497D7 /* UploadMediaCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9F16B3E2C401B28002497D7 /* UploadMediaCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,7 +104,7 @@
 		B91B50852C21A61300DC212E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B91B50872C21A61300DC212E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B91B50922C21A7C800DC212E /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
-		B91B50942C21A7ED00DC212E /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		B91B50942C21A7ED00DC212E /* UploadMediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadMediaViewController.swift; sourceTree = "<group>"; };
 		B91B50962C21A7F800DC212E /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		B91B50982C21A80200DC212E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B91B509D2C21A90400DC212E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,8 @@
 		B9E2B7F82C2B75C300023DE8 /* Brevo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brevo.swift; sourceTree = "<group>"; };
 		B9ED55932C21B72200CC9D35 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		B9ED55952C21B77E00CC9D35 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		B9F16B3D2C401B28002497D7 /* UploadMediaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadMediaCollectionViewCell.swift; sourceTree = "<group>"; };
+		B9F16B3E2C401B28002497D7 /* UploadMediaCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UploadMediaCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,7 +303,7 @@
 			children = (
 				B91B507D2C21A61200DC212E /* HomeViewController.swift */,
 				B91B50922C21A7C800DC212E /* ExploreViewController.swift */,
-				B91B50942C21A7ED00DC212E /* CameraViewController.swift */,
+				B91B50942C21A7ED00DC212E /* UploadMediaViewController.swift */,
 				B91B50962C21A7F800DC212E /* NotificationsViewController.swift */,
 				B91B50982C21A80200DC212E /* ProfileViewController.swift */,
 			);
@@ -410,6 +414,7 @@
 		B9E8B10E2C259F1900CBA09B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B9F16B3C2C401AF9002497D7 /* UploadCollectionView */,
 				B97E45FA2C3FD90A00EB274E /* CommentsView */,
 				B9DE03C92C3C2B0200662FFE /* HomeView */,
 				B97451222C3BF5AB00E9D63A /* PostView */,
@@ -421,6 +426,15 @@
 				B9013D272C33141900700932 /* Notifications */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		B9F16B3C2C401AF9002497D7 /* UploadCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				B9F16B3D2C401B28002497D7 /* UploadMediaCollectionViewCell.swift */,
+				B9F16B3E2C401B28002497D7 /* UploadMediaCollectionViewCell.xib */,
+			);
+			path = UploadCollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -497,6 +511,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9F16B402C401B28002497D7 /* UploadMediaCollectionViewCell.xib in Resources */,
 				B933BD7F2C3BFACF008D887D /* PostActionsTableViewCell.xib in Resources */,
 				B9152F062C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib in Resources */,
 				B96C7CD72C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib in Resources */,
@@ -539,7 +554,7 @@
 				B91B50B02C21AA1200DC212E /* PublishPostViewController.swift in Sources */,
 				B9013D252C33141000700932 /* NotificationLikeTableViewCell.swift in Sources */,
 				B91B50932C21A7C800DC212E /* ExploreViewController.swift in Sources */,
-				B91B50952C21A7ED00DC212E /* CameraViewController.swift in Sources */,
+				B91B50952C21A7ED00DC212E /* UploadMediaViewController.swift in Sources */,
 				B9152F072C314780006B22D6 /* ProfileHeaderCollectionReusableView.swift in Sources */,
 				B91B507E2C21A61200DC212E /* HomeViewController.swift in Sources */,
 				B9AA62832C26077C00D35CD8 /* EditProfileFormModel.swift in Sources */,
@@ -556,6 +571,7 @@
 				B9152F0E2C315209006B22D6 /* ProfileTabsCollectionReusableView.swift in Sources */,
 				B9DE03CF2C3C358100662FFE /* HomeRenderViewModel.swift in Sources */,
 				B933BD7A2C3BFA9E008D887D /* PostHeaderTableViewCell.swift in Sources */,
+				B9F16B3F2C401B28002497D7 /* UploadMediaCollectionViewCell.swift in Sources */,
 				B91B50AC2C21A9CC00DC212E /* SearchResultViewController.swift in Sources */,
 				B91B509E2C21A90400DC212E /* LoginViewController.swift in Sources */,
 				B98B4DA82C3F17DB0020B9E6 /* CommentsViewController.swift in Sources */,
