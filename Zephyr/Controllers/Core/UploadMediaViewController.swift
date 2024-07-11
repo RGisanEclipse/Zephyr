@@ -20,10 +20,10 @@ class UploadMediaViewController: UIViewController {
     private let imageManager = PHCachingImageManager()
     private var avPlayer: AVPlayer?
     private var avPlayerLayer: AVPlayerLayer?
-    
+    private var shouldShowAlertForSettings = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkGalleryPermission()
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(UINib(nibName: Constants.UploadMedia.collectionCellIdentifier, bundle: nil), forCellWithReuseIdentifier: Constants.UploadMedia.collectionCellIdentifier)
@@ -31,6 +31,7 @@ class UploadMediaViewController: UIViewController {
         if chosenAsset == nil{
             nextButton.isHidden = true
         }
+        checkGalleryPermission()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +39,10 @@ class UploadMediaViewController: UIViewController {
         nextButton.isHidden = true
         chosenAsset = nil
         imageView.image = nil
+        if shouldShowAlertForSettings {
+            showAlertForSettings()
+            shouldShowAlertForSettings = false
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -50,7 +55,7 @@ class UploadMediaViewController: UIViewController {
         let authStatus = PHPhotoLibrary.authorizationStatus()
         switch authStatus {
         case .denied:
-            showAlertForSettings()
+            shouldShowAlertForSettings = true
         case .authorized, .limited:
             fetchMedia()
         case .restricted:
@@ -62,9 +67,12 @@ class UploadMediaViewController: UIViewController {
                         self.fetchMedia()
                     }
                 } else {
-                    print("Permission not granted")
+                    DispatchQueue.main.async {
+                        self.shouldShowAlertForSettings = true
+                    }
                 }
             }
+
         @unknown default:
             break
         }
