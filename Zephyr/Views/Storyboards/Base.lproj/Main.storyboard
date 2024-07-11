@@ -171,7 +171,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="EeT-Cq-zmk">
-                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
+                                <rect key="frame" x="0.0" y="44" width="430" height="779"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentsTableViewCell" id="D2N-mk-zVj">
@@ -184,19 +184,55 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a comment" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4KU-0z-2FJ">
+                                <rect key="frame" x="65" y="833" width="305" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="nJV-B3-UyN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                            </textField>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="y1u-HJ-TVr">
+                                <rect key="frame" x="15" y="839" width="35" height="33.666666666666629"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="FKa-Pm-cVX"/>
+                                    <constraint firstAttribute="width" constant="35" id="H17-MF-QqB"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dzw-50-bS5">
+                                <rect key="frame" x="385" y="838.66666666666663" width="30" height="29.333333333333371"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="L7L-cv-mwu"/>
+                                    <constraint firstAttribute="width" constant="30" id="aPj-E9-I2z"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" backgroundImage="paperplane.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="postCommentButtonPressed:" destination="auJ-xN-8qx" eventType="touchUpInside" id="kkk-pD-h9L"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ox7-zt-5eL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="EeT-Cq-zmk" firstAttribute="bottom" secondItem="Ox7-zt-5eL" secondAttribute="bottom" id="5Bm-XX-low"/>
-                            <constraint firstItem="EeT-Cq-zmk" firstAttribute="top" secondItem="Ox7-zt-5eL" secondAttribute="top" id="QBN-uR-OBh"/>
-                            <constraint firstItem="EeT-Cq-zmk" firstAttribute="trailing" secondItem="Ox7-zt-5eL" secondAttribute="trailing" id="SMT-bP-QBp"/>
-                            <constraint firstItem="EeT-Cq-zmk" firstAttribute="leading" secondItem="Ox7-zt-5eL" secondAttribute="leading" id="h7v-Rx-Q7y"/>
+                            <constraint firstItem="Ox7-zt-5eL" firstAttribute="bottom" secondItem="Dzw-50-bS5" secondAttribute="bottom" constant="15" id="0T7-j1-aDV"/>
+                            <constraint firstItem="Ox7-zt-5eL" firstAttribute="bottom" secondItem="4KU-0z-2FJ" secondAttribute="bottom" constant="10" id="1h6-RM-LO0"/>
+                            <constraint firstItem="y1u-HJ-TVr" firstAttribute="leading" secondItem="Ox7-zt-5eL" secondAttribute="leading" constant="15" id="5d2-P1-EWX"/>
+                            <constraint firstItem="Ox7-zt-5eL" firstAttribute="trailing" secondItem="Dzw-50-bS5" secondAttribute="trailing" constant="15" id="KFX-9E-aGT"/>
+                            <constraint firstItem="Ox7-zt-5eL" firstAttribute="bottom" secondItem="y1u-HJ-TVr" secondAttribute="bottom" constant="10" id="Mpz-R9-Tcr"/>
+                            <constraint firstItem="EeT-Cq-zmk" firstAttribute="top" secondItem="Ox7-zt-5eL" secondAttribute="top" id="V34-HJ-vxc"/>
+                            <constraint firstItem="EeT-Cq-zmk" firstAttribute="trailing" secondItem="Ox7-zt-5eL" secondAttribute="trailing" id="W8t-IR-DtB"/>
+                            <constraint firstItem="EeT-Cq-zmk" firstAttribute="leading" secondItem="Ox7-zt-5eL" secondAttribute="leading" id="kKB-3d-cRb"/>
+                            <constraint firstItem="4KU-0z-2FJ" firstAttribute="leading" secondItem="y1u-HJ-TVr" secondAttribute="trailing" constant="15" id="nLS-f6-ruR"/>
+                            <constraint firstItem="Dzw-50-bS5" firstAttribute="leading" secondItem="4KU-0z-2FJ" secondAttribute="trailing" constant="15" id="nrA-le-9qw"/>
+                            <constraint firstItem="4KU-0z-2FJ" firstAttribute="top" secondItem="EeT-Cq-zmk" secondAttribute="bottom" constant="10" id="t7S-mj-OgC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Comments" id="FJZ-8Y-PeC"/>
                     <connections>
+                        <outlet property="commentsTextField" destination="4KU-0z-2FJ" id="VGi-5r-u6d"/>
                         <outlet property="tableView" destination="EeT-Cq-zmk" id="aoo-Lv-xU0"/>
+                        <outlet property="userProfileImage" destination="y1u-HJ-TVr" id="2Bw-9Y-cr5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BMZ-xK-8aO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -976,6 +1012,7 @@
         <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
+        <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
