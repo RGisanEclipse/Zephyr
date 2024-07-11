@@ -15,10 +15,13 @@ class HomeCommentsTableViewCell: UITableViewCell {
     @IBOutlet weak var viewCommentsButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
     weak var delegate: HomeCommentsTableViewCellDelegate?
+    var model: UserPost?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     func configure(with model: UserPost){
+        self.model = model
         let dateFormatter = DateFormatter()
         let calendar = Calendar.current
             let currentYear = calendar.component(.year, from: Date())
@@ -29,5 +32,12 @@ class HomeCommentsTableViewCell: UITableViewCell {
                 dateFormatter.dateFormat = "MMM yyyy"
             }
         dateLabel.text = dateFormatter.string(from: model.createDate)
+    }
+    
+    @IBAction func commentsButtonPressed(_ sender: UIButton) {
+        guard let postModel = model else{
+            return
+        }
+        delegate?.didTapCommentsButton(with: postModel)
     }
 }

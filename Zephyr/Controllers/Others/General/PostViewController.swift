@@ -49,6 +49,10 @@ class PostViewController: UIViewController {
             }
             destinationVC.data = userData.convertPostLikesToUserRelationships(postLikes: likesSafeData)
         }
+        if segue.identifier == Constants.Post.commentsSegue{
+            let destinationVC = segue.destination as! CommentsViewController
+            destinationVC.model = model
+        }
     }
 }
 
@@ -74,10 +78,12 @@ extension PostViewController: UITableViewDataSource{
         case .actions(let actions):
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.actionsCellIdentifier, for: indexPath) as! PostActionsTableViewCell
             cell.configure(with: actions, userName: userData.userName)
+            cell.delegate = self
             return cell
         case .comments(let post):
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Home.commentsCellIdentifier, for: indexPath) as! HomeCommentsTableViewCell
             cell.configure(with: post)
+            cell.delegate = self
             return cell
         case .header(let user):
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.headerCellIdentifier, for: indexPath) as! PostHeaderTableViewCell
@@ -148,10 +154,31 @@ extension PostViewController: PostHeaderTableViewCellDelegate{
     }
 }
 
+// MARK: - PostActionsTableViewCellDelegate
+extension PostViewController: PostActionsTableViewCellDelegate{
+    func didTapCommentButton(with model: UserPost) {
+        self.performSegue(withIdentifier: Constants.Post.commentsSegue, sender: self)
+    }
+    func didTapLikeButton() {
+        // Logic to like the post
+    }
+    
+    func didTapSaveButton() {
+        // Logic to save the post
+    }
+}
+
 // MARK: - PostLikesTableViewCellDelegate
 extension PostViewController: PostLikesTableViewCellDelegate{
     func didTapLikesButton(with likesData: [PostLike]) {
         self.likesData = likesData
         self.performSegue(withIdentifier: Constants.Post.likesSegue, sender: self)
+    }
+}
+
+// MARK: - HomeCommentsTableViewCellDelegate
+extension PostViewController: HomeCommentsTableViewCellDelegate{
+    func didTapCommentsButton(with model: UserPost) {
+        self.performSegue(withIdentifier: Constants.Post.commentsSegue, sender: self)
     }
 }

@@ -88,6 +88,7 @@
                         <outlet property="tableView" destination="Wg3-wp-bqd" id="uBb-Xz-FhF"/>
                         <segue destination="7nC-wE-8Je" kind="show" identifier="homeToLikesView" id="yeI-wc-WIq"/>
                         <segue destination="Xwk-ch-pAD" kind="show" identifier="homeToPostVC" id="WLz-h5-9iH"/>
+                        <segue destination="auJ-xN-8qx" kind="show" identifier="homeToCommentsVC" id="Q0E-0G-eJa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CfY-iB-9FU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -161,6 +162,47 @@
             </objects>
             <point key="canvasLocation" x="3571" y="1170"/>
         </scene>
+        <!--CommentsViewController-->
+        <scene sceneID="YhZ-h0-FCZ">
+            <objects>
+                <viewController title="CommentsViewController" id="auJ-xN-8qx" customClass="CommentsViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CkW-1h-6DK">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="EeT-Cq-zmk">
+                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentsTableViewCell" id="D2N-mk-zVj">
+                                        <rect key="frame" x="0.0" y="50" width="430" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D2N-mk-zVj" id="Q0Q-8Y-evo">
+                                            <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ox7-zt-5eL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="EeT-Cq-zmk" firstAttribute="bottom" secondItem="Ox7-zt-5eL" secondAttribute="bottom" id="5Bm-XX-low"/>
+                            <constraint firstItem="EeT-Cq-zmk" firstAttribute="top" secondItem="Ox7-zt-5eL" secondAttribute="top" id="QBN-uR-OBh"/>
+                            <constraint firstItem="EeT-Cq-zmk" firstAttribute="trailing" secondItem="Ox7-zt-5eL" secondAttribute="trailing" id="SMT-bP-QBp"/>
+                            <constraint firstItem="EeT-Cq-zmk" firstAttribute="leading" secondItem="Ox7-zt-5eL" secondAttribute="leading" id="h7v-Rx-Q7y"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Comments" id="FJZ-8Y-PeC"/>
+                    <connections>
+                        <outlet property="tableView" destination="EeT-Cq-zmk" id="aoo-Lv-xU0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BMZ-xK-8aO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1816.7441860465117" y="1919.7424892703864"/>
+        </scene>
         <!--Post-->
         <scene sceneID="4U9-W3-8lp">
             <objects>
@@ -197,6 +239,7 @@
                     <connections>
                         <outlet property="tableView" destination="BMq-E5-LRp" id="mch-M0-lbk"/>
                         <segue destination="7nC-wE-8Je" kind="show" identifier="postToLikesView" id="2yp-pk-8zc"/>
+                        <segue destination="auJ-xN-8qx" kind="show" identifier="postToCommentsVC" id="6L6-eE-TGL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvS-Pa-jtG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -922,7 +965,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="yeI-wc-WIq"/>
-        <segue reference="WLz-h5-9iH"/>
+        <segue reference="Ug1-UI-m2f"/>
+        <segue reference="6L6-eE-TGL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BW"/>
     <resources>

@@ -19,10 +19,6 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         createMockModels()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.navigationBar.isHidden = true
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: Constants.Post.headerCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.headerCellIdentifier)
@@ -39,6 +35,10 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = true
+    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         for cell in tableView.visibleCells{
@@ -48,30 +48,24 @@ class HomeViewController: UIViewController {
             }
         }
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        scrollToTop()
-    }
-    func scrollToTop() {
-        if feedRenderModels.isEmpty {
-            return
-        }
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-    }
     private func createMockModels(){
-        var comments = [PostComment]()
-        comments.append(PostComment(identifier: "x", user: UserModel(userName: "TheJoker", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []), text: "Wanna know how I got that smile?", createdDate: Date(), likes: []))
-        comments.append(PostComment(identifier: "y", user: UserModel(userName: "TheRiddler", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []), text: "Let's meet at Iceberg Lounge :)", createdDate: Date(), likes: []))
-        let post = UserPost(identifier: "", postType: .photo, thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postURL: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, caption: "The Batman (2022)", likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "x")], comments: comments, createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []))
-        for _ in 0..<5{
-            let viewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []))),
-                                                post: PostRenderViewModel(renderType: .primaryContent(provider: post)),
-                                                actions: PostRenderViewModel(renderType: .actions(provider: post)),
-                                                likes: PostRenderViewModel(renderType: .likes(provider: post.likeCount)),
-                                                caption: PostRenderViewModel(renderType: .caption(provider: post.caption ?? "")),
-                                                comments: PostRenderViewModel(renderType: .comments(provider: post)))
-            feedRenderModels.append(viewModel)
+        DispatchQueue.global().async {
+            var comments = [PostComment]()
+            comments.append(PostComment(identifier: "x", user: UserModel(userName: "TheJoker", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []), text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", createdDate: Date(), likes: []))
+            comments.append(PostComment(identifier: "y", user: UserModel(userName: "TheRiddler", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []), text: "Let's meet at Iceberg Lounge :)", createdDate: Date(), likes: []))
+            let post = UserPost(identifier: "", postType: .photo, thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postURL: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, caption: "The Batman (2022)", likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "x")], comments: comments, createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []))
+            for _ in 0..<5 {
+                let viewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []))),
+                                                    post: PostRenderViewModel(renderType: .primaryContent(provider: post)),
+                                                    actions: PostRenderViewModel(renderType: .actions(provider: post)),
+                                                    likes: PostRenderViewModel(renderType: .likes(provider: post.likeCount)),
+                                                    caption: PostRenderViewModel(renderType: .caption(provider: post.caption ?? "")),
+                                                    comments: PostRenderViewModel(renderType: .comments(provider: post)))
+                self.feedRenderModels.append(viewModel)
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -82,8 +76,8 @@ class HomeViewController: UIViewController {
                 return
             }
             destinationVC.data = userData.convertPostLikesToUserRelationships(postLikes: likesSafeData)
-        } else if segue.identifier == Constants.Home.postSegue{
-            let destinationVC = segue.destination as! PostViewController
+        } else if segue.identifier == Constants.Home.commentsSegue{
+            let destinationVC = segue.destination as! CommentsViewController
             destinationVC.model = postSegueModel
         }
     }
@@ -205,6 +199,7 @@ extension HomeViewController: UITableViewDataSource{
             case .comments(let post):
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Home.commentsCellIdentifier, for: indexPath) as! HomeCommentsTableViewCell
                 cell.configure(with: post)
+                cell.delegate = self
                 return cell
             case .header, .primaryContent, .actions, .likes, .caption: return UITableViewCell()
             }
@@ -288,7 +283,7 @@ extension HomeViewController: PostHeaderTableViewCellDelegate{
 extension HomeViewController: PostActionsTableViewCellDelegate{
     func didTapCommentButton(with model: UserPost) {
         self.postSegueModel = model
-        self.performSegue(withIdentifier: Constants.Home.postSegue, sender: self)
+        self.performSegue(withIdentifier: Constants.Home.commentsSegue, sender: self)
     }
     func didTapLikeButton() {
         // Logic to like the post
@@ -315,5 +310,13 @@ extension HomeViewController: HomeLogoTableViewCellDelegate{
             alert.dismiss(animated: true, completion: nil)
         })
         present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - HomeCommentsTableViewCellDelegate
+extension HomeViewController: HomeCommentsTableViewCellDelegate{
+    func didTapCommentsButton(with model: UserPost) {
+        self.postSegueModel = model
+        self.performSegue(withIdentifier: Constants.Home.commentsSegue, sender: self)
     }
 }

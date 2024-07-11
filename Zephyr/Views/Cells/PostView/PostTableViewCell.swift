@@ -28,23 +28,39 @@ class PostTableViewCell: UITableViewCell {
     func configure(with model: UserPost) {
         switch model.postType {
         case .photo:
-            spinner.isHidden = true
-            postImageView.isHidden = false
-            let imageURL = model.postURL
-            postImageView.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"))
+            configurePhoto(with: model.postURL)
         case .video:
-            postImageView.isHidden = true
-            speakerButton.isHidden = false
-            spinner.startAnimating()
-            let url = model.postURL
-            player = AVPlayer(url: url)
-            playerLayer.player = player
-            playerLayer.frame = contentView.bounds
-            player?.volume = 0
-            player?.play()
-            player?.addObserver(self, forKeyPath: "status", options: .new, context: nil)
+            configureVideo(with: model.postURL)
         }
     }
+
+    private func configurePhoto(with url: URL) {
+        DispatchQueue.main.async { [weak self] in
+            self?.spinner.isHidden = true
+            self?.postImageView.isHidden = false
+            self?.postImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"))
+        }
+    }
+
+    private func configureVideo(with url: URL) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            self.spinner.startAnimating()
+            let player = AVPlayer(url: url)
+            
+            DispatchQueue.main.async {
+                self.player = player
+                self.postImageView.isHidden = true
+                self.speakerButton.isHidden = false
+                self.playerLayer.player = player
+                self.playerLayer.frame = self.contentView.bounds
+                self.player?.volume = 0
+                self.player?.play()
+                self.player?.addObserver(self, forKeyPath: "status", options: .new, context: nil)
+            }
+        }
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         playerLayer.frame = contentView.bounds

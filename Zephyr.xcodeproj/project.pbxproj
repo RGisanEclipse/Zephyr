@@ -56,6 +56,8 @@
 		B97AC6B22C3EB820004C175E /* HomeCommentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B97AC6B02C3EB820004C175E /* HomeCommentsTableViewCell.xib */; };
 		B97AC6B92C3EC66F004C175E /* PostCaptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97AC6B72C3EC66F004C175E /* PostCaptionTableViewCell.swift */; };
 		B97AC6BA2C3EC66F004C175E /* PostCaptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B97AC6B82C3EC66F004C175E /* PostCaptionTableViewCell.xib */; };
+		B97E45FD2C3FD93700EB274E /* CommentsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E45FB2C3FD93700EB274E /* CommentsHeaderTableViewCell.swift */; };
+		B97E45FE2C3FD93700EB274E /* CommentsHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B97E45FC2C3FD93700EB274E /* CommentsHeaderTableViewCell.xib */; };
 		B97EE49F2C277BAC00B3CF6F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE49E2C277BAC00B3CF6F /* UserModel.swift */; };
 		B98194D12C21B08100C7D62C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B98194D02C21B08100C7D62C /* FirebaseAnalytics */; };
 		B98194D32C21B08100C7D62C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B98194D22C21B08100C7D62C /* FirebaseAuth */; };
@@ -64,6 +66,7 @@
 		B98194D92C21B10600C7D62C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B98194D82C21B10600C7D62C /* GoogleService-Info.plist */; };
 		B98194DC2C21B65600C7D62C /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98194DB2C21B65600C7D62C /* DatabaseManager.swift */; };
 		B984836F2C24C4AE003570F3 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B984836E2C24C4AE003570F3 /* SplashScreenViewController.swift */; };
+		B98B4DA82C3F17DB0020B9E6 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98B4DA72C3F17DB0020B9E6 /* CommentsViewController.swift */; };
 		B98FC0652C2815E5002B9194 /* ProfileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B98FC0642C2815E5002B9194 /* ProfileCollectionViewCell.xib */; };
 		B98FC0662C2815E5002B9194 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98FC0632C2815E5002B9194 /* ProfileCollectionViewCell.swift */; };
 		B98FC0692C2817BB002B9194 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = B98FC0682C2817BB002B9194 /* SDWebImage */; };
@@ -134,10 +137,13 @@
 		B97AC6B02C3EB820004C175E /* HomeCommentsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCommentsTableViewCell.xib; sourceTree = "<group>"; };
 		B97AC6B72C3EC66F004C175E /* PostCaptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCaptionTableViewCell.swift; sourceTree = "<group>"; };
 		B97AC6B82C3EC66F004C175E /* PostCaptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCaptionTableViewCell.xib; sourceTree = "<group>"; };
+		B97E45FB2C3FD93700EB274E /* CommentsHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		B97E45FC2C3FD93700EB274E /* CommentsHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentsHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		B97EE49E2C277BAC00B3CF6F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		B98194D82C21B10600C7D62C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B98194DB2C21B65600C7D62C /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		B984836E2C24C4AE003570F3 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
+		B98B4DA72C3F17DB0020B9E6 /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		B98FC0632C2815E5002B9194 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		B98FC0642C2815E5002B9194 /* ProfileCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCollectionViewCell.xib; sourceTree = "<group>"; };
 		B9907BE02C2E81D800984BB3 /* EmailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailModel.swift; sourceTree = "<group>"; };
@@ -365,6 +371,15 @@
 			path = PostView;
 			sourceTree = "<group>";
 		};
+		B97E45FA2C3FD90A00EB274E /* CommentsView */ = {
+			isa = PBXGroup;
+			children = (
+				B97E45FB2C3FD93700EB274E /* CommentsHeaderTableViewCell.swift */,
+				B97E45FC2C3FD93700EB274E /* CommentsHeaderTableViewCell.xib */,
+			);
+			path = CommentsView;
+			sourceTree = "<group>";
+		};
 		B98194DA2C21B59000C7D62C /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,6 +391,7 @@
 				B91B50AB2C21A9CC00DC212E /* SearchResultViewController.swift */,
 				B91B50AD2C21AA0000DC212E /* PostEditorViewController.swift */,
 				B91B50AF2C21AA1200DC212E /* PublishPostViewController.swift */,
+				B98B4DA72C3F17DB0020B9E6 /* CommentsViewController.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -394,6 +410,7 @@
 		B9E8B10E2C259F1900CBA09B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B97E45FA2C3FD90A00EB274E /* CommentsView */,
 				B9DE03C92C3C2B0200662FFE /* HomeView */,
 				B97451222C3BF5AB00E9D63A /* PostView */,
 				B9152F032C31473D006B22D6 /* ProfileHeader */,
@@ -490,6 +507,7 @@
 				B97AC6B22C3EB820004C175E /* HomeCommentsTableViewCell.xib in Resources */,
 				B933BD872C3BFB9F008D887D /* PostTableViewCell.xib in Resources */,
 				B9DE03CC2C3C2B3B00662FFE /* HomeLogoTableViewCell.xib in Resources */,
+				B97E45FE2C3FD93700EB274E /* CommentsHeaderTableViewCell.xib in Resources */,
 				B933BD832C3BFADF008D887D /* PostGeneralTableViewCell.xib in Resources */,
 				B9CADB762C3E6B900023B7E8 /* PostLikesTableViewCell.xib in Resources */,
 				B98FC0652C2815E5002B9194 /* ProfileCollectionViewCell.xib in Resources */,
@@ -540,6 +558,7 @@
 				B933BD7A2C3BFA9E008D887D /* PostHeaderTableViewCell.swift in Sources */,
 				B91B50AC2C21A9CC00DC212E /* SearchResultViewController.swift in Sources */,
 				B91B509E2C21A90400DC212E /* LoginViewController.swift in Sources */,
+				B98B4DA82C3F17DB0020B9E6 /* CommentsViewController.swift in Sources */,
 				B933BD862C3BFB9F008D887D /* PostTableViewCell.swift in Sources */,
 				B94DF7462C260E0B00C8EE94 /* FormTableViewCell.swift in Sources */,
 				B9CADB772C3E6B900023B7E8 /* PostLikesTableViewCell.swift in Sources */,
@@ -550,6 +569,7 @@
 				B91B507A2C21A61200DC212E /* AppDelegate.swift in Sources */,
 				B933BD822C3BFADF008D887D /* PostGeneralTableViewCell.swift in Sources */,
 				B91B507C2C21A61200DC212E /* SceneDelegate.swift in Sources */,
+				B97E45FD2C3FD93700EB274E /* CommentsHeaderTableViewCell.swift in Sources */,
 				B91B50A82C21A99600DC212E /* ListViewController.swift in Sources */,
 				B9907BE12C2E81D800984BB3 /* EmailModel.swift in Sources */,
 				B97EE49F2C277BAC00B3CF6F /* UserModel.swift in Sources */,
