@@ -1,5 +1,5 @@
 //
-//  UploadMediaCollectionViewCell.swift
+//  CreatePostViewController.swift
 //  Zephyr
 //
 //  Created by Eclipse on 11/07/24.
@@ -8,30 +8,34 @@
 import UIKit
 import Photos
 
-class UploadMediaCollectionViewCell: UICollectionViewCell {
-
+class CreatePostViewController: UIViewController {
+    
+    var asset: PHAsset?
+    
+    @IBOutlet weak var mediaView: UIView!
+    @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var videoIndicator: UIImageView!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        imageView.contentMode = .scaleAspectFill
-        videoIndicator.isHidden = true
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        captionTextView.layer.cornerRadius = CGFloat(10)
+        captionTextView.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
+        captionTextView.delegate = self
+        loadAsset()
     }
-    func configure(with asset: PHAsset, targetSize: CGSize) {
-        switch asset.mediaType {
+    func loadAsset(){
+        guard let safeAsset = asset else{
+            return
+        }
+        let targetSize = CGSize(width: imageView.frame.width, height: imageView.frame.height)
+        switch safeAsset.mediaType {
         case .image:
-            configureForImage(with: asset, targetSize: targetSize)
-            videoIndicator.isHidden = true
+            configureForImage(with: safeAsset, targetSize: targetSize)
         case .video:
-            configureForVideo(with: asset)
-            videoIndicator.isHidden = false
+            configureForVideo(with: safeAsset)
         default:
             break
         }
-    }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.bringSubviewToFront(videoIndicator)
     }
     private func configureForImage(with asset: PHAsset, targetSize: CGSize) {
         let options = PHImageRequestOptions()
@@ -69,4 +73,15 @@ class UploadMediaCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+}
+
+// MARK: - UITextFieldDelegate
+extension CreatePostViewController: UITextViewDelegate{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+            navigationController?.setNavigationBarHidden(true, animated: false)
+        }
+        
+        func textViewDidEndEditing(_ textView: UITextView) {
+            navigationController?.setNavigationBarHidden(false, animated: false)
+        }
 }

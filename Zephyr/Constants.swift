@@ -91,5 +91,6 @@ struct Constants{
     }
     struct UploadMedia{
         static let collectionCellIdentifier = "UploadMediaCollectionViewCell"
+        static let captionSegue = "createPostToCaptionSegue"
     }
 }

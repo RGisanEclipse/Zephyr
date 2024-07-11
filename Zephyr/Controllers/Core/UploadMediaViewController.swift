@@ -13,7 +13,9 @@ class UploadMediaViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mediaView: UIView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var nextButton: UIBarButtonItem!
     
+    private var chosenAsset: PHAsset?
     private var assets = [PHAsset]()
     private let imageManager = PHCachingImageManager()
     private var avPlayer: AVPlayer?
@@ -26,8 +28,18 @@ class UploadMediaViewController: UIViewController {
         collectionView.delegate = self
         collectionView.register(UINib(nibName: Constants.UploadMedia.collectionCellIdentifier, bundle: nil), forCellWithReuseIdentifier: Constants.UploadMedia.collectionCellIdentifier)
         imageView.image = nil
+        if chosenAsset == nil{
+            nextButton.isHidden = true
+        }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        nextButton.isHidden = true
+        chosenAsset = nil
+        imageView.image = nil
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         avPlayer?.pause()
@@ -85,6 +97,16 @@ class UploadMediaViewController: UIViewController {
             self.collectionView.reloadData()
         }
     }
+    
+    @IBAction func nextButtonPressed(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: Constants.UploadMedia.captionSegue, sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.UploadMedia.captionSegue{
+            let destinationVC = segue.destination as! CreatePostViewController
+            destinationVC.asset = chosenAsset
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -124,7 +146,8 @@ extension UploadMediaViewController: UICollectionViewDataSource {
 extension UploadMediaViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedAsset = assets[indexPath.item]
-        
+        self.chosenAsset = selectedAsset
+        nextButton.isHidden = false
         if selectedAsset.mediaType == .image {
             self.imageManager.requestImage(for: selectedAsset, targetSize: CGSize(width: imageView.bounds.width, height: imageView.bounds.height), contentMode: .aspectFill, options: nil) { image, _ in
                 self.imageView.image = image

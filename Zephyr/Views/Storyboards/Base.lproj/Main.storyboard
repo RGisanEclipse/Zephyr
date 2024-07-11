@@ -51,6 +51,71 @@
             </objects>
             <point key="canvasLocation" x="65" y="448"/>
         </scene>
+        <!--Create Post View Controller-->
+        <scene sceneID="hsp-oE-rZw">
+            <objects>
+                <viewController id="vof-8K-2iL" customClass="CreatePostViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Y55-YV-zn4">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7II-z9-IOO">
+                                <rect key="frame" x="0.0" y="44" width="430" height="330.66666666666669"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="yJy-TC-JRo">
+                                        <rect key="frame" x="49.666666666666657" y="0.0" width="330.66666666666674" height="330.66666666666669"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="yJy-TC-JRo" secondAttribute="height" multiplier="1:1" id="e7E-97-EfR"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="yJy-TC-JRo" firstAttribute="centerX" secondItem="7II-z9-IOO" secondAttribute="centerX" id="AGc-bG-oNR"/>
+                                    <constraint firstAttribute="width" secondItem="7II-z9-IOO" secondAttribute="height" multiplier="1.3:1" id="OUQ-4C-bKg"/>
+                                    <constraint firstItem="yJy-TC-JRo" firstAttribute="top" secondItem="7II-z9-IOO" secondAttribute="top" id="YgQ-Cu-Ehy"/>
+                                    <constraint firstAttribute="bottom" secondItem="yJy-TC-JRo" secondAttribute="bottom" id="mBO-38-Rcy"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a Caption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mYL-gv-RrM">
+                                <rect key="frame" x="15" y="394.66666666666669" width="400" height="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QfL-SN-pi2">
+                                <rect key="frame" x="15" y="422.66666666666669" width="400" height="33"/>
+                                <color key="backgroundColor" systemColor="underPageBackgroundColor"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DQw-ji-I4V"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mYL-gv-RrM" firstAttribute="top" secondItem="7II-z9-IOO" secondAttribute="bottom" constant="20" id="3uV-QH-cCn"/>
+                            <constraint firstItem="DQw-ji-I4V" firstAttribute="trailing" secondItem="mYL-gv-RrM" secondAttribute="trailing" constant="15" id="6gg-BS-rb8"/>
+                            <constraint firstItem="QfL-SN-pi2" firstAttribute="top" secondItem="mYL-gv-RrM" secondAttribute="bottom" constant="10" id="Jgh-Ec-yQd"/>
+                            <constraint firstItem="mYL-gv-RrM" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" constant="15" id="VuM-pO-E2T"/>
+                            <constraint firstItem="7II-z9-IOO" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" id="d0L-Al-z7g"/>
+                            <constraint firstItem="QfL-SN-pi2" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" constant="15" id="gyX-nm-zsb"/>
+                            <constraint firstItem="7II-z9-IOO" firstAttribute="top" secondItem="DQw-ji-I4V" secondAttribute="top" id="q64-ey-N1o"/>
+                            <constraint firstItem="7II-z9-IOO" firstAttribute="trailing" secondItem="DQw-ji-I4V" secondAttribute="trailing" id="rna-an-ae3"/>
+                            <constraint firstItem="DQw-ji-I4V" firstAttribute="trailing" secondItem="QfL-SN-pi2" secondAttribute="trailing" constant="15" id="yW6-HK-jXJ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="92g-m6-KyX"/>
+                    <connections>
+                        <outlet property="captionTextView" destination="QfL-SN-pi2" id="ohb-dD-Q4C"/>
+                        <outlet property="imageView" destination="yJy-TC-JRo" id="ipW-AR-aTI"/>
+                        <outlet property="mediaView" destination="7II-z9-IOO" id="Ggl-ef-hXg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lbv-rI-weF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1816.7441860465117" y="1919.7424892703864"/>
+        </scene>
         <!--Home View Controller-->
         <scene sceneID="axS-dU-gjq">
             <objects>
@@ -237,7 +302,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BMZ-xK-8aO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1816.7441860465117" y="1919.7424892703864"/>
+            <point key="canvasLocation" x="2720" y="2699"/>
         </scene>
         <!--Post-->
         <scene sceneID="4U9-W3-8lp">
@@ -539,12 +604,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Create Post" id="Thy-Pz-RBY">
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="aei-yC-uix"/>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="aei-yC-uix">
+                            <connections>
+                                <action selector="nextButtonPressed:" destination="mx9-mc-uuX" id="7qX-lJ-Qqs"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="7HK-pr-bwz" id="Hrf-AD-5tf"/>
                         <outlet property="imageView" destination="KnE-GF-drM" id="xUb-Zg-HjQ"/>
                         <outlet property="mediaView" destination="Mju-Hx-E7U" id="CPr-22-B3y"/>
+                        <outlet property="nextButton" destination="aei-yC-uix" id="Gcx-3b-Uuf"/>
+                        <segue destination="vof-8K-2iL" kind="show" identifier="createPostToCaptionSegue" id="ZEW-9A-sOt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DaI-ha-YvN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1098,6 +1169,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="underPageBackgroundColor">
+            <color red="0.70980392156862748" green="0.71764705882352942" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
