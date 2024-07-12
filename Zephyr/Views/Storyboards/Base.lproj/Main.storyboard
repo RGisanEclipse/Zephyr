@@ -90,6 +90,27 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJ1-xf-IeB">
+                                <rect key="frame" x="0.0" y="44" width="430" height="836"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="F9T-7s-QTB">
+                                        <rect key="frame" x="196.66666666666666" y="399.66666666666669" width="37" height="37"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uploading Post" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a75-Ri-aYS">
+                                        <rect key="frame" x="148" y="350.66666666666669" width="134" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="WB"/>
+                                <constraints>
+                                    <constraint firstItem="a75-Ri-aYS" firstAttribute="centerX" secondItem="IJ1-xf-IeB" secondAttribute="centerX" id="0Wi-Ka-YX3"/>
+                                    <constraint firstItem="F9T-7s-QTB" firstAttribute="top" secondItem="a75-Ri-aYS" secondAttribute="bottom" constant="25" id="Bk0-lH-eYU"/>
+                                    <constraint firstItem="F9T-7s-QTB" firstAttribute="centerY" secondItem="IJ1-xf-IeB" secondAttribute="centerY" id="IF6-dN-rCd"/>
+                                    <constraint firstItem="F9T-7s-QTB" firstAttribute="centerX" secondItem="IJ1-xf-IeB" secondAttribute="centerX" id="oo4-5S-S1W"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DQw-ji-I4V"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -98,18 +119,31 @@
                             <constraint firstItem="DQw-ji-I4V" firstAttribute="trailing" secondItem="mYL-gv-RrM" secondAttribute="trailing" constant="15" id="6gg-BS-rb8"/>
                             <constraint firstItem="QfL-SN-pi2" firstAttribute="top" secondItem="mYL-gv-RrM" secondAttribute="bottom" constant="10" id="Jgh-Ec-yQd"/>
                             <constraint firstItem="mYL-gv-RrM" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" constant="15" id="VuM-pO-E2T"/>
+                            <constraint firstItem="IJ1-xf-IeB" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" id="ahK-et-Zc8"/>
+                            <constraint firstItem="DQw-ji-I4V" firstAttribute="bottom" secondItem="IJ1-xf-IeB" secondAttribute="bottom" constant="3" id="cSS-lu-1uZ"/>
                             <constraint firstItem="7II-z9-IOO" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" id="d0L-Al-z7g"/>
+                            <constraint firstItem="IJ1-xf-IeB" firstAttribute="top" secondItem="DQw-ji-I4V" secondAttribute="top" id="g0s-mB-nbY"/>
                             <constraint firstItem="QfL-SN-pi2" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" constant="15" id="gyX-nm-zsb"/>
+                            <constraint firstItem="IJ1-xf-IeB" firstAttribute="trailing" secondItem="DQw-ji-I4V" secondAttribute="trailing" id="i1R-ZN-VZQ"/>
                             <constraint firstItem="7II-z9-IOO" firstAttribute="top" secondItem="DQw-ji-I4V" secondAttribute="top" id="q64-ey-N1o"/>
                             <constraint firstItem="7II-z9-IOO" firstAttribute="trailing" secondItem="DQw-ji-I4V" secondAttribute="trailing" id="rna-an-ae3"/>
                             <constraint firstItem="DQw-ji-I4V" firstAttribute="trailing" secondItem="QfL-SN-pi2" secondAttribute="trailing" constant="15" id="yW6-HK-jXJ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="92g-m6-KyX"/>
+                    <navigationItem key="navigationItem" id="92g-m6-KyX">
+                        <barButtonItem key="rightBarButtonItem" title="Post" id="TSs-vz-Hgt">
+                            <color key="tintColor" name="BW"/>
+                            <connections>
+                                <action selector="postButtonPressed:" destination="vof-8K-2iL" id="GXv-6f-tbS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="captionTextView" destination="QfL-SN-pi2" id="ohb-dD-Q4C"/>
+                        <outlet property="dimmedView" destination="IJ1-xf-IeB" id="LJa-cP-67D"/>
                         <outlet property="imageView" destination="yJy-TC-JRo" id="ipW-AR-aTI"/>
                         <outlet property="mediaView" destination="7II-z9-IOO" id="Ggl-ef-hXg"/>
+                        <outlet property="spinner" destination="F9T-7s-QTB" id="i9T-W3-Bw2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lbv-rI-weF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

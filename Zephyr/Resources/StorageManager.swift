@@ -27,4 +27,29 @@ public class StorageManager{
             completion(.success(url))
         }
     }
+    public func uploadImage(data: Data, completion: @escaping (URL?) -> Void) {
+        let storageRef = bucket.child("images/\(UUID().uuidString).jpg")
+        storageRef.putData(data, metadata: nil) { metadata, error in
+            guard error == nil else {
+                completion(nil)
+                return
+            }
+            storageRef.downloadURL { url, error in
+                completion(url)
+            }
+        }
+    }
+        
+    public func uploadVideo(fileURL: URL, completion: @escaping (URL?) -> Void) {
+        let storageRef = bucket.child("videos/\(UUID().uuidString).mp4")
+        storageRef.putFile(from: fileURL, metadata: nil) { metadata, error in
+            guard error == nil else {
+                completion(nil)
+                return
+            }
+            storageRef.downloadURL { url, error in
+                completion(url)
+            }
+        }
+    }
 }
