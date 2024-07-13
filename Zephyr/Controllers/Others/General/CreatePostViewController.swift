@@ -105,45 +105,44 @@ class CreatePostViewController: UIViewController {
         dimmedView.isHidden = false
         navigationController?.setNavigationBarHidden(true, animated: false)
         spinner.startAnimating()
-        let options = PHAssetResourceRequestOptions()
+        
+        let options = PHImageRequestOptions()
         options.isNetworkAccessAllowed = true
-        
-        let resources = PHAssetResource.assetResources(for: asset)
-        guard let resource = resources.first else {
-            print("No resource found for asset")
-            spinner.stopAnimating()
-            dimmedView.isHidden = true
-            navigationController?.setNavigationBarHidden(false, animated: false)
-            return
-        }
-        
-        var imageData = Data()
-        PHAssetResourceManager.default().requestData(for: resource, options: options, dataReceivedHandler: { data in
-            imageData.append(data)
-        }, completionHandler: { [weak self] error in
+        options.isSynchronous = false
+        options.version = .current
+
+        PHImageManager.default().requestImageDataAndOrientation(for: asset, options: options) { [weak self] (imageData, dataUTI, orientation, info) in
             guard let self = self else { return }
-            if let error = error {
-                print("Failed to get image data: \(error)")
-                spinner.stopAnimating()
-                dimmedView.isHidden = true
-                navigationController?.setNavigationBarHidden(false, animated: false)
-                return
-            }
             
-            StorageManager.shared.uploadImage(data: imageData) { url in
-                guard let url = url else {
-                    print("Failed to upload image")
+            if let imageData = imageData {
+                if let image = UIImage(data: imageData), let croppedImageData = image.jpegData(compressionQuality: 0.8) {
+                    // Upload the cropped image data to Firebase Storage
+                    StorageManager.shared.uploadImage(data: croppedImageData) { url in
+                        guard let url = url else {
+                            print("Failed to upload image")
+                            self.spinner.stopAnimating()
+                            self.dimmedView.isHidden = true
+                            self.navigationController?.setNavigationBarHidden(false, animated: false)
+                            return
+                        }
+                        print("Image uploaded successfully at \(url)")
+                        self.spinner.stopAnimating()
+                        self.dimmedView.isHidden = true
+                        self.navigationController?.setNavigationBarHidden(false, animated: false)
+                    }
+                } else {
+                    print("Failed to process image data")
                     self.spinner.stopAnimating()
                     self.dimmedView.isHidden = true
                     self.navigationController?.setNavigationBarHidden(false, animated: false)
-                    return
                 }
-                print("Image uploaded successfully at \(url)")
+            } else {
+                print("Failed to get image data: \(String(describing: info))")
                 self.spinner.stopAnimating()
                 self.dimmedView.isHidden = true
                 self.navigationController?.setNavigationBarHidden(false, animated: false)
             }
-        })
+        }
     }
     private func uploadVideoAsset(_ asset: PHAsset, caption: String) {
         spinner.isHidden = false
