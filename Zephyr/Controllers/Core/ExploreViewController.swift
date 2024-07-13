@@ -12,6 +12,7 @@ class ExploreViewController: UIViewController {
     private var postsData = [UserPost]()
     private var postModel: UserPost?
     @IBOutlet weak var dimView: UIView!
+    private var refreshControl = UIRefreshControl()
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -27,6 +28,12 @@ class ExploreViewController: UIViewController {
         for _ in 0..<30{
             postsData.append(UserPost(identifier: "", postType: .photo, thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postURL: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, caption: nil, likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "x")], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: [])))
         }
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
+    }
+    @objc private func refreshData(_ sender: Any) {
+        // Fetch Posts
+        self.refreshControl.endRefreshing()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)

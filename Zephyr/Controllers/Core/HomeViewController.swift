@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     private var likesData: [PostLike]?
     private var postSegueModel: UserPost?
     private var userData = UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "It's not who you are underneath, it's what you do, that defines you.", name: (first: "Bruce", last: "Wayne"), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: ["TheJoker"], following: [])
+    private var refreshControl = UIRefreshControl()
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -34,6 +35,12 @@ class HomeViewController: UIViewController {
                 postCell.muteVideo()
             }
         }
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
+    @objc private func refreshData(_ sender: Any) {
+        // Fetch Posts
+        self.refreshControl.endRefreshing()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)

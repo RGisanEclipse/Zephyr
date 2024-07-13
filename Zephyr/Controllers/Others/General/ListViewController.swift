@@ -10,6 +10,7 @@ import UIKit
 class ListViewController: UIViewController {
     
     var data = [UserRelationship]()
+    private var refreshControl = UIRefreshControl()
     
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -29,8 +30,13 @@ class ListViewController: UIViewController {
         }
         tableView.register(UINib(nibName: Constants.List.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.List.cellIdentifier)
         tableView.dataSource = self
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
     }
-
+    @objc private func refreshData(_ sender: Any) {
+        // Fetch Data
+        self.refreshControl.endRefreshing()
+    }
 }
 
 // MARK: - UITableViewDataSource

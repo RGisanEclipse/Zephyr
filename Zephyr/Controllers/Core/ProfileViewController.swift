@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController {
     private var userData = UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "It's not who you are underneath, it's what you do, that defines you.", name: (first: "Bruce", last: "Wayne"), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 0, following: 0), joinDate: Date(), followers: [], following: [])
     var currentView = selectedView.posts
     private var postModel: UserPost?
+    private var refreshControl = UIRefreshControl()
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var userNameTitleBarButton: UIBarButtonItem!
@@ -34,6 +35,12 @@ class ProfileViewController: UIViewController {
         collectionView.delegate = self
         userNameTitleBarButton.title = userData.userName
         postsData.append(UserPost(identifier: "", postType: .photo, thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postURL: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, caption: "The Batman (2022)", likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "x")], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: [])))
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
+    }
+    @objc private func refreshData(_ sender: Any) {
+        // Fetch Profile Data
+        self.refreshControl.endRefreshing()
     }
     @IBAction func settingsButtonPressed(_ sender: UIButton) {
         self.performSegue(withIdentifier: Constants.Profile.settingsSegue, sender: self)

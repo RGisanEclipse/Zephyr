@@ -12,6 +12,7 @@ class NotificationsViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noNotificationsView: UIStackView!
+    private var refreshControl = UIRefreshControl()
     
     private var models = [UserNotificationModel]()
     private var postModel: UserPost?
@@ -30,6 +31,12 @@ class NotificationsViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.Notifications.likeCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Notifications.likeCellIdentifier)
         tableView.register(UINib(nibName: Constants.Notifications.followCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Notifications.followCellIdentifier)
         tableView.dataSource = self
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
+    @objc private func refreshData(_ sender: Any) {
+        // Fetch Notifications
+        self.refreshControl.endRefreshing()
     }
     private func fetchNotifications(){
         for x in 0...10{
