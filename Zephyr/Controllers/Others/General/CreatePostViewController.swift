@@ -138,7 +138,7 @@ class CreatePostViewController: UIViewController {
                     self.navigationController?.setNavigationBarHidden(false, animated: false)
                     return
                 }
-                print("Image uploaded successfully")
+                print("Image uploaded successfully at \(url)")
                 self.spinner.stopAnimating()
                 self.dimmedView.isHidden = true
                 self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -184,7 +184,7 @@ class CreatePostViewController: UIViewController {
                             self!.navigationController?.setNavigationBarHidden(false, animated: false)
                             return
                         }
-                        print("Uploaded thumbnail successfully!")
+                        print("Uploaded thumbnail successfully! at \(thumbnailURL.absoluteString)")
                         self.spinner.stopAnimating()
                         self.dimmedView.isHidden = true
                         self.navigationController?.setNavigationBarHidden(false, animated: false)
