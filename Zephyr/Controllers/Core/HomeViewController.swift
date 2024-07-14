@@ -7,18 +7,32 @@
 
 import FirebaseAuth
 import UIKit
+import FirebaseFirestore
 
 class HomeViewController: UIViewController {
     private var feedRenderModels = [HomeRenderViewModel]()
     private var likesData: [PostLike]?
     private var postSegueModel: UserPost?
-    private var userData = UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "It's not who you are underneath, it's what you do, that defines you.", name: (first: "Bruce", last: "Wayne"), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: ["TheJoker"], following: [])
+    private var userData: UserModel?
     private var refreshControl = UIRefreshControl()
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
+        let userDictionary: [String: Any] = [
+            "userName": "TheBatman",
+            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s",
+            "bio": "It's not who you are underneath, it's what you do, that defines you.",
+            "name": ["first": "Bruce", "last": "Wayne"],
+            "birthDate": Timestamp(date: Date()),
+            "gender": "male",
+            "counts": ["posts": 1, "followers": 0, "following": 0],
+            "joinDate": Timestamp(date: Date()),
+            "followers": [],
+            "following": []
+        ]
+        userData = UserModel(dictionary: userDictionary)
         createMockModels()
         tableView.dataSource = self
         tableView.delegate = self
@@ -82,7 +96,7 @@ class HomeViewController: UIViewController {
             guard let likesSafeData = likesData else{
                 return
             }
-            destinationVC.data = userData.convertPostLikesToUserRelationships(postLikes: likesSafeData)
+            destinationVC.data = userData!.convertPostLikesToUserRelationships(postLikes: likesSafeData)
         } else if segue.identifier == Constants.Home.commentsSegue{
             let destinationVC = segue.destination as! CommentsViewController
             destinationVC.model = postSegueModel
@@ -170,6 +184,9 @@ extension HomeViewController: UITableViewDataSource{
             switch actionsModel.renderType {
             case .actions(let provider):
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.actionsCellIdentifier, for: indexPath) as! PostActionsTableViewCell
+                guard let userData = userData else {
+                    return UITableViewCell()
+                }
                 cell.configure(with: provider, userName: userData.userName)
                 cell.delegate = self
                 return cell

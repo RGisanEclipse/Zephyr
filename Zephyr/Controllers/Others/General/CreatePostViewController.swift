@@ -7,11 +7,12 @@
 
 import UIKit
 import Photos
-
+import FirebaseFirestore
 class CreatePostViewController: UIViewController {
     
     var asset: PHAsset?
-    private var userData = UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "It's not who you are underneath, it's what you do, that defines you.", name: (first: "Bruce", last: "Wayne"), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 0, following: 0), joinDate: Date(), followers: [], following: [])
+    private var userData: UserModel?
+
     
     @IBOutlet weak var mediaView: UIView!
     @IBOutlet weak var captionTextView: UITextView!
@@ -21,14 +22,41 @@ class CreatePostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        captionTextView.layer.cornerRadius = CGFloat(10)
+        captionTextView.layer.cornerRadius = 10
         captionTextView.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
         captionTextView.delegate = self
         loadAsset()
         spinner.isHidden = true
         dimmedView.isHidden = true
         
+        // Initialize userData
+        let userDictionary: [String: Any] = [
+            "userName": "TheBatman",
+            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s",
+            "bio": "It's not who you are underneath, it's what you do, that defines you.",
+            "name": ["first": "Bruce", "last": "Wayne"],
+            "birthDate": Timestamp(date: Date()),
+            "gender": "male",
+            "counts": ["posts": 1, "followers": 0, "following": 0],
+            "joinDate": Timestamp(date: Date()),
+            "followers": [],
+            "following": []
+        ]
+
+        
+        // Attempt to create userData and log the result
+        if let userModel = UserModel(dictionary: userDictionary) {
+            userData = userModel
+        } else {
+            print("Failed to initialize userData from dictionary")
+        }
+
+        // Log if userData is nil
+        if userData == nil {
+            print("Warning: userData is nil after initialization")
+        }
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.view.bringSubviewToFront(dimmedView)
@@ -91,10 +119,10 @@ class CreatePostViewController: UIViewController {
         }
         switch asset.mediaType{
         case .image:
-            uploadImageAsset(asset, caption: "")
+            uploadImageAsset(asset, caption: captionTextView.text)
             break
         case.video:
-            uploadVideoAsset(asset, caption: "")
+            uploadVideoAsset(asset, caption: captionTextView.text)
             break
         default:
             break
@@ -116,7 +144,6 @@ class CreatePostViewController: UIViewController {
             
             if let imageData = imageData {
                 if let image = UIImage(data: imageData), let croppedImageData = image.jpegData(compressionQuality: 0.8) {
-                    // Upload the cropped image data to Firebase Storage
                     StorageManager.shared.uploadImage(data: croppedImageData) { url in
                         guard let url = url else {
                             print("Failed to upload image")
@@ -126,6 +153,7 @@ class CreatePostViewController: UIViewController {
                             return
                         }
                         print("Image uploaded successfully at \(url)")
+                        self.createPost(with: url, type: .photo, caption: caption)
                         self.spinner.stopAnimating()
                         self.dimmedView.isHidden = true
                         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -184,6 +212,7 @@ class CreatePostViewController: UIViewController {
                             return
                         }
                         print("Uploaded thumbnail successfully! at \(thumbnailURL.absoluteString)")
+                        self.createPost(with: url, type: .video, caption: caption, thumbnailURL: thumbnailURL)
                         self.spinner.stopAnimating()
                         self.dimmedView.isHidden = true
                         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -197,6 +226,34 @@ class CreatePostViewController: UIViewController {
             }
         }
     }
+    private func createPost(with postURL: URL, type: UserPostType, caption: String?, thumbnailURL: URL? = nil) {
+            guard let userData = userData else {
+                print("userData is nil, cannot create post")
+                return
+            }
+
+            let postID = UUID().uuidString
+            let thumbnail = thumbnailURL ?? postURL
+            let newPost = UserPost(identifier: postID,
+                                   postType: type,
+                                   thumbnailImage: thumbnail,
+                                   postURL: postURL,
+                                   caption: caption,
+                                   likeCount: [],
+                                   comments: [],
+                                   createDate: Date(),
+                                   taggedUsers: [],
+                                   owner: userData)
+            
+            DatabaseManager.shared.savePost(newPost) { success in
+                if success {
+                    print("Post created successfully")
+                } else {
+                    print("Failed to create post")
+                }
+            }
+        }
+
 }
 
 // MARK: - UITextFieldDelegate
@@ -205,7 +262,7 @@ extension CreatePostViewController: UITextViewDelegate{
             navigationController?.setNavigationBarHidden(true, animated: false)
         }
         
-        func textViewDidEndEditing(_ textView: UITextView) {
-            navigationController?.setNavigationBarHidden(false, animated: false)
-        }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
 }
