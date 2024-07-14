@@ -14,10 +14,10 @@ struct UserModel{
     let name: (first: String, last: String)?
     let birthDate: Date?
     let gender: Gender?
-    let counts: UserCount?
+    var counts: UserCount?
     let joinDate: Date?
-    let followers: [String]
-    let following: [String]
+    var followers: [String]
+    var following: [String]
     func isFollower(userName: String) -> Bool {
         return followers.contains(userName)
     }

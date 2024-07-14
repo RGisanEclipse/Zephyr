@@ -219,4 +219,31 @@ public class DatabaseManager{
             completion(documentID)
         }
     }
+    func getFollowers(for userName: String, completion: @escaping ([String]) -> Void) {
+        db.collection("follows")
+            .whereField("followedUserName", isEqualTo: userName)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching followers: \(error.localizedDescription)")
+                    completion([])
+                } else {
+                    let followers = querySnapshot?.documents.compactMap { $0.data()["followerUserName"] as? String } ?? []
+                    completion(followers)
+                }
+            }
+    }
+        
+    func getFollowing(for userName: String, completion: @escaping ([String]) -> Void) {
+        db.collection("follows")
+            .whereField("followerUserName", isEqualTo: userName)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching following: \(error.localizedDescription)")
+                    completion([])
+                } else {
+                    let following = querySnapshot?.documents.compactMap { $0.data()["followedUserName"] as? String } ?? []
+                    completion(following)
+                }
+            }
+    }
 }
