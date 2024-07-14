@@ -18,7 +18,8 @@ class ProfileViewController: UIViewController {
     private var postsData = [UserPost]()
     private var videosData = [UserPost]()
     private var taggedPostsData = [UserPost]()
-    private var userData = UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "It's not who you are underneath, it's what you do, that defines you.", name: (first: "Bruce", last: "Wayne"), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 0, following: 0), joinDate: Date(), followers: [], following: [])
+    private var userData: UserModel?
+
     var currentView = selectedView.posts
     private var postModel: UserPost?
     private var refreshControl = UIRefreshControl()
@@ -28,19 +29,37 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCollectionView()
+        fetchUserData()
+    }
+    func fetchUserData() {
+        CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (fetchedUserData, success) in
+            guard let self = self else { return }
+            if success, let fetchedUserData = fetchedUserData {
+                self.userData = fetchedUserData
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.userNameTitleBarButton.title = self.userData?.userName
+                    self.collectionView.reloadData()
+                    self.refreshControl.endRefreshing()
+                }
+            } else {
+                print("Error fetching userData")
+            }
+        }
+    }
+
+    private func setupCollectionView() {
         collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
         collectionView.register(UINib(nibName: Constants.Profile.headerIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.headerIdentifier)
         collectionView.register(UINib(nibName: Constants.Profile.tabsIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.tabsIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        userNameTitleBarButton.title = userData.userName
-        postsData.append(UserPost(identifier: "", postType: .photo, thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postURL: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, caption: "The Batman (2022)", likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "x")], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: [])))
-        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
     }
+
     @objc private func refreshData(_ sender: Any) {
-        // Fetch Profile Data
-        self.refreshControl.endRefreshing()
+        fetchUserData()
     }
     @IBAction func settingsButtonPressed(_ sender: UIButton) {
         self.performSegue(withIdentifier: Constants.Profile.settingsSegue, sender: self)
@@ -81,20 +100,24 @@ extension ProfileViewController: UICollectionViewDataSource{
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionHeader else{
+        guard kind == UICollectionView.elementKindSectionHeader else {
             return UICollectionReusableView()
         }
-        if indexPath.section == 1{
+
+        if indexPath.section == 1 {
             let tab = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.tabsIdentifier, for: indexPath) as! ProfileTabsCollectionReusableView
             tab.delegate = self
             return tab
         }
-        
+
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.headerIdentifier, for: indexPath) as! ProfileHeaderCollectionReusableView
-        header.configure(with: userData)
+        if let userData = self.userData {
+            header.configure(with: userData)
+        }
         header.delegate = self
         return header
     }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0{
             return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/3)
@@ -168,7 +191,9 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
             destinationVC.data = testData
         } else if segue.identifier == Constants.Profile.postSegue{
             let destinationVC = segue.destination as! PostViewController
-            destinationVC.model = postModel!
+                if let postModel = postModel {
+                    destinationVC.model = postModel
+                }
         } else if segue.identifier == Constants.Profile.settingsSegue{
             let destinationVC = segue.destination as! SettingsViewController
             destinationVC.userData = userData

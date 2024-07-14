@@ -11,18 +11,18 @@ import FirebaseAuth
 class CurrentUserDataManager {
     public static var shared = CurrentUserDataManager()
     var userData: UserModel?
-    public func fetchLoggedInUserData(completion: @escaping (Bool) -> Void) {
-        let userName = Auth.auth().currentUser?.displayName ?? ""
-        DatabaseManager.shared.fetchUserData(for: userName) { result in
+    
+    public func fetchLoggedInUserData(completion: @escaping (UserModel?, Bool) -> Void) {
+        let email = Auth.auth().currentUser?.email ?? ""
+        DatabaseManager.shared.fetchUserData(for: email) { result in
             switch result {
             case .success(let user):
                 self.userData = user
-                completion(true)
+                completion(user, true)  
             case .failure(let error):
                 print("Failed to fetch user data: \(error)")
-                completion(false)
+                completion(nil, false)
             }
         }
     }
 }
-

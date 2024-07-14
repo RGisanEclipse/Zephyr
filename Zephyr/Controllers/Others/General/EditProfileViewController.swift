@@ -56,8 +56,8 @@ class EditProfileViewController: UIViewController {
         }
         
         var sectionOne = [EditProfileFormModel]()
-        sectionOne.append(EditProfileFormModel(label: "First Name", placeholder: userData.name.first, value: nil))
-        sectionOne.append(EditProfileFormModel(label: "Last Name", placeholder: userData.name.last, value: nil))
+        sectionOne.append(EditProfileFormModel(label: "First Name", placeholder: userData.name?.first ?? "", value: nil))
+        sectionOne.append(EditProfileFormModel(label: "Last Name", placeholder: userData.name?.last ?? "", value: nil))
         sectionOne.append(EditProfileFormModel(label: "Username", placeholder: userData.userName, value: nil))
         sectionOne.append(EditProfileFormModel(label: "Bio", placeholder: userData.bio, value: nil))
         models.append(sectionOne)

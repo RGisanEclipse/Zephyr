@@ -9,13 +9,13 @@ import Foundation
 import FirebaseFirestore
 struct UserModel{
     let userName: String
-    let profilePicture: URL
+    let profilePicture: URL?
     let bio: String
-    let name: (first: String, last: String)
-    let birthDate: Date
-    let gender: Gender
-    let counts: UserCount
-    let joinDate: Date
+    let name: (first: String, last: String)?
+    let birthDate: Date?
+    let gender: Gender?
+    let counts: UserCount?
+    let joinDate: Date?
     let followers: [String]
     let following: [String]
     func isFollower(userName: String) -> Bool {
@@ -29,63 +29,21 @@ struct UserModel{
     }
     init?(dictionary: [String: Any]) {
         guard let userName = dictionary["userName"] as? String else {
-            print("Missing userName")
             return nil
         }
-        guard let profilePictureString = dictionary["profilePicture"] as? String,
-              let profilePicture = URL(string: profilePictureString) else {
-            print("Invalid profilePicture")
-            return nil
-        }
-        guard let bio = dictionary["bio"] as? String else {
-            print("Missing bio")
-            return nil
-        }
-        guard let nameDict = dictionary["name"] as? [String: String],
-              let firstName = nameDict["first"],
-              let lastName = nameDict["last"] else {
-            print("Invalid name")
-            return nil
-        }
-        guard let birthDateTimestamp = dictionary["birthDate"] as? Timestamp else {
-            print("Missing birthDate")
-            return nil
-        }
-        guard let genderString = dictionary["gender"] as? String else {
-            print("Missing gender")
-            return nil
-        }
-        guard let countsDict = dictionary["counts"] as? [String: Int] else {
-            print("Invalid counts")
-            return nil
-        }
-        guard let joinDateTimestamp = dictionary["joinDate"] as? Timestamp else {
-            print("Missing joinDate")
-            return nil
-        }
-        guard let followers = dictionary["followers"] as? [String] else {
-            print("Missing followers")
-            return nil
-        }
-        guard let following = dictionary["following"] as? [String] else {
-            print("Missing following")
-            return nil
-        }
-        // Initialize properties
         self.userName = userName
-        self.profilePicture = profilePicture
-        self.bio = bio
-        self.name = (first: firstName, last: lastName)
-        self.birthDate = birthDateTimestamp.dateValue()
-        self.gender = Gender.fromString(genderString) ?? .other
-        self.counts = UserCount(posts: countsDict["posts"] ?? 0,
-                                followers: countsDict["followers"] ?? 0,
-                                following: countsDict["following"] ?? 0)
-        self.joinDate = joinDateTimestamp.dateValue()
-        self.followers = followers
-        self.following = following
+        self.profilePicture = URL(string: dictionary["profilePicture"] as? String ?? "")
+        self.bio = dictionary["bio"] as? String ?? ""
+        self.name = (first: dictionary["firstName"] as? String ?? "", last: dictionary["lastName"] as? String ?? "")
+        self.birthDate = dictionary["birthDate"] as? Date
+        self.gender = Gender(rawValue: dictionary["gender"] as? String ?? "") ?? .other
+        self.joinDate = dictionary["joinDate"] as? Date
+        self.followers = dictionary["followers"] as? [String] ?? []
+        self.following = dictionary["following"] as? [String] ?? []
+        self.counts = UserCount(posts: 0,
+                                    followers: followers.count,
+                                    following: following.count)
     }
-    
     init(userName: String, profilePicture: URL, bio: String, name: (first: String, last: String), birthDate: Date, gender: Gender, counts: UserCount, joinDate: Date, followers: [String], following: [String]) {
         self.userName = userName
         self.profilePicture = profilePicture

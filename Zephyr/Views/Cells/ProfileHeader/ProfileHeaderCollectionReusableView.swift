@@ -32,11 +32,21 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     }
     func configure(with model: UserModel){
         profilePictureButton.sd_setBackgroundImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(systemName: "person.circle.fill"))
-        nameLabel.text = "\(model.name.first) \(model.name.last)"
-        bioLabel.text = model.bio
-        numberOfPostsLabel.text = String(model.counts.posts)
-        numberOfFollowersLabel.text = String(model.counts.followers)
-        followingLabel.text = String(model.counts.following)
+        if model.name?.first != "", model.name?.last != ""{
+            nameLabel.text = "\(model.name?.first ?? "") \(model.name?.last ?? "")"
+        }
+        if model.bio != ""{
+            bioLabel.text = model.bio
+        }
+        if let counts = model.counts {
+            numberOfPostsLabel.text = String(counts.posts)
+            numberOfFollowersLabel.text = String(counts.followers)
+            followingLabel.text = String(counts.following)
+        } else {
+            numberOfPostsLabel.text = "0"
+            numberOfFollowersLabel.text = "0"
+            followingLabel.text = "0"
+        }
     }
     @IBAction func postsButtonPressed(_ sender: UIButton) {
         delegate?.profileHeaderDidTapPostsButton(self)

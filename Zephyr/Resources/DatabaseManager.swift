@@ -53,7 +53,12 @@ public class DatabaseManager{
     public func insertNewUser(with email: String, userName: String, completion: @escaping (Bool) -> Void){
         db.collection(Constants.FireStore.users).addDocument(data: [
             Constants.FireStore.userName: userName,
-            Constants.FireStore.email: email
+            Constants.FireStore.email: email,
+            Constants.FireStore.bio: Constants.empty,
+            Constants.FireStore.posts: 0,
+            Constants.FireStore.followers: [String](),
+            Constants.FireStore.following: [String](),
+            Constants.FireStore.joinDate: Timestamp(date: Date())
         ]){ error in
             if error == nil{
                 completion(true)
@@ -164,23 +169,7 @@ public class DatabaseManager{
     func addComment(to postID: String, comment: PostComment, completion: @escaping (Bool) -> Void) {
         let commentData: [String: Any] = [
             "identifier": comment.identifier,
-            "user": [
-                "userName": comment.user.userName,
-                "profilePicture": comment.user.profilePicture.absoluteString,
-                "bio": comment.user.bio,
-                "firstName": comment.user.name.first,
-                "lastName": comment.user.name.last,
-                "birthDate": comment.user.birthDate,
-                "gender": comment.user.gender.rawValue,
-                "counts": [
-                    "posts": comment.user.counts.posts,
-                    "followers": comment.user.counts.followers,
-                    "following": comment.user.counts.following
-                ],
-                "joinDate": comment.user.joinDate,
-                "followers": comment.user.followers,
-                "following": comment.user.following
-            ],
+            "userName": comment.user.userName,
             "text": comment.text,
             "createdDate": comment.createdDate,
             "likes": comment.likes.map { $0.userName }
@@ -190,8 +179,8 @@ public class DatabaseManager{
             completion(error == nil)
         }
     }
-    func fetchUserData(for userName: String, completion: @escaping (Result<UserModel, Error>) -> Void) {
-        fetchUserDocumentID(by: userName) { documentID in
+    func fetchUserData(for email: String, completion: @escaping (Result<UserModel, Error>) -> Void) {
+        fetchUserDocumentID(by: email) { documentID in
             guard let documentID = documentID else {
                 completion(.failure(NSError(domain: "UserNotFound", code: 1, userInfo: nil)))
                 return
@@ -208,14 +197,13 @@ public class DatabaseManager{
                     completion(.failure(NSError(domain: "UserDataError", code: 0, userInfo: nil)))
                     return
                 }
-                
                 completion(.success(userModel))
             }
         }
     }
-    func fetchUserDocumentID(by userName: String, completion: @escaping (String?) -> Void) {
+    func fetchUserDocumentID(by email: String, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
-        db.collection("users").whereField("userName", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+        db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error getting documents: \(error.localizedDescription)")
                 completion(nil)
@@ -223,7 +211,7 @@ public class DatabaseManager{
             }
 
             guard let documents = querySnapshot?.documents, !documents.isEmpty else {
-                print("No user found with the username \(userName)")
+                print("No user found with the email \(email)")
                 completion(nil)
                 return
             }

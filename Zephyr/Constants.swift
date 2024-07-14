@@ -22,6 +22,11 @@ struct Constants{
         static let users = "users"
         static let userName = "userName"
         static let email = "email"
+        static let posts = "posts"
+        static let followers = "followers"
+        static let following = "following"
+        static let joinDate = "joinDate"
+        static let bio = "bio"
     }
     struct Settings{
         static let cellIdentifier = "settingsOptions"
