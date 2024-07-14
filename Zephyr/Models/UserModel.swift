@@ -21,12 +21,22 @@ struct UserModel{
     func isFollower(userName: String) -> Bool {
         return followers.contains(userName)
     }
+    func isFollowing(userName: String) -> Bool{
+        return following.contains(userName)
+    }
     func convertPostLikesToUserRelationships(postLikes: [PostLike]) -> [UserRelationship] {
         return postLikes.map { like in
             let followState: FollowState = isFollower(userName: like.userName) ? .following : .notFollowing
             return UserRelationship(username: like.userName, type: followState)
         }
     }
+    func convertFollowerToUserRelationships(with followers: [String]) -> [UserRelationship] {
+        return followers.map { username in
+            let followState: FollowState = isFollowing(userName: username) ? .following : .notFollowing
+            return UserRelationship(username: username, type: followState)
+        }
+    }
+
     init?(dictionary: [String: Any]) {
         guard let userName = dictionary["userName"] as? String else {
             return nil

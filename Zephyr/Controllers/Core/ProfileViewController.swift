@@ -14,7 +14,7 @@ enum selectedView{
 }
 
 class ProfileViewController: UIViewController {
-    private var testData = [UserRelationship]()
+    private var followerFollowingData = [UserRelationship]()
     private var postsData = [UserPost]()
     private var videosData = [UserPost]()
     private var taggedPostsData = [UserPost]()
@@ -174,21 +174,35 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
         }
     }
     func profileHeaderDidTapFollowersButton(_ header: ProfileHeaderCollectionReusableView) {
+        guard let userData = self.userData else {
+            self.followerFollowingData = []
+            self.performSegue(withIdentifier: Constants.Profile.followersSegue, sender: self)
+            return
+        }
+        self.followerFollowingData = userData.convertFollowerToUserRelationships(with: userData.followers)
         self.performSegue(withIdentifier: Constants.Profile.followersSegue, sender: self)
     }
+
+
     
     func profileHeaderDidTapFollowingButton(_ header: ProfileHeaderCollectionReusableView) {
+        guard let userData = self.userData else{
+            self.followerFollowingData = []
+            self.performSegue(withIdentifier: Constants.Profile.followingSegue, sender: self)
+            return
+        }
+        self.followerFollowingData = userData.convertFollowerToUserRelationships(with: userData.following)
         self.performSegue(withIdentifier: Constants.Profile.followingSegue, sender: self)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Profile.followersSegue{
             let destinationVC = segue.destination as! ListViewController
             destinationVC.viewTitle = "Followers"
-            destinationVC.data = testData
+            destinationVC.data = followerFollowingData
         } else if segue.identifier == Constants.Profile.followingSegue{
             let destinationVC = segue.destination as! ListViewController
             destinationVC.viewTitle = "Following"
-            destinationVC.data = testData
+            destinationVC.data = followerFollowingData
         } else if segue.identifier == Constants.Profile.postSegue{
             let destinationVC = segue.destination as! PostViewController
                 if let postModel = postModel {

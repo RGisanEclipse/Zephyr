@@ -31,7 +31,6 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         profilePictureButton.layer.masksToBounds = true
     }
     func configure(with model: UserModel){
-        print("Setting up ProfileHeader with \(model)")
         profilePictureButton.sd_setBackgroundImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(systemName: "person.circle.fill"))
         if model.name?.first != "", model.name?.last != ""{
             nameLabel.text = "\(model.name?.first ?? "") \(model.name?.last ?? "")"
