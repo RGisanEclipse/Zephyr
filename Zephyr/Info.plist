@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string></string>
+	<key>NSCameraStudioLightEnabled</key>
+	<true/>
+	<key>NSCameraReactionEffectsEnabled</key>
+	<true/>
+	<key>NSCameraPortraitEffectEnabled</key>
+	<true/>
+	<key>NSCameraReactionEffectGesturesEnabledDefault</key>
+	<true/>
+	<key>CFBundleIdentifier</key>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string></string>
 	<key>UIApplicationSceneManifest</key>
