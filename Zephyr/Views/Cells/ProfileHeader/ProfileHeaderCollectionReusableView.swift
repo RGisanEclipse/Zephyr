@@ -7,11 +7,13 @@
 
 import UIKit
 import SDWebImage
-protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject{
+
+protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject {
     func profileHeaderDidTapPostsButton(_ header: ProfileHeaderCollectionReusableView)
     func profileHeaderDidTapFollowersButton(_ header: ProfileHeaderCollectionReusableView)
     func profileHeaderDidTapFollowingButton(_ header: ProfileHeaderCollectionReusableView)
 }
+
 class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var profilePictureButton: UIButton!
@@ -25,19 +27,24 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        profilePictureButton.layer.cornerRadius = profilePictureButton.frame.size.width / 2
-        profilePictureButton.layer.borderWidth = CGFloat(0.2)
-        profilePictureButton.layer.borderColor = CGColor.init(red: 90, green: 90, blue: 90, alpha: 1)
-        profilePictureButton.layer.masksToBounds = true
+        setupProfilePictureButton()
     }
-    func configure(with model: UserModel){
-        profilePictureButton.sd_setBackgroundImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(systemName: "person.circle.fill"))
-        if model.name?.first != "", model.name?.last != ""{
-            nameLabel.text = "\(model.name?.first ?? "") \(model.name?.last ?? "")"
+    
+    private func setupProfilePictureButton() {
+        profilePictureButton.layer.cornerRadius = profilePictureButton.frame.size.width / 2
+        profilePictureButton.layer.borderWidth = 0.2
+        profilePictureButton.layer.borderColor = CGColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1)
+        profilePictureButton.imageView?.contentMode = .scaleAspectFill
+        profilePictureButton.clipsToBounds = true
+    }
+    
+    func configure(with model: UserModel) {
+        profilePictureButton.sd_setImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(named: "userPlaceholder"))
+        
+        if let firstName = model.name?.first, let lastName = model.name?.last {
+            nameLabel.text = "\(firstName) \(lastName)"
         }
-        if model.bio != ""{
-            bioLabel.text = model.bio
-        }
+        bioLabel.text = model.bio.isEmpty ? nil : model.bio
         if let counts = model.counts {
             numberOfPostsLabel.text = String(counts.posts)
             numberOfFollowersLabel.text = String(counts.followers)
@@ -48,13 +55,14 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
             followingLabel.text = "0"
         }
     }
+    
     @IBAction func postsButtonPressed(_ sender: UIButton) {
         delegate?.profileHeaderDidTapPostsButton(self)
     }
-    @IBAction func followersButtonPressed(_ sender: UIButton){
+    @IBAction func followersButtonPressed(_ sender: UIButton) {
         delegate?.profileHeaderDidTapFollowersButton(self)
     }
-    @IBAction func followingButtonPressed(_ sender: UIButton){
+    @IBAction func followingButtonPressed(_ sender: UIButton) {
         delegate?.profileHeaderDidTapFollowingButton(self)
     }
 }

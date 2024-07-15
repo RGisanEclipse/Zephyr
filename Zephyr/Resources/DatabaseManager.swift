@@ -56,8 +56,6 @@ public class DatabaseManager{
             Constants.FireStore.email: email,
             Constants.FireStore.bio: Constants.empty,
             Constants.FireStore.posts: 0,
-            Constants.FireStore.followers: [String](),
-            Constants.FireStore.following: [String](),
             Constants.FireStore.joinDate: Timestamp(date: Date())
         ]){ error in
             if error == nil{

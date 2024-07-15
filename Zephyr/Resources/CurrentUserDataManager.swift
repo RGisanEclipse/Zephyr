@@ -46,7 +46,6 @@ class CurrentUserDataManager {
                     updatedUser.following = following
                     updatedUser.counts = updatedCounts
                     self.userData = updatedUser
-                    print(updatedUser)
                     completion(updatedUser, true)
                 }
             case .failure(let error):

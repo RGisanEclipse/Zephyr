@@ -52,4 +52,10 @@ public class StorageManager{
             }
         }
     }
+    public func deleteImage(reference: String, completion: @escaping (Bool) -> Void) {
+        let storageRef = bucket.child(reference)
+        storageRef.delete { error in
+            completion(error == nil)
+        }
+    }
 }
