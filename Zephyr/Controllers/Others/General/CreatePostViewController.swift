@@ -29,7 +29,6 @@ class CreatePostViewController: UIViewController {
         spinner.isHidden = true
         dimmedView.isHidden = true
         
-        // Initialize userData
         let userDictionary: [String: Any] = [
             "userName": "TheBatman",
             "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s",
@@ -43,15 +42,12 @@ class CreatePostViewController: UIViewController {
             "following": []
         ]
 
-        
-        // Attempt to create userData and log the result
         if let userModel = UserModel(dictionary: userDictionary) {
             userData = userModel
         } else {
             print("Failed to initialize userData from dictionary")
         }
 
-        // Log if userData is nil
         if userData == nil {
             print("Warning: userData is nil after initialization")
         }

@@ -36,7 +36,7 @@ struct UserModel{
             return UserRelationship(username: username, type: followState)
         }
     }
-
+    
     init?(dictionary: [String: Any]) {
         guard let userName = dictionary["userName"] as? String else {
             return nil
@@ -51,8 +51,8 @@ struct UserModel{
         self.followers = dictionary["followers"] as? [String] ?? []
         self.following = dictionary["following"] as? [String] ?? []
         self.counts = UserCount(posts: 0,
-                                    followers: followers.count,
-                                    following: following.count)
+                                followers: followers.count,
+                                following: following.count)
     }
     init(userName: String, profilePicture: URL, bio: String, name: (first: String, last: String), birthDate: Date, gender: Gender, counts: UserCount, joinDate: Date, followers: [String], following: [String]) {
         self.userName = userName

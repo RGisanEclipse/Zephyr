@@ -27,9 +27,10 @@ class EditProfileViewController: UIViewController {
         profilePictureButton.sd_setBackgroundImage(with: userData?.profilePicture, for: .normal, placeholderImage: UIImage(systemName: "person.circle.fill"))
     }
     @IBAction func didTapSave(_ sender: UIBarButtonItem) {
+        updateUserData()
         navigationController?.popToRootViewController(animated: true)
     }
-
+    
     @IBAction func didTapProfilePhotoButton(_ sender: UIButton) {
         let actionSheet = UIAlertController(title: Constants.Settings.EditProfile.editProfilePictureTitle, message: Constants.Settings.EditProfile.editProfilePictureMessage, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { _ in
@@ -70,7 +71,33 @@ class EditProfileViewController: UIViewController {
         }
         models.append(sectionTwo)
     }
-    
+    private func updateUserData() {
+        guard let userData = userData else {
+            print("userData is nil")
+            return
+        }
+        var updatedData: [String: Any] = [:]
+        if let firstName = models[0][0].value {
+            updatedData["firstName"] = firstName
+        }
+        if let lastName = models[0][1].value {
+            updatedData["lastName"] = lastName
+        }
+        if let username = models[0][2].value {
+            updatedData["userName"] = username
+        }
+        if let bio = models[0][3].value {
+            updatedData["bio"] = bio
+        }
+        DatabaseManager.shared.updateUserData(for: userData.userName, with: updatedData) { success in
+            if success {
+                print("User data successfully updated")
+                self.navigationController?.popToRootViewController(animated: true)
+            } else {
+                print("Failed to update user data")
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -114,6 +141,8 @@ extension EditProfileViewController: UITableViewDelegate{
 
 extension EditProfileViewController: FormTableViewDelegate{
     func formTableViewCell(_ cell: FormTableViewCell, didUpdateField updatedModel: EditProfileFormModel) {
-        print(updatedModel.value ?? "NIL")
+        if let indexPath = tableView.indexPath(for: cell) {
+            models[indexPath.section][indexPath.row].value = updatedModel.value
+        }
     }
 }

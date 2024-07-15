@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController {
     private var videosData = [UserPost]()
     private var taggedPostsData = [UserPost]()
     private var userData: UserModel?
-
+    
     var currentView = selectedView.posts
     private var postModel: UserPost?
     private var refreshControl = UIRefreshControl()
@@ -30,16 +30,17 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        fetchUserData()
     }
     func fetchUserData() {
         CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (fetchedUserData, success) in
             guard let self = self else { return }
             if success, let fetchedUserData = fetchedUserData {
                 self.userData = fetchedUserData
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                DispatchQueue.main.async {
                     self.userNameTitleBarButton.title = self.userData?.userName
                     self.collectionView.reloadData()
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now()+1.0){
                     self.refreshControl.endRefreshing()
                 }
             } else {
@@ -47,7 +48,10 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchUserData()
+    }
     private func setupCollectionView() {
         collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
         collectionView.register(UINib(nibName: Constants.Profile.headerIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.headerIdentifier)
@@ -57,7 +61,7 @@ class ProfileViewController: UIViewController {
         collectionView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
     }
-
+    
     @objc private func refreshData(_ sender: Any) {
         fetchUserData()
     }
@@ -103,13 +107,13 @@ extension ProfileViewController: UICollectionViewDataSource{
         guard kind == UICollectionView.elementKindSectionHeader else {
             return UICollectionReusableView()
         }
-
+        
         if indexPath.section == 1 {
             let tab = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.tabsIdentifier, for: indexPath) as! ProfileTabsCollectionReusableView
             tab.delegate = self
             return tab
         }
-
+        
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.headerIdentifier, for: indexPath) as! ProfileHeaderCollectionReusableView
         if let userData = self.userData {
             header.configure(with: userData)
@@ -117,7 +121,7 @@ extension ProfileViewController: UICollectionViewDataSource{
         header.delegate = self
         return header
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0{
             return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/3)
@@ -182,8 +186,8 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
         self.followerFollowingData = userData.convertFollowerToUserRelationships(with: userData.followers)
         self.performSegue(withIdentifier: Constants.Profile.followersSegue, sender: self)
     }
-
-
+    
+    
     
     func profileHeaderDidTapFollowingButton(_ header: ProfileHeaderCollectionReusableView) {
         guard let userData = self.userData else{
@@ -205,9 +209,9 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
             destinationVC.data = followerFollowingData
         } else if segue.identifier == Constants.Profile.postSegue{
             let destinationVC = segue.destination as! PostViewController
-                if let postModel = postModel {
-                    destinationVC.model = postModel
-                }
+            if let postModel = postModel {
+                destinationVC.model = postModel
+            }
         } else if segue.identifier == Constants.Profile.settingsSegue{
             let destinationVC = segue.destination as! SettingsViewController
             destinationVC.userData = userData

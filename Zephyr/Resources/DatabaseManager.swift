@@ -49,7 +49,7 @@ public class DatabaseManager{
             }
         }
     }
-
+    
     public func insertNewUser(with email: String, userName: String, completion: @escaping (Bool) -> Void){
         db.collection(Constants.FireStore.users).addDocument(data: [
             Constants.FireStore.userName: userName,
@@ -69,6 +69,7 @@ public class DatabaseManager{
             }
         }
     }
+    
     func getEmail(for username: String, completion: @escaping (String?) -> Void) {
         let usersCollection = db.collection("users")
         usersCollection.whereField("userName", isEqualTo: username).getDocuments { (querySnapshot, error) in
@@ -85,6 +86,7 @@ public class DatabaseManager{
             }
         }
     }
+    
     func getUserName(for email: String, completion: @escaping (String?)-> Void) {
         let usersCollection = db.collection("users")
         usersCollection.whereField("email", isEqualTo: email).getDocuments{
@@ -102,6 +104,7 @@ public class DatabaseManager{
             }
         }
     }
+    
     func savePost(_ post: UserPost, completion: @escaping (Bool) -> Void) {
         let postData: [String: Any] = [
             "identifier": post.identifier,
@@ -127,7 +130,7 @@ public class DatabaseManager{
             }
         }
     }
-        
+    
     private func incrementUserPostsCount(userName: String, completion: @escaping (Bool) -> Void) {
         let usersCollection = db.collection("users")
         usersCollection.whereField("userName", isEqualTo: userName).getDocuments { querySnapshot, error in
@@ -155,6 +158,7 @@ public class DatabaseManager{
             }
         }
     }
+    
     func addLike(to postID: String, from user: UserModel, completion: @escaping (Bool) -> Void) {
         let likeData: [String: Any] = [
             "userName": user.userName,
@@ -165,7 +169,7 @@ public class DatabaseManager{
             completion(error == nil)
         }
     }
-
+    
     func addComment(to postID: String, comment: PostComment, completion: @escaping (Bool) -> Void) {
         let commentData: [String: Any] = [
             "identifier": comment.identifier,
@@ -179,8 +183,9 @@ public class DatabaseManager{
             completion(error == nil)
         }
     }
+    
     func fetchUserData(for email: String, completion: @escaping (Result<UserModel, Error>) -> Void) {
-        fetchUserDocumentID(by: email) { documentID in
+        fetchUserDocumentID(email: email) { documentID in
             guard let documentID = documentID else {
                 completion(.failure(NSError(domain: "UserNotFound", code: 1, userInfo: nil)))
                 return
@@ -201,7 +206,8 @@ public class DatabaseManager{
             }
         }
     }
-    func fetchUserDocumentID(by email: String, completion: @escaping (String?) -> Void) {
+    
+    func fetchUserDocumentID(email: String, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
             if let error = error {
@@ -209,9 +215,27 @@ public class DatabaseManager{
                 completion(nil)
                 return
             }
-
+            
             guard let documents = querySnapshot?.documents, !documents.isEmpty else {
                 print("No user found with the email \(email)")
+                completion(nil)
+                return
+            }
+            let documentID = documents[0].documentID
+            completion(documentID)
+        }
+    }
+    func fetchUserDocumentID(userName: String, completion: @escaping (String?) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("users").whereField("userName", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents, !documents.isEmpty else {
+                print("No user found with the userName: \(userName)")
                 completion(nil)
                 return
             }
@@ -232,7 +256,7 @@ public class DatabaseManager{
                 }
             }
     }
-        
+    
     func getFollowing(for userName: String, completion: @escaping ([String]) -> Void) {
         db.collection("follows")
             .whereField("followerUserName", isEqualTo: userName)
@@ -245,5 +269,24 @@ public class DatabaseManager{
                     completion(following)
                 }
             }
+    }
+    
+    func updateUserData(for userName: String, with data: [String: Any], completion: @escaping (Bool) -> Void) {
+        fetchUserDocumentID(userName: userName) { documentID in
+            guard let documentID = documentID else {
+                completion(false)
+                return
+            }
+            
+            let userDocRef = self.db.collection("users").document(documentID)
+            userDocRef.updateData(data) { error in
+                if let error = error {
+                    print("Error updating user data: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    completion(true)
+                }
+            }
+        }
     }
 }
