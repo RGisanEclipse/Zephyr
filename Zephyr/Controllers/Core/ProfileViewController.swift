@@ -71,6 +71,9 @@ class ProfileViewController: UIViewController {
         fetchUserData()
     }
     @IBAction func settingsButtonPressed(_ sender: UIButton) {
+        guard userData != nil else{
+            return
+        }
         self.performSegue(withIdentifier: Constants.Profile.settingsSegue, sender: self)
     }
 }
@@ -129,7 +132,7 @@ extension ProfileViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0{
-            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/3)
+            return CGSize(width: collectionView.frame.width, height: 240)
         } else{
             return CGSize(width: collectionView.frame.width, height: 65)
         }

@@ -52,7 +52,6 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         numberOfPostsLabel.isSkeletonable = true
         numberOfFollowersLabel.isSkeletonable = true
         followingLabel.isSkeletonable = true
-        editProfileButton.isSkeletonable = true
     }
     
     func configure(with model: UserModel) {
@@ -64,7 +63,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
                 } else {
                     self?.profilePictureButton.setImage(image, for: .normal)
                 }
-                self?.profilePictureButton.hideSkeleton()
+                self?.profilePictureButton.hideSkeleton(transition: .crossDissolve(0.25))
             }
         if let firstName = model.name?.first, let lastName = model.name?.last {
             nameLabel.text = "\(firstName) \(lastName)"
@@ -81,22 +80,20 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         }
     }
     func hideSkeletons(){
-        nameLabel.hideSkeleton()
-        bioLabel.hideSkeleton()
-        numberOfPostsLabel.hideSkeleton()
-        numberOfFollowersLabel.hideSkeleton()
-        followingLabel.hideSkeleton()
-        editProfileButton.hideSkeleton()
+        nameLabel.hideSkeleton(transition: .crossDissolve(0.25))
+        bioLabel.hideSkeleton(transition: .crossDissolve(0.25))
+        numberOfPostsLabel.hideSkeleton(transition: .crossDissolve(0.25))
+        numberOfFollowersLabel.hideSkeleton(transition: .crossDissolve(0.25))
+        followingLabel.hideSkeleton(transition: .crossDissolve(0.25))
         editProfileButton.isEnabled = true
     }
     func showSkeletonView() {
-        profilePictureButton.showAnimatedSkeleton()
-        nameLabel.showAnimatedSkeleton()
-        bioLabel.showAnimatedSkeleton()
-        numberOfPostsLabel.showAnimatedSkeleton()
-        numberOfFollowersLabel.showAnimatedSkeleton()
-        followingLabel.showAnimatedSkeleton()
-        editProfileButton.showAnimatedSkeleton()
+        profilePictureButton.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+        nameLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+        bioLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+        numberOfPostsLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+        numberOfFollowersLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+        followingLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
     }
     
     @IBAction func postsButtonPressed(_ sender: UIButton) {

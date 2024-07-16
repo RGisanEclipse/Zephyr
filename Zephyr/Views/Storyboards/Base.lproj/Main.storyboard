@@ -440,7 +440,6 @@
                                         </constraints>
                                         <color key="tintColor" name="BW"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="userPlaceholder"/>
                                         <connections>
                                             <action selector="didTapProfilePhotoButton:" destination="MN1-c5-rbP" eventType="touchUpInside" id="ifA-Qh-9bI"/>
                                         </connections>
@@ -1194,7 +1193,6 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="placeholder" width="360" height="360"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
-        <image name="userPlaceholder" width="133.33332824707031" height="121.66666412353516"/>
         <namedColor name="BW">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
