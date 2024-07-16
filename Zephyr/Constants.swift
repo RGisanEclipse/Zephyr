@@ -49,6 +49,7 @@ struct Constants{
         static let tabsIdentifier = "ProfileTabsCollectionReusableView"
         static let postSegue = "profileToPostVC"
         static let settingsSegue = "toSettingsView"
+        static let editProfileSegue = "toEditProfileView"
     }
     struct Errors{
         static let emailAlreadyInUse = "Email already in use"

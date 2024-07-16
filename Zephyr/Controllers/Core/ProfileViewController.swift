@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 enum selectedView{
     case posts
@@ -30,28 +31,32 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        fetchUserData()
     }
-    func fetchUserData() {
+    private func fetchUserData() {
+        DispatchQueue.main.async {
+            if let header = self.collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0)) as? ProfileHeaderCollectionReusableView {
+                header.showSkeletonView()
+            }
+        }
+
         CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (fetchedUserData, success) in
             guard let self = self else { return }
-            if success, let fetchedUserData = fetchedUserData {
-                self.userData = fetchedUserData
-                DispatchQueue.main.async {
-                    self.userNameTitleBarButton.title = self.userData?.userName
-                    self.collectionView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                if let header = self.collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0)) as? ProfileHeaderCollectionReusableView {
+                    if success, let fetchedUserData = fetchedUserData {
+                        self.userData = fetchedUserData
+                        self.userNameTitleBarButton.title = self.userData?.userName
+                        header.configure(with: self.userData!)
+                        header.hideSkeletons()
+                    }
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now()+1.0){
-                    self.refreshControl.endRefreshing()
-                }
-            } else {
-                print("Error fetching userData")
+                self.collectionView.reloadData()
+                self.refreshControl.endRefreshing()
             }
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchUserData()
-    }
+    
     private func setupCollectionView() {
         collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
         collectionView.register(UINib(nibName: Constants.Profile.headerIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.headerIdentifier)
@@ -186,9 +191,6 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
         self.followerFollowingData = userData.convertFollowerToUserRelationships(with: userData.followers)
         self.performSegue(withIdentifier: Constants.Profile.followersSegue, sender: self)
     }
-    
-    
-    
     func profileHeaderDidTapFollowingButton(_ header: ProfileHeaderCollectionReusableView) {
         guard let userData = self.userData else{
             self.followerFollowingData = []
@@ -197,6 +199,9 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
         }
         self.followerFollowingData = userData.convertFollowerToUserRelationships(with: userData.following)
         self.performSegue(withIdentifier: Constants.Profile.followingSegue, sender: self)
+    }
+    func profileHeaderDidTapEditProfileButton(_ header: ProfileHeaderCollectionReusableView) {
+        self.performSegue(withIdentifier: Constants.Profile.editProfileSegue, sender: self)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Profile.followersSegue{
@@ -214,6 +219,10 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
             }
         } else if segue.identifier == Constants.Profile.settingsSegue{
             let destinationVC = segue.destination as! SettingsViewController
+            destinationVC.userData = userData
+        }
+        else if segue.identifier == Constants.Profile.editProfileSegue{
+            let destinationVC = segue.destination as! EditProfileViewController
             destinationVC.userData = userData
         }
     }

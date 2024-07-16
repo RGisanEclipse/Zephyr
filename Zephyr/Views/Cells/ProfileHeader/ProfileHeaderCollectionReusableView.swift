@@ -7,11 +7,13 @@
 
 import UIKit
 import SDWebImage
+import SkeletonView
 
 protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject {
     func profileHeaderDidTapPostsButton(_ header: ProfileHeaderCollectionReusableView)
     func profileHeaderDidTapFollowersButton(_ header: ProfileHeaderCollectionReusableView)
     func profileHeaderDidTapFollowingButton(_ header: ProfileHeaderCollectionReusableView)
+    func profileHeaderDidTapEditProfileButton(_ header: ProfileHeaderCollectionReusableView)
 }
 
 class ProfileHeaderCollectionReusableView: UICollectionReusableView {
@@ -22,12 +24,16 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var numberOfPostsLabel: UILabel!
     @IBOutlet weak var numberOfFollowersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
+    @IBOutlet weak var editProfileButton: UIButton!
     
     weak var delegate: ProfileHeaderCollectionReusableViewDelegate?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setupProfilePictureButton()
+        editProfileButton.layer.cornerRadius = CGFloat(8)
+        editProfileButton.isEnabled = false
+        setupSkeleton()
     }
     
     private func setupProfilePictureButton() {
@@ -38,7 +44,18 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         profilePictureButton.clipsToBounds = true
     }
     
+    private func setupSkeleton() {
+        isSkeletonable = false
+        nameLabel.isSkeletonable = true
+        bioLabel.isSkeletonable = true
+        numberOfPostsLabel.isSkeletonable = true
+        numberOfFollowersLabel.isSkeletonable = true
+        followingLabel.isSkeletonable = true
+        editProfileButton.isSkeletonable = true
+    }
+    
     func configure(with model: UserModel) {
+        hideSkeleton()
         profilePictureButton.sd_setImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(named: "userPlaceholder"))
         
         if let firstName = model.name?.first, let lastName = model.name?.last {
@@ -55,6 +72,23 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
             followingLabel.text = "0"
         }
     }
+    func hideSkeletons(){
+        nameLabel.hideSkeleton()
+        bioLabel.hideSkeleton()
+        numberOfPostsLabel.hideSkeleton()
+        numberOfFollowersLabel.hideSkeleton()
+        followingLabel.hideSkeleton()
+        editProfileButton.hideSkeleton()
+        editProfileButton.isEnabled = true
+    }
+    func showSkeletonView() {
+        nameLabel.showAnimatedSkeleton()
+        bioLabel.showAnimatedSkeleton()
+        numberOfPostsLabel.showAnimatedSkeleton()
+        numberOfFollowersLabel.showAnimatedSkeleton()
+        followingLabel.showAnimatedSkeleton()
+        editProfileButton.showAnimatedSkeleton()
+    }
     
     @IBAction func postsButtonPressed(_ sender: UIButton) {
         delegate?.profileHeaderDidTapPostsButton(self)
@@ -64,5 +98,9 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     }
     @IBAction func followingButtonPressed(_ sender: UIButton) {
         delegate?.profileHeaderDidTapFollowingButton(self)
+    }
+    
+    @IBAction func editProfileButtonPressed(_ sender: UIButton) {
+        delegate?.profileHeaderDidTapEditProfileButton(self)
     }
 }

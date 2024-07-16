@@ -5,13 +5,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProfileHeaderCollectionReusableView" id="U6b-Vx-4bR" customClass="ProfileHeaderCollectionReusableView" customModule="Zephyr" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="473" height="175"/>
+            <rect key="frame" x="0.0" y="0.0" width="473" height="233"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="foI-AB-LuK">
@@ -122,11 +123,32 @@
                         <constraint firstItem="0Z1-HL-BlW" firstAttribute="leading" secondItem="6bx-em-4bD" secondAttribute="leading" id="h2b-Rh-bht"/>
                     </constraints>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCB-iJ-66y">
+                    <rect key="frame" x="176.66666666666666" y="164.66666666666666" width="119.99999999999997" height="30"/>
+                    <color key="backgroundColor" systemColor="systemGray5Color"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="1cK-1b-Jx8"/>
+                        <constraint firstAttribute="width" constant="120" id="fsP-Sv-vQk"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Edit Profile">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="NO"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="editProfileButtonPressed:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="X8f-ig-2Mz"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
             <constraints>
                 <constraint firstItem="foI-AB-LuK" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="15" id="1ch-zW-0yV"/>
+                <constraint firstItem="GCB-iJ-66y" firstAttribute="top" secondItem="6bx-em-4bD" secondAttribute="bottom" constant="15" id="50Y-7S-wgA"/>
                 <constraint firstItem="6bx-em-4bD" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="15" id="7qx-Nh-eXz"/>
+                <constraint firstItem="GCB-iJ-66y" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="I16-MW-eWM"/>
                 <constraint firstItem="6bx-em-4bD" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="15" id="L27-Uo-19T"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="foI-AB-LuK" secondAttribute="trailing" constant="15" id="NZD-tz-1Bv"/>
                 <constraint firstItem="foI-AB-LuK" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="Qo3-qY-FIN"/>
@@ -135,13 +157,14 @@
             </constraints>
             <connections>
                 <outlet property="bioLabel" destination="0Z1-HL-BlW" id="WCO-aY-ZVu"/>
+                <outlet property="editProfileButton" destination="GCB-iJ-66y" id="crh-c0-sct"/>
                 <outlet property="followingLabel" destination="daU-1O-V59" id="uIO-hR-mvZ"/>
                 <outlet property="nameLabel" destination="5D6-7Q-hiM" id="ZEz-KE-DIA"/>
                 <outlet property="numberOfFollowersLabel" destination="AQc-i9-j3R" id="cN3-Ev-yzu"/>
                 <outlet property="numberOfPostsLabel" destination="afy-Eh-gD0" id="CEo-q9-6YU"/>
                 <outlet property="profilePictureButton" destination="qLS-bU-1oE" id="2Kr-iT-ggB"/>
             </connections>
-            <point key="canvasLocation" x="67.938931297709928" y="32.04225352112676"/>
+            <point key="canvasLocation" x="67.938931297709928" y="52.464788732394368"/>
         </collectionReusableView>
     </objects>
     <resources>
@@ -149,5 +172,8 @@
         <namedColor name="BW">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

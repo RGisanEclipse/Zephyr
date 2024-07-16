@@ -74,6 +74,7 @@
 		B98FC06B2C2817BB002B9194 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B98FC06A2C2817BB002B9194 /* SDWebImageMapKit */; };
 		B98FC06D2C2830D7002B9194 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B98FC06C2C2830D7002B9194 /* FirebaseStorage */; };
 		B9907BE12C2E81D800984BB3 /* EmailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9907BE02C2E81D800984BB3 /* EmailModel.swift */; };
+		B99085D42C469B7B00605D25 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = B99085D32C469B7B00605D25 /* SkeletonView */; };
 		B9AA62832C26077C00D35CD8 /* EditProfileFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA62822C26077C00D35CD8 /* EditProfileFormModel.swift */; };
 		B9BB8EB12C43C15B00AD3CEC /* CurrentUserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB8EB02C43C15B00AD3CEC /* CurrentUserDataManager.swift */; };
 		B9BCCA952C3969AC0027405B /* UserNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BCCA942C3969AC0027405B /* UserNotificationModel.swift */; };
@@ -176,6 +177,7 @@
 				B98FC06B2C2817BB002B9194 /* SDWebImageMapKit in Frameworks */,
 				B98FC06D2C2830D7002B9194 /* FirebaseStorage in Frameworks */,
 				B98194D12C21B08100C7D62C /* FirebaseAnalytics in Frameworks */,
+				B99085D42C469B7B00605D25 /* SkeletonView in Frameworks */,
 				B98FC0692C2817BB002B9194 /* SDWebImage in Frameworks */,
 				B98194D72C21B08100C7D62C /* FirebaseDatabase in Frameworks */,
 				B98194D32C21B08100C7D62C /* FirebaseAuth in Frameworks */,
@@ -469,6 +471,7 @@
 				B98FC0682C2817BB002B9194 /* SDWebImage */,
 				B98FC06A2C2817BB002B9194 /* SDWebImageMapKit */,
 				B98FC06C2C2830D7002B9194 /* FirebaseStorage */,
+				B99085D32C469B7B00605D25 /* SkeletonView */,
 			);
 			productName = Zephyr;
 			productReference = B91B50762C21A61200DC212E /* Zephyr.app */;
@@ -502,6 +505,7 @@
 				B98194CF2C21B08100C7D62C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				B94357682C22EF5F00F52238 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				B98FC0672C2817BB002B9194 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				B99085D22C469B7B00605D25 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = B91B50772C21A61200DC212E /* Products */;
 			projectDirPath = "";
@@ -847,6 +851,14 @@
 				minimumVersion = 5.19.3;
 			};
 		};
+		B99085D22C469B7B00605D25 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.31.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -889,6 +901,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B98194CF2C21B08100C7D62C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		B99085D32C469B7B00605D25 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B99085D22C469B7B00605D25 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 		B9C237442C235D7E00AAE120 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;

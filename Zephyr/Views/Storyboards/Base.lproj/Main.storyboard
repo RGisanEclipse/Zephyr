@@ -237,7 +237,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="Rrl-1I-ptq">
-                        <barButtonItem key="leftBarButtonItem" title="Username" id="8bV-76-n6k">
+                        <barButtonItem key="leftBarButtonItem" id="8bV-76-n6k">
                             <color key="tintColor" name="BW"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" id="A2a-ai-l7L">
@@ -255,6 +255,7 @@
                         <segue destination="7nC-wE-8Je" kind="show" identifier="toFollowingVC" id="ZgJ-tn-cdZ"/>
                         <segue destination="Xwk-ch-pAD" kind="show" identifier="profileToPostVC" id="iJ4-yY-iRW"/>
                         <segue destination="WAF-FT-JNO" kind="show" identifier="toSettingsView" id="vOg-yV-Jq0"/>
+                        <segue destination="MN1-c5-rbP" kind="show" identifier="toEditProfileView" id="gQp-EX-G0A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t7g-gt-pjI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1175,8 +1176,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yeI-wc-WIq"/>
-        <segue reference="Ug1-UI-m2f"/>
+        <segue reference="o66-rl-iad"/>
+        <segue reference="gQp-EX-G0A"/>
+        <segue reference="iJ4-yY-iRW"/>
         <segue reference="Q0E-0G-eJa"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BW"/>
