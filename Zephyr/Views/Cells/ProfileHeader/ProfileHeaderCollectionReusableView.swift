@@ -46,6 +46,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     
     private func setupSkeleton() {
         isSkeletonable = false
+        profilePictureButton.isSkeletonable = true
         nameLabel.isSkeletonable = true
         bioLabel.isSkeletonable = true
         numberOfPostsLabel.isSkeletonable = true
@@ -56,8 +57,15 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     
     func configure(with model: UserModel) {
         hideSkeleton()
-        profilePictureButton.sd_setImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(named: "userPlaceholder"))
-        
+        profilePictureButton.sd_setImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(named: "userPlaceholder"), options: [], context: nil, progress: nil) { [weak self] (image, error, cacheType, url) in
+                if let error = error {
+                    print("Failed to load image: \(error.localizedDescription)")
+                    self?.profilePictureButton.setImage(UIImage(named: "userPlaceholder"), for: .normal)
+                } else {
+                    self?.profilePictureButton.setImage(image, for: .normal)
+                }
+                self?.profilePictureButton.hideSkeleton()
+            }
         if let firstName = model.name?.first, let lastName = model.name?.last {
             nameLabel.text = "\(firstName) \(lastName)"
         }
@@ -82,6 +90,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         editProfileButton.isEnabled = true
     }
     func showSkeletonView() {
+        profilePictureButton.showAnimatedSkeleton()
         nameLabel.showAnimatedSkeleton()
         bioLabel.showAnimatedSkeleton()
         numberOfPostsLabel.showAnimatedSkeleton()
