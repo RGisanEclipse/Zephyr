@@ -17,15 +17,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2F1-92-44Z">
-                        <rect key="frame" x="10" y="11" width="40" height="38.666666666666671"/>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2F1-92-44Z">
+                        <rect key="frame" x="10" y="10" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="Alf-C1-rKk"/>
                             <constraint firstAttribute="height" constant="40" id="qa3-kV-lRR"/>
                         </constraints>
                         <color key="tintColor" name="BW"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" backgroundImage="person.circle.fill" catalog="system"/>
+                        <state key="normal" image="userPlaceholder"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lc5-fQ-iyi">
                         <rect key="frame" x="60" y="15" width="74" height="30"/>
@@ -72,7 +72,7 @@
     </objects>
     <resources>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
-        <image name="person.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="userPlaceholder" width="133.33332824707031" height="121.66666412353516"/>
         <namedColor name="BW">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

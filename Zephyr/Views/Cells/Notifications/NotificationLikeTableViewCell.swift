@@ -25,6 +25,8 @@ class NotificationLikeTableViewCell: UITableViewCell {
         profilePictureButton.layer.cornerRadius = profilePictureButton.frame.size.width / 2
         profilePictureButton.layer.masksToBounds = true
         postButton.layer.cornerRadius = CGFloat(10)
+        profilePictureButton.imageView?.contentMode = .scaleAspectFill
+        postButton.imageView?.contentMode = .scaleAspectFill
         postButton.layer.masksToBounds = true
     }
     @IBAction func profilePictureButtonTapped(_ sender: UIButton) {
@@ -44,11 +46,11 @@ class NotificationLikeTableViewCell: UITableViewCell {
         switch model.type{
         case.like(let post):
             let thumbnailImage = post.thumbnailImage
-            postButton.sd_setBackgroundImage(with: thumbnailImage, for: .normal, placeholderImage: UIImage(named: "placeholder"))
+            postButton.sd_setImage(with: thumbnailImage, for: .normal, placeholderImage: UIImage(named: "placeholder"))
         case.follow:
             break
         }
         contentLabel.text = model.text
-        profilePictureButton.sd_setBackgroundImage(with: model.user.profilePicture, for: .normal, completed: nil)
+        profilePictureButton.sd_setImage(with: model.user.profilePicture, for: .normal, completed: nil)
     }
 }

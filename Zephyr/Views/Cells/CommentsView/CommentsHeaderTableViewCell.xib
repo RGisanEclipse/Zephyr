@@ -16,14 +16,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdq-k9-Suo">
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdq-k9-Suo">
                         <rect key="frame" x="255" y="5" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="5gp-Wq-bcE"/>
                             <constraint firstAttribute="height" constant="50" id="QGX-XR-qAh"/>
                         </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" backgroundImage="LogoImage"/>
+                        <state key="normal" image="placeholder"/>
                         <connections>
                             <action selector="postButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="acn-sy-tPS"/>
                         </connections>
@@ -57,6 +57,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="LogoImage" width="1008" height="916"/>
+        <image name="placeholder" width="360" height="360"/>
     </resources>
 </document>

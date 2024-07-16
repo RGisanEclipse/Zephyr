@@ -21,6 +21,7 @@ class CommentsHeaderTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         postButton.layer.cornerRadius = CGFloat(10)
+        postButton.imageView?.contentMode = .scaleAspectFill
         postButton.layer.masksToBounds = true
     }
     @IBAction func postButtonPressed(_ sender: UIButton) {
@@ -28,6 +29,6 @@ class CommentsHeaderTableViewCell: UITableViewCell {
     }
     func configure(with model: UserPost){
         headerLabel.text = "Comments on \(model.owner.userName)'s post"
-        postButton.sd_setBackgroundImage(with: model.thumbnailImage, for: .normal, placeholderImage: UIImage(named: "placeholder"))
+        postButton.sd_setImage(with: model.thumbnailImage, for: .normal, placeholderImage: UIImage(named: "placeholder"))
     }
 }

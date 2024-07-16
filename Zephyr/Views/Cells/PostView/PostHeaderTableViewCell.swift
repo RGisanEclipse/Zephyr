@@ -19,10 +19,11 @@ class PostHeaderTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         profilePictureButton.layer.cornerRadius = profilePictureButton.frame.size.width / 2
+        profilePictureButton.imageView?.contentMode = .scaleAspectFill
         profilePictureButton.layer.masksToBounds = true
     }
     func configure(with model: UserModel){
-        profilePictureButton.sd_setBackgroundImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(systemName: "person.circle.fill"))
+        profilePictureButton.sd_setImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(systemName: "person.circle.fill"))
         userNameLabel.setTitle(model.userName, for: .normal)
     }
     @IBAction func moreButtonPressed(_ sender: UIButton) {

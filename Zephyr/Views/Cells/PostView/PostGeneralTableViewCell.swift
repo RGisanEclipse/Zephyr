@@ -17,10 +17,11 @@ class PostGeneralTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         profilePictureButton.layer.cornerRadius = profilePictureButton.frame.size.width / 2
+        profilePictureButton.imageView?.contentMode = .scaleAspectFill
         profilePictureButton.layer.masksToBounds = true
     }
     func configure(with model: PostComment){
-        profilePictureButton.sd_setBackgroundImage(with: model.user.profilePicture, for: .normal, placeholderImage: UIImage(systemName: "person.circle.fill"))
+        profilePictureButton.sd_setImage(with: model.user.profilePicture, for: .normal, placeholderImage: UIImage(systemName: "userPlaceholder"))
         userNameLabel.setTitle(model.user.userName, for: .normal)
         commentLabel.text = model.text
     }

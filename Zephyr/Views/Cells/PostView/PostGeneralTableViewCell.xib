@@ -18,15 +18,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MrZ-fQ-pfs">
-                        <rect key="frame" x="10" y="11" width="35" height="33.666666666666671"/>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MrZ-fQ-pfs">
+                        <rect key="frame" x="10" y="10" width="35" height="35"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="35" id="Pqi-VT-Eea"/>
                             <constraint firstAttribute="height" constant="35" id="Rgk-ms-Nex"/>
                         </constraints>
                         <color key="tintColor" name="BW"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" backgroundImage="person.circle.fill" catalog="system"/>
+                        <state key="normal" image="userPlaceholder"/>
                     </button>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="sma-ya-el7">
                         <rect key="frame" x="60" y="10" width="208" height="71"/>
@@ -89,8 +89,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="suit.heart" catalog="system" width="128" height="107"/>
+        <image name="userPlaceholder" width="133.33332824707031" height="121.66666412353516"/>
         <namedColor name="BW">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

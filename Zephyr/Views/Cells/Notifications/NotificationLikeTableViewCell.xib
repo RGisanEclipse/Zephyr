@@ -17,27 +17,27 @@
                 <rect key="frame" x="0.0" y="0.0" width="479" height="74"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63l-ca-aZg">
-                        <rect key="frame" x="10" y="11" width="50" height="48.666666666666671"/>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63l-ca-aZg">
+                        <rect key="frame" x="10" y="10" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="BmI-eM-eHx"/>
                             <constraint firstAttribute="height" constant="50" id="tJR-44-KUj"/>
                         </constraints>
                         <color key="tintColor" name="BW"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" backgroundImage="person.circle.fill" catalog="system"/>
+                        <state key="normal" image="userPlaceholder"/>
                         <connections>
                             <action selector="profilePictureButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1tt-2H-EyI"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5JO-ME-lpA">
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5JO-ME-lpA">
                         <rect key="frame" x="419" y="10" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="F9R-kf-R5R"/>
                             <constraint firstAttribute="width" constant="50" id="xqc-a1-CkN"/>
                         </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" backgroundImage="LogoImage"/>
+                        <state key="normal" image="placeholder"/>
                         <connections>
                             <action selector="postButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="eIG-we-a8D"/>
                         </connections>
@@ -73,8 +73,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="LogoImage" width="1008" height="916"/>
-        <image name="person.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="placeholder" width="360" height="360"/>
+        <image name="userPlaceholder" width="133.33332824707031" height="121.66666412353516"/>
         <namedColor name="BW">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
