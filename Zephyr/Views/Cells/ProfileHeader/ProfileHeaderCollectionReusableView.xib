@@ -116,8 +116,8 @@
                         </stackView>
                     </subviews>
                 </stackView>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6bx-em-4bD" userLabel="NameBioStack">
-                    <rect key="frame" x="15" y="98" width="443" height="65"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6bx-em-4bD" userLabel="NameBioStack">
+                    <rect key="frame" x="15" y="98" width="443" height="58"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5D6-7Q-hiM">
                             <rect key="frame" x="0.0" y="0.0" width="443" height="50"/>
@@ -131,7 +131,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Z1-HL-BlW">
-                            <rect key="frame" x="0.0" y="65" width="443" height="0.0"/>
+                            <rect key="frame" x="0.0" y="58" width="443" height="0.0"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -144,7 +144,7 @@
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCB-iJ-66y">
-                    <rect key="frame" x="176.66666666666666" y="178" width="119.99999999999997" height="30"/>
+                    <rect key="frame" x="176.66666666666666" y="169" width="119.99999999999997" height="30"/>
                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="1cK-1b-Jx8"/>
@@ -166,7 +166,7 @@
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
             <constraints>
                 <constraint firstItem="foI-AB-LuK" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="15" id="1ch-zW-0yV"/>
-                <constraint firstItem="GCB-iJ-66y" firstAttribute="top" secondItem="6bx-em-4bD" secondAttribute="bottom" constant="15" id="50Y-7S-wgA"/>
+                <constraint firstItem="GCB-iJ-66y" firstAttribute="top" secondItem="6bx-em-4bD" secondAttribute="bottom" constant="13" id="50Y-7S-wgA"/>
                 <constraint firstItem="6bx-em-4bD" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="15" id="7qx-Nh-eXz"/>
                 <constraint firstItem="GCB-iJ-66y" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="I16-MW-eWM"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="foI-AB-LuK" secondAttribute="trailing" constant="15" id="NZD-tz-1Bv"/>

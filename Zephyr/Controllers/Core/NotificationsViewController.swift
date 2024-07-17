@@ -8,7 +8,7 @@
 import UIKit
 
 class NotificationsViewController: UIViewController {
-
+    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noNotificationsView: UIStackView!
@@ -26,11 +26,12 @@ class NotificationsViewController: UIViewController {
             noNotificationsView.isHidden = true
             tableView.isHidden = false
         }
-//        spinner.startAnimating()
+        //        spinner.startAnimating()
         spinner.isHidden = true
         tableView.register(UINib(nibName: Constants.Notifications.likeCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Notifications.likeCellIdentifier)
         tableView.register(UINib(nibName: Constants.Notifications.followCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Notifications.followCellIdentifier)
         tableView.dataSource = self
+        tableView.delegate = self
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
     }
@@ -41,7 +42,7 @@ class NotificationsViewController: UIViewController {
     private func fetchNotifications(){
         for x in 0...10{
             let post = UserPost(identifier: "", postType: .photo, thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postURL: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, caption: "The Batman (2022)", likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "x")], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []))
-            let model = UserNotificationModel(type: x%2==0 ? .like(post: post): .follow(state: .notFollowing), text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", user: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []))
+            let model = UserNotificationModel(type: x%2==0 ? .like(post: post): .follow(state: .notFollowing), text: "TheJoker started following you.", user: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), followers: [], following: []))
             models.append(model)
         }
     }
@@ -93,6 +94,15 @@ extension NotificationsViewController: NotificationLikeTableViewCellDelegate{
             break
         }
         self.performSegue(withIdentifier: Constants.Notifications.postSegue, sender: self)
+    }
+}
+
+extension NotificationsViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
 }
 
