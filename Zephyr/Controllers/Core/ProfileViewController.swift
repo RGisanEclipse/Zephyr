@@ -20,7 +20,8 @@ class ProfileViewController: UIViewController {
     private var videosData = [UserPost]()
     private var taggedPostsData = [UserPost]()
     private var userData: UserModel?
-    
+    private var profileHeaderView: ProfileHeaderCollectionReusableView?
+
     var currentView = selectedView.posts
     private var postModel: UserPost?
     private var refreshControl = UIRefreshControl()
@@ -34,28 +35,28 @@ class ProfileViewController: UIViewController {
         fetchUserData()
     }
     private func fetchUserData() {
-        DispatchQueue.main.async {
-            if let header = self.collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0)) as? ProfileHeaderCollectionReusableView {
-                header.showSkeletonView()
-            }
-        }
-
-        CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (fetchedUserData, success) in
-            guard let self = self else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            DispatchQueue.main.async {
                 if let header = self.collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0)) as? ProfileHeaderCollectionReusableView {
-                    if success, let fetchedUserData = fetchedUserData {
-                        self.userData = fetchedUserData
-                        self.userNameTitleBarButton.title = self.userData?.userName
-                        header.configure(with: self.userData!)
-                        header.hideSkeletons()
-                    }
+                    header.showSkeletonView()
                 }
-                self.collectionView.reloadData()
-                self.refreshControl.endRefreshing()
+            }
+            CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (fetchedUserData, success) in
+                guard let self = self else { return }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    if let header = self.collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0)) as? ProfileHeaderCollectionReusableView {
+                        if success, let fetchedUserData = fetchedUserData {
+                            self.userData = fetchedUserData
+                            self.userNameTitleBarButton.title = self.userData?.userName
+                            header.hideSkeletons()
+                            let indexSet = IndexSet(integer: 0)
+                            self.collectionView.reloadSections(indexSet)
+                        }
+                    }
+                    self.collectionView.reloadData()
+                    self.refreshControl.endRefreshing()
+                }
             }
         }
-    }
     
     private func setupCollectionView() {
         collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
@@ -125,15 +126,21 @@ extension ProfileViewController: UICollectionViewDataSource{
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.headerIdentifier, for: indexPath) as! ProfileHeaderCollectionReusableView
         if let userData = self.userData {
             header.configure(with: userData)
+            profileHeaderView = header
         }
         header.delegate = self
         return header
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if section == 0{
-            return CGSize(width: collectionView.frame.width, height: 240)
-        } else{
+        if section == 0 {
+            if let profileHeaderView = profileHeaderView {
+                let height = profileHeaderView.calculateHeight()
+                return CGSize(width: collectionView.frame.width, height: height)
+            } else {
+                return CGSize(width: collectionView.frame.width, height: 200)
+            }
+        } else {
             return CGSize(width: collectionView.frame.width, height: 65)
         }
     }

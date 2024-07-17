@@ -18,6 +18,7 @@ protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject {
 
 class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     
+    @IBOutlet weak var fullView: UIView!
     @IBOutlet weak var profilePictureButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
@@ -32,7 +33,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         super.awakeFromNib()
         setupProfilePictureButton()
         editProfileButton.layer.cornerRadius = CGFloat(8)
-        editProfileButton.isEnabled = false
+        editProfileButton.isHidden = true
         setupSkeleton()
     }
     
@@ -55,7 +56,6 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     }
     
     func configure(with model: UserModel) {
-        hideSkeleton()
         profilePictureButton.sd_setImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(named: "userPlaceholder"), options: [], context: nil, progress: nil) { [weak self] (image, error, cacheType, url) in
                 if let error = error {
                     print("Failed to load image: \(error.localizedDescription)")
@@ -78,6 +78,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
             numberOfFollowersLabel.text = "0"
             followingLabel.text = "0"
         }
+        editProfileButton.isHidden = false
     }
     func hideSkeletons(){
         nameLabel.hideSkeleton(transition: .crossDissolve(0.25))
@@ -85,7 +86,6 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         numberOfPostsLabel.hideSkeleton(transition: .crossDissolve(0.25))
         numberOfFollowersLabel.hideSkeleton(transition: .crossDissolve(0.25))
         followingLabel.hideSkeleton(transition: .crossDissolve(0.25))
-        editProfileButton.isEnabled = true
     }
     func showSkeletonView() {
         profilePictureButton.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
@@ -94,6 +94,18 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         numberOfPostsLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
         numberOfFollowersLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
         followingLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+    }
+    
+    func calculateHeight() -> CGFloat {
+        var height: CGFloat = 0
+        height += profilePictureButton.frame.height
+        height += nameLabel.frame.height
+        height += bioLabel.frame.height
+        height += numberOfPostsLabel.frame.height
+        height += numberOfFollowersLabel.frame.height
+        height += followingLabel.frame.height
+        height += editProfileButton.frame.height
+        return height
     }
     
     @IBAction func postsButtonPressed(_ sender: UIButton) {

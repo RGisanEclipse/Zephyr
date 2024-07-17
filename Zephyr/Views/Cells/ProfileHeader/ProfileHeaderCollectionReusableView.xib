@@ -116,8 +116,8 @@
                         </stackView>
                     </subviews>
                 </stackView>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6bx-em-4bD">
-                    <rect key="frame" x="15" y="102" width="443" height="65"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6bx-em-4bD" userLabel="NameBioStack">
+                    <rect key="frame" x="15" y="98" width="443" height="65"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5D6-7Q-hiM">
                             <rect key="frame" x="0.0" y="0.0" width="443" height="50"/>
@@ -142,13 +142,9 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
-                    <constraints>
-                        <constraint firstAttribute="trailing" secondItem="0Z1-HL-BlW" secondAttribute="trailing" id="QzG-5M-ugZ"/>
-                        <constraint firstItem="0Z1-HL-BlW" firstAttribute="leading" secondItem="6bx-em-4bD" secondAttribute="leading" id="h2b-Rh-bht"/>
-                    </constraints>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCB-iJ-66y">
-                    <rect key="frame" x="176.66666666666666" y="182" width="119.99999999999997" height="30"/>
+                    <rect key="frame" x="176.66666666666666" y="178" width="119.99999999999997" height="30"/>
                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="1cK-1b-Jx8"/>
@@ -173,10 +169,9 @@
                 <constraint firstItem="GCB-iJ-66y" firstAttribute="top" secondItem="6bx-em-4bD" secondAttribute="bottom" constant="15" id="50Y-7S-wgA"/>
                 <constraint firstItem="6bx-em-4bD" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="15" id="7qx-Nh-eXz"/>
                 <constraint firstItem="GCB-iJ-66y" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="I16-MW-eWM"/>
-                <constraint firstItem="6bx-em-4bD" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="15" id="L27-Uo-19T"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="foI-AB-LuK" secondAttribute="trailing" constant="15" id="NZD-tz-1Bv"/>
                 <constraint firstItem="foI-AB-LuK" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="Qo3-qY-FIN"/>
-                <constraint firstItem="6bx-em-4bD" firstAttribute="top" secondItem="foI-AB-LuK" secondAttribute="bottom" constant="12" id="e8L-jW-KxL"/>
+                <constraint firstItem="6bx-em-4bD" firstAttribute="top" secondItem="foI-AB-LuK" secondAttribute="bottom" constant="8" id="e8L-jW-KxL"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="6bx-em-4bD" secondAttribute="trailing" constant="15" id="vSQ-Qi-rZU"/>
             </constraints>
             <connections>
@@ -199,7 +194,7 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

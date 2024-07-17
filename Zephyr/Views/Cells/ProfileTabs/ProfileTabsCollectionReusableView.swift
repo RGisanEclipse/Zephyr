@@ -30,23 +30,23 @@ class ProfileTabsCollectionReusableView: UICollectionReusableView {
     }
     
     @IBAction func postsButtonTapped(_ sender: UIButton) {
-        videoPostsButton.tintColor = .lightGray
-        taggedUserPostsButton.tintColor = .lightGray
+        videoPostsButton.tintColor = UIColor(named: "Tabs")
+        taggedUserPostsButton.tintColor = UIColor(named: "Tabs")
         postsButton.tintColor = UIColor(named: "BW")
         delegate?.didTapPostsButton()
     }
 
     @IBAction func videoPostsButtonTapped(_ sender: UIButton) {
         videoPostsButton.tintColor = UIColor(named: "BW")
-        taggedUserPostsButton.tintColor = .lightGray
-        postsButton.tintColor = .lightGray
+        taggedUserPostsButton.tintColor = UIColor(named: "Tabs")
+        postsButton.tintColor = UIColor(named: "Tabs")
         delegate?.didTapVideoPostsButton()
     }
 
     @IBAction func taggedUserPostsButtonTapped(_ sender: UIButton) {
-        videoPostsButton.tintColor = .lightGray
+        videoPostsButton.tintColor = UIColor(named: "Tabs")
         taggedUserPostsButton.tintColor = UIColor(named: "BW")
-        postsButton.tintColor = .lightGray
+        postsButton.tintColor = UIColor(named: "Tabs")
         delegate?.didTapTaggedUserPostsButton()
     }
 
