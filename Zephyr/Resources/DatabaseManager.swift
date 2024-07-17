@@ -122,37 +122,7 @@ public class DatabaseManager{
                 print("Error saving post: \(error.localizedDescription)")
                 completion(false)
             } else {
-                self.incrementUserPostsCount(userName: post.owner.userName) { success in
-                    completion(success)
-                }
-            }
-        }
-    }
-    
-    private func incrementUserPostsCount(userName: String, completion: @escaping (Bool) -> Void) {
-        let usersCollection = db.collection("users")
-        usersCollection.whereField("userName", isEqualTo: userName).getDocuments { querySnapshot, error in
-            if let error = error {
-                print("Error fetching user document: \(error.localizedDescription)")
-                completion(false)
-                return
-            }
-            guard let document = querySnapshot?.documents.first else {
-                print("User not found.")
-                completion(false)
-                return
-            }
-            let userDocRef = document.reference
-            
-            userDocRef.updateData([
-                "counts.posts": FieldValue.increment(Int64(1))
-            ]) { error in
-                if let error = error {
-                    print("Error incrementing user posts count: \(error.localizedDescription)")
-                    completion(false)
-                } else {
-                    completion(true)
-                }
+                completion(true)
             }
         }
     }
@@ -204,7 +174,28 @@ public class DatabaseManager{
             }
         }
     }
-    
+    func fetchUserData(with userName: String, completion: @escaping (Result<UserModel, Error>) -> Void) {
+        fetchUserDocumentID(userName: userName) { documentID in
+            guard let documentID = documentID else {
+                completion(.failure(NSError(domain: "UserNotFound", code: 1, userInfo: nil)))
+                return
+            }
+            
+            let userDocRef = self.db.collection("users").document(documentID)
+            userDocRef.getDocument { document, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let data = document?.data(), let userModel = UserModel(dictionary: data) else {
+                    completion(.failure(NSError(domain: "UserDataError", code: 0, userInfo: nil)))
+                    return
+                }
+                completion(.success(userModel))
+            }
+        }
+    }
     func fetchUserDocumentID(email: String, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
@@ -241,6 +232,20 @@ public class DatabaseManager{
             completion(documentID)
         }
     }
+    func getPosts(for userName: String, completion: @escaping ([String]) -> Void) {
+        db.collection("posts")
+            .whereField("ownerUserName", isEqualTo: userName)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching posts: \(error.localizedDescription)")
+                    completion([])
+                } else {
+                    let posts = querySnapshot?.documents.compactMap { $0.data()["identifier"] as? String } ?? []
+                    completion(posts)
+                }
+            }
+    }
+    
     func getFollowers(for userName: String, completion: @escaping ([String]) -> Void) {
         db.collection("follows")
             .whereField("followedUserName", isEqualTo: userName)
@@ -269,6 +274,40 @@ public class DatabaseManager{
             }
     }
     
+    func fetchPostData(for identifier: String, completion: @escaping (UserPost?) -> Void) {
+        db.collection("posts")
+            .whereField("identifier", isEqualTo: identifier)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching the postData: \(error.localizedDescription)")
+                    completion(nil)
+                } else if let document = querySnapshot?.documents.first, document.exists {
+                    let postData = document.data()
+                    guard let ownerUserName = postData["ownerUserName"] as? String else {
+                        print("Owner userName not found in post data")
+                        completion(nil)
+                        return
+                    }
+                    self.fetchUserData(with: ownerUserName) { result in
+                        switch result {
+                        case .success(let ownerData):
+                            if let userPost = UserPost(documentData: postData, ownerData: ownerData) {
+                                completion(userPost)
+                            } else {
+                                print("Error initializing UserPost")
+                                completion(nil)
+                            }
+                        case .failure(let error):
+                            print("Error fetching owner data: \(error.localizedDescription)")
+                            completion(nil)
+                        }
+                    }
+                } else {
+                    completion(nil)
+                }
+            }
+    }
+
     func updateUserData(for userName: String, with data: [String: Any], completion: @escaping (Bool) -> Void) {
         fetchUserDocumentID(userName: userName) { documentID in
             guard let documentID = documentID else {

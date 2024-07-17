@@ -16,6 +16,7 @@ class CurrentUserDataManager {
     public func fetchLoggedInUserData(completion: @escaping (UserModel?, Bool) -> Void) {
         if let cachedUser = self.cachedUser {
             completion(cachedUser, true)
+            print("Using cached data right now!")
             return
         }
         guard let email = Auth.auth().currentUser?.email else {
@@ -29,10 +30,15 @@ class CurrentUserDataManager {
             case .success(let user):
                 let userName = user.userName
                 let dispatchGroup = DispatchGroup()
-                
+                var posts: [String] = []
                 var followers: [String] = []
                 var following: [String] = []
                 
+                dispatchGroup.enter()
+                DatabaseManager.shared.getPosts(for: userName){ fetchedPosts in
+                    posts = fetchedPosts
+                    dispatchGroup.leave()
+                }
                 dispatchGroup.enter()
                 DatabaseManager.shared.getFollowers(for: userName) { fetchedFollowers in
                     followers = fetchedFollowers
@@ -46,8 +52,9 @@ class CurrentUserDataManager {
                 }
                 
                 dispatchGroup.notify(queue: .main) {
-                    let updatedCounts = UserCount(posts: user.counts?.posts ?? 0, followers: followers.count, following: following.count)
+                    let updatedCounts = UserCount(posts: posts.count, followers: followers.count, following: following.count)
                     var updatedUser = user
+                    updatedUser.posts = posts
                     updatedUser.followers = followers
                     updatedUser.following = following
                     updatedUser.counts = updatedCounts
@@ -75,8 +82,15 @@ class CurrentUserDataManager {
                 let userName = user.userName
                 let dispatchGroup = DispatchGroup()
                 
+                var posts: [String] = []
                 var followers: [String] = []
                 var following: [String] = []
+                
+                dispatchGroup.enter()
+                DatabaseManager.shared.getPosts(for: userName){ fetchedPosts in
+                    posts = fetchedPosts
+                    dispatchGroup.leave()
+                }
                 
                 dispatchGroup.enter()
                 DatabaseManager.shared.getFollowers(for: userName) { fetchedFollowers in
@@ -91,13 +105,15 @@ class CurrentUserDataManager {
                 }
                 
                 dispatchGroup.notify(queue: .main) {
-                    let updatedCounts = UserCount(posts: user.counts?.posts ?? 0, followers: followers.count, following: following.count)
+                    let updatedCounts = UserCount(posts: posts.count, followers: followers.count, following: following.count)
                     var updatedUser = user
+                    updatedUser.posts = posts
                     updatedUser.followers = followers
                     updatedUser.following = following
                     updatedUser.counts = updatedCounts
                     self.cachedUser = updatedUser
                     self.userData = updatedUser
+                    print(updatedUser)
                     completion(updatedUser, true)
                 }
             case .failure(let error):

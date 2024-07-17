@@ -12,7 +12,7 @@ class CreatePostViewController: UIViewController {
     
     var asset: PHAsset?
     private var userData: UserModel?
-
+    
     
     @IBOutlet weak var mediaView: UIView!
     @IBOutlet weak var captionTextView: UITextView!
@@ -28,31 +28,18 @@ class CreatePostViewController: UIViewController {
         loadAsset()
         spinner.isHidden = true
         dimmedView.isHidden = true
-        
-        let userDictionary: [String: Any] = [
-            "userName": "TheBatman",
-            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s",
-            "bio": "It's not who you are underneath, it's what you do, that defines you.",
-            "name": ["first": "Bruce", "last": "Wayne"],
-            "birthDate": Timestamp(date: Date()),
-            "gender": "male",
-            "counts": ["posts": 1, "followers": 0, "following": 0],
-            "joinDate": Timestamp(date: Date()),
-            "followers": [],
-            "following": []
-        ]
-
-        if let userModel = UserModel(dictionary: userDictionary) {
-            userData = userModel
-        } else {
-            print("Failed to initialize userData from dictionary")
-        }
-
-        if userData == nil {
-            print("Warning: userData is nil after initialization")
+        fetchUserData()
+    }
+    private func fetchUserData(){
+        CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (user, success) in
+            guard let self = self, success, let user = user else {
+                print("Failed to fetch user data")
+                return
+            }
+            self.userData = user
+            print("Fetched user data successfully")
         }
     }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.view.bringSubviewToFront(dimmedView)
@@ -134,7 +121,7 @@ class CreatePostViewController: UIViewController {
         options.isNetworkAccessAllowed = true
         options.isSynchronous = false
         options.version = .current
-
+        
         PHImageManager.default().requestImageDataAndOrientation(for: asset, options: options) { [weak self] (imageData, dataUTI, orientation, info) in
             guard let self = self else { return }
             
@@ -223,41 +210,40 @@ class CreatePostViewController: UIViewController {
         }
     }
     private func createPost(with postURL: URL, type: UserPostType, caption: String?, thumbnailURL: URL? = nil) {
-            guard let userData = userData else {
-                print("userData is nil, cannot create post")
-                return
-            }
-
-            let postID = UUID().uuidString
-            let thumbnail = thumbnailURL ?? postURL
-            let newPost = UserPost(identifier: postID,
-                                   postType: type,
-                                   thumbnailImage: thumbnail,
-                                   postURL: postURL,
-                                   caption: caption,
-                                   likeCount: [],
-                                   comments: [],
-                                   createDate: Date(),
-                                   taggedUsers: [],
-                                   owner: userData)
-            
-            DatabaseManager.shared.savePost(newPost) { success in
-                if success {
-                    print("Post created successfully")
-                } else {
-                    print("Failed to create post")
-                }
+        guard let userData = userData else {
+            print("userData is nil, cannot create post")
+            return
+        }
+        let postID = UUID().uuidString
+        let thumbnail = thumbnailURL ?? postURL
+        let newPost = UserPost(identifier: postID,
+                               postType: type,
+                               thumbnailImage: thumbnail,
+                               postURL: postURL,
+                               caption: caption,
+                               likeCount: [],
+                               comments: [],
+                               createDate: Date(),
+                               taggedUsers: [],
+                               owner: userData)
+        
+        DatabaseManager.shared.savePost(newPost) { success in
+            if success {
+                print("Post created successfully")
+            } else {
+                print("Failed to create post")
             }
         }
-
+    }
+    
 }
 
 // MARK: - UITextFieldDelegate
 extension CreatePostViewController: UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
-            navigationController?.setNavigationBarHidden(true, animated: false)
-        }
-        
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         navigationController?.setNavigationBarHidden(false, animated: false)
     }

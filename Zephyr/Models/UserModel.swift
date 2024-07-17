@@ -18,6 +18,7 @@ struct UserModel{
     let joinDate: Date?
     var followers: [String]
     var following: [String]
+    var posts: [String]
     func isFollower(userName: String) -> Bool {
         return followers.contains(userName)
     }
@@ -48,13 +49,14 @@ struct UserModel{
         self.birthDate = dictionary["birthDate"] as? Date
         self.gender = Gender(rawValue: dictionary["gender"] as? String ?? "") ?? .other
         self.joinDate = dictionary["joinDate"] as? Date
+        self.posts = dictionary["posts"] as? [String] ?? []
         self.followers = dictionary["followers"] as? [String] ?? []
         self.following = dictionary["following"] as? [String] ?? []
-        self.counts = UserCount(posts: 0,
+        self.counts = UserCount(posts: posts.count,
                                 followers: followers.count,
                                 following: following.count)
     }
-    init(userName: String, profilePicture: URL, bio: String, name: (first: String, last: String), birthDate: Date, gender: Gender, counts: UserCount, joinDate: Date, followers: [String], following: [String]) {
+    init(userName: String, profilePicture: URL, bio: String, name: (first: String, last: String), birthDate: Date, gender: Gender, counts: UserCount, joinDate: Date, posts: [String], followers: [String], following: [String]) {
         self.userName = userName
         self.profilePicture = profilePicture
         self.bio = bio
@@ -63,6 +65,7 @@ struct UserModel{
         self.gender = gender
         self.counts = counts
         self.joinDate = joinDate
+        self.posts = posts
         self.followers = followers
         self.following = following
     }
@@ -80,10 +83,11 @@ struct UserCount{
     let followers: Int
     let following: Int
 }
-enum UserPostType{
-    case photo, video
+enum UserPostType: String{
+    case photo = "photo"
+    case video = "video"
 }
-struct UserPost{
+struct UserPost {
     let identifier: String
     let postType: UserPostType
     let thumbnailImage: URL
@@ -94,7 +98,62 @@ struct UserPost{
     let createDate: Date
     let taggedUsers: [String]
     let owner: UserModel
+    init?(documentData: [String: Any], ownerData: UserModel){
+        guard let identifier = documentData["identifier"] as? String else {
+            print("Failed to initialize UserPost: identifier is missing")
+            return nil
+        }
+        self.identifier = identifier
+        
+        guard let postTypeRawValue = documentData["postType"] as? String else {
+            print("Failed to initialize UserPost: postType is missing or not a String")
+            return nil
+        }
+        guard let postType = UserPostType(rawValue: postTypeRawValue) else {
+            print("Failed to initialize UserPost: Invalid postType value")
+            return nil
+        }
+        self.postType = postType
+        
+        guard let thumbnailImageString = documentData["thumbnailImage"] as? String,
+              let thumbnailImage = URL(string: thumbnailImageString) else {
+            print("Failed to initialize UserPost: thumbnailImage URL is missing or invalid")
+            return nil
+        }
+        self.thumbnailImage = thumbnailImage
+        
+        guard let postURLString = documentData["postURL"] as? String,
+              let postURL = URL(string: postURLString) else {
+            print("Failed to initialize UserPost: postURL URL is missing or invalid")
+            return nil
+        }
+        self.postURL = postURL
+        
+        guard let createDateTimestamp = documentData["createDate"] as? Timestamp else {
+            print("Failed to initialize UserPost: createDate Timestamp is missing")
+            return nil
+        }
+        self.createDate = createDateTimestamp.dateValue()
+        self.owner = ownerData
+        self.caption = documentData["caption"] as? String
+        self.likeCount = []
+        self.comments = []
+        self.taggedUsers = documentData["taggedUsers"] as? [String] ?? []
+    }
+    init(identifier: String, postType: UserPostType, thumbnailImage: URL, postURL: URL, caption: String?, likeCount: [PostLike], comments: [PostComment], createDate: Date, taggedUsers: [String], owner: UserModel) {
+        self.identifier = identifier
+        self.postType = postType
+        self.thumbnailImage = thumbnailImage
+        self.postURL = postURL
+        self.caption = caption
+        self.likeCount = likeCount
+        self.comments = comments
+        self.createDate = createDate
+        self.taggedUsers = taggedUsers
+        self.owner = owner
+    }
 }
+
 struct PostLike{
     let userName: String
     let postIdentifier: String

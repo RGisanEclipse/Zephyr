@@ -47,6 +47,7 @@ class ProfileViewController: UIViewController {
                     if success, let fetchedUserData = fetchedUserData {
                         self.userData = fetchedUserData
                         self.userNameTitleBarButton.title = self.userData?.userName
+                        self.createPostsArray()
                         header.hideSkeletons()
                         let indexSet = IndexSet(integer: 0)
                         self.collectionView.reloadSections(indexSet)
@@ -70,6 +71,7 @@ class ProfileViewController: UIViewController {
                     if success, let fetchedUserData = fetchedUserData {
                         self.userData = fetchedUserData
                         self.userNameTitleBarButton.title = self.userData?.userName
+                        self.createPostsArray()
                         header.hideSkeletons()
                         let indexSet = IndexSet(integer: 0)
                         self.collectionView.reloadSections(indexSet)
@@ -77,7 +79,35 @@ class ProfileViewController: UIViewController {
                 }
                 self.collectionView.reloadData()
                 self.refreshControl.endRefreshing()
+                self.postsData.removeAll()
             }
+        }
+    }
+    private func createPostsArray() {
+        guard let userData = userData else { return }
+        let dispatchGroup = DispatchGroup()
+        for postIdentifier in userData.posts {
+            dispatchGroup.enter()
+            fetchPostData(for: postIdentifier) { [weak self] fetchedPost in
+                defer {
+                    dispatchGroup.leave()
+                }
+                guard let fetchedPost = fetchedPost else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    self?.postsData.append(fetchedPost)
+                }
+            }
+        }
+        dispatchGroup.notify(queue: .main) {
+            print("All posts fetched and added to postsData")
+            self.collectionView.reloadData()
+        }
+    }
+    func fetchPostData(for identifier: String, completion: @escaping (UserPost?) -> Void) {
+        DatabaseManager.shared.fetchPostData(for: identifier) { fetchedPost in
+            completion(fetchedPost)
         }
     }
     private func setupCollectionView() {
@@ -122,8 +152,8 @@ extension ProfileViewController: UICollectionViewDataSource{
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Profile.cellIdentifier, for: indexPath) as! ProfileCollectionViewCell
-        var post: UserPost
-        switch currentView{
+        var post: UserPost?
+        switch currentView {
         case .posts:
             post = postsData[indexPath.row]
         case .videoPosts:
@@ -131,9 +161,13 @@ extension ProfileViewController: UICollectionViewDataSource{
         case .taggedUserPosts:
             post = taggedPostsData[indexPath.row]
         }
-        cell.configure(with: post)
+        if let post = post {
+            cell.configure(with: post)
+        }
+        
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionView.elementKindSectionHeader else {
             return UICollectionReusableView()
