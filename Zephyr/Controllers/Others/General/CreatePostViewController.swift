@@ -166,51 +166,92 @@ class CreatePostViewController: UIViewController {
         PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { [weak self] (avAsset, _, _) in
             guard let self = self, let avAsset = avAsset as? AVURLAsset else {
                 print("Failed to fetch AVAsset for video")
-                self!.spinner.stopAnimating()
-                self!.dimmedView.isHidden = true
-                self!.navigationController?.setNavigationBarHidden(false, animated: false)
+                DispatchQueue.main.async {
+                    self?.spinner.stopAnimating()
+                    self?.dimmedView.isHidden = true
+                    self?.navigationController?.setNavigationBarHidden(false, animated: false)
+                }
                 return
             }
             let videoURL = avAsset.url
-            StorageManager.shared.uploadVideo(fileURL: videoURL) { [weak self] url in
-                guard let self = self, let url = url else {
-                    print("Failed to upload video")
-                    self!.spinner.stopAnimating()
-                    self!.dimmedView.isHidden = true
-                    self!.navigationController?.setNavigationBarHidden(false, animated: false)
-                    return
-                }
-                print("Uploaded video successfully at \(url)")
-                let generator = AVAssetImageGenerator(asset: avAsset)
-                generator.appliesPreferredTrackTransform = true
-                let time = CMTime(seconds: 0.5, preferredTimescale: 600)
-                do {
-                    let cgImage = try generator.copyCGImage(at: time, actualTime: nil)
-                    let thumbnail = UIImage(cgImage: cgImage)
-                    StorageManager.shared.uploadImage(data: thumbnail.jpegData(compressionQuality: 0.8)!) { [weak self] thumbnailURL in
-                        guard let self = self, let thumbnailURL = thumbnailURL else {
-                            print("Failed to upload thumbnail")
-                            self!.spinner.stopAnimating()
-                            self!.dimmedView.isHidden = true
-                            self!.navigationController?.setNavigationBarHidden(false, animated: false)
-                            return
-                        }
-                        print("Uploaded thumbnail successfully! at \(thumbnailURL.absoluteString)")
-                        self.createPost(with: url, type: .video, caption: caption, thumbnailURL: thumbnailURL)
+            self.copyVideoToTempDirectory(videoURL: videoURL) { tempURL in
+                guard let tempURL = tempURL else {
+                    print("Failed to copy video to temp directory")
+                    DispatchQueue.main.async {
                         self.spinner.stopAnimating()
                         self.dimmedView.isHidden = true
                         self.navigationController?.setNavigationBarHidden(false, animated: false)
-                        self.navigationController?.popToRootViewController(animated: true)
                     }
-                } catch let error {
-                    print("Error generating thumbnail: \(error.localizedDescription)")
-                    self.spinner.stopAnimating()
-                    self.dimmedView.isHidden = true
-                    self.navigationController?.setNavigationBarHidden(false, animated: false)
+                    return
+                }
+                StorageManager.shared.uploadVideo(fileURL: tempURL) { [weak self] url in
+                    guard let self = self, let url = url else {
+                        print("Failed to upload video")
+                        DispatchQueue.main.async {
+                            self?.spinner.stopAnimating()
+                            self?.dimmedView.isHidden = true
+                            self?.navigationController?.setNavigationBarHidden(false, animated: false)
+                        }
+                        return
+                    }
+                    print("Uploaded video successfully at \(url)")
+                    let generator = AVAssetImageGenerator(asset: avAsset)
+                    generator.appliesPreferredTrackTransform = true
+                    let time = CMTime(seconds: 0.5, preferredTimescale: 600)
+                    do {
+                        let cgImage = try generator.copyCGImage(at: time, actualTime: nil)
+                        let thumbnail = UIImage(cgImage: cgImage)
+                        StorageManager.shared.uploadImage(data: thumbnail.jpegData(compressionQuality: 0.8)!) { [weak self] thumbnailURL in
+                            guard let self = self, let thumbnailURL = thumbnailURL else {
+                                print("Failed to upload thumbnail")
+                                DispatchQueue.main.async {
+                                    self?.spinner.stopAnimating()
+                                    self?.dimmedView.isHidden = true
+                                    self?.navigationController?.setNavigationBarHidden(false, animated: false)
+                                }
+                                return
+                            }
+                            print("Uploaded thumbnail successfully at \(thumbnailURL.absoluteString)")
+                            self.createPost(with: url, type: .video, caption: caption, thumbnailURL: thumbnailURL)
+                            DispatchQueue.main.async {
+                                self.spinner.stopAnimating()
+                                self.dimmedView.isHidden = true
+                                self.navigationController?.setNavigationBarHidden(false, animated: false)
+                                self.navigationController?.popToRootViewController(animated: true)
+                            }
+                        }
+                    } catch let error {
+                        print("Error generating thumbnail: \(error.localizedDescription)")
+                        DispatchQueue.main.async {
+                            self.spinner.stopAnimating()
+                            self.dimmedView.isHidden = true
+                            self.navigationController?.setNavigationBarHidden(false, animated: false)
+                        }
+                    }
                 }
             }
         }
     }
+    
+    private func copyVideoToTempDirectory(videoURL: URL, completion: @escaping (URL?) -> Void) {
+        let tempDirectory = FileManager.default.temporaryDirectory
+        let tempFileURL = tempDirectory.appendingPathComponent(videoURL.lastPathComponent)
+        
+        DispatchQueue.global(qos: .background).async {
+            do {
+                try FileManager.default.copyItem(at: videoURL, to: tempFileURL)
+                DispatchQueue.main.async {
+                    completion(tempFileURL)
+                }
+            } catch {
+                print("Error copying video to temp directory: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            }
+        }
+    }
+    
     private func createPost(with postURL: URL, type: UserPostType, caption: String?, thumbnailURL: URL? = nil) {
         guard let userData = userData else {
             print("userData is nil, cannot create post")

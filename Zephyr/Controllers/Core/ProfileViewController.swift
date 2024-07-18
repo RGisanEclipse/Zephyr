@@ -162,7 +162,6 @@ extension ProfileViewController: UICollectionViewDataSource{
         } else{
             switch currentView{
             case .posts:
-                print(postsData.count)
                 return postsData.count
             case .videoPosts:
                 return videosData.count
