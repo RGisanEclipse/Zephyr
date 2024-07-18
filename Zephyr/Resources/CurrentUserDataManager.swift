@@ -113,7 +113,6 @@ class CurrentUserDataManager {
                     updatedUser.counts = updatedCounts
                     self.cachedUser = updatedUser
                     self.userData = updatedUser
-                    print(updatedUser)
                     completion(updatedUser, true)
                 }
             case .failure(let error):

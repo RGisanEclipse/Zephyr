@@ -45,10 +45,9 @@ class PostTableViewCell: UITableViewCell {
     private func configureVideo(with url: URL) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
-            self.spinner.startAnimating()
             let player = AVPlayer(url: url)
-            
             DispatchQueue.main.async {
+                self.spinner.startAnimating()
                 self.player = player
                 self.postImageView.isHidden = true
                 self.speakerButton.isHidden = false

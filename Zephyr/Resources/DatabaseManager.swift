@@ -235,6 +235,7 @@ public class DatabaseManager{
     func getPosts(for userName: String, completion: @escaping ([String]) -> Void) {
         db.collection("posts")
             .whereField("ownerUserName", isEqualTo: userName)
+            .order(by: "createDate", descending: false)
             .getDocuments { querySnapshot, error in
                 if let error = error {
                     print("Error fetching posts: \(error.localizedDescription)")

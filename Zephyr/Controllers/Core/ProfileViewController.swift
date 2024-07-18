@@ -101,7 +101,6 @@ class ProfileViewController: UIViewController {
             }
         }
         dispatchGroup.notify(queue: .main) {
-            print("All posts fetched and added to postsData")
             self.collectionView.reloadData()
         }
     }
