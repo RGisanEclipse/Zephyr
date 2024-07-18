@@ -48,6 +48,7 @@ class PostTableViewCell: UITableViewCell {
             let player = AVPlayer(url: url)
             DispatchQueue.main.async {
                 self.spinner.startAnimating()
+                self.spinner.isHidden = false
                 self.player = player
                 self.postImageView.isHidden = true
                 self.speakerButton.isHidden = false
@@ -99,6 +100,7 @@ class PostTableViewCell: UITableViewCell {
            player == self.player,
            player.status == .readyToPlay {
             spinner.stopAnimating()
+            spinner.isHidden = true
             player.removeObserver(self, forKeyPath: "status")
         }
     }

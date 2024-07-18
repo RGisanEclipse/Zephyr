@@ -195,6 +195,7 @@ class CreatePostViewController: UIViewController {
                         return
                     }
                     print("Uploaded video successfully at \(url)")
+                    self.deleteTempVideo(at: tempURL)
                     let generator = AVAssetImageGenerator(asset: avAsset)
                     generator.appliesPreferredTrackTransform = true
                     let time = CMTime(seconds: 0.5, preferredTimescale: 600)
@@ -232,7 +233,14 @@ class CreatePostViewController: UIViewController {
             }
         }
     }
-    
+    private func deleteTempVideo(at tempFileURL: URL) {
+        do {
+            try FileManager.default.removeItem(at: tempFileURL)
+            print("Deleted temp video file at \(tempFileURL.absoluteString)")
+        } catch {
+            print("Failed to delete temp video file: \(error.localizedDescription)")
+        }
+    }
     private func copyVideoToTempDirectory(videoURL: URL, completion: @escaping (URL?) -> Void) {
         let tempDirectory = FileManager.default.temporaryDirectory
         let tempFileURL = tempDirectory.appendingPathComponent(videoURL.lastPathComponent)

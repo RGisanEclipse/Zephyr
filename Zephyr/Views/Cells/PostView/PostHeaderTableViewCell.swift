@@ -23,7 +23,7 @@ class PostHeaderTableViewCell: UITableViewCell {
         profilePictureButton.layer.masksToBounds = true
     }
     func configure(with model: UserModel){
-        profilePictureButton.sd_setImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(systemName: "person.circle.fill"))
+        profilePictureButton.sd_setImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(named: "userPlaceholder"))
         userNameLabel.setTitle(model.userName, for: .normal)
     }
     @IBAction func moreButtonPressed(_ sender: UIButton) {
