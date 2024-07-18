@@ -140,6 +140,7 @@ class CreatePostViewController: UIViewController {
                         self.spinner.stopAnimating()
                         self.dimmedView.isHidden = true
                         self.navigationController?.setNavigationBarHidden(false, animated: false)
+                        self.navigationController?.popToRootViewController(animated: true)
                     }
                 } else {
                     print("Failed to process image data")
@@ -199,6 +200,7 @@ class CreatePostViewController: UIViewController {
                         self.spinner.stopAnimating()
                         self.dimmedView.isHidden = true
                         self.navigationController?.setNavigationBarHidden(false, animated: false)
+                        self.navigationController?.popToRootViewController(animated: true)
                     }
                 } catch let error {
                     print("Error generating thumbnail: \(error.localizedDescription)")

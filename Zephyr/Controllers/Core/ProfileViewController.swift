@@ -54,6 +54,8 @@ class ProfileViewController: UIViewController {
                     }
                 }
                 self.collectionView.reloadData()
+                let indexSet = IndexSet(integer: 1)
+                self.collectionView.reloadSections(indexSet)
                 self.refreshControl.endRefreshing()
             }
         }
@@ -75,40 +77,59 @@ class ProfileViewController: UIViewController {
                         header.hideSkeletons()
                         let indexSet = IndexSet(integer: 0)
                         self.collectionView.reloadSections(indexSet)
+                    } else {
+                        print("Failed to refresh user data")
                     }
                 }
                 self.collectionView.reloadData()
+                let indexSet = IndexSet(integer: 1)
+                self.collectionView.reloadSections(indexSet)
                 self.refreshControl.endRefreshing()
                 self.postsData.removeAll()
             }
         }
     }
+    
     private func createPostsArray() {
         guard let userData = userData else { return }
+        var fetchedPosts: [String: UserPost] = [:]
         let dispatchGroup = DispatchGroup()
         for postIdentifier in userData.posts {
             dispatchGroup.enter()
-            fetchPostData(for: postIdentifier) { [weak self] fetchedPost in
+            fetchPostData(for: postIdentifier) { fetchedPost in
                 defer {
                     dispatchGroup.leave()
                 }
-                guard let fetchedPost = fetchedPost else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    self?.postsData.append(fetchedPost)
+                if let fetchedPost = fetchedPost {
+                    fetchedPosts[postIdentifier] = fetchedPost
                 }
             }
         }
+        
         dispatchGroup.notify(queue: .main) {
+            var orderedPosts: [UserPost] = []
+            for postIdentifier in userData.posts {
+                if let fetchedPost = fetchedPosts[postIdentifier] {
+                    orderedPosts.append(fetchedPost)
+                }
+            }
+            self.postsData = orderedPosts
             self.collectionView.reloadData()
+            let indexSet = IndexSet(integer: 1)
+            self.collectionView.reloadSections(indexSet)
         }
     }
     func fetchPostData(for identifier: String, completion: @escaping (UserPost?) -> Void) {
         DatabaseManager.shared.fetchPostData(for: identifier) { fetchedPost in
+            guard let fetchedPost = fetchedPost else {
+                print("Failed to fetch post data for identifier: \(identifier)")
+                completion(nil)
+                return
+            }
             completion(fetchedPost)
         }
     }
+    
     private func setupCollectionView() {
         collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
         collectionView.register(UINib(nibName: Constants.Profile.headerIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.headerIdentifier)
@@ -141,6 +162,7 @@ extension ProfileViewController: UICollectionViewDataSource{
         } else{
             switch currentView{
             case .posts:
+                print(postsData.count)
                 return postsData.count
             case .videoPosts:
                 return videosData.count
@@ -154,7 +176,9 @@ extension ProfileViewController: UICollectionViewDataSource{
         var post: UserPost?
         switch currentView {
         case .posts:
-            post = postsData[indexPath.row]
+            if indexPath.row < postsData.count {
+                post = postsData[indexPath.row]
+            }
         case .videoPosts:
             post = videosData[indexPath.row]
         case .taggedUserPosts:
