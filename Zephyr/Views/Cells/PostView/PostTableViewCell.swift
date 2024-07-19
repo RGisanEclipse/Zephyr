@@ -7,12 +7,15 @@
 
 import UIKit
 import AVFoundation
+import NVActivityIndicatorView
+
 class PostTableViewCell: UITableViewCell {
     private var player: AVPlayer?
     private var playerLayer = AVPlayerLayer()
+    
     @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var speakerButton: UIButton!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var spinner: NVActivityIndicatorView!
     
     private var speakerState = "Mute"
     
@@ -21,6 +24,7 @@ class PostTableViewCell: UITableViewCell {
         contentView.layer.addSublayer(playerLayer)
         speakerButton.isHidden = true
         spinner.isHidden = true
+        spinner.type = .circleStrokeSpin
     }
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -33,7 +37,7 @@ class PostTableViewCell: UITableViewCell {
             configureVideo(with: model.postURL)
         }
     }
-
+    
     private func configurePhoto(with url: URL) {
         DispatchQueue.main.async { [weak self] in
             self?.spinner.isHidden = true
@@ -41,7 +45,7 @@ class PostTableViewCell: UITableViewCell {
             self?.postImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"))
         }
     }
-
+    
     private func configureVideo(with url: URL) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
@@ -57,10 +61,12 @@ class PostTableViewCell: UITableViewCell {
                 self.player?.volume = 0
                 self.player?.play()
                 self.player?.addObserver(self, forKeyPath: "status", options: .new, context: nil)
+                self.player?.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
+                self.player?.currentItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: nil)
             }
         }
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         playerLayer.frame = contentView.bounds
@@ -92,9 +98,9 @@ class PostTableViewCell: UITableViewCell {
         speakerButton.setBackgroundImage(UIImage(systemName: "speaker.circle.fill"), for: .normal)
     }
     override func observeValue(forKeyPath keyPath: String?,
-                                   of object: Any?,
-                                   change: [NSKeyValueChangeKey : Any]?,
-                                   context: UnsafeMutableRawPointer?) {
+                               of object: Any?,
+                               change: [NSKeyValueChangeKey : Any]?,
+                               context: UnsafeMutableRawPointer?) {
         if keyPath == "status",
            let player = object as? AVPlayer,
            player == self.player,
@@ -102,6 +108,16 @@ class PostTableViewCell: UITableViewCell {
             spinner.stopAnimating()
             spinner.isHidden = true
             player.removeObserver(self, forKeyPath: "status")
+        } else if keyPath == "playbackLikelyToKeepUp" {
+            if let playerItem = object as? AVPlayerItem, playerItem.isPlaybackLikelyToKeepUp {
+                spinner.stopAnimating()
+                spinner.isHidden = true
+            }
+        } else if keyPath == "playbackBufferEmpty" {
+            if let playerItem = object as? AVPlayerItem, playerItem.isPlaybackBufferEmpty {
+                spinner.startAnimating()
+                spinner.isHidden = false
+            }
         }
     }
 }

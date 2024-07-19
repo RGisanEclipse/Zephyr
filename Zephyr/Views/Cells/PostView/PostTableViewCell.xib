@@ -33,19 +33,24 @@
                             <action selector="speakerButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="re9-dt-eyW"/>
                         </connections>
                     </button>
-                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="8nM-qc-CsD">
-                        <rect key="frame" x="141.66666666666666" y="54.666666666666657" width="37" height="37"/>
-                    </activityIndicatorView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eaQ-FL-3nt" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                        <rect key="frame" x="135" y="48" width="50" height="50"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="LuW-Yn-P5q"/>
+                            <constraint firstAttribute="height" constant="50" id="Yup-pc-nLH"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="8nM-qc-CsD" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="31l-iU-zbs"/>
                     <constraint firstAttribute="bottom" secondItem="YsY-Vt-hLC" secondAttribute="bottom" id="Jrn-43-NQt"/>
                     <constraint firstAttribute="trailing" secondItem="H4Z-Tt-v9H" secondAttribute="trailing" constant="15" id="MIJ-aB-wwB"/>
+                    <constraint firstItem="eaQ-FL-3nt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Za4-lh-vs2"/>
                     <constraint firstItem="YsY-Vt-hLC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="bdQ-nF-bAJ"/>
-                    <constraint firstItem="8nM-qc-CsD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eOS-fP-hcj"/>
                     <constraint firstAttribute="bottom" secondItem="H4Z-Tt-v9H" secondAttribute="bottom" constant="15" id="eTu-NM-f4e"/>
                     <constraint firstItem="YsY-Vt-hLC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fl0-co-c5c"/>
                     <constraint firstAttribute="trailing" secondItem="YsY-Vt-hLC" secondAttribute="trailing" id="gIj-zx-VMj"/>
+                    <constraint firstItem="eaQ-FL-3nt" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="w7X-TI-uDz"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -53,15 +58,18 @@
             <connections>
                 <outlet property="postImageView" destination="YsY-Vt-hLC" id="sXd-bY-AOH"/>
                 <outlet property="speakerButton" destination="H4Z-Tt-v9H" id="4mm-oO-ZbF"/>
-                <outlet property="spinner" destination="8nM-qc-CsD" id="e6s-7J-xZH"/>
+                <outlet property="spinner" destination="eaQ-FL-3nt" id="NRc-DZ-QWm"/>
             </connections>
             <point key="canvasLocation" x="138.93129770992365" y="4.2253521126760569"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="speaker.slash.circle.fill" catalog="system" width="128" height="123"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

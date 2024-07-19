@@ -89,6 +89,8 @@
 		B9ED55962C21B77E00CC9D35 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED55952C21B77E00CC9D35 /* StorageManager.swift */; };
 		B9F16B3F2C401B28002497D7 /* UploadMediaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F16B3D2C401B28002497D7 /* UploadMediaCollectionViewCell.swift */; };
 		B9F16B402C401B28002497D7 /* UploadMediaCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9F16B3E2C401B28002497D7 /* UploadMediaCollectionViewCell.xib */; };
+		B9F2535B2C4A1F3D00107CF6 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = B9F2535A2C4A1F3D00107CF6 /* NVActivityIndicatorView */; };
+		B9F2535D2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = B9F2535C2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -181,6 +183,8 @@
 				B98FC0692C2817BB002B9194 /* SDWebImage in Frameworks */,
 				B98194D72C21B08100C7D62C /* FirebaseDatabase in Frameworks */,
 				B98194D32C21B08100C7D62C /* FirebaseAuth in Frameworks */,
+				B9F2535B2C4A1F3D00107CF6 /* NVActivityIndicatorView in Frameworks */,
+				B9F2535D2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended in Frameworks */,
 				B943576A2C22EF5F00F52238 /* IQKeyboardManagerSwift in Frameworks */,
 				B9C237452C235D7E00AAE120 /* FirebaseFirestore in Frameworks */,
 			);
@@ -472,6 +476,8 @@
 				B98FC06A2C2817BB002B9194 /* SDWebImageMapKit */,
 				B98FC06C2C2830D7002B9194 /* FirebaseStorage */,
 				B99085D32C469B7B00605D25 /* SkeletonView */,
+				B9F2535A2C4A1F3D00107CF6 /* NVActivityIndicatorView */,
+				B9F2535C2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended */,
 			);
 			productName = Zephyr;
 			productReference = B91B50762C21A61200DC212E /* Zephyr.app */;
@@ -506,6 +512,7 @@
 				B94357682C22EF5F00F52238 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				B98FC0672C2817BB002B9194 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				B99085D22C469B7B00605D25 /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				B9F253592C4A1F3D00107CF6 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 			);
 			productRefGroup = B91B50772C21A61200DC212E /* Products */;
 			projectDirPath = "";
@@ -859,6 +866,14 @@
 				minimumVersion = 1.31.0;
 			};
 		};
+		B9F253592C4A1F3D00107CF6 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ninjaprox/NVActivityIndicatorView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -911,6 +926,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B98194CF2C21B08100C7D62C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		B9F2535A2C4A1F3D00107CF6 /* NVActivityIndicatorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9F253592C4A1F3D00107CF6 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorView;
+		};
+		B9F2535C2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9F253592C4A1F3D00107CF6 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorViewExtended;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
