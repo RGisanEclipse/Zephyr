@@ -29,6 +29,7 @@ class CreatePostViewController: UIViewController {
         loadAsset()
         spinner.isHidden = true
         spinner.type = .circleStrokeSpin
+        spinner.color = .BW
         dimmedView.isHidden = true
         fetchUserData()
     }

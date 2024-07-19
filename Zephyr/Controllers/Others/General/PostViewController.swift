@@ -33,6 +33,21 @@ class PostViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Post"
+        for cell in tableView.visibleCells{
+            if let postCell = cell as? PostTableViewCell {
+                postCell.playVideo()
+                postCell.unMuteVideo()
+            }
+        }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        for cell in tableView.visibleCells{
+            if let postCell = cell as? PostTableViewCell {
+                postCell.pauseVideo()
+                postCell.muteVideo()
+            }
+        }
     }
     private func configureModels(){
         guard let userPostModel = self.model else{

@@ -21,6 +21,7 @@ class UploadMediaViewController: UIViewController {
     private var avPlayer: AVPlayer?
     private var avPlayerLayer: AVPlayerLayer?
     private var shouldShowAlertForSettings = false
+    private var wasLargeTitleEnabled = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,6 +132,19 @@ extension UploadMediaViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+            if scrollView.contentOffset.y <= -scrollView.adjustedContentInset.top {
+                wasLargeTitleEnabled = navigationItem.largeTitleDisplayMode == .always
+                navigationItem.largeTitleDisplayMode = .never
+            }
+        }
+
+        func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+            
+            if wasLargeTitleEnabled {
+                navigationItem.largeTitleDisplayMode = .always
+            }
+        }
 }
 
 // MARK: - UICollectionViewDataSource
