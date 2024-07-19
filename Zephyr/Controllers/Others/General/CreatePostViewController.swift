@@ -8,6 +8,7 @@
 import UIKit
 import Photos
 import FirebaseFirestore
+import NVActivityIndicatorView
 class CreatePostViewController: UIViewController {
     
     var asset: PHAsset?
@@ -18,7 +19,7 @@ class CreatePostViewController: UIViewController {
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var dimmedView: UIView!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var spinner: NVActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,7 @@ class CreatePostViewController: UIViewController {
         captionTextView.delegate = self
         loadAsset()
         spinner.isHidden = true
+        spinner.type = .circleStrokeSpin
         dimmedView.isHidden = true
         fetchUserData()
     }

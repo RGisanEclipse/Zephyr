@@ -60,7 +60,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7II-z9-IOO">
-                                <rect key="frame" x="0.0" y="44" width="430" height="330.66666666666669"/>
+                                <rect key="frame" x="0.0" y="44" width="430" height="330.66666666666663"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="yJy-TC-JRo">
                                         <rect key="frame" x="49.666666666666657" y="0.0" width="330.66666666666674" height="330.66666666666669"/>
@@ -93,22 +93,28 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJ1-xf-IeB">
                                 <rect key="frame" x="0.0" y="44" width="430" height="836"/>
                                 <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="F9T-7s-QTB">
-                                        <rect key="frame" x="196.66666666666666" y="399.66666666666669" width="37" height="37"/>
-                                    </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uploading Post" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a75-Ri-aYS">
-                                        <rect key="frame" x="148" y="350.66666666666669" width="134" height="24"/>
+                                        <rect key="frame" x="148" y="349" width="134" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X90-xq-43z" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                        <rect key="frame" x="185" y="388" width="60" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="IUC-Fv-0ON"/>
+                                            <constraint firstAttribute="width" constant="60" id="bkx-g8-NDN"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" name="WB"/>
                                 <constraints>
                                     <constraint firstItem="a75-Ri-aYS" firstAttribute="centerX" secondItem="IJ1-xf-IeB" secondAttribute="centerX" id="0Wi-Ka-YX3"/>
-                                    <constraint firstItem="F9T-7s-QTB" firstAttribute="top" secondItem="a75-Ri-aYS" secondAttribute="bottom" constant="25" id="Bk0-lH-eYU"/>
-                                    <constraint firstItem="F9T-7s-QTB" firstAttribute="centerY" secondItem="IJ1-xf-IeB" secondAttribute="centerY" id="IF6-dN-rCd"/>
-                                    <constraint firstItem="F9T-7s-QTB" firstAttribute="centerX" secondItem="IJ1-xf-IeB" secondAttribute="centerX" id="oo4-5S-S1W"/>
+                                    <constraint firstItem="X90-xq-43z" firstAttribute="centerX" secondItem="IJ1-xf-IeB" secondAttribute="centerX" id="5Jc-Kh-bw7"/>
+                                    <constraint firstItem="X90-xq-43z" firstAttribute="centerY" secondItem="IJ1-xf-IeB" secondAttribute="centerY" id="RGr-wL-68e"/>
+                                    <constraint firstItem="X90-xq-43z" firstAttribute="top" secondItem="a75-Ri-aYS" secondAttribute="bottom" constant="15" id="pDY-vF-d9c"/>
+                                    <constraint firstItem="X90-xq-43z" firstAttribute="top" secondItem="a75-Ri-aYS" secondAttribute="bottom" constant="15" id="rab-YZ-Z2j"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -143,7 +149,7 @@
                         <outlet property="dimmedView" destination="IJ1-xf-IeB" id="LJa-cP-67D"/>
                         <outlet property="imageView" destination="yJy-TC-JRo" id="ipW-AR-aTI"/>
                         <outlet property="mediaView" destination="7II-z9-IOO" id="Ggl-ef-hXg"/>
-                        <outlet property="spinner" destination="F9T-7s-QTB" id="i9T-W3-Bw2"/>
+                        <outlet property="spinner" destination="X90-xq-43z" id="F1x-R9-ZvY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lbv-rI-weF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -236,7 +242,7 @@
                             <constraint firstItem="sjB-B6-9iV" firstAttribute="leading" secondItem="prZ-xC-Ybc" secondAttribute="leading" id="nLP-kk-Iuz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="Rrl-1I-ptq">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Rrl-1I-ptq">
                         <barButtonItem key="leftBarButtonItem" id="8bV-76-n6k">
                             <color key="tintColor" name="BW"/>
                         </barButtonItem>
@@ -371,7 +377,7 @@
                             <constraint firstItem="BMq-E5-LRp" firstAttribute="trailing" secondItem="LS0-Lf-ACW" secondAttribute="trailing" id="w4N-hy-hdU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Post" id="8jG-jU-uNO"/>
+                    <navigationItem key="navigationItem" title="Post" largeTitleDisplayMode="never" id="8jG-jU-uNO"/>
                     <connections>
                         <outlet property="tableView" destination="BMq-E5-LRp" id="mch-M0-lbk"/>
                         <segue destination="7nC-wE-8Je" kind="show" identifier="postToLikesView" id="2yp-pk-8zc"/>
@@ -412,7 +418,7 @@
                         <viewLayoutGuide key="safeArea" id="fU2-3V-gcl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Settings" id="kds-62-dEd"/>
+                    <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="always" id="kds-62-dEd"/>
                     <connections>
                         <outlet property="settingsTableView" destination="vlg-ox-Hv9" id="8XD-T8-Wvl"/>
                     </connections>
@@ -524,7 +530,7 @@
                                 <color key="tintColor" systemColor="labelColor"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="t8h-pL-Vhx">
-                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
+                                <rect key="frame" x="0.0" y="96" width="430" height="787"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationsCellIdentifier" id="WNc-vX-PjS">
@@ -637,7 +643,7 @@
                             <constraint firstItem="Mju-Hx-E7U" firstAttribute="trailing" secondItem="dSt-vd-WAd" secondAttribute="trailing" id="v3G-X2-OSS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Create Post" id="Thy-Pz-RBY">
+                    <navigationItem key="navigationItem" title="Create Post" largeTitleDisplayMode="always" id="Thy-Pz-RBY">
                         <barButtonItem key="rightBarButtonItem" title="Next" id="aei-yC-uix">
                             <connections>
                                 <action selector="nextButtonPressed:" destination="mx9-mc-uuX" id="7qX-lJ-Qqs"/>
@@ -664,20 +670,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Explore" translatesAutoresizingMaskIntoConstraints="NO" id="MwF-Ch-GJh">
-                                <rect key="frame" x="0.0" y="44" width="430" height="56"/>
-                                <color key="tintColor" name="BW"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
-                                <scopeButtonTitles>
-                                    <string>Title</string>
-                                    <string>Title</string>
-                                </scopeButtonTitles>
-                                <connections>
-                                    <outlet property="delegate" destination="7hf-bm-mMK" id="JJ8-27-zbK"/>
-                                </connections>
-                            </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mJQ-Uq-YTP">
-                                <rect key="frame" x="0.0" y="101" width="430" height="782"/>
+                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Nep-kv-Uyk">
                                     <size key="itemSize" width="128" height="128"/>
@@ -696,32 +690,19 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ym8-RE-g2o">
-                                <rect key="frame" x="0.0" y="101" width="430" height="782"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4tB-sY-fJV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Ym8-RE-g2o" firstAttribute="trailing" secondItem="4tB-sY-fJV" secondAttribute="trailing" id="7FO-MU-F6P"/>
-                            <constraint firstItem="mJQ-Uq-YTP" firstAttribute="leading" secondItem="4tB-sY-fJV" secondAttribute="leading" id="7T9-aq-iVZ"/>
-                            <constraint firstItem="mJQ-Uq-YTP" firstAttribute="trailing" secondItem="4tB-sY-fJV" secondAttribute="trailing" id="Ht6-wX-onq"/>
-                            <constraint firstItem="Ym8-RE-g2o" firstAttribute="top" secondItem="MwF-Ch-GJh" secondAttribute="bottom" constant="1" id="NlX-gn-TyM"/>
-                            <constraint firstItem="Ym8-RE-g2o" firstAttribute="leading" secondItem="4tB-sY-fJV" secondAttribute="leading" id="PT2-yX-sb4"/>
-                            <constraint firstItem="mJQ-Uq-YTP" firstAttribute="bottom" secondItem="4tB-sY-fJV" secondAttribute="bottom" id="Qup-7y-Yib"/>
-                            <constraint firstItem="MwF-Ch-GJh" firstAttribute="trailing" secondItem="4tB-sY-fJV" secondAttribute="trailing" id="TMV-fe-MyT"/>
-                            <constraint firstItem="MwF-Ch-GJh" firstAttribute="top" secondItem="4tB-sY-fJV" secondAttribute="top" id="jaf-z0-D36"/>
-                            <constraint firstItem="mJQ-Uq-YTP" firstAttribute="top" secondItem="MwF-Ch-GJh" secondAttribute="bottom" constant="1" id="my4-JD-8G3"/>
-                            <constraint firstItem="MwF-Ch-GJh" firstAttribute="leading" secondItem="4tB-sY-fJV" secondAttribute="leading" id="nsc-Sw-4LQ"/>
-                            <constraint firstItem="Ym8-RE-g2o" firstAttribute="bottom" secondItem="4tB-sY-fJV" secondAttribute="bottom" id="u5H-yy-ur1"/>
+                            <constraint firstItem="mJQ-Uq-YTP" firstAttribute="trailing" secondItem="4tB-sY-fJV" secondAttribute="trailing" id="4yA-57-nRL"/>
+                            <constraint firstItem="mJQ-Uq-YTP" firstAttribute="top" secondItem="4tB-sY-fJV" secondAttribute="top" id="Qn0-Gc-jb2"/>
+                            <constraint firstItem="mJQ-Uq-YTP" firstAttribute="leading" secondItem="4tB-sY-fJV" secondAttribute="leading" id="lMx-r6-ua1"/>
+                            <constraint firstItem="mJQ-Uq-YTP" firstAttribute="bottom" secondItem="4tB-sY-fJV" secondAttribute="bottom" id="so2-Y5-dyw"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Explore" id="4AF-hY-W0h"/>
+                    <navigationItem key="navigationItem" title="Explore" largeTitleDisplayMode="always" id="4AF-hY-W0h"/>
                     <connections>
                         <outlet property="collectionView" destination="mJQ-Uq-YTP" id="CND-0e-qsN"/>
-                        <outlet property="dimView" destination="Ym8-RE-g2o" id="30g-zg-4aZ"/>
-                        <outlet property="searchBar" destination="MwF-Ch-GJh" id="S5f-3z-IeK"/>
                         <segue destination="Xwk-ch-pAD" kind="show" identifier="exploreToPostVC" id="5km-SD-thz"/>
                     </connections>
                 </viewController>
@@ -1019,8 +1000,8 @@
             <objects>
                 <navigationController id="F5J-3y-rIF" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="bell.fill" catalog="system" id="1OS-cN-epm"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IpI-2R-2cw">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="IpI-2R-2cw">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1053,8 +1034,8 @@
             <objects>
                 <navigationController id="Ksr-g3-xLP" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="magnifyingglass" catalog="system" id="c4w-9A-qpl"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GxK-h1-YaD">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="GxK-h1-YaD">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1177,8 +1158,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="o66-rl-iad"/>
         <segue reference="gQp-EX-G0A"/>
-        <segue reference="Ug1-UI-m2f"/>
-        <segue reference="Q0E-0G-eJa"/>
+        <segue reference="iJ4-yY-iRW"/>
+        <segue reference="6L6-eE-TGL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BW"/>
     <resources>

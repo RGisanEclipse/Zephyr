@@ -86,6 +86,7 @@ class ProfileViewController: UIViewController {
                 self.collectionView.reloadSections(indexSet)
                 self.refreshControl.endRefreshing()
                 self.postsData.removeAll()
+                self.videosData.removeAll()
             }
         }
     }
@@ -108,12 +109,17 @@ class ProfileViewController: UIViewController {
         
         dispatchGroup.notify(queue: .main) {
             var orderedPosts: [UserPost] = []
+            var orderedVideos: [UserPost] = []
             for postIdentifier in userData.posts {
                 if let fetchedPost = fetchedPosts[postIdentifier] {
                     orderedPosts.append(fetchedPost)
+                    if fetchedPost.postType == .video{
+                        orderedVideos.append(fetchedPost)
+                    }
                 }
             }
             self.postsData = orderedPosts
+            self.videosData = orderedVideos
             self.collectionView.reloadData()
             let indexSet = IndexSet(integer: 1)
             self.collectionView.reloadSections(indexSet)

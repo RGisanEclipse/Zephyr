@@ -11,20 +11,17 @@ class ExploreViewController: UIViewController {
     
     private var postsData = [UserPost]()
     private var postModel: UserPost?
-    @IBOutlet weak var dimView: UIView!
     private var refreshControl = UIRefreshControl()
     
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
+    let searchController = UISearchController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
         collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
+        navigationItem.searchController = searchController
         collectionView.dataSource = self
         collectionView.delegate = self
-        dimView.isHidden = true
-        searchBar.delegate = self
         for _ in 0..<30{
             postsData.append(UserPost(identifier: "", postType: .photo, thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postURL: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, caption: nil, likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "x")], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts: [], followers: [], following: [])))
         }
@@ -34,10 +31,6 @@ class ExploreViewController: UIViewController {
     @objc private func refreshData(_ sender: Any) {
         // Fetch Posts
         self.refreshControl.endRefreshing()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(false)
-        self.navigationController?.navigationBar.isHidden = true
     }
 }
 
@@ -84,12 +77,7 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout{
     }
 }
 
-extension ExploreViewController: UISearchBarDelegate{
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        dimView.isHidden = false
-    }
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        dimView.isHidden = true
-    }
-}
+// MARK: - UISearchBarDelegate
+
+extension ExploreViewController: UISearchBarDelegate{}
 

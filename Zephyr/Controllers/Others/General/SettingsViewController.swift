@@ -18,7 +18,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = " "
         setupOptions()
-        
+        navigationItem.largeTitleDisplayMode = .always
         settingsTableView.delegate = self
         settingsTableView.dataSource = self
         
