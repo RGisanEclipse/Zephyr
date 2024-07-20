@@ -472,14 +472,44 @@
                                     <constraint firstAttribute="bottom" secondItem="1Az-5O-oMo" secondAttribute="bottom" id="hN4-wW-q36"/>
                                 </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tfM-4b-qpn">
+                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUd-P8-KfP" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                        <rect key="frame" x="185" y="389.66666666666669" width="60" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="VaP-7S-zSP"/>
+                                            <constraint firstAttribute="width" constant="60" id="amx-mj-aG9"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updating Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dV4-r8-Pn3">
+                                        <rect key="frame" x="144.66666666666666" y="350.66666666666669" width="140.99999999999997" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="WB"/>
+                                <constraints>
+                                    <constraint firstItem="dV4-r8-Pn3" firstAttribute="centerX" secondItem="tfM-4b-qpn" secondAttribute="centerX" id="UpU-Ew-97f"/>
+                                    <constraint firstItem="aUd-P8-KfP" firstAttribute="centerY" secondItem="tfM-4b-qpn" secondAttribute="centerY" id="YKj-MT-wQA"/>
+                                    <constraint firstItem="aUd-P8-KfP" firstAttribute="top" secondItem="dV4-r8-Pn3" secondAttribute="bottom" constant="15" id="b6C-kz-kBR"/>
+                                    <constraint firstItem="aUd-P8-KfP" firstAttribute="centerX" secondItem="tfM-4b-qpn" secondAttribute="centerX" id="zkR-3Y-sIf"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="chk-ZR-vw3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="tfM-4b-qpn" firstAttribute="top" secondItem="chk-ZR-vw3" secondAttribute="top" id="3pc-WD-Jpz"/>
                             <constraint firstItem="chk-ZR-vw3" firstAttribute="bottom" secondItem="zDq-P6-MgW" secondAttribute="bottom" id="550-hC-A9d"/>
                             <constraint firstItem="zDq-P6-MgW" firstAttribute="leading" secondItem="chk-ZR-vw3" secondAttribute="leading" id="Cv1-Sa-WTl"/>
                             <constraint firstItem="zDq-P6-MgW" firstAttribute="top" secondItem="chk-ZR-vw3" secondAttribute="top" id="F1S-P0-Z0R"/>
+                            <constraint firstItem="chk-ZR-vw3" firstAttribute="trailing" secondItem="tfM-4b-qpn" secondAttribute="trailing" id="JRX-dw-jxm"/>
                             <constraint firstItem="zDq-P6-MgW" firstAttribute="trailing" secondItem="chk-ZR-vw3" secondAttribute="trailing" id="eoa-oN-RqO"/>
+                            <constraint firstItem="tfM-4b-qpn" firstAttribute="leading" secondItem="chk-ZR-vw3" secondAttribute="leading" id="l9T-pU-tlr"/>
+                            <constraint firstItem="chk-ZR-vw3" firstAttribute="bottom" secondItem="tfM-4b-qpn" secondAttribute="bottom" id="zrx-XX-XGX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="m9q-Gq-2yD">
@@ -490,7 +520,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="loadingView" destination="tfM-4b-qpn" id="VVL-FH-gTk"/>
                         <outlet property="profilePictureButton" destination="Zac-OU-9y6" id="l8x-lS-Zm2"/>
+                        <outlet property="spinner" destination="aUd-P8-KfP" id="hcy-z5-bnw"/>
                         <outlet property="tableView" destination="1Az-5O-oMo" id="jtA-PS-xHp"/>
                     </connections>
                 </viewController>

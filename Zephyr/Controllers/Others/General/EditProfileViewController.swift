@@ -1,4 +1,5 @@
 import UIKit
+import NVActivityIndicatorView
 import FirebaseStorage
 import Photos
 
@@ -8,18 +9,24 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
     var userData: UserModel?
     private var selectedImage: UIImage?
     
+    @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var profilePictureButton: UIButton!
-    
+    @IBOutlet weak var spinner: NVActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.register(UINib(nibName: Constants.Settings.EditProfile.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.Settings.EditProfile.cellIdentifier)
         configureModels()
         setupProfilePictureButton()
+        spinner.type = .circleStrokeSpin
+        spinner.color = .BW
+        loadingView.isHidden = true
+        spinner.isHidden = true
     }
     
     @IBAction func didTapSave(_ sender: UIBarButtonItem) {
+        loadingView.isHidden = false
         updateUserData()
     }
     
@@ -80,6 +87,8 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
     }
     
     private func updateUserData() {
+        spinner.isHidden = false
+        spinner.startAnimating()
         guard let userData = userData else {
             print("userData is nil")
             return
@@ -115,9 +124,12 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
             if success {
                 print("User data successfully updated")
                 self.navigationController?.popToRootViewController(animated: true)
+                self.spinner.stopAnimating()
             } else {
                 print("Failed to update user data")
             }
+            self.loadingView.isHidden = false
+            self.spinner.isHidden = true
         }
     }
 }
