@@ -36,11 +36,9 @@ class CreatePostViewController: UIViewController {
     private func fetchUserData(){
         CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (user, success) in
             guard let self = self, success, let user = user else {
-                print("Failed to fetch user data")
                 return
             }
             self.userData = user
-            print("Fetched user data successfully")
         }
     }
     override func viewWillAppear(_ animated: Bool) {

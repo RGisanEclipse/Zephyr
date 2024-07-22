@@ -16,7 +16,6 @@ class CurrentUserDataManager {
     public func fetchLoggedInUserData(completion: @escaping (UserModel?, Bool) -> Void) {
         if let cachedUser = self.cachedUser {
             completion(cachedUser, true)
-            print("Using cached data right now!")
             return
         }
         guard let email = Auth.auth().currentUser?.email else {

@@ -10,7 +10,7 @@ import UIKit
 class CommentsViewController: UIViewController {
     
     var model: UserPost?
-    private var userData = UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "It's not who you are underneath, it's what you do, that defines you.", name: (first: "Bruce", last: "Wayne"), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 0, following: 0), joinDate: Date(), posts: [], followers: [], following: [])
+    private var userData: UserModel?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var userProfileImage: UIImageView!
@@ -22,13 +22,22 @@ class CommentsViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.Post.generalCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.generalCellIdentifier)
         tableView.register(UINib(nibName: Constants.Post.commentsHeaderCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.commentsHeaderCellIdentifier)
         tableView.dataSource = self
-        userProfileImage.sd_setImage(with: userData.profilePicture, placeholderImage: UIImage(systemName: "person.circle.fill"))
+        fetchUserData()
         userProfileImage.layer.cornerRadius = userProfileImage.frame.size.width / 2
         userProfileImage.layer.masksToBounds = true
         if let safeModel = model{
             commentsTextField.placeholder = "Add a comment to \(safeModel.owner.userName)'s post"
         }
         commentsTextField.delegate = self
+    }
+    private func fetchUserData(){
+        CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (user, success) in
+            guard let self = self, success, let user = user else {
+                return
+            }
+            self.userData = user
+            userProfileImage.sd_setImage(with: user.profilePicture, placeholderImage: UIImage(systemName: "person.circle.fill"))
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
@@ -72,6 +81,15 @@ extension CommentsViewController: UITableViewDataSource{
 extension CommentsViewController: CommentsHeaderTableViewCellDelegate{
     func didTapPostButton() {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+extension CommentsViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
 }
 
