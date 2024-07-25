@@ -12,7 +12,7 @@ class PostViewController: UIViewController {
     var model: UserPost?
     private var likesData: [PostLike]?
     private var renderModels = [PostRenderViewModel]()
-    private var userData = UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "It's not who you are underneath, it's what you do, that defines you.", name: (first: "Bruce", last: "Wayne"), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts: [],followers: ["TheJoker"], following: [])
+    private var userData: UserModel?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
@@ -21,6 +21,7 @@ class PostViewController: UIViewController {
         guard model != nil else {
             fatalError("Model is nil")
         }
+        fetchUserData()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: Constants.Post.headerCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.headerCellIdentifier)
@@ -29,6 +30,15 @@ class PostViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.Post.likesCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.likesCellIdentifier)
         tableView.register(UINib(nibName: Constants.Post.captionCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.captionCellIdentifier)
         tableView.register(UINib(nibName: Constants.Home.commentsCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Home.commentsCellIdentifier)
+    }
+    private func fetchUserData(){
+        CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (user, success) in
+            guard let self = self, success, let user = user else {
+                return
+            }
+            self.userData = user
+            print("Fetched UserData")
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -67,7 +77,10 @@ class PostViewController: UIViewController {
             guard let likesSafeData = likesData else{
                 return
             }
-            destinationVC.data = userData.convertPostLikesToUserRelationships(postLikes: likesSafeData)
+            guard let safeUserData = userData else{
+                return
+            }
+            destinationVC.data = safeUserData.convertPostLikesToUserRelationships(postLikes: likesSafeData)
         }
         if segue.identifier == Constants.Post.commentsSegue{
             let destinationVC = segue.destination as! CommentsViewController
@@ -94,10 +107,13 @@ extension PostViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = renderModels[indexPath.section]
+        guard let safeUserData = userData else{
+            return UITableViewCell()
+        }
         switch model.renderType{
         case .actions(let actions):
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.actionsCellIdentifier, for: indexPath) as! PostActionsTableViewCell
-            cell.configure(with: actions, userName: userData.userName)
+            cell.configure(with: actions, userName: safeUserData.userName, indexPath: indexPath)
             cell.delegate = self
             return cell
         case .comments(let post):
@@ -176,15 +192,71 @@ extension PostViewController: PostHeaderTableViewCellDelegate{
 
 // MARK: - PostActionsTableViewCellDelegate
 extension PostViewController: PostActionsTableViewCellDelegate{
-    func didTapCommentButton(with model: UserPost) {
-        self.performSegue(withIdentifier: Constants.Post.commentsSegue, sender: self)
+    func didTapLikeButton(with model: UserPost, from cell: PostActionsTableViewCell, at indexPath: IndexPath) {
+        guard let safeUserData = userData else {
+            return
+        }
+        let isLikedByCurrentUser = model.likeCount.contains { like in
+            like.userName == safeUserData.userName
+        }
+        if isLikedByCurrentUser {
+            DatabaseManager.shared.removeLike(to: model.identifier, from: safeUserData) { success in
+                if success {
+                    var newModel = model
+                    var updatedLikeCount = model.likeCount
+                    updatedLikeCount.removeAll { like in
+                        like.userName == safeUserData.userName
+                    }
+                    newModel.likeCount = updatedLikeCount
+                    self.updateRenderModels(with: newModel)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadSections([2,3], with: .none)
+                    }
+                }
+            }
+        } else {
+            DatabaseManager.shared.addLike(to: model.identifier, from: safeUserData) { success in
+                if success {
+                    var newModel = model
+                    var updatedLikeCount = model.likeCount
+                    updatedLikeCount.append(PostLike(userName: safeUserData.userName, postIdentifier: model.identifier))
+                    newModel.likeCount = updatedLikeCount
+                    self.updateRenderModels(with: newModel)
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadSections([2,3], with: .none)
+                    }
+                }
+            }
+        }
     }
-    func didTapLikeButton() {
-        // Logic to like the post
+    private func updateRenderModels(with newModel: UserPost) {
+        for (index, var renderModel) in renderModels.enumerated() {
+            switch renderModel.renderType {
+            case .primaryContent:
+                renderModel = PostRenderViewModel(renderType: .primaryContent(provider: newModel))
+            case .actions:
+                renderModel = PostRenderViewModel(renderType: .actions(provider: newModel))
+            case .likes:
+                renderModel = PostRenderViewModel(renderType: .likes(provider: newModel.likeCount))
+            case .caption:
+                renderModel = PostRenderViewModel(renderType: .caption(provider: newModel.caption ?? ""))
+            case .comments:
+                renderModel = PostRenderViewModel(renderType: .comments(provider: newModel))
+            case .header:
+                // Handle header if necessary
+                break
+            }
+            renderModels[index] = renderModel
+        }
     }
     
-    func didTapSaveButton() {
+    func didTapSaveButton(with model: UserPost) {
         // Logic to save the post
+    }
+    
+    func didTapCommentButton(with model: UserPost) {
+        self.performSegue(withIdentifier: Constants.Post.commentsSegue, sender: self)
     }
 }
 

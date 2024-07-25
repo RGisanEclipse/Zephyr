@@ -93,8 +93,8 @@ struct UserPost {
     let thumbnailImage: URL
     let postURL: URL
     let caption: String?
-    let likeCount: [PostLike]
-    let comments: [PostComment]
+    var likeCount: [PostLike]
+    var comments: [PostComment]
     let createDate: Date
     let taggedUsers: [String]
     let owner: UserModel

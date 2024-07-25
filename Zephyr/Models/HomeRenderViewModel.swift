@@ -8,9 +8,9 @@
 import Foundation
 struct HomeRenderViewModel{
     let header: PostRenderViewModel
-    let post: PostRenderViewModel
-    let actions: PostRenderViewModel
-    let likes: PostRenderViewModel
-    let caption: PostRenderViewModel
-    let comments: PostRenderViewModel
+    var post: PostRenderViewModel
+    var actions: PostRenderViewModel
+    var likes: PostRenderViewModel
+    var caption: PostRenderViewModel
+    var comments: PostRenderViewModel
 }

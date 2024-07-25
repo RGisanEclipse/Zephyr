@@ -8,9 +8,9 @@
 import UIKit
 
 protocol PostActionsTableViewCellDelegate: AnyObject{
-    func didTapLikeButton()
+    func didTapLikeButton(with model: UserPost, from: PostActionsTableViewCell, at: IndexPath)
     func didTapCommentButton(with model: UserPost)
-    func didTapSaveButton()
+    func didTapSaveButton(with model: UserPost)
 }
 
 class PostActionsTableViewCell: UITableViewCell {
@@ -22,12 +22,15 @@ class PostActionsTableViewCell: UITableViewCell {
     weak var delegate: PostActionsTableViewCellDelegate?
     var isLiked: Bool?
     var model: UserPost?
+    private var indexPath: IndexPath?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
     }
-    func configure(with model: UserPost, userName: String){
+    func configure(with model: UserPost, userName: String, indexPath: IndexPath){
         self.model = model
+        self.indexPath = indexPath
         let isLikedByCurrentUser = model.likeCount.contains { like in
             like.userName == userName
         }
@@ -42,12 +45,12 @@ class PostActionsTableViewCell: UITableViewCell {
         }
     }
     @IBAction func likeButtonPressed(_ sender: UIButton) {
-        delegate?.didTapLikeButton()
+        delegate?.didTapLikeButton(with: model!, from: self, at: indexPath!)
     }
     @IBAction func commentButtonPressed(_ sender: UIButton) {
         delegate?.didTapCommentButton(with: model!)
     }
     @IBAction func saveButtonPressed(_ sender: UIButton) {
-        delegate?.didTapSaveButton()
+        delegate?.didTapSaveButton(with: model!)
     }
 }

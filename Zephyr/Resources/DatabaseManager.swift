@@ -133,9 +133,34 @@ public class DatabaseManager{
             "postIdentifier": postID
         ]
         
-        db.collection("posts").document(postID).collection("likes").addDocument(data: likeData) { error in
+        db.collection("postLikes").addDocument(data: likeData) { error in
             completion(error == nil)
         }
+    }
+    func removeLike(to postID: String, from user: UserModel, completion: @escaping (Bool) -> Void) {
+        db.collection("postLikes")
+            .whereField("postIdentifier", isEqualTo: postID)
+            .whereField("userName", isEqualTo: user.userName)
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error fetching documents: \(error)")
+                    completion(false)
+                    return
+                }
+                guard let documents = querySnapshot?.documents, !documents.isEmpty else {
+                    completion(false)
+                    return
+                }
+                let documentID = documents.first!.documentID
+                self.db.collection("postLikes").document(documentID).delete { error in
+                    if let error = error {
+                        print("Error deleting document: \(error)")
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
+                }
+            }
     }
     
     func addComment(to postID: String, comment: PostComment, completion: @escaping (Bool) -> Void) {
@@ -275,6 +300,27 @@ public class DatabaseManager{
             }
     }
     
+    func fetchPostLikes(for postIdentifier: String, completion: @escaping ([PostLike]?) -> Void) {
+        db.collection("postLikes")
+            .whereField("postIdentifier", isEqualTo: postIdentifier)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching post likes: \(error.localizedDescription)")
+                    completion(nil)
+                } else {
+                    let likes = querySnapshot?.documents.compactMap { document -> PostLike? in
+                        let data = document.data()
+                        guard let userName = data["userName"] as? String,
+                              let postIdentifier = data["postIdentifier"] as? String else {
+                            return nil
+                        }
+                        return PostLike(userName: userName, postIdentifier: postIdentifier)
+                    }
+                    completion(likes)
+                }
+            }
+    }
+
     func fetchPostData(for identifier: String, completion: @escaping (UserPost?) -> Void) {
         db.collection("posts")
             .whereField("identifier", isEqualTo: identifier)
@@ -293,7 +339,16 @@ public class DatabaseManager{
                         switch result {
                         case .success(let ownerData):
                             if let userPost = UserPost(documentData: postData, ownerData: ownerData) {
-                                completion(userPost)
+                                self.fetchPostLikes(for: identifier) { likes in
+                                    if let likes = likes {
+                                        var postWithLikes = userPost
+                                        postWithLikes.likeCount = likes
+                                        completion(postWithLikes)
+                                    } else {
+                                        print("Error fetching post likes")
+                                        completion(nil)
+                                    }
+                                }
                             } else {
                                 print("Error initializing UserPost")
                                 completion(nil)
@@ -308,7 +363,7 @@ public class DatabaseManager{
                 }
             }
     }
-
+    
     func updateUserData(for userName: String, with data: [String: Any], completion: @escaping (Bool) -> Void) {
         fetchUserDocumentID(userName: userName) { documentID in
             guard let documentID = documentID else {
