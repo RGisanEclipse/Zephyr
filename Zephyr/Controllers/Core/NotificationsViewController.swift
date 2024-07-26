@@ -13,7 +13,6 @@ class NotificationsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noNotificationsView: UIStackView!
     private var refreshControl = UIRefreshControl()
-    
     private var models = [UserNotificationModel]()
     private var postModel: UserPost?
     

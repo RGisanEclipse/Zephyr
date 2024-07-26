@@ -41,7 +41,6 @@ class HomeViewController: UIViewController {
                 return
             }
             self.userData = user
-            print("Fetched UserData")
         }
     }
     @objc private func refreshData(_ sender: Any) {

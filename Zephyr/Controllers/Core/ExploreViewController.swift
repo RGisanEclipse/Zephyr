@@ -12,12 +12,14 @@ class ExploreViewController: UIViewController {
     private var postsData = [UserPost]()
     private var postModel: UserPost?
     private var refreshControl = UIRefreshControl()
+    private var userData: UserModel?
     
     @IBOutlet weak var collectionView: UICollectionView!
     let searchController = UISearchController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchUserData()
         collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
         navigationItem.searchController = searchController
         collectionView.dataSource = self
@@ -27,6 +29,14 @@ class ExploreViewController: UIViewController {
         }
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         collectionView.refreshControl = refreshControl
+    }
+    private func fetchUserData(){
+        CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (user, success) in
+            guard let self = self, success, let user = user else {
+                return
+            }
+            self.userData = user
+        }
     }
     @objc private func refreshData(_ sender: Any) {
         // Fetch Posts

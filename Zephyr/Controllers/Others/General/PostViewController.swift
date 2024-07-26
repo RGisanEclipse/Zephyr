@@ -37,7 +37,6 @@ class PostViewController: UIViewController {
                 return
             }
             self.userData = user
-            print("Fetched UserData")
         }
     }
     override func viewWillAppear(_ animated: Bool) {
