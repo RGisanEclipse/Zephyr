@@ -22,6 +22,7 @@ class CommentsViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.Post.generalCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.generalCellIdentifier)
         tableView.register(UINib(nibName: Constants.Post.commentsHeaderCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.commentsHeaderCellIdentifier)
         tableView.dataSource = self
+        tableView.delegate = self
         fetchUserData()
         userProfileImage.layer.cornerRadius = userProfileImage.frame.size.width / 2
         userProfileImage.layer.masksToBounds = true

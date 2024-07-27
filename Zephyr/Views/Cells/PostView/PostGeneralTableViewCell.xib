@@ -51,6 +51,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="hcf-D5-MvI" secondAttribute="bottom" id="9hb-Fd-xFU"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="EFJ-Z2-edc"/>
                             <constraint firstItem="hcf-D5-MvI" firstAttribute="leading" secondItem="sma-ya-el7" secondAttribute="leading" id="Z2k-mz-fAF"/>
                             <constraint firstAttribute="trailing" secondItem="hcf-D5-MvI" secondAttribute="trailing" id="x2e-34-QEh"/>
                         </constraints>
