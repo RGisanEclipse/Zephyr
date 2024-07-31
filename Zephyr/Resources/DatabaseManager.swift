@@ -172,7 +172,7 @@ public class DatabaseManager{
             "likes": comment.likes.map { $0.userName }
         ]
         
-        db.collection("posts").document(postID).collection("comments").addDocument(data: commentData) { error in
+        db.collection("postComments").addDocument(data: commentData) { error in
             completion(error == nil)
         }
     }

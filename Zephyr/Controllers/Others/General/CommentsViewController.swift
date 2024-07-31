@@ -44,6 +44,38 @@ class CommentsViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
     }
     @IBAction func postCommentButtonPressed(_ sender: UIButton) {
+        guard let commentText = commentsTextField.text, !commentText.isEmpty else{
+            // Empty comment scenario
+            return
+        }
+        guard let postID = model?.identifier, let currentUser = userData else {
+            // Error fetching post or userData
+            return
+        }
+        let newComment = PostComment(identifier: postID, 
+                                     user: currentUser,
+                                     text: commentText,
+                                     createdDate: Date(),
+                                     likes: [])
+        DatabaseManager.shared.addComment(to: postID, comment: newComment){ success in
+            if success{
+                DispatchQueue.main.async {
+                    self.commentsTextField.text = ""
+                    var newModel = self.model
+                    newModel?.comments.insert(newComment, at: 0)
+                    self.model = newModel
+                    let indexSet = IndexSet(integer: 1)
+                    self.tableView.reloadSections(indexSet, with: .fade)
+                }
+            } else{
+                let alert = UIAlertController(title: "Error posting comment", message: "There was an internal server error while posting the comment", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default){ _ in
+                    alert.dismiss(animated: true, completion: nil)
+                })
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        
     }
 }
 

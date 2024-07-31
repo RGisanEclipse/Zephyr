@@ -243,7 +243,6 @@ extension PostViewController: PostActionsTableViewCellDelegate{
             case .comments:
                 renderModel = PostRenderViewModel(renderType: .comments(provider: newModel))
             case .header:
-                // Handle header if necessary
                 break
             }
             renderModels[index] = renderModel
