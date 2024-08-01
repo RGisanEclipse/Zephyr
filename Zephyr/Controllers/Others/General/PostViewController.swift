@@ -9,7 +9,8 @@ import UIKit
 
 class PostViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    var model: UserPost?
+    var postIdentifier: String?
+    private var model: UserPost?
     private var likesData: [PostLike]?
     private var renderModels = [PostRenderViewModel]()
     private var userData: UserModel?
@@ -17,10 +18,10 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.title = "Post"
-        configureModels()
-        guard model != nil else {
-            fatalError("Model is nil")
+        guard let safePostIdentifier = postIdentifier else{
+            fatalError("Post Identifier is nil")
         }
+        fetchPostData(for: safePostIdentifier)
         fetchUserData()
         tableView.dataSource = self
         tableView.delegate = self
@@ -37,6 +38,16 @@ class PostViewController: UIViewController {
                 return
             }
             self.userData = user
+        }
+    }
+    func fetchPostData(for identifier: String) {
+        DatabaseManager.shared.fetchPostData(for: identifier) { fetchedPost in
+            guard let fetchedPost = fetchedPost else {
+                print("Failed to fetch post data for identifier: \(identifier)")
+                return
+            }
+            self.model = fetchedPost
+            self.configureModels()
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +79,9 @@ class PostViewController: UIViewController {
         renderModels.append(PostRenderViewModel(renderType: .likes(provider: userPostModel.likeCount)))
         renderModels.append(PostRenderViewModel(renderType: .caption(provider: userPostModel.caption ?? "")))
         renderModels.append(PostRenderViewModel(renderType: .comments(provider: userPostModel)))
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Post.likesSegue{

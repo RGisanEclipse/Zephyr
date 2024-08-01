@@ -16,14 +16,14 @@ enum selectedView{
 
 class ProfileViewController: UIViewController {
     private var followerFollowingData = [UserRelationship]()
-    private var postsData = [UserPost]()
-    private var videosData = [UserPost]()
-    private var taggedPostsData = [UserPost]()
+    private var postsData = [PostSummary]()
+    private var videosData = [PostSummary]()
+    private var taggedPostsData = [PostSummary]()
     private var userData: UserModel?
     private var profileHeaderView: ProfileHeaderCollectionReusableView?
     
     var currentView = selectedView.posts
-    private var postModel: UserPost?
+    private var postModel: PostSummary?
     private var refreshControl = UIRefreshControl()
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -90,14 +90,13 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-    
     private func createPostsArray() {
         guard let userData = userData else { return }
-        var fetchedPosts: [String: UserPost] = [:]
+        var fetchedPosts: [String: PostSummary] = [:]
         let dispatchGroup = DispatchGroup()
         for postIdentifier in userData.posts {
             dispatchGroup.enter()
-            fetchPostData(for: postIdentifier) { fetchedPost in
+            fetchPostSummary(for: postIdentifier) { fetchedPost in
                 defer {
                     dispatchGroup.leave()
                 }
@@ -108,8 +107,8 @@ class ProfileViewController: UIViewController {
         }
         
         dispatchGroup.notify(queue: .main) {
-            var orderedPosts: [UserPost] = []
-            var orderedVideos: [UserPost] = []
+            var orderedPosts: [PostSummary] = []
+            var orderedVideos: [PostSummary] = []
             for postIdentifier in userData.posts {
                 if let fetchedPost = fetchedPosts[postIdentifier] {
                     orderedPosts.append(fetchedPost)
@@ -125,17 +124,26 @@ class ProfileViewController: UIViewController {
             self.collectionView.reloadSections(indexSet)
         }
     }
-    func fetchPostData(for identifier: String, completion: @escaping (UserPost?) -> Void) {
-        DatabaseManager.shared.fetchPostData(for: identifier) { fetchedPost in
-            guard let fetchedPost = fetchedPost else {
-                print("Failed to fetch post data for identifier: \(identifier)")
+//    func fetchPostData(for identifier: String, completion: @escaping (UserPost?) -> Void) {
+//        DatabaseManager.shared.fetchPostData(for: identifier) { fetchedPost in
+//            guard let fetchedPost = fetchedPost else {
+//                print("Failed to fetch post data for identifier: \(identifier)")
+//                completion(nil)
+//                return
+//            }
+//            completion(fetchedPost)
+//        }
+//    }
+    func fetchPostSummary(for identifier: String, completion: @escaping (PostSummary?) -> Void){
+        DatabaseManager.shared.fetchPostSummary(for: identifier){ fetchedPost in
+            guard let fetchedPost = fetchedPost else{
+                print("Failed to fetch post thumbnail for identifier: \(identifier)")
                 completion(nil)
                 return
             }
             completion(fetchedPost)
         }
     }
-    
     private func setupCollectionView() {
         collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
         collectionView.register(UINib(nibName: Constants.Profile.headerIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.headerIdentifier)
@@ -178,7 +186,7 @@ extension ProfileViewController: UICollectionViewDataSource{
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Profile.cellIdentifier, for: indexPath) as! ProfileCollectionViewCell
-        var post: UserPost?
+        var post: PostSummary?
         switch currentView {
         case .posts:
             if indexPath.row < postsData.count {
@@ -192,7 +200,6 @@ extension ProfileViewController: UICollectionViewDataSource{
         if let post = post {
             cell.configure(with: post)
         }
-        
         return cell
     }
     
@@ -233,7 +240,7 @@ extension ProfileViewController: UICollectionViewDataSource{
 // MARK: - UICollectionViewDelegate
 extension ProfileViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var post: UserPost?
+        var post: PostSummary?
         switch currentView{
         case .posts:
             post = postsData[indexPath.row]
@@ -309,7 +316,7 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate{
         } else if segue.identifier == Constants.Profile.postSegue{
             let destinationVC = segue.destination as! PostViewController
             if let postModel = postModel {
-                destinationVC.model = postModel
+                destinationVC.postIdentifier = postModel.identifier
             }
         } else if segue.identifier == Constants.Profile.settingsSegue{
             let destinationVC = segue.destination as! SettingsViewController

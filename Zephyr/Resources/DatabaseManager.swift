@@ -169,7 +169,8 @@ public class DatabaseManager{
             "userName": comment.user.userName,
             "text": comment.text,
             "createdDate": comment.createdDate,
-            "likes": comment.likes.map { $0.userName }
+            "likes": comment.likes.map { $0.userName },
+            "postIdentifier": postID
         ]
         
         db.collection("postComments").addDocument(data: commentData) { error in
@@ -320,7 +321,6 @@ public class DatabaseManager{
                 }
             }
     }
-
     func fetchPostData(for identifier: String, completion: @escaping (UserPost?) -> Void) {
         db.collection("posts")
             .whereField("identifier", isEqualTo: identifier)
@@ -328,42 +328,135 @@ public class DatabaseManager{
                 if let error = error {
                     print("Error fetching the postData: \(error.localizedDescription)")
                     completion(nil)
-                } else if let document = querySnapshot?.documents.first, document.exists {
-                    let postData = document.data()
-                    guard let ownerUserName = postData["ownerUserName"] as? String else {
-                        print("Owner userName not found in post data")
-                        completion(nil)
-                        return
-                    }
-                    self.fetchUserData(with: ownerUserName) { result in
-                        switch result {
-                        case .success(let ownerData):
-                            if let userPost = UserPost(documentData: postData, ownerData: ownerData) {
-                                self.fetchPostLikes(for: identifier) { likes in
-                                    if let likes = likes {
-                                        var postWithLikes = userPost
-                                        postWithLikes.likeCount = likes
-                                        completion(postWithLikes)
-                                    } else {
-                                        print("Error fetching post likes")
-                                        completion(nil)
-                                    }
-                                }
-                            } else {
-                                print("Error initializing UserPost")
-                                completion(nil)
-                            }
-                        case .failure(let error):
-                            print("Error fetching owner data: \(error.localizedDescription)")
-                            completion(nil)
-                        }
-                    }
-                } else {
+                    return
+                }
+                guard let document = querySnapshot?.documents.first, document.exists else {
                     completion(nil)
+                    return
+                }
+                let postData = document.data()
+                guard let ownerUserName = postData["ownerUserName"] as? String else {
+                    print("Owner userName not found in post data")
+                    completion(nil)
+                    return
+                }
+                self.fetchUserData(with: ownerUserName) { result in
+                    switch result {
+                    case .success(let ownerData):
+                        guard var userPost = UserPost(documentData: postData, ownerData: ownerData) else {
+                            print("Error initializing UserPost")
+                            completion(nil)
+                            return
+                        }
+                        
+                        let dispatchGroup = DispatchGroup()
+                        dispatchGroup.enter()
+                        self.fetchPostLikes(for: identifier) { likes in
+                            if let likes = likes {
+                                userPost.likeCount = likes
+                            } else {
+                                print("Error fetching post likes")
+                            }
+                            dispatchGroup.leave()
+                        }
+                        dispatchGroup.enter()
+                        self.fetchPostComments(for: identifier) { comments in
+                            if let comments = comments {
+                                userPost.comments = comments
+                            } else {
+                                print("Error fetching post comments")
+                            }
+                            dispatchGroup.leave()
+                        }
+                        dispatchGroup.notify(queue: .main) {
+                            completion(userPost)
+                        }
+                    case .failure(let error):
+                        print("Error fetching owner data: \(error.localizedDescription)")
+                        completion(nil)
+                    }
                 }
             }
     }
-    
+    func fetchPostSummary(for postIdentifier: String, completion: @escaping (PostSummary?) -> Void) {
+        db.collection("posts")
+            .whereField("identifier", isEqualTo: postIdentifier)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching post summary: \(error.localizedDescription)")
+                    completion(nil)
+                    return
+                }
+                
+                guard let document = querySnapshot?.documents.first else {
+                    print("No post found with identifier \(postIdentifier)")
+                    completion(nil)
+                    return
+                }
+                if let thumbnailImageString = document.data()["thumbnailImage"] as? String,
+                   let thumbnailImageURL = URL(string: thumbnailImageString) {
+                    let postTypeRawValue = document.data()["postType"] as? String
+                    let postType = UserPostType(rawValue: postTypeRawValue!)
+                    let postSummary = PostSummary(identifier: postIdentifier, thumbnailImage: thumbnailImageURL, postType: postType!)
+                    completion(postSummary)
+                } else {
+                    print("Thumbnail image URL is invalid or not found")
+                    let placeholderURL = URL(string: "")!
+                    let postTypeRawValue = document.data()["postType"] as? String
+                    let postType = UserPostType(rawValue: postTypeRawValue!)
+                    let postSummary = PostSummary(identifier: postIdentifier, thumbnailImage: placeholderURL, postType: postType!)
+                    completion(postSummary)
+                }
+            }
+    }
+    func fetchPostComments(for postIdentifier: String, completion: @escaping ([PostComment]?) -> Void) {
+        db.collection("postComments")
+            .whereField("postIdentifier", isEqualTo: postIdentifier)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching post comments: \(error.localizedDescription)")
+                    completion(nil)
+                    return
+                }
+                
+                guard let documents = querySnapshot?.documents else {
+                    completion([])
+                    return
+                }
+                let commentsData = documents.map { $0.data() }
+                var comments: [PostComment] = []
+                let dispatchGroup = DispatchGroup()
+                
+                for commentData in commentsData {
+                    guard let identifier = commentData["identifier"] as? String,
+                          let userName = commentData["userName"] as? String,
+                          let text = commentData["text"] as? String,
+                          let timestamp = commentData["createdDate"] as? Timestamp else {
+                        continue
+                    }
+                    
+                    let createdDate = timestamp.dateValue()
+                    let likesUserNames = commentData["likes"] as? [String] ?? []
+                    let likes = likesUserNames.map { PostLike(userName: $0, postIdentifier: postIdentifier) }
+                    
+                    dispatchGroup.enter()
+                    self.fetchUserData(with: userName) { result in
+                        switch result {
+                        case .success(let userModel):
+                            let completedComment = PostComment(identifier: identifier, user: userModel, text: text, createdDate: createdDate, likes: [])
+                            comments.append(completedComment)
+                        case .failure(let error):
+                            print("Error fetching commenter data: \(error.localizedDescription)")
+                        }
+                        dispatchGroup.leave()
+                    }
+                }
+                dispatchGroup.notify(queue: .main) {
+                    completion(comments)
+                }
+            }
+    }
+
     func updateUserData(for userName: String, with data: [String: Any], completion: @escaping (Bool) -> Void) {
         fetchUserDocumentID(userName: userName) { documentID in
             guard let documentID = documentID else {

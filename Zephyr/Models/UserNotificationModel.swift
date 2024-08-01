@@ -12,6 +12,6 @@ struct UserNotificationModel{
     let user: UserModel
 }
 enum UserNotificationType{
-    case like(post: UserPost)
+    case like(post: PostSummary)
     case follow(state: FollowState)
 }

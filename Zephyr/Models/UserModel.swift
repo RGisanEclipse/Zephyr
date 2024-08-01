@@ -173,6 +173,12 @@ enum FollowState {
     case following, notFollowing
 }
 
+struct PostSummary{
+    let identifier: String
+    let thumbnailImage: URL
+    let postType: UserPostType
+}
+
 struct UserRelationship {
     let username: String
     var type: FollowState

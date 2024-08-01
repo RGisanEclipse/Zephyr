@@ -15,7 +15,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    func configure(with model: UserPost){
+    func configure(with model: PostSummary){
         let imageURL = model.thumbnailImage
         cellImage.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"))
         if model.postType == .video{

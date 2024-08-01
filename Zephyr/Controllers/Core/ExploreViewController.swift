@@ -9,8 +9,8 @@ import UIKit
 
 class ExploreViewController: UIViewController {
     
-    private var postsData = [UserPost]()
-    private var postModel: UserPost?
+    private var postsData = [PostSummary]()
+    private var postModel: PostSummary?
     private var refreshControl = UIRefreshControl()
     private var userData: UserModel?
     
@@ -25,7 +25,7 @@ class ExploreViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         for _ in 0..<30{
-            postsData.append(UserPost(identifier: "", postType: .photo, thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postURL: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, caption: nil, likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "x")], comments: [], createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts: [], followers: [], following: [])))
+            postsData.append(PostSummary(identifier: "xyz", thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postType: .photo))
         }
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         collectionView.refreshControl = refreshControl
@@ -59,7 +59,7 @@ extension ExploreViewController: UICollectionViewDataSource{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Explore.postSegue{
             let destinationVC = segue.destination as! PostViewController
-            destinationVC.model = postModel!
+            destinationVC.postIdentifier = postModel?.identifier
         }
     }
 }
