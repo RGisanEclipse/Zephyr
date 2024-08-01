@@ -367,11 +367,33 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgI-XX-M68">
+                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYj-sG-kIZ" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                        <rect key="frame" x="185" y="389.66666666666669" width="60" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="Isb-IG-DVO"/>
+                                            <constraint firstAttribute="height" constant="60" id="Wlg-wZ-ZVQ"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="HYj-sG-kIZ" firstAttribute="centerX" secondItem="jgI-XX-M68" secondAttribute="centerX" id="Tlo-D9-ZA0"/>
+                                    <constraint firstItem="HYj-sG-kIZ" firstAttribute="centerY" secondItem="jgI-XX-M68" secondAttribute="centerY" id="aUs-I8-fGR"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LS0-Lf-ACW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="BMq-E5-LRp" firstAttribute="bottom" secondItem="LS0-Lf-ACW" secondAttribute="bottom" id="3vj-O8-eEb"/>
+                            <constraint firstItem="jgI-XX-M68" firstAttribute="top" secondItem="LS0-Lf-ACW" secondAttribute="top" id="9MC-1m-rsF"/>
+                            <constraint firstItem="LS0-Lf-ACW" firstAttribute="bottom" secondItem="jgI-XX-M68" secondAttribute="bottom" id="JHc-Eg-3BP"/>
+                            <constraint firstItem="jgI-XX-M68" firstAttribute="leading" secondItem="LS0-Lf-ACW" secondAttribute="leading" id="N77-ch-yD9"/>
+                            <constraint firstItem="LS0-Lf-ACW" firstAttribute="trailing" secondItem="jgI-XX-M68" secondAttribute="trailing" id="NJb-eD-faT"/>
                             <constraint firstItem="BMq-E5-LRp" firstAttribute="top" secondItem="LS0-Lf-ACW" secondAttribute="top" id="Y5x-86-057"/>
                             <constraint firstItem="BMq-E5-LRp" firstAttribute="leading" secondItem="LS0-Lf-ACW" secondAttribute="leading" id="iDq-9Z-2UB"/>
                             <constraint firstItem="BMq-E5-LRp" firstAttribute="trailing" secondItem="LS0-Lf-ACW" secondAttribute="trailing" id="w4N-hy-hdU"/>
@@ -379,6 +401,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Post" largeTitleDisplayMode="never" id="8jG-jU-uNO"/>
                     <connections>
+                        <outlet property="loadingView" destination="jgI-XX-M68" id="6bR-yj-PgA"/>
+                        <outlet property="spinner" destination="HYj-sG-kIZ" id="eW8-kv-s3b"/>
                         <outlet property="tableView" destination="BMq-E5-LRp" id="mch-M0-lbk"/>
                         <segue destination="7nC-wE-8Je" kind="show" identifier="postToLikesView" id="2yp-pk-8zc"/>
                         <segue destination="auJ-xN-8qx" kind="show" identifier="postToCommentsVC" id="6L6-eE-TGL"/>
@@ -1188,7 +1212,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="o66-rl-iad"/>
+        <segue reference="2yp-pk-8zc"/>
         <segue reference="gQp-EX-G0A"/>
         <segue reference="5km-SD-thz"/>
         <segue reference="6L6-eE-TGL"/>

@@ -6,14 +6,19 @@
 //
 
 import UIKit
-
+import NVActivityIndicatorView
 class PostViewController: UIViewController {
+    
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var spinner: NVActivityIndicatorView!
+    
     var postIdentifier: String?
     private var model: UserPost?
     private var likesData: [PostLike]?
     private var renderModels = [PostRenderViewModel]()
     private var userData: UserModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
@@ -21,6 +26,10 @@ class PostViewController: UIViewController {
         guard let safePostIdentifier = postIdentifier else{
             fatalError("Post Identifier is nil")
         }
+        tableView.isHidden = true
+        spinner.type = .circleStrokeSpin
+        spinner.color = .BW
+        spinner.startAnimating()
         fetchPostData(for: safePostIdentifier)
         fetchUserData()
         tableView.dataSource = self
@@ -81,6 +90,10 @@ class PostViewController: UIViewController {
         renderModels.append(PostRenderViewModel(renderType: .comments(provider: userPostModel)))
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.spinner.stopAnimating()
+            self.spinner.isHidden = true
+            self.loadingView.isHidden = true
+            self.tableView.isHidden = false
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

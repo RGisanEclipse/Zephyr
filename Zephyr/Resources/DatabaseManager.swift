@@ -437,7 +437,7 @@ public class DatabaseManager{
                     
                     let createdDate = timestamp.dateValue()
                     let likesUserNames = commentData["likes"] as? [String] ?? []
-                    let likes = likesUserNames.map { PostLike(userName: $0, postIdentifier: postIdentifier) }
+                    _ = likesUserNames.map { PostLike(userName: $0, postIdentifier: postIdentifier) }
                     
                     dispatchGroup.enter()
                     self.fetchUserData(with: userName) { result in
