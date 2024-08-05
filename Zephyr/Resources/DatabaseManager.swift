@@ -137,6 +137,40 @@ public class DatabaseManager{
             }
         }
     }
+    func reportPost(_ post: UserPost, completion: @escaping (Bool) -> Void) {
+        let postRef = db.collection("reportedPosts").document(post.identifier)
+        postRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                postRef.updateData([
+                    "numberOfReports": FieldValue.increment(Int64(1))
+                ]) { error in
+                    if let error = error {
+                        print("Error updating post: \(error.localizedDescription)")
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
+                }
+            } else if let error = error {
+                print("Error fetching post: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                let postData: [String: Any] = [
+                    "identifier": post.identifier,
+                    "postType": post.postType == .photo ? "photo" : "video",
+                    "numberOfReports": 1
+                ]
+                postRef.setData(postData) { error in
+                    if let error = error {
+                        print("Error saving post: \(error.localizedDescription)")
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
+                }
+            }
+        }
+    }
     func addLike(to postID: String, from user: UserModel, completion: @escaping (Bool) -> Void) {
         let likeData: [String: Any] = [
             "userName": user.userName,

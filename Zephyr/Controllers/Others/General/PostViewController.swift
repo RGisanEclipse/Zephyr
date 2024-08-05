@@ -222,7 +222,7 @@ extension PostViewController: PostHeaderTableViewCellDelegate {
             }))
         } else {
             actionSheet.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: { [weak self] _ in
-                self?.reportPost()
+                self?.reportPost(post: post)
             }))
         }
         
@@ -293,8 +293,24 @@ extension PostViewController: PostHeaderTableViewCellDelegate {
         let decodedPath = pathComponent.removingPercentEncoding
         return decodedPath
     }
-    func reportPost() {
-        // Handle reporting logic here
+    func reportPost(post: UserPost) {
+        let alert = UIAlertController(title: "Confirm Report", message: "Are you sure you want to report this post? It will be hidden from you.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { [weak self] _ in
+            DatabaseManager.shared.reportPost(post) { success in
+                if success{
+                    let confirmationAlert = UIAlertController(title: "Post Reported", message: "This post has been reported and will be held for a review.", preferredStyle: .alert)
+                    confirmationAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self?.present(confirmationAlert, animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                } else{
+                    print("Error reporting the post")
+                }
+            }
+        }))
+        self.present(alert, animated: true)
     }
 }
 
