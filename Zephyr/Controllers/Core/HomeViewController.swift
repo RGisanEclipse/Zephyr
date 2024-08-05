@@ -68,13 +68,13 @@ class HomeViewController: UIViewController {
             comments.append(PostComment(postIdentifier: "y", user: UserModel(userName: "TheRiddler", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts:[],followers: [], following: []), text: "Let's meet at Iceberg Lounge :)", createdDate: Date(), likes: [], commentIdentifier: "bca"))
             let post = UserPost(identifier: "abc", postType: .photo, thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postURL: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, caption: "The Batman (2022)", likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "x")], comments: comments, createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts:[],followers: [], following: []))
             let post2 = UserPost(identifier: "xyz", postType: .photo, thumbnailImage: URL(string: "https://www.cnet.com/a/img/resize/ea66ddc9276eef2884da221adc70ed1cf1545951/hub/2021/10/16/11804578-0dbc-42af-bcd1-3bc7b1394962/the-batman-2022-teaser-poster-batman-01-promo.jpg?auto=webp&fit=crop&height=675&width=1200")!, postURL: URL(string: "https://www.cnet.com/a/img/resize/ea66ddc9276eef2884da221adc70ed1cf1545951/hub/2021/10/16/11804578-0dbc-42af-bcd1-3bc7b1394962/the-batman-2022-teaser-poster-batman-01-promo.jpg?auto=webp&fit=crop&height=675&width=1200")!, caption: "The Batman (2022) post 2", likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "xy")], comments: comments, createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts:[],followers: [], following: []))
-            let viewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts: [], followers: [], following: []))),
+            let viewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: post)),
                                                 post: PostRenderViewModel(renderType: .primaryContent(provider: post)),
                                                 actions: PostRenderViewModel(renderType: .actions(provider: post)),
                                                 likes: PostRenderViewModel(renderType: .likes(provider: post.likeCount)),
                                                 caption: PostRenderViewModel(renderType: .caption(provider: post.caption ?? "")),
                                                 comments: PostRenderViewModel(renderType: .comments(provider: post)))
-            let secondViewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts: [], followers: [], following: []))),
+            let secondViewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: post)),
                                                       post: PostRenderViewModel(renderType: .primaryContent(provider: post2)),
                                                       actions: PostRenderViewModel(renderType: .actions(provider: post2)),
                                                       likes: PostRenderViewModel(renderType: .likes(provider: post2.likeCount)),
@@ -127,8 +127,8 @@ extension HomeViewController: UITableViewDataSource{
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.headerCellIdentifier, for: indexPath) as! PostHeaderTableViewCell
-                if case .header(let user) = model.header.renderType {
-                    cell.configure(with: user)
+                if case .header(let post) = model.header.renderType {
+                    cell.configure(with: post)
                 }
                 cell.delegate = self
                 return cell
@@ -217,16 +217,94 @@ extension HomeViewController: UITableViewDataSource{
 }
 // MARK: - PostHeaderTableViewCellDelegate
 extension HomeViewController: PostHeaderTableViewCellDelegate{
-    func didTapMoreButton() {
+    func didTapMoreButton(for post: UserPost) {
+        guard let safeUserData = userData else {
+            return
+        }
         let actionSheet = UIAlertController(title: "Post Options", message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        actionSheet.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: { [weak self] _ in
-            self?.reportPost()
-        }))
+        if post.owner.userName == safeUserData.userName {
+            actionSheet.addAction(UIAlertAction(title: "Delete Post", style: .destructive, handler: { [weak self] _ in
+                self?.confirmPostDeletion(post: post)
+            }))
+        } else {
+            actionSheet.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: { [weak self] _ in
+                self?.reportPost()
+            }))
+        }
+        
         present(actionSheet, animated: true)
     }
-    func reportPost(){
-        
+    
+    private func confirmPostDeletion(post: UserPost) {
+        let alert = UIAlertController(title: "Confirm Deletion", message: "Are you sure you want to delete this post?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
+            self?.deletePost(post: post)
+        }))
+        present(alert, animated: true)
+    }
+    private func deletePost(post: UserPost) {
+        let mediaURL = post.postURL
+        let thumbnailURL = post.thumbnailImage
+        guard let storagePath = extractStoragePath(from: mediaURL) else { return }
+        guard let thumbnailStoragePath = extractStoragePath(from: thumbnailURL) else { return }
+        let isVideo = post.postType == .video
+        DatabaseManager.shared.deletePost(with: post.identifier) { [weak self] success in
+            guard success else {
+                print("Failed to delete post from Firestore")
+                return
+            }
+            DatabaseManager.shared.deleteLikes(for: post.identifier) { success in
+                if success {
+                    print("Successfully deleted likes for post")
+                } else {
+                    print("Failed to delete likes for post")
+                }
+            }
+            DatabaseManager.shared.deleteComments(for: post.identifier) { success in
+                if success {
+                    print("Successfully deleted comments for post")
+                } else {
+                    print("Failed to delete comments for post")
+                }
+            }
+            StorageManager.shared.deleteMedia(reference: storagePath, isVideo: isVideo) { success in
+                if success {
+                    print("Successfully deleted media from Storage")
+                } else {
+                    print("Failed to delete media from Storage")
+                }
+            }
+            if isVideo {
+                StorageManager.shared.deleteMedia(reference: thumbnailStoragePath, isVideo: false) { success in
+                    if success {
+                        print("Successfully deleted thumbnail from Storage")
+                    } else {
+                        print("Failed to delete thumbnail from Storage")
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                if let index = self?.findIndexOfPost(post) {
+                    self?.feedRenderModels.remove(at: index)
+                    self?.tableView.reloadData()
+                }
+            }
+        }
+    }
+    func extractStoragePath(from url: URL) -> String? {
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+        guard let pathComponent = urlComponents.path.split(separator: "/").last else {
+            return nil
+        }
+        let decodedPath = pathComponent.removingPercentEncoding
+        return decodedPath
+    }
+    func reportPost() {
+        // Handle reporting logic here
     }
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let subSection = indexPath.section % 7
@@ -246,7 +324,7 @@ extension HomeViewController: PostActionsTableViewCellDelegate {
         self.postSegueModel = model
         self.performSegue(withIdentifier: Constants.Home.commentsSegue, sender: self)
     }
-
+    
     func didTapLikeButton(with model: UserPost, from cell: PostActionsTableViewCell, at indexPath: IndexPath) {
         guard let safeUserData = userData else {
             return
@@ -294,7 +372,7 @@ extension HomeViewController: PostActionsTableViewCellDelegate {
             }
         }
     }
-
+    
     func didTapSaveButton(with model: UserPost) {
         // Logic to save the post
     }
@@ -339,7 +417,6 @@ extension HomeViewController: CommentsViewControllerDelegate{
         })
     }
     func didUpdateComments(_ comments: [PostComment], _ post: UserPost) {
-        print("Method got called")
         if let index = findIndexOfPost(post) {
             var updatedPost = feedRenderModels[index].post
             if case .primaryContent(var postContent) = updatedPost.renderType {
@@ -356,5 +433,5 @@ extension HomeViewController: CommentsViewControllerDelegate{
             print("Post not found in feedRenderModels")
         }
     }
-
+    
 }

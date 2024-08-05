@@ -7,13 +7,14 @@
 
 import UIKit
 protocol PostHeaderTableViewCellDelegate: AnyObject{
-    func didTapMoreButton()
+    func didTapMoreButton(for post: UserPost)
 }
 class PostHeaderTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profilePictureButton: UIButton!
     @IBOutlet weak var userNameLabel: UIButton!
         
+    var model: UserPost?
     weak var delegate: PostHeaderTableViewCellDelegate?
     
     override func awakeFromNib() {
@@ -22,11 +23,15 @@ class PostHeaderTableViewCell: UITableViewCell {
         profilePictureButton.imageView?.contentMode = .scaleAspectFill
         profilePictureButton.layer.masksToBounds = true
     }
-    func configure(with model: UserModel){
-        profilePictureButton.sd_setImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(named: "userPlaceholder"))
-        userNameLabel.setTitle(model.userName, for: .normal)
+    func configure(with model: UserPost){
+        self.model = model
+        profilePictureButton.sd_setImage(with: model.owner.profilePicture, for: .normal, placeholderImage: UIImage(named: "userPlaceholder"))
+        userNameLabel.setTitle(model.owner.userName, for: .normal)
     }
     @IBAction func moreButtonPressed(_ sender: UIButton) {
-        delegate?.didTapMoreButton()
+        guard let safeModel = model else{
+            return
+        }
+        delegate?.didTapMoreButton(for: safeModel)
     }
 }

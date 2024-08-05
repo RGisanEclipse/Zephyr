@@ -86,7 +86,7 @@ class PostViewController: UIViewController {
         guard let userPostModel = self.model else{
             return
         }
-        renderModels.append(PostRenderViewModel(renderType: .header(provider: userPostModel.owner)))
+        renderModels.append(PostRenderViewModel(renderType: .header(provider: userPostModel)))
         renderModels.append(PostRenderViewModel(renderType: .primaryContent(provider: userPostModel)))
         renderModels.append(PostRenderViewModel(renderType: .actions(provider: userPostModel)))
         renderModels.append(PostRenderViewModel(renderType: .likes(provider: userPostModel.likeCount)))
@@ -210,18 +210,15 @@ extension PostViewController: UITableViewDelegate{
 // MARK: - PostHeaderTableViewCellDelegate
 
 extension PostViewController: PostHeaderTableViewCellDelegate {
-    func didTapMoreButton() {
-        guard let post = model, let safeUserData = userData else {
+    func didTapMoreButton(for post: UserPost) {
+        guard let safeUserData = userData else {
             return
         }
-        
         let actionSheet = UIAlertController(title: "Post Options", message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        // If the current user is the owner, provide delete option
         if post.owner.userName == safeUserData.userName {
             actionSheet.addAction(UIAlertAction(title: "Delete Post", style: .destructive, handler: { [weak self] _ in
-                self?.confirmPostDeletion()
+                self?.confirmPostDeletion(post: post)
             }))
         } else {
             actionSheet.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: { [weak self] _ in
@@ -232,16 +229,15 @@ extension PostViewController: PostHeaderTableViewCellDelegate {
         present(actionSheet, animated: true)
     }
     
-    private func confirmPostDeletion() {
+    private func confirmPostDeletion(post: UserPost) {
         let alert = UIAlertController(title: "Confirm Deletion", message: "Are you sure you want to delete this post?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
-            self?.deletePost()
+            self?.deletePost(post: post)
         }))
         present(alert, animated: true)
     }
-    private func deletePost() {
-        guard let post = model else { return }
+    private func deletePost(post: UserPost) {
         let mediaURL = post.postURL
         let thumbnailURL = post.thumbnailImage
         guard let storagePath = extractStoragePath(from: mediaURL) else { return }

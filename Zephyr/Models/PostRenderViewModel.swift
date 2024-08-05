@@ -10,7 +10,7 @@ struct PostRenderViewModel{
     let renderType: PostRenderType
 }
 enum PostRenderType{
-    case header(provider: UserModel)
+    case header(provider: UserPost)
     case primaryContent(provider: UserPost)
     case actions(provider: UserPost)
     case likes(provider: [PostLike])
