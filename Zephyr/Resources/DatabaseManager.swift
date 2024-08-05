@@ -126,7 +126,17 @@ public class DatabaseManager{
             }
         }
     }
-    
+    func deletePost(with identifier: String, completion: @escaping (Bool) -> Void) {
+        let postRef = db.collection("posts").document(identifier)
+        postRef.delete { error in
+            if let error = error {
+                print("Error deleting post: \(error)")
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
     func addLike(to postID: String, from user: UserModel, completion: @escaping (Bool) -> Void) {
         let likeData: [String: Any] = [
             "userName": user.userName,
@@ -513,5 +523,56 @@ public class DatabaseManager{
                 }
             }
         }
+    }
+    func deleteLikes(for postID: String, completion: @escaping (Bool) -> Void) {
+        db.collection("postLikes")
+            .whereField("postIdentifier", isEqualTo: postID)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching likes: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+                
+                let batch = self.db.batch()
+                querySnapshot?.documents.forEach { document in
+                    batch.deleteDocument(document.reference)
+                }
+                
+                batch.commit { error in
+                    if let error = error {
+                        print("Error deleting likes: \(error.localizedDescription)")
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
+                }
+            }
+    }
+
+    func deleteComments(for postID: String, completion: @escaping (Bool) -> Void) {
+        db.collection("postComments")
+            .whereField("postIdentifier", isEqualTo: postID)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching comments: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+                
+                let batch = self.db.batch()
+                querySnapshot?.documents.forEach { document in
+                    batch.deleteDocument(document.reference)
+                }
+                
+                batch.commit { error in
+                    if let error = error {
+                        print("Error deleting comments: \(error.localizedDescription)")
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
+                }
+            }
     }
 }

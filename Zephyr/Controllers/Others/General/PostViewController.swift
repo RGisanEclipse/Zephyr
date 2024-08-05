@@ -68,7 +68,7 @@ class PostViewController: UIViewController {
         fetchPostData(for: safePostIdentifier)
         for cell in tableView.visibleCells{
             if let postCell = cell as? PostTableViewCell {
-                postCell.playVideo() 
+                postCell.playVideo()
             }
         }
     }
@@ -206,17 +206,99 @@ extension PostViewController: UITableViewDelegate{
 
 // MARK: - PostHeaderTableViewCellDelegate
 
-extension PostViewController: PostHeaderTableViewCellDelegate{
+// MARK: - PostHeaderTableViewCellDelegate
+// MARK: - PostHeaderTableViewCellDelegate
+
+extension PostViewController: PostHeaderTableViewCellDelegate {
     func didTapMoreButton() {
+        guard let post = model, let safeUserData = userData else {
+            return
+        }
+        
         let actionSheet = UIAlertController(title: "Post Options", message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        actionSheet.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: { [weak self] _ in
-            self?.reportPost()
-        }))
+        
+        // If the current user is the owner, provide delete option
+        if post.owner.userName == safeUserData.userName {
+            actionSheet.addAction(UIAlertAction(title: "Delete Post", style: .destructive, handler: { [weak self] _ in
+                self?.confirmPostDeletion()
+            }))
+        } else {
+            actionSheet.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: { [weak self] _ in
+                self?.reportPost()
+            }))
+        }
+        
         present(actionSheet, animated: true)
     }
-    func reportPost(){
-        
+    
+    private func confirmPostDeletion() {
+        let alert = UIAlertController(title: "Confirm Deletion", message: "Are you sure you want to delete this post?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
+            self?.deletePost()
+        }))
+        present(alert, animated: true)
+    }
+    private func deletePost() {
+        guard let post = model else { return }
+        let mediaURL = post.postURL
+        let thumbnailURL = post.thumbnailImage
+        guard let storagePath = extractStoragePath(from: mediaURL) else { return }
+        guard let thumbnailStoragePath = extractStoragePath(from: thumbnailURL) else { return }
+        let isVideo = post.postType == .video
+        DatabaseManager.shared.deletePost(with: post.identifier) { [weak self] success in
+            guard success else {
+                print("Failed to delete post from Firestore")
+                return
+            }
+            DatabaseManager.shared.deleteLikes(for: post.identifier) { success in
+                if success {
+                    print("Successfully deleted likes for post")
+                } else {
+                    print("Failed to delete likes for post")
+                }
+            }
+            DatabaseManager.shared.deleteComments(for: post.identifier) { success in
+                if success {
+                    print("Successfully deleted comments for post")
+                } else {
+                    print("Failed to delete comments for post")
+                }
+            }
+            StorageManager.shared.deleteMedia(reference: storagePath, isVideo: isVideo) { success in
+                if success {
+                    print("Successfully deleted media from Storage")
+                } else {
+                    print("Failed to delete media from Storage")
+                }
+            }
+            if isVideo {
+                StorageManager.shared.deleteMedia(reference: thumbnailStoragePath, isVideo: false) { success in
+                    if success {
+                        print("Successfully deleted thumbnail from Storage")
+                    } else {
+                        print("Failed to delete thumbnail from Storage")
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    func extractStoragePath(from url: URL) -> String? {
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+        guard let pathComponent = urlComponents.path.split(separator: "/").last else {
+            return nil
+        }
+        let decodedPath = pathComponent.removingPercentEncoding
+        return decodedPath
+    }
+    func reportPost() {
+        // Handle reporting logic here
     }
 }
 

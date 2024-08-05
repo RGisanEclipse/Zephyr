@@ -58,4 +58,16 @@ public class StorageManager{
             completion(error == nil)
         }
     }
+    public func deleteMedia(reference: String, isVideo: Bool, completion: @escaping (Bool) -> Void) {
+        let mediaType = isVideo ? "videos" : "images"
+        let storageRef = bucket.child("\(mediaType)/\(reference)")
+        storageRef.delete { error in
+            if let error = error {
+                print("Error deleting media: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
 }
