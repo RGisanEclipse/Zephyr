@@ -62,10 +62,13 @@ class PostViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Post"
+        guard let safePostIdentifier = postIdentifier else{
+            fatalError("Post Identifier is nil")
+        }
+        fetchPostData(for: safePostIdentifier)
         for cell in tableView.visibleCells{
             if let postCell = cell as? PostTableViewCell {
-                postCell.playVideo()
-                postCell.unMuteVideo()
+                postCell.playVideo() 
             }
         }
     }
@@ -79,6 +82,7 @@ class PostViewController: UIViewController {
         }
     }
     private func configureModels(){
+        renderModels.removeAll()
         guard let userPostModel = self.model else{
             return
         }
@@ -297,5 +301,12 @@ extension PostViewController: PostLikesTableViewCellDelegate{
 extension PostViewController: HomeCommentsTableViewCellDelegate{
     func didTapCommentsButton(with model: UserPost) {
         self.performSegue(withIdentifier: Constants.Post.commentsSegue, sender: self)
+    }
+}
+
+// MARK: - CommentsViewControllerDelegate
+extension PostViewController: CommentsViewControllerDelegate{
+    func didUpdateComments(_ comments: [PostComment], _ post: UserPost) {
+        model?.comments = comments
     }
 }

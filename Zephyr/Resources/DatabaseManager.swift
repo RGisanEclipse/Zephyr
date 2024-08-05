@@ -165,19 +165,56 @@ public class DatabaseManager{
     
     func addComment(to postID: String, comment: PostComment, completion: @escaping (Bool) -> Void) {
         let commentData: [String: Any] = [
-            "identifier": comment.identifier,
             "userName": comment.user.userName,
             "text": comment.text,
             "createdDate": comment.createdDate,
             "likes": comment.likes.map { $0.userName },
-            "postIdentifier": postID
+            "postIdentifier": postID,
+            "commentIdentifier": comment.commentIdentifier
         ]
         
         db.collection("postComments").addDocument(data: commentData) { error in
             completion(error == nil)
         }
     }
-    
+    func reportComment(comment: PostComment, completion: @escaping (Bool) -> Void) {
+        let commentData: [String: Any] = [
+            "userName": comment.user.userName,
+            "text": comment.text,
+            "createdDate": comment.createdDate,
+            "likes": comment.likes.map { $0.userName },
+            "postIdentifier": comment.postIdentifier,
+            "commentIdentifier": comment.commentIdentifier
+        ]
+        db.collection("reportedComments").addDocument(data: commentData) { error in
+            completion(error == nil)
+        }
+    }
+    func deleteComment(from postID: String, comment: PostComment, completion: @escaping (Bool) -> Void) {
+        let commentsRef = db.collection("postComments")
+        commentsRef.whereField("commentIdentifier", isEqualTo: comment.commentIdentifier).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error finding comment: \(error)")
+                completion(false)
+                return
+            }
+            guard let document = querySnapshot?.documents.first else {
+                print("Comment not found")
+                completion(false)
+                return
+            }
+            document.reference.delete { error in
+                if let error = error {
+                    print("Error removing comment: \(error)")
+                    completion(false)
+                } else {
+                    print("Comment successfully removed")
+                    completion(true)
+                }
+            }
+        }
+    }
+
     func fetchUserData(for email: String, completion: @escaping (Result<UserModel, Error>) -> Void) {
         fetchUserDocumentID(email: email) { documentID in
             guard let documentID = documentID else {
@@ -412,6 +449,7 @@ public class DatabaseManager{
     func fetchPostComments(for postIdentifier: String, completion: @escaping ([PostComment]?) -> Void) {
         db.collection("postComments")
             .whereField("postIdentifier", isEqualTo: postIdentifier)
+            .order(by: "createdDate", descending: true)
             .getDocuments { querySnapshot, error in
                 if let error = error {
                     print("Error fetching post comments: \(error.localizedDescription)")
@@ -428,9 +466,10 @@ public class DatabaseManager{
                 let dispatchGroup = DispatchGroup()
                 
                 for commentData in commentsData {
-                    guard let identifier = commentData["identifier"] as? String,
+                    guard let identifier = commentData["postIdentifier"] as? String,
                           let userName = commentData["userName"] as? String,
                           let text = commentData["text"] as? String,
+                          let commentIdentifier = commentData["commentIdentifier"] as? String,
                           let timestamp = commentData["createdDate"] as? Timestamp else {
                         continue
                     }
@@ -443,7 +482,7 @@ public class DatabaseManager{
                     self.fetchUserData(with: userName) { result in
                         switch result {
                         case .success(let userModel):
-                            let completedComment = PostComment(identifier: identifier, user: userModel, text: text, createdDate: createdDate, likes: [])
+                            let completedComment = PostComment(postIdentifier: identifier, user: userModel, text: text, createdDate: createdDate, likes: [], commentIdentifier: commentIdentifier)
                             comments.append(completedComment)
                         case .failure(let error):
                             print("Error fetching commenter data: \(error.localizedDescription)")

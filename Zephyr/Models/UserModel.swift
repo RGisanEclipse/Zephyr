@@ -163,11 +163,12 @@ struct CommentLike{
     let postIdentifier: String
 }
 struct PostComment{
-    let identifier: String
+    let postIdentifier: String
     let user: UserModel
     let text: String
     let createdDate: Date
     let likes: [CommentLike]
+    let commentIdentifier: String
 }
 enum FollowState {
     case following, notFollowing

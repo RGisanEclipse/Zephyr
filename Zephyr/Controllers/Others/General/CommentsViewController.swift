@@ -7,14 +7,19 @@
 
 import UIKit
 
+protocol CommentsViewControllerDelegate: AnyObject {
+    func didUpdateComments(_ comments: [PostComment], _ post: UserPost)
+}
+
 class CommentsViewController: UIViewController {
     
     var model: UserPost?
     private var userData: UserModel?
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var commentsTextField: UITextField!
+    weak var delegate: CommentsViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
@@ -52,11 +57,12 @@ class CommentsViewController: UIViewController {
             // Error fetching post or userData
             return
         }
-        let newComment = PostComment(identifier: postID, 
+        let newComment = PostComment(postIdentifier: postID,
                                      user: currentUser,
                                      text: commentText,
                                      createdDate: Date(),
-                                     likes: [])
+                                     likes: [],
+                                     commentIdentifier: UUID().uuidString)
         DatabaseManager.shared.addComment(to: postID, comment: newComment){ success in
             if success{
                 DispatchQueue.main.async {
@@ -75,7 +81,6 @@ class CommentsViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             }
         }
-        
     }
 }
 
@@ -123,6 +128,77 @@ extension CommentsViewController: UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
+    }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard indexPath.section == 1, let currentUser = userData else { return nil }
+        let comment = model?.comments[indexPath.row]
+        if comment?.user.userName == currentUser.userName {
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completionHandler in
+                self?.deleteComment(at: indexPath)
+                completionHandler(true)
+            }
+            deleteAction.backgroundColor = .red
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+        } else {
+            let reportAction = UIContextualAction(style: .normal, title: "Report") { [weak self] _, _, completionHandler in
+                self?.reportComment(at: indexPath)
+                completionHandler(true)
+            }
+            reportAction.backgroundColor = .gray
+            return UISwipeActionsConfiguration(actions: [reportAction])
+        }
+    }
+    private func deleteComment(at indexPath: IndexPath) {
+        guard let postID = model?.identifier else { return }
+        guard let commentToDelete = model?.comments[indexPath.row] else{
+            return
+        }
+        DatabaseManager.shared.deleteComment(from: postID, comment: commentToDelete) { [weak self] success in
+            if success {
+                DispatchQueue.main.async {
+                    self?.model?.comments.remove(at: indexPath.row)
+                    self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                    guard let safeModel = self?.model else { return }
+                    let safeComments = safeModel.comments
+                    self?.delegate?.didUpdateComments(safeComments,safeModel)
+                }
+            } else {
+                let alert = UIAlertController(title: "Error", message: "Failed to delete the comment.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self?.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    private func reportComment(at indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Report Comment", message: "Are you sure you want to report this comment?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            guard let commentToReport = self.model?.comments[indexPath.row] else {
+                return
+            }
+            DatabaseManager.shared.reportComment(comment: commentToReport) { success in
+                if success {
+                    DispatchQueue.main.async {
+                        self.model?.comments.remove(at: indexPath.row)
+                        self.tableView.deleteRows(at: [indexPath], with: .fade)
+                        guard let safeModel = self.model else { return }
+                        let safeComments = safeModel.comments
+                        self.delegate?.didUpdateComments(safeComments,safeModel)
+                        let confirmationAlert = UIAlertController(title: "Comment Reported", message: "This comment has been reported and hidden from your view.", preferredStyle: .alert)
+                        confirmationAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(confirmationAlert, animated: true, completion: nil)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        let errorAlert = UIAlertController(title: "Error Reporting Comment", message: "There was an error while reporting the comment.", preferredStyle: .alert)
+                        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(errorAlert, animated: true, completion: nil)
+                    }
+                }
+            }
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
 

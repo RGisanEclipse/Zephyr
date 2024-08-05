@@ -10,6 +10,7 @@ import UIKit
 import FirebaseFirestore
 
 class HomeViewController: UIViewController {
+    
     private var feedRenderModels = [HomeRenderViewModel]()
     private var likesData: [PostLike]?
     private var postSegueModel: UserPost?
@@ -63,8 +64,8 @@ class HomeViewController: UIViewController {
     private func createMockModels(){
         DispatchQueue.global().async {
             var comments = [PostComment]()
-            comments.append(PostComment(identifier: "x", user: UserModel(userName: "TheJoker", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts:[], followers: [], following: []), text: "Wanna know how I got that smile?", createdDate: Date(), likes: []))
-            comments.append(PostComment(identifier: "y", user: UserModel(userName: "TheRiddler", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts:[],followers: [], following: []), text: "Let's meet at Iceberg Lounge :)", createdDate: Date(), likes: []))
+            comments.append(PostComment(postIdentifier: "x", user: UserModel(userName: "TheJoker", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts:[], followers: [], following: []), text: "Wanna know how I got that smile?", createdDate: Date(), likes: [],commentIdentifier: "abc"))
+            comments.append(PostComment(postIdentifier: "y", user: UserModel(userName: "TheRiddler", profilePicture: URL(string: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts:[],followers: [], following: []), text: "Let's meet at Iceberg Lounge :)", createdDate: Date(), likes: [], commentIdentifier: "bca"))
             let post = UserPost(identifier: "abc", postType: .photo, thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postURL: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, caption: "The Batman (2022)", likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "x")], comments: comments, createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts:[],followers: [], following: []))
             let post2 = UserPost(identifier: "xyz", postType: .photo, thumbnailImage: URL(string: "https://www.cnet.com/a/img/resize/ea66ddc9276eef2884da221adc70ed1cf1545951/hub/2021/10/16/11804578-0dbc-42af-bcd1-3bc7b1394962/the-batman-2022-teaser-poster-batman-01-promo.jpg?auto=webp&fit=crop&height=675&width=1200")!, postURL: URL(string: "https://www.cnet.com/a/img/resize/ea66ddc9276eef2884da221adc70ed1cf1545951/hub/2021/10/16/11804578-0dbc-42af-bcd1-3bc7b1394962/the-batman-2022-teaser-poster-batman-01-promo.jpg?auto=webp&fit=crop&height=675&width=1200")!, caption: "The Batman (2022) post 2", likeCount: [PostLike(userName: "TheJoker", postIdentifier: "x"), PostLike(userName: "TheRiddler", postIdentifier: "xy")], comments: comments, createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts:[],followers: [], following: []))
             let viewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts: [], followers: [], following: []))),
@@ -97,6 +98,7 @@ class HomeViewController: UIViewController {
         } else if segue.identifier == Constants.Home.commentsSegue{
             let destinationVC = segue.destination as! CommentsViewController
             destinationVC.model = postSegueModel
+            destinationVC.delegate = self
         }
     }
 }
@@ -324,4 +326,35 @@ extension HomeViewController: HomeCommentsTableViewCellDelegate{
         self.postSegueModel = model
         self.performSegue(withIdentifier: Constants.Home.commentsSegue, sender: self)
     }
+}
+
+// MARK: - CommentsViewControllerDelegate
+extension HomeViewController: CommentsViewControllerDelegate{
+    func findIndexOfPost(_ post: UserPost) -> Int? {
+        return feedRenderModels.firstIndex(where: { viewModel in
+            if case .primaryContent(let existingPost) = viewModel.post.renderType {
+                return existingPost.identifier == post.identifier
+            }
+            return false
+        })
+    }
+    func didUpdateComments(_ comments: [PostComment], _ post: UserPost) {
+        print("Method got called")
+        if let index = findIndexOfPost(post) {
+            var updatedPost = feedRenderModels[index].post
+            if case .primaryContent(var postContent) = updatedPost.renderType {
+                postContent.comments = comments
+                updatedPost = PostRenderViewModel(renderType: .primaryContent(provider: postContent))
+                feedRenderModels[index].post = updatedPost
+                feedRenderModels[index].comments = PostRenderViewModel(renderType: .comments(provider: postContent))
+                DispatchQueue.main.async {
+                    let indexPath = IndexPath(row: 5, section: index + 1)
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
+                }
+            }
+        } else {
+            print("Post not found in feedRenderModels")
+        }
+    }
+
 }
