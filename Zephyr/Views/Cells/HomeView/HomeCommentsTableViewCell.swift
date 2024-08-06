@@ -20,18 +20,35 @@ class HomeCommentsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    func configure(with model: UserPost){
+    func configure(with model: UserPost) {
         self.model = model
-        let dateFormatter = DateFormatter()
+        dateLabel.text = formattedDateString(from: model.createDate)
+    }
+    private func formattedDateString(from date: Date) -> String {
+        let now = Date()
         let calendar = Calendar.current
-            let currentYear = calendar.component(.year, from: Date())
-        let dateYear = calendar.component(.year, from: model.createDate)
+        let components = calendar.dateComponents([.minute, .hour, .day, .weekOfYear, .year], from: date, to: now)
+        
+        if let weeks = components.weekOfYear, weeks >= 1 {
+            let dateFormatter = DateFormatter()
+            let currentYear = calendar.component(.year, from: now)
+            let dateYear = calendar.component(.year, from: date)
+            
             if currentYear == dateYear {
                 dateFormatter.dateFormat = "MMM d"
             } else {
                 dateFormatter.dateFormat = "MMM yyyy"
             }
-        dateLabel.text = dateFormatter.string(from: model.createDate)
+            return dateFormatter.string(from: date)
+        } else if let days = components.day, days > 0 {
+            return "\(days)d"
+        } else if let hours = components.hour, hours > 0 {
+            return "\(hours)h"
+        } else if let minutes = components.minute, minutes > 0 {
+            return "\(minutes) min ago"
+        } else {
+            return "just now"
+        }
     }
     
     @IBAction func commentsButtonPressed(_ sender: UIButton) {
