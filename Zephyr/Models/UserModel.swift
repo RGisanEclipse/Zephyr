@@ -160,14 +160,14 @@ struct PostLike{
 }
 struct CommentLike{
     let userName: String
-    let postIdentifier: String
+    let commentIdentifier: String
 }
 struct PostComment{
     let postIdentifier: String
     let user: UserModel
     let text: String
     let createdDate: Date
-    let likes: [CommentLike]
+    var likes: [CommentLike]
     let commentIdentifier: String
 }
 enum FollowState {

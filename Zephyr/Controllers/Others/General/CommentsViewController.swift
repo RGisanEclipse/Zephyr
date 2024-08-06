@@ -109,7 +109,11 @@ extension CommentsViewController: UITableViewDataSource{
             let commentsModel = safeModel.comments
             let currentComment = commentsModel[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.generalCellIdentifier, for: indexPath) as! PostGeneralTableViewCell
-            cell.configure(with: currentComment)
+            guard let safeUserData = userData else{
+                return UITableViewCell()
+            }
+            cell.configure(with: currentComment, userName: safeUserData.userName)
+            cell.delegate = self
             return cell
         }
     }
@@ -212,5 +216,52 @@ extension CommentsViewController: UITextFieldDelegate{
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+    }
+}
+
+// MARK: - PostGeneralTableViewCellDelegate
+extension CommentsViewController: PostGeneralTableViewCellDelegate {
+    func didTapCommentLikeButton(with model: PostComment, from cell: PostGeneralTableViewCell) {
+        guard let currentUser = userData else {
+            print("Current user data not found.")
+            return
+        }
+        
+        let isLikedByCurrentUser = model.likes.contains { like in
+            like.userName == currentUser.userName
+        }
+        
+        if isLikedByCurrentUser {
+            DatabaseManager.shared.removeCommentLike(from: model.commentIdentifier, by: currentUser) { [weak self] success in
+                if success {
+                    guard let self = self else { return }
+                    if let commentIndex = self.model?.comments.firstIndex(where: { $0.commentIdentifier == model.commentIdentifier }) {
+                        print("Removing like from comment at index \(commentIndex)")
+                        self.model?.comments[commentIndex].likes.removeAll { $0.userName == currentUser.userName }
+                        DispatchQueue.main.async {
+                            cell.configure(with: self.model!.comments[commentIndex], userName: currentUser.userName)
+                            self.delegate?.didUpdateComments(self.model!.comments, self.model!)
+                        }
+                    } else {
+                        print("Comment not found in model.")
+                    }
+                } else {
+                    print("Failed to remove like from database.")
+                }
+            }
+        } else {
+            DatabaseManager.shared.addCommentLike(to: model.commentIdentifier, by: currentUser) { [weak self] success in
+                if success {
+                    guard let self = self else { return }
+                    if let commentIndex = self.model?.comments.firstIndex(where: { $0.commentIdentifier == model.commentIdentifier }) {
+                        self.model?.comments[commentIndex].likes.append(CommentLike(userName: currentUser.userName, commentIdentifier: model.commentIdentifier))
+                        DispatchQueue.main.async {
+                            cell.configure(with: self.model!.comments[commentIndex], userName: currentUser.userName)
+                            self.delegate?.didUpdateComments(self.model!.comments, self.model!)
+                        }
+                    }
+                }
+            }
+        }
     }
 }

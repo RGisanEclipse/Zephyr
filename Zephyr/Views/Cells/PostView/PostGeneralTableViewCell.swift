@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol PostGeneralTableViewCellDelegate: AnyObject{
+    func didTapCommentLikeButton(with model: PostComment, from: PostGeneralTableViewCell)
+}
+
 class PostGeneralTableViewCell: UITableViewCell {
     
     @IBOutlet weak var profilePictureButton: UIButton!
@@ -14,18 +18,36 @@ class PostGeneralTableViewCell: UITableViewCell {
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var commentLikeButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var commentLikesLabel: UILabel!
     
+    var isLiked: Bool?
+    var delegate: PostGeneralTableViewCellDelegate?
+    var model: PostComment?
     override func awakeFromNib() {
         super.awakeFromNib()
         profilePictureButton.layer.cornerRadius = profilePictureButton.frame.size.width / 2
         profilePictureButton.imageView?.contentMode = .scaleAspectFill
         profilePictureButton.layer.masksToBounds = true
     }
-    func configure(with model: PostComment) {
+    func configure(with model: PostComment, userName: String) {
+        self.model = model
         profilePictureButton.sd_setImage(with: model.user.profilePicture, for: .normal, placeholderImage: UIImage(systemName: "userPlaceholder"))
         userNameLabel.setTitle(model.user.userName, for: .normal)
         commentLabel.text = model.text
         dateLabel.text = formattedDateString(from: model.createdDate)
+        let isLikedByCurrentUser = model.likes.contains { like in
+            like.userName == userName
+        }
+        if isLikedByCurrentUser {
+            commentLikeButton.tintColor = .systemRed
+            commentLikeButton.setBackgroundImage(UIImage(systemName: "suit.heart.fill"), for: .normal)
+            isLiked = true
+        } else {
+            commentLikeButton.tintColor = UIColor(named: "BW")
+            commentLikeButton.setBackgroundImage(UIImage(systemName: "suit.heart"), for: .normal)
+            isLiked = false
+        }
+        commentLikesLabel.text = String(model.likes.count)
     }
     private func formattedDateString(from date: Date) -> String {
         let now = Date()
@@ -43,5 +65,11 @@ class PostGeneralTableViewCell: UITableViewCell {
         } else {
             return "now"
         }
+    }
+    @IBAction func commentLikeButtonPressed(_ sender: UIButton) {
+        guard let safeModel = model else{
+            return
+        }
+        delegate?.didTapCommentLikeButton(with: safeModel, from: self)
     }
 }

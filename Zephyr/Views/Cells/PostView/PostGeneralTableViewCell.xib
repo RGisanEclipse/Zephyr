@@ -29,7 +29,7 @@
                         <state key="normal" image="userPlaceholder"/>
                     </button>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="sma-ya-el7">
-                        <rect key="frame" x="60" y="10" width="208" height="71"/>
+                        <rect key="frame" x="60.000000000000007" y="10" width="97.666666666666686" height="71"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tba-PR-rwh">
                                 <rect key="frame" x="0.0" y="0.0" width="97.666666666666671" height="20"/>
@@ -59,7 +59,7 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" showsExpansionTextWhenTruncated="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcf-D5-MvI">
-                                <rect key="frame" x="0.0" y="20" width="208" height="51"/>
+                                <rect key="frame" x="0.0" y="20" width="97.666666666666671" height="51"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -72,26 +72,44 @@
                             <constraint firstAttribute="trailing" secondItem="hcf-D5-MvI" secondAttribute="trailing" id="x2e-34-QEh"/>
                         </constraints>
                     </stackView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vBN-bU-FmD">
-                        <rect key="frame" x="283" y="17" width="17" height="13"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="yaQ-4t-7t0">
+                        <rect key="frame" x="288" y="15" width="17" height="32.333333333333336"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vBN-bU-FmD">
+                                <rect key="frame" x="0.0" y="1.9999999999999991" width="17" height="13"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="17" id="SDY-R8-2pY"/>
+                                    <constraint firstAttribute="height" constant="16" id="wKI-E2-NUl"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" backgroundImage="suit.heart" catalog="system">
+                                    <color key="titleColor" name="BW"/>
+                                </state>
+                                <connections>
+                                    <action selector="commentLikeButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Jgs-Sb-IYj"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0aV-ki-ccD">
+                                <rect key="frame" x="0.0" y="19" width="17" height="13.333333333333336"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <constraints>
-                            <constraint firstAttribute="width" constant="17" id="SDY-R8-2pY"/>
-                            <constraint firstAttribute="height" constant="16" id="wKI-E2-NUl"/>
+                            <constraint firstAttribute="bottom" secondItem="0aV-ki-ccD" secondAttribute="bottom" id="4Mo-kx-lv7"/>
+                            <constraint firstAttribute="trailing" secondItem="0aV-ki-ccD" secondAttribute="trailing" id="8Bm-ca-xyu"/>
+                            <constraint firstItem="0aV-ki-ccD" firstAttribute="leading" secondItem="yaQ-4t-7t0" secondAttribute="leading" id="c1h-37-Mz4"/>
                         </constraints>
-                        <color key="tintColor" systemColor="systemGrayColor"/>
-                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" backgroundImage="suit.heart" catalog="system">
-                            <color key="titleColor" name="BW"/>
-                        </state>
-                    </button>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="vBN-bU-FmD" firstAttribute="leading" secondItem="sma-ya-el7" secondAttribute="trailing" constant="15" id="3yw-CB-HMv"/>
-                    <constraint firstItem="vBN-bU-FmD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="JJN-rj-XQI"/>
                     <constraint firstItem="sma-ya-el7" firstAttribute="leading" secondItem="MrZ-fQ-pfs" secondAttribute="trailing" constant="15" id="LMO-fW-Lde"/>
                     <constraint firstItem="sma-ya-el7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Qug-3Y-h6n"/>
-                    <constraint firstAttribute="trailing" secondItem="vBN-bU-FmD" secondAttribute="trailing" constant="20" id="bWM-rV-NDF"/>
+                    <constraint firstAttribute="trailing" secondItem="yaQ-4t-7t0" secondAttribute="trailing" constant="15" id="g5w-h0-R2O"/>
                     <constraint firstItem="MrZ-fQ-pfs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="mar-QQ-Hxt"/>
+                    <constraint firstItem="yaQ-4t-7t0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="owD-w4-xID"/>
                     <constraint firstItem="MrZ-fQ-pfs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="qJ4-ZR-fZc"/>
                     <constraint firstAttribute="bottom" secondItem="sma-ya-el7" secondAttribute="bottom" constant="10" id="wjz-5Y-ukO"/>
                 </constraints>
@@ -100,6 +118,7 @@
             <connections>
                 <outlet property="commentLabel" destination="hcf-D5-MvI" id="JLt-ZV-QcS"/>
                 <outlet property="commentLikeButton" destination="vBN-bU-FmD" id="Kwp-od-a0O"/>
+                <outlet property="commentLikesLabel" destination="0aV-ki-ccD" id="HMz-WO-5Iy"/>
                 <outlet property="dateLabel" destination="CDG-rl-wzc" id="k7Y-mB-ayj"/>
                 <outlet property="profilePictureButton" destination="MrZ-fQ-pfs" id="YU5-fo-pkn"/>
                 <outlet property="userNameLabel" destination="RcJ-8t-an7" id="coY-mk-9Zm"/>

@@ -45,12 +45,21 @@ class PostActionsTableViewCell: UITableViewCell {
         }
     }
     @IBAction func likeButtonPressed(_ sender: UIButton) {
-        delegate?.didTapLikeButton(with: model!, from: self, at: indexPath!)
+        guard let safeModel = model, let safeIndexPath = indexPath else{
+            return
+        }
+        delegate?.didTapLikeButton(with: safeModel, from: self, at: safeIndexPath)
     }
     @IBAction func commentButtonPressed(_ sender: UIButton) {
-        delegate?.didTapCommentButton(with: model!)
+        guard let safeModel = model else{
+            return
+        }
+        delegate?.didTapCommentButton(with: safeModel)
     }
     @IBAction func saveButtonPressed(_ sender: UIButton) {
-        delegate?.didTapSaveButton(with: model!)
+        guard let safeModel = model else{
+            return
+        }
+        delegate?.didTapSaveButton(with: safeModel)
     }
 }

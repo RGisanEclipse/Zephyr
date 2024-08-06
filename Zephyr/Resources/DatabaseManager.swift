@@ -236,29 +236,76 @@ public class DatabaseManager{
     }
     func deleteComment(from postID: String, comment: PostComment, completion: @escaping (Bool) -> Void) {
         let commentsRef = db.collection("postComments")
+        let likesRef = db.collection("commentLikes")
         commentsRef.whereField("commentIdentifier", isEqualTo: comment.commentIdentifier).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error finding comment: \(error)")
                 completion(false)
                 return
             }
-            guard let document = querySnapshot?.documents.first else {
+            guard let commentDocument = querySnapshot?.documents.first else {
                 print("Comment not found")
                 completion(false)
                 return
             }
-            document.reference.delete { error in
+            likesRef.whereField("commentIdentifier", isEqualTo: comment.commentIdentifier).getDocuments { (likesSnapshot, error) in
                 if let error = error {
-                    print("Error removing comment: \(error)")
+                    print("Error finding comment likes: \(error)")
                     completion(false)
-                } else {
-                    print("Comment successfully removed")
-                    completion(true)
+                    return
+                }
+
+                let batch = self.db.batch()
+                batch.deleteDocument(commentDocument.reference)
+                likesSnapshot?.documents.forEach { likeDocument in
+                    batch.deleteDocument(likeDocument.reference)
+                }
+                batch.commit { error in
+                    if let error = error {
+                        print("Error removing comment and likes: \(error)")
+                        completion(false)
+                    } else {
+                        print("Comment and associated likes successfully removed")
+                        completion(true)
+                    }
                 }
             }
         }
     }
-
+    func addCommentLike(to commentIdentifier: String, by user: UserModel, completion: @escaping (Bool) -> Void) {
+        let likeData: [String: Any] = [
+            "userName": user.userName,
+            "commentIdentifier": commentIdentifier
+        ]
+        db.collection("commentLikes").addDocument(data: likeData) { error in
+            completion(error == nil)
+        }
+    }
+    func removeCommentLike(from commentIdentifier: String, by user: UserModel, completion: @escaping (Bool) -> Void) {
+        db.collection("commentLikes")
+            .whereField("commentIdentifier", isEqualTo: commentIdentifier)
+            .whereField("userName", isEqualTo: user.userName)
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error fetching documents: \(error)")
+                    completion(false)
+                    return
+                }
+                guard let documents = querySnapshot?.documents, !documents.isEmpty else {
+                    completion(false)
+                    return
+                }
+                let documentID = documents.first!.documentID
+                self.db.collection("commentLikes").document(documentID).delete { error in
+                    if let error = error {
+                        print("Error deleting document: \(error)")
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
+                }
+            }
+    }
     func fetchUserData(for email: String, completion: @escaping (Result<UserModel, Error>) -> Void) {
         fetchUserDocumentID(email: email) { documentID in
             guard let documentID = documentID else {
@@ -505,6 +552,7 @@ public class DatabaseManager{
                     completion([])
                     return
                 }
+                
                 let commentsData = documents.map { $0.data() }
                 var comments: [PostComment] = []
                 let dispatchGroup = DispatchGroup()
@@ -519,27 +567,59 @@ public class DatabaseManager{
                     }
                     
                     let createdDate = timestamp.dateValue()
-                    let likesUserNames = commentData["likes"] as? [String] ?? []
-                    _ = likesUserNames.map { PostLike(userName: $0, postIdentifier: postIdentifier) }
                     
                     dispatchGroup.enter()
                     self.fetchUserData(with: userName) { result in
                         switch result {
                         case .success(let userModel):
-                            let completedComment = PostComment(postIdentifier: identifier, user: userModel, text: text, createdDate: createdDate, likes: [], commentIdentifier: commentIdentifier)
-                            comments.append(completedComment)
+                            // Fetch likes for this comment
+                            self.fetchCommentLikes(for: commentIdentifier) { likes in
+                                let completedComment = PostComment(
+                                    postIdentifier: identifier,
+                                    user: userModel,
+                                    text: text,
+                                    createdDate: createdDate,
+                                    likes: likes, // Include likes here
+                                    commentIdentifier: commentIdentifier
+                                )
+                                comments.append(completedComment)
+                                dispatchGroup.leave()
+                            }
                         case .failure(let error):
                             print("Error fetching commenter data: \(error.localizedDescription)")
+                            dispatchGroup.leave()
                         }
-                        dispatchGroup.leave()
                     }
                 }
+                
                 dispatchGroup.notify(queue: .main) {
                     completion(comments)
                 }
             }
     }
-
+    func fetchCommentLikes(for commentIdentifier: String, completion: @escaping ([CommentLike]) -> Void) {
+        db.collection("commentLikes")
+            .whereField("commentIdentifier", isEqualTo: commentIdentifier)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching comment likes: \(error.localizedDescription)")
+                    completion([])
+                    return
+                }
+                
+                guard let documents = querySnapshot?.documents else {
+                    completion([])
+                    return
+                }
+                
+                let likes = documents.map { document -> CommentLike in
+                    let data = document.data()
+                    let userName = data["userName"] as? String ?? ""
+                    return CommentLike(userName: userName, commentIdentifier: commentIdentifier)
+                }
+                completion(likes)
+            }
+    }
     func updateUserData(for userName: String, with data: [String: Any], completion: @escaping (Bool) -> Void) {
         fetchUserDocumentID(userName: userName) { documentID in
             guard let documentID = documentID else {
