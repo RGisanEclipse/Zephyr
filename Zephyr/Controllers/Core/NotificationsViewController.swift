@@ -15,9 +15,12 @@ class NotificationsViewController: UIViewController {
     private var refreshControl = UIRefreshControl()
     private var models = [UserNotificationModel]()
     private var postModel: PostSummary?
+    var userProfileSegueUserName: String?
+    private var currentUserData: UserModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchCurrentUserData()
         fetchNotifications()
         if models.isEmpty{
             tableView.isHidden = true
@@ -37,6 +40,18 @@ class NotificationsViewController: UIViewController {
     @objc private func refreshData(_ sender: Any) {
         // Fetch Notifications
         self.refreshControl.endRefreshing()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.title = "Notifications"
+    }
+    private func fetchCurrentUserData(){
+        CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (user, success) in
+            guard let self = self, success, let user = user else {
+                return
+            }
+            self.currentUserData = user
+        }
     }
     private func fetchNotifications(){
         for x in 0...10{
@@ -74,16 +89,19 @@ extension NotificationsViewController: UITableViewDataSource{
         if segue.identifier == Constants.Notifications.postSegue{
             let destinationVC = segue.destination as! PostViewController
             destinationVC.postIdentifier = postModel?.identifier
+        } else if segue.identifier == Constants.Notifications.userProfileSegue{
+            let destinationVC = segue.destination as! UserProfileViewController
+            destinationVC.segueUserName = userProfileSegueUserName
         }
     }
 }
 
 // MARK: - NotificationLikeTableViewCellDelegate
 extension NotificationsViewController: NotificationLikeTableViewCellDelegate{
-    func didTapProfilePictureButton(with model: UserNotificationModel) {
-        
+    func didTapProfilePictureButton(with userName: String) {
+        self.userProfileSegueUserName = userName
+        self.performSegue(withIdentifier: Constants.Notifications.userProfileSegue, sender: self)
     }
-    
     func didTapPostButton(with model: UserNotificationModel) {
         switch model.type{
         case .like(let post):
@@ -107,10 +125,49 @@ extension NotificationsViewController: UITableViewDelegate{
 
 // MARK: - NotificationFollowTableViewCellDelegate
 extension NotificationsViewController: NotificationFollowTableViewCellDelegate{
-    func didTapFollowButton(with model: UserNotificationModel) {
+    func didTapFollowButton(with model: UserNotificationModel, cell: NotificationFollowTableViewCell) {
+        guard let currentUser = self.currentUserData else { return }
+        let currentUserName = currentUser.userName
+        let viewedUserName = model.user.userName
         
+        switch model.type {
+        case .follow(let state):
+            if state == .following {
+                DatabaseManager.shared.unfollowUser(followerUserName: currentUserName, followedUserName: viewedUserName) { [weak self] success in
+                    guard let self = self else { return }
+                    if success {
+                        self.updateFollowState(for: model, in: cell, to: .notFollowing)
+                        print("Successfully unfollowed user")
+                    } else {
+                        print("Failed to unfollow user")
+                    }
+                }
+            } else {
+                DatabaseManager.shared.followUser(followerUserName: currentUserName, followedUserName: viewedUserName, profilePicture: model.user.profilePicture?.absoluteString ?? "") { success in
+                    if success {
+                        self.updateFollowState(for: model, in: cell, to: .following)
+                        print("Successfully followed user")
+                    } else {
+                        print("Failed to follow user")
+                    }
+                }
+            }
+        case .like:
+            break
+        }
     }
-    func didTapProfilePictureButtonF(with model: UserNotificationModel) {
+    
+    private func updateFollowState(for model: UserNotificationModel, in cell: NotificationFollowTableViewCell, to newState: FollowState) {
+        var newModel = model
+        newModel.type = .follow(state: newState)
+        cell.configure(with: newModel)
         
+        if let index = models.firstIndex(where: { $0.user.userName == model.user.userName }) {
+            models[index] = newModel
+        }
+    }
+    func didTapProfilePictureButtonF(with userName: String) {
+        self.userProfileSegueUserName = userName
+        self.performSegue(withIdentifier: Constants.Notifications.userProfileSegue, sender: self)
     }
 }

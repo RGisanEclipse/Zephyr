@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 protocol NotificationLikeTableViewCellDelegate: AnyObject{
-    func didTapProfilePictureButton(with model: UserNotificationModel)
+    func didTapProfilePictureButton(with userName: String)
     func didTapPostButton(with model: UserNotificationModel)
 }
 class NotificationLikeTableViewCell: UITableViewCell {
@@ -33,7 +33,7 @@ class NotificationLikeTableViewCell: UITableViewCell {
         guard let model = model else{
             return
         }
-        delegate?.didTapProfilePictureButton(with: model)
+        delegate?.didTapProfilePictureButton(with: model.user.userName)
     }
     @IBAction func postButtonTapped(_ sender: UIButton) {
         guard let model = model else{

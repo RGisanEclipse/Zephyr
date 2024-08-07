@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
     private var postSegueModel: UserPost?
     private var userData: UserModel?
     private var refreshControl = UIRefreshControl()
+    var userProfileSegueUserName: String?
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -99,6 +100,9 @@ class HomeViewController: UIViewController {
             let destinationVC = segue.destination as! CommentsViewController
             destinationVC.model = postSegueModel
             destinationVC.delegate = self
+        } else if segue.identifier == Constants.Home.userProfileSegue{
+            let destinationVC = segue.destination as! UserProfileViewController
+            destinationVC.segueUserName = userProfileSegueUserName
         }
     }
 }
@@ -217,6 +221,16 @@ extension HomeViewController: UITableViewDataSource{
 }
 // MARK: - PostHeaderTableViewCellDelegate
 extension HomeViewController: PostHeaderTableViewCellDelegate{
+    func didTapUserNameButton(with userName: String) {
+        self.userProfileSegueUserName = userName
+        self.performSegue(withIdentifier: Constants.Home.userProfileSegue, sender: self)
+    }
+    
+    func didTapProfilePictureButton(with userName: String) {
+        self.userProfileSegueUserName = userName
+        self.performSegue(withIdentifier: Constants.Home.userProfileSegue, sender: self)
+    }
+    
     func didTapMoreButton(for post: UserPost) {
         guard let safeUserData = userData else {
             return

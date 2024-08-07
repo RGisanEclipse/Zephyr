@@ -7,7 +7,7 @@
 
 import Foundation
 struct UserNotificationModel{
-    let type: UserNotificationType
+    var type: UserNotificationType
     let text: String
     let user: UserModel
 }

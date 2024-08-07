@@ -11,6 +11,8 @@ class ListViewController: UIViewController {
     
     var data = [UserRelationship]()
     private var refreshControl = UIRefreshControl()
+    private var currentUserData: UserModel?
+    var userProfileSegueUserName: String?
     
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -19,6 +21,7 @@ class ListViewController: UIViewController {
     var viewTitle: String?
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchCurrentUserData()
         emptyView.isHidden = true
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.topItem?.title = " "
@@ -34,8 +37,21 @@ class ListViewController: UIViewController {
         tableView.refreshControl = refreshControl
     }
     @objc private func refreshData(_ sender: Any) {
-        // Fetch Data
         self.refreshControl.endRefreshing()
+    }
+    private func fetchCurrentUserData(){
+        CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (user, success) in
+            guard let self = self, success, let user = user else {
+                return
+            }
+            self.currentUserData = user
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.List.userProfileVC{
+            let destinationVC = segue.destination as! UserProfileViewController
+            destinationVC.segueUserName = userProfileSegueUserName
+        }
     }
 }
 
@@ -64,13 +80,42 @@ extension ListViewController: UITableViewDelegate{
 
 // MARK: - UserFollowTableViewCellDelegate
 extension ListViewController: UserFollowTableViewCellDelegate{
-    func didTapFollowButton(model: UserRelationship) {
+    func didTapUserNameButton(with userName: String) {
+        self.userProfileSegueUserName = userName
+        self.performSegue(withIdentifier: Constants.List.userProfileVC, sender: self)
+    }
+    
+    func didTapProfilePictureButton(with userName: String) {
+        self.userProfileSegueUserName = userName
+        self.performSegue(withIdentifier: Constants.List.userProfileVC, sender: self)
+    }
+    
+    func didTapFollowButton(model: UserRelationship, cell: ListTableViewCell) {
+        guard let currentUser = self.currentUserData else { return }
+        let currentUserName = currentUser.userName
+        let viewedUserName = model.username
         switch model.type{
         case .following:
-            // Unfollow Logic
+            DatabaseManager.shared.unfollowUser(followerUserName: currentUserName, followedUserName: viewedUserName) { success in
+                if success {
+                    var newModel = model
+                    newModel.type = .notFollowing
+                    cell.configure(with: newModel)
+                } else {
+                    print("Failed to unfollow user")
+                }
+            }
             break
         case.notFollowing:
-            // Follow Logic
+            DatabaseManager.shared.followUser(followerUserName: currentUserName, followedUserName: viewedUserName, profilePicture: model.profilePicture ?? "") { success in
+                if success {
+                    var newModel = model
+                    newModel.type = .following
+                    cell.configure(with: newModel)
+                } else {
+                    print("Failed to follow user")
+                }
+            }
             break
         }
     }

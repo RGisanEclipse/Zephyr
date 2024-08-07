@@ -7,7 +7,9 @@
 
 import UIKit
 protocol UserFollowTableViewCellDelegate: AnyObject {
-    func didTapFollowButton(model: UserRelationship)
+    func didTapFollowButton(model: UserRelationship, cell: ListTableViewCell)
+    func didTapUserNameButton(with userName: String)
+    func didTapProfilePictureButton(with userName: String)
 }
 
 class ListTableViewCell: UITableViewCell {
@@ -27,13 +29,6 @@ class ListTableViewCell: UITableViewCell {
         followButton.layer.cornerRadius = CGFloat(8)
     }
     
-    @IBAction func followButtonPressed(_ sender: UIButton) {
-        guard let model = model else{
-            return
-        }
-        delegate?.didTapFollowButton(model: model)
-    }
-    
     public func configure(with model: UserRelationship) {
         self.model = model
         usernameButton.setTitle(model.username, for: .normal)
@@ -46,5 +41,21 @@ class ListTableViewCell: UITableViewCell {
             followButton.setTitle("Follow", for: .normal)
             followButton.backgroundColor = .link
         }
+    }
+    @IBAction func profilePictureButtonPressed(_ sender: UIButton) {
+        guard let safeModel = model else { return }
+        delegate?.didTapProfilePictureButton(with: safeModel.username)
+    }
+    
+    @IBAction func userNameButtonPressed(_ sender: UIButton) {
+        guard let safeModel = model else { return }
+        delegate?.didTapUserNameButton(with: safeModel.username)
+    }
+    
+    @IBAction func followButtonPressed(_ sender: UIButton) {
+        guard let model = model else{
+            return
+        }
+        delegate?.didTapFollowButton(model: model, cell: self)
     }
 }

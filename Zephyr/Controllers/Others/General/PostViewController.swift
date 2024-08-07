@@ -18,6 +18,7 @@ class PostViewController: UIViewController {
     private var likesData: [PostLike]?
     private var renderModels = [PostRenderViewModel]()
     private var userData: UserModel?
+    var userProfileSegueUserName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,10 +112,12 @@ class PostViewController: UIViewController {
                 return
             }
             destinationVC.data = safeUserData.convertPostLikesToUserRelationships(postLikes: likesSafeData)
-        }
-        if segue.identifier == Constants.Post.commentsSegue{
+        } else if segue.identifier == Constants.Post.commentsSegue{
             let destinationVC = segue.destination as! CommentsViewController
             destinationVC.model = model
+        } else if segue.identifier == Constants.Post.userProfileSegue{
+            let destinationVC = segue.destination as! UserProfileViewController
+            destinationVC.segueUserName = userProfileSegueUserName
         }
     }
 }
@@ -206,10 +209,17 @@ extension PostViewController: UITableViewDelegate{
 
 // MARK: - PostHeaderTableViewCellDelegate
 
-// MARK: - PostHeaderTableViewCellDelegate
-// MARK: - PostHeaderTableViewCellDelegate
-
 extension PostViewController: PostHeaderTableViewCellDelegate {
+    func didTapUserNameButton(with userName: String) {
+        self.userProfileSegueUserName = userName
+        self.performSegue(withIdentifier: Constants.Post.userProfileSegue, sender: self)
+    }
+    
+    func didTapProfilePictureButton(with userName: String) {
+        self.userProfileSegueUserName = userName
+        self.performSegue(withIdentifier: Constants.Post.userProfileSegue, sender: self)
+    }
+    
     func didTapMoreButton(for post: UserPost) {
         guard let safeUserData = userData else {
             return
@@ -311,7 +321,7 @@ extension PostViewController: PostHeaderTableViewCellDelegate {
             }
         }))
         self.present(alert, animated: true)
-    }
+    }    
 }
 
 // MARK: - PostActionsTableViewCellDelegate

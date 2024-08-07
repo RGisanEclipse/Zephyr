@@ -8,6 +8,8 @@
 import UIKit
 protocol PostHeaderTableViewCellDelegate: AnyObject{
     func didTapMoreButton(for post: UserPost)
+    func didTapUserNameButton(with userName: String)
+    func didTapProfilePictureButton(with userName: String)
 }
 class PostHeaderTableViewCell: UITableViewCell {
 
@@ -33,5 +35,18 @@ class PostHeaderTableViewCell: UITableViewCell {
             return
         }
         delegate?.didTapMoreButton(for: safeModel)
+    }
+    @IBAction func profilePictureButtonPressed(_ sender: UIButton) {
+        guard let safeModel = model else{
+            return
+        }
+        delegate?.didTapProfilePictureButton(with: safeModel.owner.userName)
+    }
+    
+    @IBAction func userNameButtonPressed(_ sender: Any) {
+        guard let safeModel = model else{
+            return
+        }
+        delegate?.didTapUserNameButton(with: safeModel.owner.userName)
     }
 }

@@ -31,6 +31,9 @@ class UserProfileViewController: UIViewController {
         fetchUserData()
         fetchCurrentUserData()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
+    }
     private func fetchCurrentUserData(){
         CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (user, success) in
             guard let self = self, success, let user = user else {
