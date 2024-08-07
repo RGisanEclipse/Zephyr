@@ -40,17 +40,20 @@ class SettingsViewController: UIViewController {
         let actionSheet = UIAlertController(title: Constants.Settings.logoutTitle, message: Constants.Settings.logoutMessage, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         actionSheet.addAction(UIAlertAction(title: "Log out", style: .destructive, handler: { _ in
-            AuthManager.shared.logOutUser { loggedOut in
-                DispatchQueue.main.async{
-                    if loggedOut{
+            AuthManager.shared.logOutUser { [weak self] loggedOut in
+                DispatchQueue.main.async {
+                    if loggedOut {
+                        CurrentUserDataManager.shared.clearCachedUser()
+                        CurrentUserDataManager.shared.userData = nil
+                        
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         guard let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else {
                             print("LoginViewController could not be instantiated")
                             return
                         }
                         loginVC.modalPresentationStyle = .fullScreen
-                        self.present(loginVC, animated: true, completion: nil)
-                    } else{
+                        self?.present(loginVC, animated: true, completion: nil)
+                    } else {
                         // Error Occurred
                     }
                 }
@@ -60,6 +63,7 @@ class SettingsViewController: UIViewController {
         actionSheet.popoverPresentationController?.sourceRect = settingsTableView.bounds
         present(actionSheet, animated: true)
     }
+
     private func handleEditProfile(){
         self.performSegue(withIdentifier: Constants.Settings.toEditProfile, sender: self)
     }

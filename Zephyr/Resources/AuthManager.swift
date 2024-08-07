@@ -37,30 +37,30 @@ public class AuthManager{
             }
         }
     }
-    public func loginUser(userName: String?, email: String?, password: String, completion: @escaping (Bool) -> Void){
-        if let safeEmail = email{
+    public func loginUser(userName: String?, email: String?, password: String, completion: @escaping (Bool) -> Void) {
+        if let safeEmail = email {
             Auth.auth().signIn(withEmail: safeEmail, password: password) { authResult, error in
-                guard authResult != nil, error == nil
-                else{
+                guard authResult != nil, error == nil else {
                     completion(false)
                     return
                 }
-                completion(true)
+                CurrentUserDataManager.shared.fetchLoggedInUserData { (user, success) in
+                    completion(success)
+                }
             }
-        }
-        else if let safeUserName = userName{
+        } else if let safeUserName = userName {
             DatabaseManager.shared.getEmail(for: safeUserName) { email in
-                if let safeEmail = email{
+                if let safeEmail = email {
                     Auth.auth().signIn(withEmail: safeEmail, password: password) { authResult, error in
-                        guard authResult != nil, error == nil
-                        else{
+                        guard authResult != nil, error == nil else {
                             completion(false)
                             return
                         }
-                        completion(true)
-                        return
+                        CurrentUserDataManager.shared.fetchLoggedInUserData { (user, success) in
+                            completion(success)
+                        }
                     }
-                } else{
+                } else {
                     completion(false)
                 }
             }

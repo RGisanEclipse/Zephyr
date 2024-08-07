@@ -13,6 +13,10 @@ class CurrentUserDataManager {
     var userData: UserModel?
     private var cachedUser: UserModel?
     
+    func clearCachedUser(){
+        cachedUser = nil
+    }
+    
     public func fetchLoggedInUserData(completion: @escaping (UserModel?, Bool) -> Void) {
         if let cachedUser = self.cachedUser {
             completion(cachedUser, true)
@@ -22,7 +26,7 @@ class CurrentUserDataManager {
             completion(nil, false)
             return
         }
-        
+        print(email)
         DatabaseManager.shared.fetchUserData(for: email) { [weak self] result in
             guard let self = self else { return }
             switch result {
