@@ -8,7 +8,7 @@
 import UIKit
 import SkeletonView
 class UserProfileViewController: UIViewController {
-   
+    
     private var currentUserData: UserModel?
     var segueUserName: String?
     private var followerFollowingData = [UserRelationship]()
@@ -150,6 +150,8 @@ class UserProfileViewController: UIViewController {
         collectionView.register(UINib(nibName: Constants.Profile.tabsIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.tabsIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.UserProfile.followersSegue{
@@ -229,8 +231,8 @@ extension UserProfileViewController: UICollectionViewDataSource{
             let userProfileHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.UserProfile.headerIdentifier, for: indexPath) as! UserProfileHeaderCollectionReusableView
             if let userData = self.userData {
                 if let currentUserData = self.currentUserData{
-                    var doesFollow = userData.isFollower(userName: currentUserData.userName)
-                    userProfileHeader.configure(with: userData, doesFollow: true)
+                    let doesFollow = userData.isFollower(userName: currentUserData.userName)
+                    userProfileHeader.configure(with: userData, doesFollow: doesFollow)
                     profileHeaderView = userProfileHeader
                 }
             }
@@ -305,7 +307,31 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout{
 // MARK: - ProfileHeaderCollectionViewDelegate
 extension UserProfileViewController: UserProfileHeaderCollectionReusableViewDelegate{
     func userProfileHeaderDidTapFollowButton(_ header: UserProfileHeaderCollectionReusableView) {
-        print("Tapped Follow/Unfollow Button")
+        guard let currentUser = self.currentUserData,
+              let viewedUser = self.userData else { return }
+        
+        let currentUserName = currentUser.userName
+        let viewedUserName = viewedUser.userName
+        
+        if viewedUser.isFollower(userName: currentUserName) {
+            DatabaseManager.shared.unfollowUser(followerUserName: currentUserName, followedUserName: viewedUserName) { [weak self] success in
+                guard let self = self else { return }
+                if success {
+                    self.profileHeaderView?.configure(with: viewedUser, doesFollow: false)
+                } else {
+                    print("Failed to unfollow user")
+                }
+            }
+        } else {
+            DatabaseManager.shared.followUser(followerUserName: currentUserName, followedUserName: viewedUserName, profilePicture: viewedUser.profilePicture?.absoluteString ?? "") { [weak self] success in
+                guard let self = self else { return }
+                if success {
+                    self.profileHeaderView?.configure(with: viewedUser, doesFollow: true)
+                } else {
+                    print("Failed to follow user")
+                }
+            }
+        }
     }
     func userProfileHeaderDidTapPostsButton(_ header: UserProfileHeaderCollectionReusableView) {
         let section = 1

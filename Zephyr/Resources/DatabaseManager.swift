@@ -67,7 +67,47 @@ public class DatabaseManager{
             }
         }
     }
-    
+    func followUser(followerUserName: String, followedUserName: String, profilePicture: String, completion: @escaping (Bool) -> Void) {
+            let followData: [String: Any] = [
+                "followerUserName": followerUserName,
+                "followedUserName": followedUserName,
+                "profilePicture": profilePicture
+            ]
+            db.collection("follows").addDocument(data: followData) { error in
+                if let error = error {
+                    print("Error following user: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    completion(true)
+                }
+            }
+        }
+        func unfollowUser(followerUserName: String, followedUserName: String, completion: @escaping (Bool) -> Void) {
+            let followsRef = db.collection("follows")
+            followsRef.whereField("followerUserName", isEqualTo: followerUserName)
+                .whereField("followedUserName", isEqualTo: followedUserName)
+                .getDocuments { (snapshot, error) in
+                    if let error = error {
+                        print("Error unfollowing user: \(error.localizedDescription)")
+                        completion(false)
+                    } else {
+                        guard let documents = snapshot?.documents else {
+                            completion(false)
+                            return
+                        }
+                        for document in documents {
+                            document.reference.delete { error in
+                                if let error = error {
+                                    print("Error deleting follow document: \(error.localizedDescription)")
+                                    completion(false)
+                                } else {
+                                    completion(true)
+                                }
+                            }
+                        }
+                    }
+                }
+        }
     func getEmail(for username: String, completion: @escaping (String?) -> Void) {
         let usersCollection = db.collection("users")
         usersCollection.whereField("userName", isEqualTo: username).getDocuments { (querySnapshot, error) in
