@@ -30,8 +30,8 @@ class CurrentUserDataManager {
                 let userName = user.userName
                 let dispatchGroup = DispatchGroup()
                 var posts: [String] = []
-                var followers: [String] = []
-                var following: [String] = []
+                var followers: [FollowerFollowing] = []
+                var following: [FollowerFollowing] = []
                 
                 dispatchGroup.enter()
                 DatabaseManager.shared.getPosts(for: userName){ fetchedPosts in
@@ -82,8 +82,8 @@ class CurrentUserDataManager {
                 let dispatchGroup = DispatchGroup()
                 
                 var posts: [String] = []
-                var followers: [String] = []
-                var following: [String] = []
+                var followers: [FollowerFollowing] = []
+                var following: [FollowerFollowing] = []
                 
                 dispatchGroup.enter()
                 DatabaseManager.shared.getPosts(for: userName){ fetchedPosts in

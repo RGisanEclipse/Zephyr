@@ -343,7 +343,7 @@ extension PostViewController: PostActionsTableViewCellDelegate{
                 if success {
                     var newModel = model
                     var updatedLikeCount = model.likeCount
-                    updatedLikeCount.append(PostLike(userName: safeUserData.userName, postIdentifier: model.identifier))
+                    updatedLikeCount.append(PostLike(userName: safeUserData.userName, profilePicture: safeUserData.profilePicture?.absoluteString, postIdentifier: model.identifier))
                     newModel.likeCount = updatedLikeCount
                     self.updateRenderModels(with: newModel)
                     

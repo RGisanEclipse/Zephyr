@@ -28,10 +28,8 @@
                                     <constraint firstAttribute="width" secondItem="guG-CJ-lSH" secondAttribute="height" multiplier="1:1" id="bqu-rK-GYb"/>
                                 </constraints>
                                 <color key="tintColor" name="BW"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain">
-                                    <backgroundConfiguration key="background" image="person.circle.fill" catalog="system"/>
-                                </buttonConfiguration>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="userPlaceholder"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3D-gg-CaG">
                                 <rect key="frame" x="58" y="0.0" width="88" height="50"/>
@@ -84,12 +82,12 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="person.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="userPlaceholder" width="133.33332824707031" height="121.66666412353516"/>
         <namedColor name="BW">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -174,9 +174,9 @@ public class DatabaseManager{
     func addLike(to postID: String, from user: UserModel, completion: @escaping (Bool) -> Void) {
         let likeData: [String: Any] = [
             "userName": user.userName,
+            "profilePicture": user.profilePicture?.absoluteString ?? "",
             "postIdentifier": postID
         ]
-        
         db.collection("postLikes").addDocument(data: likeData) { error in
             completion(error == nil)
         }
@@ -401,7 +401,7 @@ public class DatabaseManager{
             }
     }
     
-    func getFollowers(for userName: String, completion: @escaping ([String]) -> Void) {
+    func getFollowers(for userName: String, completion: @escaping ([FollowerFollowing]) -> Void) {
         db.collection("follows")
             .whereField("followedUserName", isEqualTo: userName)
             .getDocuments { querySnapshot, error in
@@ -409,13 +409,18 @@ public class DatabaseManager{
                     print("Error fetching followers: \(error.localizedDescription)")
                     completion([])
                 } else {
-                    let followers = querySnapshot?.documents.compactMap { $0.data()["followerUserName"] as? String } ?? []
+                    let followers = querySnapshot?.documents.compactMap { document -> FollowerFollowing? in
+                        let data = document.data()
+                        let userName = data["followerUserName"] as? String ?? ""
+                        let profilePicture = data["profilePicture"] as? String ?? ""
+                        return FollowerFollowing(userName: userName, profilePicture: profilePicture)
+                    } ?? []
                     completion(followers)
                 }
             }
     }
-    
-    func getFollowing(for userName: String, completion: @escaping ([String]) -> Void) {
+
+    func getFollowing(for userName: String, completion: @escaping ([FollowerFollowing]) -> Void) {
         db.collection("follows")
             .whereField("followerUserName", isEqualTo: userName)
             .getDocuments { querySnapshot, error in
@@ -423,7 +428,12 @@ public class DatabaseManager{
                     print("Error fetching following: \(error.localizedDescription)")
                     completion([])
                 } else {
-                    let following = querySnapshot?.documents.compactMap { $0.data()["followedUserName"] as? String } ?? []
+                    let following = querySnapshot?.documents.compactMap { document -> FollowerFollowing? in
+                        let data = document.data()
+                        let followedUserName = data["followedUserName"] as? String ?? ""
+                        let profilePicture = data["profilePicture"] as? String ?? ""
+                        return FollowerFollowing(userName: followedUserName, profilePicture: profilePicture)
+                    } ?? []
                     completion(following)
                 }
             }
@@ -440,10 +450,11 @@ public class DatabaseManager{
                     let likes = querySnapshot?.documents.compactMap { document -> PostLike? in
                         let data = document.data()
                         guard let userName = data["userName"] as? String,
+                              let profilePicture = data["profilePicture"] as? String,
                               let postIdentifier = data["postIdentifier"] as? String else {
                             return nil
                         }
-                        return PostLike(userName: userName, postIdentifier: postIdentifier)
+                        return PostLike(userName: userName, profilePicture: profilePicture,postIdentifier: postIdentifier)
                     }
                     completion(likes)
                 }

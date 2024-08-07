@@ -16,25 +16,25 @@ struct UserModel{
     let gender: Gender?
     var counts: UserCount?
     let joinDate: Date?
-    var followers: [String]
-    var following: [String]
+    var followers: [FollowerFollowing]
+    var following: [FollowerFollowing]
     var posts: [String]
     func isFollower(userName: String) -> Bool {
-        return followers.contains(userName)
+        return followers.contains(where: { $0.userName == userName })
     }
-    func isFollowing(userName: String) -> Bool{
-        return following.contains(userName)
+    func isFollowing(userName: String) -> Bool {
+        return following.contains(where: { $0.userName == userName })
     }
     func convertPostLikesToUserRelationships(postLikes: [PostLike]) -> [UserRelationship] {
         return postLikes.map { like in
-            let followState: FollowState = isFollower(userName: like.userName) ? .following : .notFollowing
-            return UserRelationship(username: like.userName, type: followState)
+            let followState: FollowState = isFollowing(userName: like.userName) ? .following : .notFollowing
+            return UserRelationship(username: like.userName, profilePicture: like.profilePicture,type: followState)
         }
     }
-    func convertFollowerToUserRelationships(with followers: [String]) -> [UserRelationship] {
-        return followers.map { username in
-            let followState: FollowState = isFollowing(userName: username) ? .following : .notFollowing
-            return UserRelationship(username: username, type: followState)
+    func convertFollowerToUserRelationships(with followers: [FollowerFollowing]) -> [UserRelationship] {
+        return followers.map { follower in
+            let followState: FollowState = isFollowing(userName: follower.userName) ? .following : .notFollowing
+            return UserRelationship(username: follower.userName, profilePicture: follower.profilePicture,type: followState)
         }
     }
     
@@ -50,13 +50,13 @@ struct UserModel{
         self.gender = Gender(rawValue: dictionary["gender"] as? String ?? "") ?? .other
         self.joinDate = dictionary["joinDate"] as? Date
         self.posts = dictionary["posts"] as? [String] ?? []
-        self.followers = dictionary["followers"] as? [String] ?? []
-        self.following = dictionary["following"] as? [String] ?? []
+        self.followers = dictionary["followers"] as? [FollowerFollowing] ?? []
+        self.following = dictionary["following"] as? [FollowerFollowing] ?? []
         self.counts = UserCount(posts: posts.count,
                                 followers: followers.count,
                                 following: following.count)
     }
-    init(userName: String, profilePicture: URL, bio: String, name: (first: String, last: String), birthDate: Date, gender: Gender, counts: UserCount, joinDate: Date, posts: [String], followers: [String], following: [String]) {
+    init(userName: String, profilePicture: URL, bio: String, name: (first: String, last: String), birthDate: Date, gender: Gender, counts: UserCount, joinDate: Date, posts: [String], followers: [FollowerFollowing], following: [FollowerFollowing]) {
         self.userName = userName
         self.profilePicture = profilePicture
         self.bio = bio
@@ -156,6 +156,7 @@ struct UserPost {
 
 struct PostLike{
     let userName: String
+    let profilePicture: String?
     let postIdentifier: String
 }
 struct CommentLike{
@@ -182,5 +183,11 @@ struct PostSummary{
 
 struct UserRelationship {
     let username: String
+    let profilePicture: String?
     var type: FollowState
+}
+
+struct FollowerFollowing {
+    let userName: String
+    let profilePicture: String
 }

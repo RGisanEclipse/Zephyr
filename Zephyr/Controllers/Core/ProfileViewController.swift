@@ -124,16 +124,6 @@ class ProfileViewController: UIViewController {
             self.collectionView.reloadSections(indexSet)
         }
     }
-//    func fetchPostData(for identifier: String, completion: @escaping (UserPost?) -> Void) {
-//        DatabaseManager.shared.fetchPostData(for: identifier) { fetchedPost in
-//            guard let fetchedPost = fetchedPost else {
-//                print("Failed to fetch post data for identifier: \(identifier)")
-//                completion(nil)
-//                return
-//            }
-//            completion(fetchedPost)
-//        }
-//    }
     func fetchPostSummary(for identifier: String, completion: @escaping (PostSummary?) -> Void){
         DatabaseManager.shared.fetchPostSummary(for: identifier){ fetchedPost in
             guard let fetchedPost = fetchedPost else{

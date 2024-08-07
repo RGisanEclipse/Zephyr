@@ -226,11 +226,9 @@ extension CommentsViewController: PostGeneralTableViewCellDelegate {
             print("Current user data not found.")
             return
         }
-        
         let isLikedByCurrentUser = model.likes.contains { like in
             like.userName == currentUser.userName
         }
-        
         if isLikedByCurrentUser {
             DatabaseManager.shared.removeCommentLike(from: model.commentIdentifier, by: currentUser) { [weak self] success in
                 if success {

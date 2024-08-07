@@ -22,6 +22,7 @@ class ListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         profilePictureButton.layer.cornerRadius = profilePictureButton.frame.width / 2
+        profilePictureButton.imageView?.contentMode = .scaleAspectFill
         profilePictureButton.layer.masksToBounds = true
         followButton.layer.cornerRadius = CGFloat(8)
     }
@@ -36,6 +37,7 @@ class ListTableViewCell: UITableViewCell {
     public func configure(with model: UserRelationship) {
         self.model = model
         usernameButton.setTitle(model.username, for: .normal)
+        profilePictureButton.sd_setImage(with: URL(string: model.profilePicture ?? ""), for: .normal, placeholderImage: UIImage(named: "userPlaceholder"))
         switch model.type {
         case .following:
             followButton.setTitle("Following", for: .normal)
