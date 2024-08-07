@@ -191,3 +191,9 @@ struct FollowerFollowing {
     let userName: String
     let profilePicture: String
 }
+
+enum selectedView{
+    case posts
+    case videoPosts
+    case taggedUserPosts
+}

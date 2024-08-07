@@ -9,6 +9,8 @@ import UIKit
 
 protocol PostGeneralTableViewCellDelegate: AnyObject{
     func didTapCommentLikeButton(with model: PostComment, from: PostGeneralTableViewCell)
+    func didTapProfilePictureButton(with userName: String)
+    func didTapUserNameButton(with userName: String)
 }
 
 class PostGeneralTableViewCell: UITableViewCell {
@@ -71,5 +73,18 @@ class PostGeneralTableViewCell: UITableViewCell {
             return
         }
         delegate?.didTapCommentLikeButton(with: safeModel, from: self)
+    }
+    
+    @IBAction func profilePictureButtonPressed(_ sender: UIButton) {
+        guard let safeModel = model else{
+            return
+        }
+        delegate?.didTapProfilePictureButton(with: safeModel.user.userName)
+    }
+    @IBAction func userNameButtonPressed(_ sender: UIButton) {
+        guard let safeModel = model else{
+            return
+        }
+        delegate?.didTapUserNameButton(with: safeModel.user.userName)
     }
 }

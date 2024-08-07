@@ -194,6 +194,7 @@
                         <segue destination="7nC-wE-8Je" kind="show" identifier="homeToLikesView" id="yeI-wc-WIq"/>
                         <segue destination="Xwk-ch-pAD" kind="show" identifier="homeToPostVC" id="WLz-h5-9iH"/>
                         <segue destination="auJ-xN-8qx" kind="show" identifier="homeToCommentsVC" id="Q0E-0G-eJa"/>
+                        <segue destination="X14-y1-u1j" kind="show" identifier="homeToUserProfileVC" id="44U-oM-Z2Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CfY-iB-9FU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -236,10 +237,7 @@
                             <constraint firstItem="sjB-B6-9iV" firstAttribute="bottom" secondItem="prZ-xC-Ybc" secondAttribute="bottom" id="0xH-xS-tMy"/>
                             <constraint firstItem="sjB-B6-9iV" firstAttribute="trailing" secondItem="prZ-xC-Ybc" secondAttribute="trailing" id="Cmg-yj-sQH"/>
                             <constraint firstItem="sjB-B6-9iV" firstAttribute="leading" secondItem="prZ-xC-Ybc" secondAttribute="leading" id="GXh-ZV-nbA"/>
-                            <constraint firstItem="sjB-B6-9iV" firstAttribute="bottom" secondItem="prZ-xC-Ybc" secondAttribute="bottom" id="QNR-Zo-1EP"/>
-                            <constraint firstItem="prZ-xC-Ybc" firstAttribute="trailing" secondItem="sjB-B6-9iV" secondAttribute="trailing" id="QxZ-uN-hFu"/>
                             <constraint firstItem="sjB-B6-9iV" firstAttribute="top" secondItem="Odw-0O-oUY" secondAttribute="top" id="ft0-ki-aT8"/>
-                            <constraint firstItem="sjB-B6-9iV" firstAttribute="leading" secondItem="prZ-xC-Ybc" secondAttribute="leading" id="nLP-kk-Iuz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Rrl-1I-ptq">
@@ -273,11 +271,11 @@
             <objects>
                 <viewController title="CommentsViewController" id="auJ-xN-8qx" customClass="CommentsViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CkW-1h-6DK">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="EeT-Cq-zmk">
-                                <rect key="frame" x="0.0" y="44" width="430" height="779"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="862"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentsTableViewCell" id="D2N-mk-zVj">
@@ -291,7 +289,7 @@
                                 </prototypes>
                             </tableView>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a comment" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4KU-0z-2FJ">
-                                <rect key="frame" x="65" y="833" width="305" height="40"/>
+                                <rect key="frame" x="65" y="872" width="305" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="nJV-B3-UyN"/>
                                 </constraints>
@@ -299,14 +297,14 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="y1u-HJ-TVr">
-                                <rect key="frame" x="15" y="839" width="35" height="33.666666666666629"/>
+                                <rect key="frame" x="15" y="878" width="35" height="33.666666666666629"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="FKa-Pm-cVX"/>
                                     <constraint firstAttribute="width" constant="35" id="H17-MF-QqB"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dzw-50-bS5">
-                                <rect key="frame" x="385" y="838.66666666666663" width="30" height="29.333333333333371"/>
+                                <rect key="frame" x="385" y="877.66666666666663" width="30" height="29.333333333333371"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="L7L-cv-mwu"/>
                                     <constraint firstAttribute="width" constant="30" id="aPj-E9-I2z"/>
@@ -339,6 +337,7 @@
                         <outlet property="commentsTextField" destination="4KU-0z-2FJ" id="VGi-5r-u6d"/>
                         <outlet property="tableView" destination="EeT-Cq-zmk" id="aoo-Lv-xU0"/>
                         <outlet property="userProfileImage" destination="y1u-HJ-TVr" id="2Bw-9Y-cr5"/>
+                        <segue destination="X14-y1-u1j" kind="show" identifier="commentsToUserProfileVC" id="pof-Wn-ZLp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BMZ-xK-8aO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -350,11 +349,11 @@
             <objects>
                 <viewController id="Xwk-ch-pAD" customClass="PostViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tpF-Zu-KRA">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="BMq-E5-LRp">
-                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postTableViewReusableCell" id="xbo-Ul-hVA">
@@ -368,10 +367,10 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgI-XX-M68">
-                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYj-sG-kIZ" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                        <rect key="frame" x="185" y="389.66666666666669" width="60" height="60"/>
+                                        <rect key="frame" x="185" y="431" width="60" height="60"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="Isb-IG-DVO"/>
@@ -406,6 +405,7 @@
                         <outlet property="tableView" destination="BMq-E5-LRp" id="mch-M0-lbk"/>
                         <segue destination="7nC-wE-8Je" kind="show" identifier="postToLikesView" id="2yp-pk-8zc"/>
                         <segue destination="auJ-xN-8qx" kind="show" identifier="postToCommentsVC" id="6L6-eE-TGL"/>
+                        <segue destination="X14-y1-u1j" kind="show" identifier="postToUserProfileVC" id="xeu-2H-4u2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvS-Pa-jtG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -451,16 +451,67 @@
             </objects>
             <point key="canvasLocation" x="3570.6976744186045" y="1920.3862660944208"/>
         </scene>
+        <!--User Profile View Controller-->
+        <scene sceneID="WUn-3N-aGh">
+            <objects>
+                <viewController id="X14-y1-u1j" customClass="UserProfileViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UIZ-T3-yTq">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="l2u-s7-Sbb">
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="iP4-Xt-VOp">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="profileCVCell" id="wZL-hK-oFv">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Dbw-We-Msy">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="BNM-Pt-vjh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="l2u-s7-Sbb" firstAttribute="top" secondItem="UIZ-T3-yTq" secondAttribute="top" id="AKR-rW-B0i"/>
+                            <constraint firstItem="l2u-s7-Sbb" firstAttribute="leading" secondItem="BNM-Pt-vjh" secondAttribute="leading" id="GW9-kT-1xM"/>
+                            <constraint firstItem="l2u-s7-Sbb" firstAttribute="bottom" secondItem="BNM-Pt-vjh" secondAttribute="bottom" id="b4Z-i6-1IG"/>
+                            <constraint firstItem="l2u-s7-Sbb" firstAttribute="trailing" secondItem="BNM-Pt-vjh" secondAttribute="trailing" id="odp-jH-a5D"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hUf-Ry-d9f"/>
+                    <connections>
+                        <outlet property="collectionView" destination="l2u-s7-Sbb" id="gY7-y9-oMW"/>
+                        <segue destination="Xwk-ch-pAD" kind="show" identifier="userProfileToPostVC" id="cv7-7D-ed4"/>
+                        <segue destination="7nC-wE-8Je" kind="show" identifier="userProfileToFollowersVC" id="GJe-h6-jPX"/>
+                        <segue destination="7nC-wE-8Je" kind="show" identifier="userProfileToFollowingVC" id="TBl-5r-85d"/>
+                        <segue destination="MN1-c5-rbP" kind="show" identifier="userProfileToEditProfileView" id="2KG-rs-HAn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="50W-U8-iOT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4611.6279069767443" y="1919.7424892703864"/>
+        </scene>
         <!--Edit Profile View Controller-->
         <scene sceneID="G6r-mu-cxv">
             <objects>
                 <viewController id="MN1-c5-rbP" customClass="EditProfileViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ENF-1S-tAS">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zDq-P6-MgW">
-                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zac-OU-9y6">
                                         <rect key="frame" x="160" y="0.0" width="110" height="110"/>
@@ -475,7 +526,7 @@
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1Az-5O-oMo">
-                                        <rect key="frame" x="0.0" y="120" width="430" height="719"/>
+                                        <rect key="frame" x="0.0" y="120" width="430" height="802"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="editProfileTableViewCell" id="PFX-hi-cbT">
@@ -497,10 +548,10 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tfM-4b-qpn">
-                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUd-P8-KfP" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                        <rect key="frame" x="185" y="389.66666666666669" width="60" height="60"/>
+                                        <rect key="frame" x="185" y="431" width="60" height="60"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="VaP-7S-zSP"/>
@@ -508,7 +559,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updating Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dV4-r8-Pn3">
-                                        <rect key="frame" x="144.66666666666666" y="350.66666666666669" width="140.99999999999997" height="24"/>
+                                        <rect key="frame" x="144.66666666666666" y="392" width="140.99999999999997" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -620,6 +671,7 @@
                         <outlet property="spinner" destination="7zp-EQ-Lrs" id="QmZ-Mr-loo"/>
                         <outlet property="tableView" destination="t8h-pL-Vhx" id="5GA-iX-DPG"/>
                         <segue destination="Xwk-ch-pAD" kind="show" identifier="notificationToPostVC" id="Ug1-UI-m2f"/>
+                        <segue destination="X14-y1-u1j" kind="show" identifier="notificationToUserProfileVC" id="u7S-xn-D8d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ilR-AU-poM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1142,17 +1194,17 @@
             <objects>
                 <viewController id="7nC-wE-8Je" customClass="ListViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5fg-lY-BBi">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SHw-UX-IqO">
-                                <rect key="frame" x="0.0" y="0.0" width="430" height="883"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dIR-PX-VIw">
-                                        <rect key="frame" x="0.0" y="0.0" width="430" height="883"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CR6-W4-mei">
-                                                <rect key="frame" x="215" y="0.0" width="0.0" height="883"/>
+                                                <rect key="frame" x="215" y="0.0" width="0.0" height="922"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="BW"/>
                                                 <nil key="highlightedColor"/>
@@ -1169,7 +1221,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IHn-D3-gSl">
-                                <rect key="frame" x="0.0" y="44" width="430" height="839"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listViewCell" id="NTE-M8-T3S">
@@ -1204,6 +1256,7 @@
                         <outlet property="emptyLabel" destination="CR6-W4-mei" id="cHb-hg-kbt"/>
                         <outlet property="emptyView" destination="SHw-UX-IqO" id="mo7-FA-pDi"/>
                         <outlet property="tableView" destination="IHn-D3-gSl" id="f85-A0-48p"/>
+                        <segue destination="X14-y1-u1j" kind="show" identifier="listToUserProfileVC" id="QhA-by-kL0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxE-02-gsT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1212,9 +1265,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="o66-rl-iad"/>
-        <segue reference="gQp-EX-G0A"/>
-        <segue reference="iJ4-yY-iRW"/>
+        <segue reference="TBl-5r-85d"/>
+        <segue reference="2KG-rs-HAn"/>
+        <segue reference="QhA-by-kL0"/>
+        <segue reference="cv7-7D-ed4"/>
         <segue reference="6L6-eE-TGL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BW"/>

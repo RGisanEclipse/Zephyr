@@ -15,10 +15,14 @@ class CommentsViewController: UIViewController {
     
     var model: UserPost?
     private var userData: UserModel?
+    private var segueUserName: String?
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var commentsTextField: UITextField!
+    
     weak var delegate: CommentsViewControllerDelegate?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +51,7 @@ class CommentsViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
+        self.navigationItem.title = "Comments"
     }
     @IBAction func postCommentButtonPressed(_ sender: UIButton) {
         guard let commentText = commentsTextField.text, !commentText.isEmpty else{
@@ -80,6 +85,12 @@ class CommentsViewController: UIViewController {
                 })
                 self.present(alert, animated: true, completion: nil)
             }
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Comments.userProfileSegue{
+            let destinationVC = segue.destination as? UserProfileViewController
+            destinationVC?.segueUserName = self.segueUserName
         }
     }
 }
@@ -221,6 +232,16 @@ extension CommentsViewController: UITextFieldDelegate{
 
 // MARK: - PostGeneralTableViewCellDelegate
 extension CommentsViewController: PostGeneralTableViewCellDelegate {
+    func didTapProfilePictureButton(with userName: String) {
+        self.segueUserName = userName
+        self.performSegue(withIdentifier: Constants.Comments.userProfileSegue, sender: self)
+    }
+    
+    func didTapUserNameButton(with userName: String) {
+        self.segueUserName = userName
+        self.performSegue(withIdentifier: Constants.Comments.userProfileSegue, sender: self)
+    }
+    
     func didTapCommentLikeButton(with model: PostComment, from cell: PostGeneralTableViewCell) {
         guard let currentUser = userData else {
             print("Current user data not found.")

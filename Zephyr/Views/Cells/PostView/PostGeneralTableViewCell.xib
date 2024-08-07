@@ -27,6 +27,9 @@
                         <color key="tintColor" name="BW"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" image="userPlaceholder"/>
+                        <connections>
+                            <action selector="profilePictureButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ySh-oC-FI5"/>
+                        </connections>
                     </button>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="sma-ya-el7">
                         <rect key="frame" x="60.000000000000007" y="10" width="97.666666666666686" height="71"/>
@@ -44,6 +47,9 @@
                                         <state key="normal" title="Username">
                                             <color key="titleColor" name="BW"/>
                                         </state>
+                                        <connections>
+                                            <action selector="userNameButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nam-yT-PNU"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDG-rl-wzc">
                                         <rect key="frame" x="71" y="3.0000000000000009" width="26.666666666666671" height="14.333333333333336"/>

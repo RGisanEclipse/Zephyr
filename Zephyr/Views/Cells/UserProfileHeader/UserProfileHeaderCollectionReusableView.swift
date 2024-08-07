@@ -1,38 +1,38 @@
 //
-//  ProfileHeaderCollectionReusableView.swift
+//  UserProfileHeaderCollectionReusableView.swift
 //  Zephyr
 //
-//  Created by Eclipse on 30/06/24.
+//  Created by Eclipse on 07/08/24.
 //
 
 import UIKit
 import SDWebImage
 import SkeletonView
 
-protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject {
-    func profileHeaderDidTapPostsButton(_ header: ProfileHeaderCollectionReusableView)
-    func profileHeaderDidTapFollowersButton(_ header: ProfileHeaderCollectionReusableView)
-    func profileHeaderDidTapFollowingButton(_ header: ProfileHeaderCollectionReusableView)
-    func profileHeaderDidTapEditProfileButton(_ header: ProfileHeaderCollectionReusableView)
+protocol UserProfileHeaderCollectionReusableViewDelegate: AnyObject {
+    func userProfileHeaderDidTapPostsButton(_ header: UserProfileHeaderCollectionReusableView)
+    func userProfileHeaderDidTapFollowersButton(_ header: UserProfileHeaderCollectionReusableView)
+    func userProfileHeaderDidTapFollowingButton(_ header: UserProfileHeaderCollectionReusableView)
+    func userProfileHeaderDidTapFollowButton(_ header: UserProfileHeaderCollectionReusableView)
 }
 
-class ProfileHeaderCollectionReusableView: UICollectionReusableView {
-    
+class UserProfileHeaderCollectionReusableView: UICollectionReusableView {
+
     @IBOutlet weak var profilePictureButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
     @IBOutlet weak var numberOfPostsLabel: UILabel!
     @IBOutlet weak var numberOfFollowersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
-    @IBOutlet weak var editProfileButton: UIButton!
+    @IBOutlet weak var followUnfollowButton: UIButton!
     
-    weak var delegate: ProfileHeaderCollectionReusableViewDelegate?
-
+    weak var delegate: UserProfileHeaderCollectionReusableViewDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupProfilePictureButton()
-        editProfileButton.layer.cornerRadius = CGFloat(8)
-        editProfileButton.isHidden = true
+        followUnfollowButton.layer.cornerRadius = CGFloat(8)
+        followUnfollowButton.isHidden = true
         setupSkeleton()
     }
     
@@ -53,8 +53,22 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         numberOfFollowersLabel.isSkeletonable = true
         followingLabel.isSkeletonable = true
     }
-    
-    func configure(with model: UserModel) {
+    func hideSkeletons(){
+        nameLabel.hideSkeleton(transition: .crossDissolve(0.25))
+        bioLabel.hideSkeleton(transition: .crossDissolve(0.25))
+        numberOfPostsLabel.hideSkeleton(transition: .crossDissolve(0.25))
+        numberOfFollowersLabel.hideSkeleton(transition: .crossDissolve(0.25))
+        followingLabel.hideSkeleton(transition: .crossDissolve(0.25))
+    }
+    func showSkeletonView() {
+        profilePictureButton.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+        nameLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+        bioLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+        numberOfPostsLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+        numberOfFollowersLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+        followingLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+    }
+    func configure(with model: UserModel){
         profilePictureButton.sd_setImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(named: "userPlaceholder"), options: [], context: nil, progress: nil) { [weak self] (image, error, cacheType, url) in
                 if let error = error {
                     print("Failed to load image: \(error.localizedDescription)")
@@ -77,24 +91,8 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
             numberOfFollowersLabel.text = "0"
             followingLabel.text = "0"
         }
-        editProfileButton.isHidden = false
+        followUnfollowButton.isHidden = false
     }
-    func hideSkeletons(){
-        nameLabel.hideSkeleton(transition: .crossDissolve(0.25))
-        bioLabel.hideSkeleton(transition: .crossDissolve(0.25))
-        numberOfPostsLabel.hideSkeleton(transition: .crossDissolve(0.25))
-        numberOfFollowersLabel.hideSkeleton(transition: .crossDissolve(0.25))
-        followingLabel.hideSkeleton(transition: .crossDissolve(0.25))
-    }
-    func showSkeletonView() {
-        profilePictureButton.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
-        nameLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
-        bioLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
-        numberOfPostsLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
-        numberOfFollowersLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
-        followingLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
-    }
-    
     func calculateHeight() -> CGFloat {
         var height: CGFloat = 0
         height += profilePictureButton.frame.height
@@ -103,21 +101,21 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         height += numberOfPostsLabel.frame.height
         height += numberOfFollowersLabel.frame.height
         height += followingLabel.frame.height
-        height += editProfileButton.frame.height
+        height += followUnfollowButton.frame.height
         return height
     }
     
     @IBAction func postsButtonPressed(_ sender: UIButton) {
-        delegate?.profileHeaderDidTapPostsButton(self)
+        delegate?.userProfileHeaderDidTapPostsButton(self)
     }
     @IBAction func followersButtonPressed(_ sender: UIButton) {
-        delegate?.profileHeaderDidTapFollowersButton(self)
+        delegate?.userProfileHeaderDidTapFollowersButton(self)
     }
     @IBAction func followingButtonPressed(_ sender: UIButton) {
-        delegate?.profileHeaderDidTapFollowingButton(self)
+        delegate?.userProfileHeaderDidTapFollowingButton(self)
     }
     
     @IBAction func editProfileButtonPressed(_ sender: UIButton) {
-        delegate?.profileHeaderDidTapEditProfileButton(self)
+        delegate?.userProfileHeaderDidTapFollowButton(self)
     }
 }

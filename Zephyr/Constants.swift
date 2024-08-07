@@ -66,12 +66,14 @@ struct Constants{
     struct List{
         static let cellIdentifier = "ListTableViewCell"
         static let cellNibName = "ListTableViewCell"
+        static let userProfileVC = "listToUserProfileVC"
     }
     struct Notifications{
         static let likeCellIdentifier = "NotificationLikeTableViewCell"
         static let followCellIdentifier = "NotificationFollowTableViewCell"
         static let cellIdentifier = "NotificationsCellIdentifier"
         static let postSegue = "notificationToPostVC"
+        static let userProfileSegue = "notificationToUserProfileVC"
     }
     struct Explore{
         static let postSegue = "exploreToPostVC"
@@ -87,6 +89,7 @@ struct Constants{
         static let captionCellIdentifier = "PostCaptionTableViewCell"
         static let commentsSegue = "postToCommentsVC"
         static let commentsHeaderCellIdentifier = "CommentsHeaderTableViewCell"
+        static let userProfileSegue = "postToUserProfileVC"
     }
     struct Home{
         static let logoCellIdentifier = "HomeLogoTableViewCell"
@@ -94,9 +97,21 @@ struct Constants{
         static let postSegue = "homeToPostVC"
         static let commentsCellIdentifier = "HomeCommentsTableViewCell"
         static let commentsSegue = "homeToCommentsVC"
+        static let userProfileSegue = "homeToUserProfileVC"
     }
     struct UploadMedia{
         static let collectionCellIdentifier = "UploadMediaCollectionViewCell"
         static let captionSegue = "createPostToCaptionSegue"
+    }
+    struct Comments{
+        static let userProfileSegue = "commentsToUserProfileVC"
+    }
+    struct UserProfile{
+        static let cellNibName = "UserProfileCollectionViewCell"
+        static let headerIdentifier = "UserProfileHeaderCollectionReusableView"
+        static let postSegue = "userProfileToPostVC"
+        static let followersSegue = "userProfileToFollowersVC"
+        static let followingSegue = "userProfileToFollowingVC"
+        static let editProfileSegue = "userProfileToEditProfileView"
     }
 }

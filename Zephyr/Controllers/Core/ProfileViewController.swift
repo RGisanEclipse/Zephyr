@@ -8,12 +8,6 @@
 import UIKit
 import SkeletonView
 
-enum selectedView{
-    case posts
-    case videoPosts
-    case taggedUserPosts
-}
-
 class ProfileViewController: UIViewController {
     private var followerFollowingData = [UserRelationship]()
     private var postsData = [PostSummary]()

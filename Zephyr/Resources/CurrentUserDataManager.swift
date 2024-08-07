@@ -26,7 +26,6 @@ class CurrentUserDataManager {
             completion(nil, false)
             return
         }
-        print(email)
         DatabaseManager.shared.fetchUserData(for: email) { [weak self] result in
             guard let self = self else { return }
             switch result {

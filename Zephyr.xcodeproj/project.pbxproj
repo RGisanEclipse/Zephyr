@@ -44,9 +44,13 @@
 		B933BD862C3BFB9F008D887D /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933BD842C3BFB9F008D887D /* PostTableViewCell.swift */; };
 		B933BD872C3BFB9F008D887D /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B933BD852C3BFB9F008D887D /* PostTableViewCell.xib */; };
 		B933BD8B2C3BFEB1008D887D /* PostRenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933BD8A2C3BFEB1008D887D /* PostRenderViewModel.swift */; };
+		B9358FEE2C63B7180026AFA0 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9358FED2C63B7180026AFA0 /* UserDataManager.swift */; };
+		B9358FF52C63BD950026AFA0 /* UserProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9358FF22C63BD950026AFA0 /* UserProfileHeaderCollectionReusableView.swift */; };
+		B9358FF72C63BF250026AFA0 /* UserProfileHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9358FF62C63BF250026AFA0 /* UserProfileHeaderCollectionReusableView.xib */; };
 		B943576A2C22EF5F00F52238 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B94357692C22EF5F00F52238 /* IQKeyboardManagerSwift */; };
 		B94DF7452C260E0B00C8EE94 /* FormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B94DF7442C260E0B00C8EE94 /* FormTableViewCell.xib */; };
 		B94DF7462C260E0B00C8EE94 /* FormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94DF7432C260E0B00C8EE94 /* FormTableViewCell.swift */; };
+		B94F80262C63AE4700D46349 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94F80252C63AE4700D46349 /* UserProfileViewController.swift */; };
 		B959C4F12C2A1494001C106E /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B959C4F02C2A1494001C106E /* ListTableViewCell.xib */; };
 		B959C4F22C2A1494001C106E /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959C4EF2C2A1494001C106E /* ListTableViewCell.swift */; };
 		B95DABCE2C22E34C00BB478F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DABCD2C22E34C00BB478F /* Constants.swift */; };
@@ -133,8 +137,12 @@
 		B933BD842C3BFB9F008D887D /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		B933BD852C3BFB9F008D887D /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		B933BD8A2C3BFEB1008D887D /* PostRenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRenderViewModel.swift; sourceTree = "<group>"; };
+		B9358FED2C63B7180026AFA0 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
+		B9358FF22C63BD950026AFA0 /* UserProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		B9358FF62C63BF250026AFA0 /* UserProfileHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		B94DF7432C260E0B00C8EE94 /* FormTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTableViewCell.swift; sourceTree = "<group>"; };
 		B94DF7442C260E0B00C8EE94 /* FormTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FormTableViewCell.xib; sourceTree = "<group>"; };
+		B94F80252C63AE4700D46349 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		B959C4EF2C2A1494001C106E /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		B959C4F02C2A1494001C106E /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
 		B95DABCD2C22E34C00BB478F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -263,6 +271,7 @@
 				B96230922C2B55990034F64A /* BrevoManager.swift */,
 				B9E2B7F82C2B75C300023DE8 /* Brevo.swift */,
 				B9BB8EB02C43C15B00AD3CEC /* CurrentUserDataManager.swift */,
+				B9358FED2C63B7180026AFA0 /* UserDataManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -340,6 +349,15 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		B9358FEF2C63BD350026AFA0 /* UserProfileHeader */ = {
+			isa = PBXGroup;
+			children = (
+				B9358FF22C63BD950026AFA0 /* UserProfileHeaderCollectionReusableView.swift */,
+				B9358FF62C63BF250026AFA0 /* UserProfileHeaderCollectionReusableView.xib */,
+			);
+			path = UserProfileHeader;
+			sourceTree = "<group>";
+		};
 		B959C4EC2C2A141E001C106E /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +426,7 @@
 				B91B50AF2C21AA1200DC212E /* PublishPostViewController.swift */,
 				B98B4DA72C3F17DB0020B9E6 /* CommentsViewController.swift */,
 				B91861052C4050D000EE8BF7 /* CreatePostViewController.swift */,
+				B94F80252C63AE4700D46349 /* UserProfileViewController.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -426,6 +445,7 @@
 		B9E8B10E2C259F1900CBA09B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B9358FEF2C63BD350026AFA0 /* UserProfileHeader */,
 				B9F16B3C2C401AF9002497D7 /* UploadCollectionView */,
 				B97E45FA2C3FD90A00EB274E /* CommentsView */,
 				B9DE03C92C3C2B0200662FFE /* HomeView */,
@@ -545,6 +565,7 @@
 				B98FC0652C2815E5002B9194 /* ProfileCollectionViewCell.xib in Resources */,
 				B933BD7B2C3BFA9E008D887D /* PostHeaderTableViewCell.xib in Resources */,
 				B94DF7452C260E0B00C8EE94 /* FormTableViewCell.xib in Resources */,
+				B9358FF72C63BF250026AFA0 /* UserProfileHeaderCollectionReusableView.xib in Resources */,
 				B91B50862C21A61300DC212E /* Base in Resources */,
 				B959C4F12C2A1494001C106E /* ListTableViewCell.xib in Resources */,
 				B91B50812C21A61200DC212E /* Base in Resources */,
@@ -580,9 +601,11 @@
 				B91B50AE2C21AA0000DC212E /* PostEditorViewController.swift in Sources */,
 				B96230932C2B55990034F64A /* BrevoManager.swift in Sources */,
 				B933BD8B2C3BFEB1008D887D /* PostRenderViewModel.swift in Sources */,
+				B94F80262C63AE4700D46349 /* UserProfileViewController.swift in Sources */,
 				B9ED55962C21B77E00CC9D35 /* StorageManager.swift in Sources */,
 				B91B50A22C21A93300DC212E /* PostViewController.swift in Sources */,
 				B98194DC2C21B65600C7D62C /* DatabaseManager.swift in Sources */,
+				B9358FF52C63BD950026AFA0 /* UserProfileHeaderCollectionReusableView.swift in Sources */,
 				B91B50972C21A7F800DC212E /* NotificationsViewController.swift in Sources */,
 				B959C4F22C2A1494001C106E /* ListTableViewCell.swift in Sources */,
 				B95DABCE2C22E34C00BB478F /* Constants.swift in Sources */,
@@ -593,6 +616,7 @@
 				B9F16B3F2C401B28002497D7 /* UploadMediaCollectionViewCell.swift in Sources */,
 				B91B50AC2C21A9CC00DC212E /* SearchResultViewController.swift in Sources */,
 				B91B509E2C21A90400DC212E /* LoginViewController.swift in Sources */,
+				B9358FEE2C63B7180026AFA0 /* UserDataManager.swift in Sources */,
 				B98B4DA82C3F17DB0020B9E6 /* CommentsViewController.swift in Sources */,
 				B933BD862C3BFB9F008D887D /* PostTableViewCell.swift in Sources */,
 				B94DF7462C260E0B00C8EE94 /* FormTableViewCell.swift in Sources */,
