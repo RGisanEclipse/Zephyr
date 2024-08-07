@@ -228,8 +228,11 @@ extension UserProfileViewController: UICollectionViewDataSource{
         } else {
             let userProfileHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.UserProfile.headerIdentifier, for: indexPath) as! UserProfileHeaderCollectionReusableView
             if let userData = self.userData {
-                userProfileHeader.configure(with: userData)
-                profileHeaderView = userProfileHeader
+                if let currentUserData = self.currentUserData{
+                    var doesFollow = userData.isFollower(userName: currentUserData.userName)
+                    userProfileHeader.configure(with: userData, doesFollow: true)
+                    profileHeaderView = userProfileHeader
+                }
             }
             userProfileHeader.delegate = self
             return userProfileHeader
@@ -302,7 +305,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout{
 // MARK: - ProfileHeaderCollectionViewDelegate
 extension UserProfileViewController: UserProfileHeaderCollectionReusableViewDelegate{
     func userProfileHeaderDidTapFollowButton(_ header: UserProfileHeaderCollectionReusableView) {
-        print("Tapped Follow Button")
+        print("Tapped Follow/Unfollow Button")
     }
     func userProfileHeaderDidTapPostsButton(_ header: UserProfileHeaderCollectionReusableView) {
         let section = 1

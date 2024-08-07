@@ -27,6 +27,7 @@ class UserProfileHeaderCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var followUnfollowButton: UIButton!
     
     weak var delegate: UserProfileHeaderCollectionReusableViewDelegate?
+    var doesFollowProperty: Bool?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -68,7 +69,7 @@ class UserProfileHeaderCollectionReusableView: UICollectionReusableView {
         numberOfFollowersLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
         followingLabel.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
     }
-    func configure(with model: UserModel){
+    func configure(with model: UserModel, doesFollow: Bool){
         profilePictureButton.sd_setImage(with: model.profilePicture, for: .normal, placeholderImage: UIImage(named: "userPlaceholder"), options: [], context: nil, progress: nil) { [weak self] (image, error, cacheType, url) in
                 if let error = error {
                     print("Failed to load image: \(error.localizedDescription)")
@@ -90,6 +91,13 @@ class UserProfileHeaderCollectionReusableView: UICollectionReusableView {
             numberOfPostsLabel.text = "0"
             numberOfFollowersLabel.text = "0"
             followingLabel.text = "0"
+        }
+        if doesFollow == false{
+            followUnfollowButton.setTitle("Follow", for: .normal)
+            followUnfollowButton.backgroundColor = UIColor(cgColor: CGColor(red: 0.0, green: 0.478, blue: 1.0, alpha: 1.0))
+        } else{
+            followUnfollowButton.setTitle("Following", for: .normal)
+            followUnfollowButton.backgroundColor = UIColor(cgColor: CGColor(red: 0.556, green: 0.556, blue: 0.576, alpha: 1.0))
         }
         followUnfollowButton.isHidden = false
     }
