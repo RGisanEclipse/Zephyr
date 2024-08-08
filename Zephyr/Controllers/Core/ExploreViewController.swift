@@ -13,22 +13,32 @@ class ExploreViewController: UIViewController {
     private var postModel: PostSummary?
     private var refreshControl = UIRefreshControl()
     private var userData: UserModel?
-    
+    var userProfileSegueUserName: String?
     @IBOutlet weak var collectionView: UICollectionView!
-    let searchController = UISearchController()
-    
+    private var searchController: UISearchController!
+    private var searchViewController: SearchResultViewController!
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchUserData()
-        collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
+        searchViewController = UIStoryboard(name: "Main", bundle: nil)
+                    .instantiateViewController(withIdentifier: "SearchResultViewController") as? SearchResultViewController
+        searchController = UISearchController(searchResultsController: searchViewController)
+                searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
+        collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         for _ in 0..<30{
             postsData.append(PostSummary(identifier: "xyz", thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postType: .photo))
         }
+        searchController.searchResultsUpdater = self
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         collectionView.refreshControl = refreshControl
+        searchViewController.delegate = self
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.title = "Explore"
     }
     private func fetchUserData(){
         CurrentUserDataManager.shared.fetchLoggedInUserData { [weak self] (user, success) in
@@ -60,6 +70,9 @@ extension ExploreViewController: UICollectionViewDataSource{
         if segue.identifier == Constants.Explore.postSegue{
             let destinationVC = segue.destination as! PostViewController
             destinationVC.postIdentifier = postModel?.identifier
+        } else if segue.identifier == Constants.Explore.userProfileSegue{
+            let destinationVC = segue.destination as! UserProfileViewController
+            destinationVC.segueUserName = userProfileSegueUserName
         }
     }
 }
@@ -87,7 +100,20 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout{
     }
 }
 
-// MARK: - UISearchBarDelegate
+// MARK: - UISearchResultsUpdating
+extension ExploreViewController: UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        let searchVC = searchController.searchResultsController as! SearchResultViewController
+        searchVC.query = text
+    }
+}
 
-extension ExploreViewController: UISearchBarDelegate{}
-
+// MARK: - SearchResultViewControllerDelegate
+extension ExploreViewController: SearchResultViewControllerDelegate{
+    func didSelectUser(userName: String) {
+        print("Method called")
+        userProfileSegueUserName = userName
+        self.performSegue(withIdentifier: Constants.Explore.userProfileSegue, sender: self)
+    }
+}

@@ -51,6 +51,41 @@
             </objects>
             <point key="canvasLocation" x="65" y="448"/>
         </scene>
+        <!--Search Result View Controller-->
+        <scene sceneID="kcc-rW-vfU">
+            <objects>
+                <viewController storyboardIdentifier="SearchResultViewController" id="w9n-3s-3hd" customClass="SearchResultViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jbx-4l-ecS">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jQQ-2i-D2Y">
+                                <rect key="frame" x="0.0" y="59" width="430" height="839"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultTVCell" id="5e4-MJ-J5j">
+                                        <rect key="frame" x="0.0" y="50" width="430" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5e4-MJ-J5j" id="2zs-bh-exU">
+                                            <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="0A5-tj-roI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="jQQ-2i-D2Y" id="aW8-Xm-gFp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tF1-MJ-djg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="913.95348837209303" y="1919.7424892703864"/>
+        </scene>
         <!--Create Post View Controller-->
         <scene sceneID="hsp-oE-rZw">
             <objects>
@@ -812,6 +847,7 @@
                     <connections>
                         <outlet property="collectionView" destination="mJQ-Uq-YTP" id="CND-0e-qsN"/>
                         <segue destination="Xwk-ch-pAD" kind="show" identifier="exploreToPostVC" id="5km-SD-thz"/>
+                        <segue destination="X14-y1-u1j" kind="show" identifier="exploreToUserProfileVC" id="wnf-Zi-rdj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jFJ-gd-qhA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1261,15 +1297,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxE-02-gsT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4613.0232558139533" y="1169.7424892703864"/>
+            <point key="canvasLocation" x="4612" y="1170"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="TBl-5r-85d"/>
-        <segue reference="2KG-rs-HAn"/>
-        <segue reference="u7S-xn-D8d"/>
-        <segue reference="Ug1-UI-m2f"/>
-        <segue reference="6L6-eE-TGL"/>
+        <segue reference="yeI-wc-WIq"/>
+        <segue reference="4f8-ZT-ak6"/>
+        <segue reference="wnf-Zi-rdj"/>
+        <segue reference="5km-SD-thz"/>
+        <segue reference="Q0E-0G-eJa"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BW"/>
     <resources>

@@ -6,24 +6,73 @@
 //
 
 import UIKit
-
+protocol SearchResultViewControllerDelegate{
+    func didSelectUser(userName: String)
+}
 class SearchResultViewController: UIViewController {
-
+    var query: String? {
+            didSet {
+                performSearch()
+            }
+        }
+    var queryResult: [UserModel] = []
+    var userProfileSegueUserName: String?
+    var delegate: SearchResultViewControllerDelegate?
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        tableView.register(UINib(nibName: Constants.SearchResult.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.SearchResult.cellNibName)
+        tableView.dataSource = self
+        tableView.delegate = self
+        performSearch()
     }
-    
+    func performSearch() {
+            guard let query = query, !query.isEmpty else {
+                queryResult = []
+                tableView.reloadData()
+                return
+            }
+            DatabaseManager.shared.fetchUsers(matching: query) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let users):
+                        self?.queryResult = users
+                        self?.tableView.reloadData()
+                    case .failure(let error):
+                        print("Error fetching user data: \(error.localizedDescription)")
+                        self?.queryResult = []
+                        self?.tableView.reloadData()
+                    }
+                }
+            }
+        }
+}
 
-    /*
-    // MARK: - Navigation
+// MARK: - UITableViewDataSource
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension SearchResultViewController: UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
-    */
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        queryResult.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.SearchResult.cellNibName, for: indexPath) as! SearchResultTableViewCell
+        let user = queryResult[indexPath.row]
+        cell.configure(with: user)
+        return cell
+    }
+}
 
+// MARK: - UITableViewDelegate
+
+extension SearchResultViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Method got called")
+        let userName = queryResult[indexPath.row].userName
+        delegate?.didSelectUser(userName: userName)
+    }
 }

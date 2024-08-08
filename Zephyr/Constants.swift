@@ -77,6 +77,7 @@ struct Constants{
     }
     struct Explore{
         static let postSegue = "exploreToPostVC"
+        static let userProfileSegue = "exploreToUserProfileVC"
     }
     struct Post{
         static let cellIdentifier = "postTableViewReusableCell"
@@ -113,5 +114,8 @@ struct Constants{
         static let followersSegue = "userProfileToFollowersVC"
         static let followingSegue = "userProfileToFollowingVC"
         static let editProfileSegue = "userProfileToEditProfileView"
+    }
+    struct SearchResult{
+        static let cellNibName = "SearchResultTableViewCell"
     }
 }

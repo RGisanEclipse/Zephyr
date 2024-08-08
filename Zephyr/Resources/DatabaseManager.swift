@@ -393,6 +393,27 @@ public class DatabaseManager{
             }
         }
     }
+    func fetchUsers(matching prefix: String, completion: @escaping (Result<[UserModel], Error>) -> Void) {
+        let usersRef = self.db.collection("users")
+        let query = usersRef
+            .whereField("userName", isGreaterThanOrEqualTo: prefix)
+            .whereField("userName", isLessThan: prefix + "\u{f8ff}")
+        query.getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let documents = snapshot?.documents else {
+                completion(.success([]))
+                return
+            }
+            let userModels = documents.compactMap { document -> UserModel? in
+                let data = document.data()
+                return UserModel(dictionary: data)
+            }
+            completion(.success(userModels))
+        }
+    }
     func fetchUserDocumentID(email: String, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in

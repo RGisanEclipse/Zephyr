@@ -30,10 +30,7 @@
 		B91B50A42C21A96800DC212E /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50A32C21A96800DC212E /* EditProfileViewController.swift */; };
 		B91B50A62C21A98900DC212E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50A52C21A98900DC212E /* SettingsViewController.swift */; };
 		B91B50A82C21A99600DC212E /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50A72C21A99600DC212E /* ListViewController.swift */; };
-		B91B50AA2C21A9BB00DC212E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50A92C21A9BB00DC212E /* SearchViewController.swift */; };
 		B91B50AC2C21A9CC00DC212E /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50AB2C21A9CC00DC212E /* SearchResultViewController.swift */; };
-		B91B50AE2C21AA0000DC212E /* PostEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50AD2C21AA0000DC212E /* PostEditorViewController.swift */; };
-		B91B50B02C21AA1200DC212E /* PublishPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50AF2C21AA1200DC212E /* PublishPostViewController.swift */; };
 		B930612C2C246B5B001AA2A2 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930612B2C246B5B001AA2A2 /* SettingsModel.swift */; };
 		B933BD7A2C3BFA9E008D887D /* PostHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933BD782C3BFA9E008D887D /* PostHeaderTableViewCell.swift */; };
 		B933BD7B2C3BFA9E008D887D /* PostHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B933BD792C3BFA9E008D887D /* PostHeaderTableViewCell.xib */; };
@@ -79,6 +76,8 @@
 		B98FC06D2C2830D7002B9194 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B98FC06C2C2830D7002B9194 /* FirebaseStorage */; };
 		B9907BE12C2E81D800984BB3 /* EmailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9907BE02C2E81D800984BB3 /* EmailModel.swift */; };
 		B99085D42C469B7B00605D25 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = B99085D32C469B7B00605D25 /* SkeletonView */; };
+		B9951C822C64C6E600242FA6 /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9951C812C64C6E600242FA6 /* SearchResultTableViewCell.xib */; };
+		B9951C832C64C6E600242FA6 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9951C802C64C6E600242FA6 /* SearchResultTableViewCell.swift */; };
 		B9AA62832C26077C00D35CD8 /* EditProfileFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA62822C26077C00D35CD8 /* EditProfileFormModel.swift */; };
 		B9BB8EB12C43C15B00AD3CEC /* CurrentUserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB8EB02C43C15B00AD3CEC /* CurrentUserDataManager.swift */; };
 		B9BCCA952C3969AC0027405B /* UserNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BCCA942C3969AC0027405B /* UserNotificationModel.swift */; };
@@ -123,10 +122,7 @@
 		B91B50A32C21A96800DC212E /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		B91B50A52C21A98900DC212E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B91B50A72C21A99600DC212E /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		B91B50A92C21A9BB00DC212E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B91B50AB2C21A9CC00DC212E /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
-		B91B50AD2C21AA0000DC212E /* PostEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEditorViewController.swift; sourceTree = "<group>"; };
-		B91B50AF2C21AA1200DC212E /* PublishPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishPostViewController.swift; sourceTree = "<group>"; };
 		B930612B2C246B5B001AA2A2 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		B933BD782C3BFA9E008D887D /* PostHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		B933BD792C3BFA9E008D887D /* PostHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostHeaderTableViewCell.xib; sourceTree = "<group>"; };
@@ -163,6 +159,8 @@
 		B98FC0632C2815E5002B9194 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		B98FC0642C2815E5002B9194 /* ProfileCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCollectionViewCell.xib; sourceTree = "<group>"; };
 		B9907BE02C2E81D800984BB3 /* EmailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailModel.swift; sourceTree = "<group>"; };
+		B9951C802C64C6E600242FA6 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
+		B9951C812C64C6E600242FA6 /* SearchResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultTableViewCell.xib; sourceTree = "<group>"; };
 		B9AA62822C26077C00D35CD8 /* EditProfileFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFormModel.swift; sourceTree = "<group>"; };
 		B9BB8EB02C43C15B00AD3CEC /* CurrentUserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserDataManager.swift; sourceTree = "<group>"; };
 		B9BCCA942C3969AC0027405B /* UserNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationModel.swift; sourceTree = "<group>"; };
@@ -420,15 +418,21 @@
 				B91B50A32C21A96800DC212E /* EditProfileViewController.swift */,
 				B91B50A52C21A98900DC212E /* SettingsViewController.swift */,
 				B91B50A72C21A99600DC212E /* ListViewController.swift */,
-				B91B50A92C21A9BB00DC212E /* SearchViewController.swift */,
 				B91B50AB2C21A9CC00DC212E /* SearchResultViewController.swift */,
-				B91B50AD2C21AA0000DC212E /* PostEditorViewController.swift */,
-				B91B50AF2C21AA1200DC212E /* PublishPostViewController.swift */,
 				B98B4DA72C3F17DB0020B9E6 /* CommentsViewController.swift */,
 				B91861052C4050D000EE8BF7 /* CreatePostViewController.swift */,
 				B94F80252C63AE4700D46349 /* UserProfileViewController.swift */,
 			);
 			path = General;
+			sourceTree = "<group>";
+		};
+		B9951C7F2C64C6C400242FA6 /* SearchResult */ = {
+			isa = PBXGroup;
+			children = (
+				B9951C802C64C6E600242FA6 /* SearchResultTableViewCell.swift */,
+				B9951C812C64C6E600242FA6 /* SearchResultTableViewCell.xib */,
+			);
+			path = SearchResult;
 			sourceTree = "<group>";
 		};
 		B9DE03C92C3C2B0200662FFE /* HomeView */ = {
@@ -445,6 +449,7 @@
 		B9E8B10E2C259F1900CBA09B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B9951C7F2C64C6C400242FA6 /* SearchResult */,
 				B9358FEF2C63BD350026AFA0 /* UserProfileHeader */,
 				B9F16B3C2C401AF9002497D7 /* UploadCollectionView */,
 				B97E45FA2C3FD90A00EB274E /* CommentsView */,
@@ -549,6 +554,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9F16B402C401B28002497D7 /* UploadMediaCollectionViewCell.xib in Resources */,
+				B9951C822C64C6E600242FA6 /* SearchResultTableViewCell.xib in Resources */,
 				B933BD7F2C3BFACF008D887D /* PostActionsTableViewCell.xib in Resources */,
 				B9152F062C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib in Resources */,
 				B96C7CD72C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib in Resources */,
@@ -590,7 +596,6 @@
 				B9DE03CD2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift in Sources */,
 				B933BD7E2C3BFACF008D887D /* PostActionsTableViewCell.swift in Sources */,
 				B96C7CD82C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift in Sources */,
-				B91B50B02C21AA1200DC212E /* PublishPostViewController.swift in Sources */,
 				B9013D252C33141000700932 /* NotificationLikeTableViewCell.swift in Sources */,
 				B91B50932C21A7C800DC212E /* ExploreViewController.swift in Sources */,
 				B91B50952C21A7ED00DC212E /* UploadMediaViewController.swift in Sources */,
@@ -598,7 +603,6 @@
 				B9BB8EB12C43C15B00AD3CEC /* CurrentUserDataManager.swift in Sources */,
 				B91B507E2C21A61200DC212E /* HomeViewController.swift in Sources */,
 				B9AA62832C26077C00D35CD8 /* EditProfileFormModel.swift in Sources */,
-				B91B50AE2C21AA0000DC212E /* PostEditorViewController.swift in Sources */,
 				B96230932C2B55990034F64A /* BrevoManager.swift in Sources */,
 				B933BD8B2C3BFEB1008D887D /* PostRenderViewModel.swift in Sources */,
 				B94F80262C63AE4700D46349 /* UserProfileViewController.swift in Sources */,
@@ -622,9 +626,9 @@
 				B94DF7462C260E0B00C8EE94 /* FormTableViewCell.swift in Sources */,
 				B9CADB772C3E6B900023B7E8 /* PostLikesTableViewCell.swift in Sources */,
 				B9E2B7F92C2B75C300023DE8 /* Brevo.swift in Sources */,
-				B91B50AA2C21A9BB00DC212E /* SearchViewController.swift in Sources */,
 				B91B50992C21A80200DC212E /* ProfileViewController.swift in Sources */,
 				B9ED55942C21B72200CC9D35 /* AuthManager.swift in Sources */,
+				B9951C832C64C6E600242FA6 /* SearchResultTableViewCell.swift in Sources */,
 				B91B507A2C21A61200DC212E /* AppDelegate.swift in Sources */,
 				B933BD822C3BFADF008D887D /* PostGeneralTableViewCell.swift in Sources */,
 				B91B507C2C21A61200DC212E /* SceneDelegate.swift in Sources */,
