@@ -71,8 +71,8 @@ extension SearchResultViewController: UITableViewDataSource{
 
 extension SearchResultViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Method got called")
         let userName = queryResult[indexPath.row].userName
         delegate?.didSelectUser(userName: userName)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

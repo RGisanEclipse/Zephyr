@@ -112,7 +112,6 @@ extension ExploreViewController: UISearchResultsUpdating{
 // MARK: - SearchResultViewControllerDelegate
 extension ExploreViewController: SearchResultViewControllerDelegate{
     func didSelectUser(userName: String) {
-        print("Method called")
         userProfileSegueUserName = userName
         self.performSegue(withIdentifier: Constants.Explore.userProfileSegue, sender: self)
     }
