@@ -51,6 +51,7 @@
 		B959C4F12C2A1494001C106E /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B959C4F02C2A1494001C106E /* ListTableViewCell.xib */; };
 		B959C4F22C2A1494001C106E /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959C4EF2C2A1494001C106E /* ListTableViewCell.swift */; };
 		B95DABCE2C22E34C00BB478F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DABCD2C22E34C00BB478F /* Constants.swift */; };
+		B96096CB2C64FF30007F55C6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = B96096CA2C64FF30007F55C6 /* FirebaseMessaging */; };
 		B96230932C2B55990034F64A /* BrevoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96230922C2B55990034F64A /* BrevoManager.swift */; };
 		B96C7CD72C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96C7CD62C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib */; };
 		B96C7CD82C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96C7CD52C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift */; };
@@ -189,6 +190,7 @@
 				B98FC0692C2817BB002B9194 /* SDWebImage in Frameworks */,
 				B98194D72C21B08100C7D62C /* FirebaseDatabase in Frameworks */,
 				B98194D32C21B08100C7D62C /* FirebaseAuth in Frameworks */,
+				B96096CB2C64FF30007F55C6 /* FirebaseMessaging in Frameworks */,
 				B9F2535B2C4A1F3D00107CF6 /* NVActivityIndicatorView in Frameworks */,
 				B9F2535D2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended in Frameworks */,
 				B943576A2C22EF5F00F52238 /* IQKeyboardManagerSwift in Frameworks */,
@@ -503,6 +505,7 @@
 				B99085D32C469B7B00605D25 /* SkeletonView */,
 				B9F2535A2C4A1F3D00107CF6 /* NVActivityIndicatorView */,
 				B9F2535C2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended */,
+				B96096CA2C64FF30007F55C6 /* FirebaseMessaging */,
 			);
 			productName = Zephyr;
 			productReference = B91B50762C21A61200DC212E /* Zephyr.app */;
@@ -787,6 +790,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2TSUVG2N5M;
@@ -804,6 +808,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eclipse.Zephyr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -815,6 +820,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2TSUVG2N5M;
@@ -832,6 +838,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eclipse.Zephyr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -909,6 +916,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B94357682C22EF5F00F52238 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		B96096CA2C64FF30007F55C6 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B98194CF2C21B08100C7D62C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		B98194D02C21B08100C7D62C /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

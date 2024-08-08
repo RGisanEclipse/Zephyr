@@ -23,9 +23,8 @@ class CreatePostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        captionTextView.layer.cornerRadius = 10
-        captionTextView.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
         captionTextView.delegate = self
+        captionTextView.text = "Write a caption"
         loadAsset()
         spinner.isHidden = true
         spinner.type = .circleStrokeSpin
@@ -294,9 +293,13 @@ class CreatePostViewController: UIViewController {
 extension CreatePostViewController: UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
         navigationController?.setNavigationBarHidden(true, animated: false)
+        textView.text = ""
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         navigationController?.setNavigationBarHidden(false, animated: false)
+        if textView.text.isEmpty{
+            textView.text = "Write a caption"
+        }
     }
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 import NVActivityIndicatorView
+import UserNotifications
 class PostViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
