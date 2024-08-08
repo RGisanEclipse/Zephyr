@@ -165,7 +165,8 @@ struct CommentLike{
 }
 struct PostComment{
     let postIdentifier: String
-    let user: UserModel
+    let userName: String
+    let profilePicture: String
     let text: String
     let createdDate: Date
     var likes: [CommentLike]

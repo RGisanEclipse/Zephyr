@@ -107,7 +107,7 @@ extension ListViewController: UserFollowTableViewCellDelegate{
             }
             break
         case.notFollowing:
-            DatabaseManager.shared.followUser(followerUserName: currentUserName, followedUserName: viewedUserName, profilePicture: model.profilePicture ?? "") { success in
+            DatabaseManager.shared.followUser(followerUserName: currentUserName, followedUserName: viewedUserName, followerProfilePicture: currentUser.profilePicture?.absoluteString ?? "", followedUserProfilePicture: model.profilePicture ?? "") { success in
                 if success {
                     var newModel = model
                     newModel.type = .following

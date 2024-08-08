@@ -67,11 +67,12 @@ public class DatabaseManager{
             }
         }
     }
-    func followUser(followerUserName: String, followedUserName: String, profilePicture: String, completion: @escaping (Bool) -> Void) {
+    func followUser(followerUserName: String, followedUserName: String, followerProfilePicture: String, followedUserProfilePicture: String, completion: @escaping (Bool) -> Void) {
             let followData: [String: Any] = [
                 "followerUserName": followerUserName,
                 "followedUserName": followedUserName,
-                "profilePicture": profilePicture
+                "followedUserProfilePicture": followedUserProfilePicture,
+                "followerProfilePicture": followerProfilePicture
             ]
             db.collection("follows").addDocument(data: followData) { error in
                 if let error = error {
@@ -249,12 +250,13 @@ public class DatabaseManager{
     
     func addComment(to postID: String, comment: PostComment, completion: @escaping (Bool) -> Void) {
         let commentData: [String: Any] = [
-            "userName": comment.user.userName,
+            "userName": comment.userName,
             "text": comment.text,
             "createdDate": comment.createdDate,
             "likes": comment.likes.map { $0.userName },
             "postIdentifier": postID,
-            "commentIdentifier": comment.commentIdentifier
+            "commentIdentifier": comment.commentIdentifier,
+            "profilePicture": comment.profilePicture
         ]
         
         db.collection("postComments").addDocument(data: commentData) { error in
@@ -263,12 +265,13 @@ public class DatabaseManager{
     }
     func reportComment(comment: PostComment, completion: @escaping (Bool) -> Void) {
         let commentData: [String: Any] = [
-            "userName": comment.user.userName,
+            "userName": comment.userName,
             "text": comment.text,
             "createdDate": comment.createdDate,
             "likes": comment.likes.map { $0.userName },
             "postIdentifier": comment.postIdentifier,
-            "commentIdentifier": comment.commentIdentifier
+            "commentIdentifier": comment.commentIdentifier,
+            "profilePicture": comment.profilePicture
         ]
         db.collection("reportedComments").addDocument(data: commentData) { error in
             completion(error == nil)
@@ -452,7 +455,7 @@ public class DatabaseManager{
                     let followers = querySnapshot?.documents.compactMap { document -> FollowerFollowing? in
                         let data = document.data()
                         let userName = data["followerUserName"] as? String ?? ""
-                        let profilePicture = data["profilePicture"] as? String ?? ""
+                        let profilePicture = data["followerProfilePicture"] as? String ?? ""
                         return FollowerFollowing(userName: userName, profilePicture: profilePicture)
                     } ?? []
                     completion(followers)
@@ -471,7 +474,7 @@ public class DatabaseManager{
                     let following = querySnapshot?.documents.compactMap { document -> FollowerFollowing? in
                         let data = document.data()
                         let followedUserName = data["followedUserName"] as? String ?? ""
-                        let profilePicture = data["profilePicture"] as? String ?? ""
+                        let profilePicture = data["followedUserProfilePicture"] as? String ?? ""
                         return FollowerFollowing(userName: followedUserName, profilePicture: profilePicture)
                     } ?? []
                     completion(following)
@@ -613,33 +616,25 @@ public class DatabaseManager{
                           let userName = commentData["userName"] as? String,
                           let text = commentData["text"] as? String,
                           let commentIdentifier = commentData["commentIdentifier"] as? String,
+                          let profilePicture = commentData["profilePicture"] as? String,
                           let timestamp = commentData["createdDate"] as? Timestamp else {
                         continue
                     }
                     
                     let createdDate = timestamp.dateValue()
-                    
                     dispatchGroup.enter()
-                    self.fetchUserData(with: userName) { result in
-                        switch result {
-                        case .success(let userModel):
-                            // Fetch likes for this comment
-                            self.fetchCommentLikes(for: commentIdentifier) { likes in
-                                let completedComment = PostComment(
-                                    postIdentifier: identifier,
-                                    user: userModel,
-                                    text: text,
-                                    createdDate: createdDate,
-                                    likes: likes, // Include likes here
-                                    commentIdentifier: commentIdentifier
-                                )
-                                comments.append(completedComment)
-                                dispatchGroup.leave()
-                            }
-                        case .failure(let error):
-                            print("Error fetching commenter data: \(error.localizedDescription)")
-                            dispatchGroup.leave()
-                        }
+                    self.fetchCommentLikes(for: commentIdentifier) { likes in
+                        let completedComment = PostComment(
+                            postIdentifier: identifier,
+                            userName: userName,
+                            profilePicture: profilePicture,
+                            text: text,
+                            createdDate: createdDate,
+                            likes: likes,
+                            commentIdentifier: commentIdentifier
+                        )
+                        comments.append(completedComment)
+                        dispatchGroup.leave()
                     }
                 }
                 

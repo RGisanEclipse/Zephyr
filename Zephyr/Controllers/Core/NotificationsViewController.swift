@@ -143,7 +143,7 @@ extension NotificationsViewController: NotificationFollowTableViewCellDelegate{
                     }
                 }
             } else {
-                DatabaseManager.shared.followUser(followerUserName: currentUserName, followedUserName: viewedUserName, profilePicture: model.user.profilePicture?.absoluteString ?? "") { success in
+                DatabaseManager.shared.followUser(followerUserName: currentUserName, followedUserName: viewedUserName, followerProfilePicture: currentUser.profilePicture?.absoluteString ?? "", followedUserProfilePicture: model.user.profilePicture?.absoluteString ?? "") { success in
                     if success {
                         self.updateFollowState(for: model, in: cell, to: .following)
                         print("Successfully followed user")

@@ -63,7 +63,8 @@ class CommentsViewController: UIViewController {
             return
         }
         let newComment = PostComment(postIdentifier: postID,
-                                     user: currentUser,
+                                     userName: currentUser.userName,
+                                     profilePicture: currentUser.profilePicture?.absoluteString ?? "",
                                      text: commentText,
                                      createdDate: Date(),
                                      likes: [],
@@ -147,7 +148,7 @@ extension CommentsViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard indexPath.section == 1, let currentUser = userData else { return nil }
         let comment = model?.comments[indexPath.row]
-        if comment?.user.userName == currentUser.userName {
+        if comment?.userName == currentUser.userName {
             let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completionHandler in
                 self?.deleteComment(at: indexPath)
                 completionHandler(true)

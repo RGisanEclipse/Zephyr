@@ -326,7 +326,7 @@ extension UserProfileViewController: UserProfileHeaderCollectionReusableViewDele
                 }
             }
         } else {
-            DatabaseManager.shared.followUser(followerUserName: currentUserName, followedUserName: viewedUserName, profilePicture: viewedUser.profilePicture?.absoluteString ?? "") { [weak self] success in
+            DatabaseManager.shared.followUser(followerUserName: currentUserName, followedUserName: viewedUserName, followerProfilePicture: currentUser.profilePicture?.absoluteString ?? "", followedUserProfilePicture: viewedUser.profilePicture?.absoluteString ?? "") { [weak self] success in
                 guard let self = self else { return }
                 if success {
                     self.profileHeaderView?.configure(with: viewedUser, doesFollow: true)

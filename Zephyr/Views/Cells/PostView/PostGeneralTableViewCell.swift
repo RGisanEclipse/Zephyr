@@ -33,8 +33,8 @@ class PostGeneralTableViewCell: UITableViewCell {
     }
     func configure(with model: PostComment, userName: String) {
         self.model = model
-        profilePictureButton.sd_setImage(with: model.user.profilePicture, for: .normal, placeholderImage: UIImage(systemName: "userPlaceholder"))
-        userNameLabel.setTitle(model.user.userName, for: .normal)
+        profilePictureButton.sd_setImage(with: URL(string: model.profilePicture), for: .normal, placeholderImage: UIImage(systemName: "userPlaceholder"))
+        userNameLabel.setTitle(model.userName, for: .normal)
         commentLabel.text = model.text
         dateLabel.text = formattedDateString(from: model.createdDate)
         let isLikedByCurrentUser = model.likes.contains { like in
@@ -79,12 +79,12 @@ class PostGeneralTableViewCell: UITableViewCell {
         guard let safeModel = model else{
             return
         }
-        delegate?.didTapProfilePictureButton(with: safeModel.user.userName)
+        delegate?.didTapProfilePictureButton(with: safeModel.userName)
     }
     @IBAction func userNameButtonPressed(_ sender: UIButton) {
         guard let safeModel = model else{
             return
         }
-        delegate?.didTapUserNameButton(with: safeModel.user.userName)
+        delegate?.didTapUserNameButton(with: safeModel.userName)
     }
 }
