@@ -6,7 +6,7 @@
 //
 
 import FirebaseFirestore
-
+import FirebaseAuth
 public class DatabaseManager{
     static let shared = DatabaseManager()
     let db = Firestore.firestore()
@@ -407,8 +407,12 @@ public class DatabaseManager{
                 completion(.success([]))
                 return
             }
+            let currentUserEmail = Auth.auth().currentUser?.email
             let userModels = documents.compactMap { document -> UserModel? in
                 let data = document.data()
+                if let email = data["email"] as? String, email == currentUserEmail {
+                    return nil
+                }
                 return UserModel(dictionary: data)
             }
             completion(.success(userModels))
