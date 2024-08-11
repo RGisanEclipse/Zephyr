@@ -155,7 +155,15 @@ extension CommentsViewController: UITableViewDelegate{
             }
             deleteAction.backgroundColor = .red
             return UISwipeActionsConfiguration(actions: [deleteAction])
-        } else {
+        } else if currentUser.userName == model?.owner.userName{
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completionHandler in
+                self?.deleteComment(at: indexPath)
+                completionHandler(true)
+            }
+            deleteAction.backgroundColor = .red
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
+        else {
             let reportAction = UIContextualAction(style: .normal, title: "Report") { [weak self] _, _, completionHandler in
                 self?.reportComment(at: indexPath)
                 completionHandler(true)
