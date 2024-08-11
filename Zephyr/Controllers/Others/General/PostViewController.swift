@@ -280,6 +280,13 @@ extension PostViewController: PostHeaderTableViewCellDelegate {
                     print("Failed to delete media from Storage")
                 }
             }
+            DatabaseManager.shared.deleteNotifications(for: post.identifier) { success in
+                if success{
+                    print("Successfully deleted notifications for post")
+                } else{
+                    print("Failed to delete notifications for post")
+                }
+            }
             if isVideo {
                 StorageManager.shared.deleteMedia(reference: thumbnailStoragePath, isVideo: false) { success in
                     if success {
@@ -329,11 +336,13 @@ extension PostViewController: PostHeaderTableViewCellDelegate {
 extension PostViewController: PostActionsTableViewCellDelegate{
     func didTapLikeButton(with model: UserPost, from cell: PostActionsTableViewCell, at indexPath: IndexPath) {
         guard let safeUserData = userData else {
+            print("User data not available")
             return
         }
         let isLikedByCurrentUser = model.likeCount.contains { like in
             like.userName == safeUserData.userName
         }
+        
         if isLikedByCurrentUser {
             DatabaseManager.shared.removeLike(to: model.identifier, from: safeUserData) { success in
                 if success {
@@ -344,9 +353,24 @@ extension PostViewController: PostActionsTableViewCellDelegate{
                     }
                     newModel.likeCount = updatedLikeCount
                     self.updateRenderModels(with: newModel)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadSections([2,3], with: .none)
+                    
+                    DatabaseManager.shared.fetchNotificationID(for: safeUserData.userName, postIdentifier: model.identifier) { notificationID in
+                        if let notificationID = notificationID {
+                            DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
+                                if success {
+                                    DispatchQueue.main.async {
+                                        self.tableView.reloadSections([2,3], with: .none)
+                                    }
+                                } else {
+                                    print("Failed to remove notification")
+                                }
+                            }
+                        } else {
+                            print("Notification ID not found")
+                        }
                     }
+                } else {
+                    print("Failed to remove like")
                 }
             }
         } else {
@@ -358,13 +382,22 @@ extension PostViewController: PostActionsTableViewCellDelegate{
                     newModel.likeCount = updatedLikeCount
                     self.updateRenderModels(with: newModel)
                     
-                    DispatchQueue.main.async {
-                        self.tableView.reloadSections([2,3], with: .none)
+                    DatabaseManager.shared.addNotification(to: model.owner.userName, from: safeUserData, type: "like", post: PostSummary(identifier: model.identifier, thumbnailImage: model.thumbnailImage, postType: model.postType), notificationText: "\(safeUserData.userName) liked your post.") { success in
+                        if success {
+                            DispatchQueue.main.async {
+                                self.tableView.reloadSections([2,3], with: .none)
+                            }
+                        } else {
+                            print("Failed to add notification")
+                        }
                     }
+                } else {
+                    print("Failed to add like")
                 }
             }
         }
     }
+
     private func updateRenderModels(with newModel: UserPost) {
         for (index, var renderModel) in renderModels.enumerated() {
             switch renderModel.renderType {

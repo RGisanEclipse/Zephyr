@@ -290,6 +290,13 @@ extension HomeViewController: PostHeaderTableViewCellDelegate{
                     print("Failed to delete media from Storage")
                 }
             }
+            DatabaseManager.shared.deleteNotifications(for: post.identifier) { success in
+                if success{
+                    print("Successfully deleted notifications for post")
+                } else{
+                    print("Failed to delete notifications for post")
+                }
+            }
             if isVideo {
                 StorageManager.shared.deleteMedia(reference: thumbnailStoragePath, isVideo: false) { success in
                     if success {
@@ -378,12 +385,25 @@ extension HomeViewController: PostActionsTableViewCellDelegate {
                     newModel.likeCount = updatedLikeCount
                     self.feedRenderModels[indexPath.section - 1].post = PostRenderViewModel(renderType: .primaryContent(provider: newModel))
                     self.feedRenderModels[indexPath.section - 1].likes = PostRenderViewModel(renderType: .likes(provider: updatedLikeCount))
-                    
-                    DispatchQueue.main.async {
-                        cell.configure(with: newModel, userName: safeUserData.userName, indexPath: indexPath)
-                        let likesIndexPath = IndexPath(row: 3, section: indexPath.section)
-                        self.tableView.reloadRows(at: [likesIndexPath], with: .none)
+                    DatabaseManager.shared.fetchNotificationID(for: safeUserData.userName, postIdentifier: model.identifier) { notificationID in
+                        if let notificationID = notificationID {
+                            DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
+                                if success {
+                                    DispatchQueue.main.async {
+                                        cell.configure(with: newModel, userName: safeUserData.userName, indexPath: indexPath)
+                                        let likesIndexPath = IndexPath(row: 3, section: indexPath.section)
+                                        self.tableView.reloadRows(at: [likesIndexPath], with: .none)
+                                    }
+                                } else {
+                                    print("Failed to remove notification")
+                                }
+                            }
+                        } else {
+                            print("Notification ID not found")
+                        }
                     }
+                } else {
+                    print("Failed to remove like")
                 }
             }
         } else {
@@ -396,11 +416,19 @@ extension HomeViewController: PostActionsTableViewCellDelegate {
                     self.feedRenderModels[indexPath.section - 1].post = PostRenderViewModel(renderType: .primaryContent(provider: newModel))
                     self.feedRenderModels[indexPath.section - 1].likes = PostRenderViewModel(renderType: .likes(provider: updatedLikeCount))
                     
-                    DispatchQueue.main.async {
-                        cell.configure(with: newModel, userName: safeUserData.userName, indexPath: indexPath)
-                        let likesIndexPath = IndexPath(row: 3, section: indexPath.section)
-                        self.tableView.reloadRows(at: [likesIndexPath], with: .none)
+                    DatabaseManager.shared.addNotification(to: model.owner.userName, from: safeUserData, type: "like", post: PostSummary(identifier: model.identifier, thumbnailImage: model.thumbnailImage, postType: model.postType), notificationText: "\(safeUserData.userName) liked your post.") { success in
+                        if success {
+                            DispatchQueue.main.async {
+                                cell.configure(with: newModel, userName: safeUserData.userName, indexPath: indexPath)
+                                let likesIndexPath = IndexPath(row: 3, section: indexPath.section)
+                                self.tableView.reloadRows(at: [likesIndexPath], with: .none)
+                            }
+                        } else {
+                            print("Failed to add notification")
+                        }
                     }
+                } else {
+                    print("Failed to add like")
                 }
             }
         }

@@ -54,11 +54,9 @@ class NotificationsViewController: UIViewController {
         }
     }
     private func fetchNotifications(){
-        for x in 0...10{
             let post = PostSummary(identifier: "xyz", thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postType: .photo )
-            let model = UserNotificationModel(type: x%2==0 ? .like(post: post): .follow(state: .notFollowing), text: "TheJoker started following you.", user: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts: [], followers: [], following: []))
+            let model = UserNotificationModel(type: .like(post: post), text: "TheJoker started following you.", user: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts: [], followers: [], following: []), identifier: "x")
             models.append(model)
-        }
     }
 }
 // MARK: - UITableViewDataSource

@@ -760,4 +760,87 @@ public class DatabaseManager{
                 }
             }
     }
+    func addNotification(to userName: String, from user: UserModel, type: String, post: PostSummary,notificationText: String ,completion: @escaping (Bool) -> Void) {
+        let notificationID = UUID().uuidString
+        let notificationData: [String: Any] = [
+            "notificationID": notificationID,
+            "type": type,
+            "text": notificationText,
+            "userName": user.userName,
+            "profilePictureURL": user.profilePicture?.absoluteString ?? "",
+            "identifier": post.identifier,
+            "thumbnailImageURL": post.thumbnailImage.absoluteString,
+            "postType": post.postType.rawValue,
+            "timestamp": FieldValue.serverTimestamp()
+        ]
+
+        db.collection("notifications").addDocument(data: notificationData) { error in
+            completion(error == nil)
+        }
+    }
+
+    func removeNotification(notificationID: String, completion: @escaping (Bool) -> Void) {
+        let notificationRef = db.collection("notifications")
+        notificationRef
+            .whereField("notificationID", isEqualTo: notificationID)
+            .getDocuments { snapshot, error in
+                guard let documents = snapshot?.documents, error == nil else {
+                    print("Error fetching notifications: \(error?.localizedDescription ?? "No error description")")
+                    completion(false)
+                    return
+                }
+                for document in documents {
+                    document.reference.delete { error in
+                        if let error = error {
+                            print("Error deleting document: \(error)")
+                            completion(false)
+                            return
+                        }
+                    }
+                }
+                completion(true)
+            }
+    }
+    func deleteNotifications(for postIdentifier: String, completion: @escaping (Bool) -> Void) {
+        let notificationRef = db.collection("notifications")
+        notificationRef
+            .whereField("identifier", isEqualTo: postIdentifier)
+            .getDocuments { snapshot, error in
+                guard let documents = snapshot?.documents, error == nil else {
+                    print("Error fetching notifications: \(error?.localizedDescription ?? "No error description")")
+                    completion(false)
+                    return
+                }
+                let batch = self.db.batch()
+                for document in documents {
+                    batch.deleteDocument(document.reference)
+                }
+                batch.commit { error in
+                    if let error = error {
+                        print("Error deleting documents: \(error)")
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
+                }
+            }
+    }
+    func fetchNotificationID(for userName: String, postIdentifier: String, completion: @escaping (String?) -> Void) {
+        db.collection("notifications")
+            .whereField("userName", isEqualTo: userName)
+            .whereField("identifier", isEqualTo: postIdentifier)
+            .getDocuments { snapshot, error in
+                guard let documents = snapshot?.documents, error == nil else {
+                    print("Error fetching notifications: \(error?.localizedDescription ?? "No error description")")
+                    completion(nil)
+                    return
+                }
+                if let document = documents.first {
+                    let notificationID = document.data()["notificationID"] as? String
+                    completion(notificationID)
+                } else {
+                    completion(nil)
+                }
+            }
+    }
 }

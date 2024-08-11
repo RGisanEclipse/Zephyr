@@ -10,6 +10,7 @@ struct UserNotificationModel{
     var type: UserNotificationType
     let text: String
     let user: UserModel
+    let identifier: String
 }
 enum UserNotificationType{
     case like(post: PostSummary)
