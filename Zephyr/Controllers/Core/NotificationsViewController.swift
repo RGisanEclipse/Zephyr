@@ -6,10 +6,10 @@
 //
 
 import UIKit
-
+import NVActivityIndicatorView
 class NotificationsViewController: UIViewController {
     
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var loadingSpinner: NVActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noNotificationsView: UIStackView!
     private var refreshControl = UIRefreshControl()
@@ -20,16 +20,14 @@ class NotificationsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        noNotificationsView.isHidden = true
         fetchCurrentUserData()
         fetchNotifications()
-        if models.isEmpty{
-            tableView.isHidden = true
-        } else{
-            noNotificationsView.isHidden = true
-            tableView.isHidden = false
-        }
-        //        spinner.startAnimating()
-        spinner.isHidden = true
+        loadingSpinner.type = .circleStrokeSpin
+        loadingSpinner.color = .BW
+        loadingSpinner.startAnimating()
+        view.bringSubviewToFront(loadingSpinner)
+        fetchNotifications()
         tableView.register(UINib(nibName: Constants.Notifications.likeCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Notifications.likeCellIdentifier)
         tableView.register(UINib(nibName: Constants.Notifications.followCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Notifications.followCellIdentifier)
         tableView.dataSource = self
@@ -38,7 +36,7 @@ class NotificationsViewController: UIViewController {
         tableView.refreshControl = refreshControl
     }
     @objc private func refreshData(_ sender: Any) {
-        // Fetch Notifications
+        fetchNotifications()
         self.refreshControl.endRefreshing()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -53,10 +51,26 @@ class NotificationsViewController: UIViewController {
             self.currentUserData = user
         }
     }
-    private func fetchNotifications(){
-            let post = PostSummary(identifier: "xyz", thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postType: .photo )
-            let model = UserNotificationModel(type: .like(post: post), text: "TheJoker started following you.", user: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts: [], followers: [], following: []), identifier: "x")
-            models.append(model)
+    private func fetchNotifications() {
+        fetchCurrentUserData()
+        guard let user = currentUserData else {
+            print("Current user data not available")
+            return
+        }
+        DatabaseManager.shared.fetchNotificationsForUser(user: user) { [weak self] notifications in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.models = notifications
+                self.tableView.reloadData()
+                self.loadingSpinner.stopAnimating()
+                self.loadingSpinner.isHidden = true
+                if self.models.isEmpty {
+                    self.noNotificationsView.isHidden = false
+                } else {
+                    self.noNotificationsView.isHidden = true
+                }
+            }
+        }
     }
 }
 // MARK: - UITableViewDataSource

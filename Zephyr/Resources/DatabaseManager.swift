@@ -68,47 +68,47 @@ public class DatabaseManager{
         }
     }
     func followUser(followerUserName: String, followedUserName: String, followerProfilePicture: String, followedUserProfilePicture: String, completion: @escaping (Bool) -> Void) {
-            let followData: [String: Any] = [
-                "followerUserName": followerUserName,
-                "followedUserName": followedUserName,
-                "followedUserProfilePicture": followedUserProfilePicture,
-                "followerProfilePicture": followerProfilePicture
-            ]
-            db.collection("follows").addDocument(data: followData) { error in
-                if let error = error {
-                    print("Error following user: \(error.localizedDescription)")
-                    completion(false)
-                } else {
-                    completion(true)
-                }
+        let followData: [String: Any] = [
+            "followerUserName": followerUserName,
+            "followedUserName": followedUserName,
+            "followedUserProfilePicture": followedUserProfilePicture,
+            "followerProfilePicture": followerProfilePicture
+        ]
+        db.collection("follows").addDocument(data: followData) { error in
+            if let error = error {
+                print("Error following user: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                completion(true)
             }
         }
-        func unfollowUser(followerUserName: String, followedUserName: String, completion: @escaping (Bool) -> Void) {
-            let followsRef = db.collection("follows")
-            followsRef.whereField("followerUserName", isEqualTo: followerUserName)
-                .whereField("followedUserName", isEqualTo: followedUserName)
-                .getDocuments { (snapshot, error) in
-                    if let error = error {
-                        print("Error unfollowing user: \(error.localizedDescription)")
+    }
+    func unfollowUser(followerUserName: String, followedUserName: String, completion: @escaping (Bool) -> Void) {
+        let followsRef = db.collection("follows")
+        followsRef.whereField("followerUserName", isEqualTo: followerUserName)
+            .whereField("followedUserName", isEqualTo: followedUserName)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error unfollowing user: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    guard let documents = snapshot?.documents else {
                         completion(false)
-                    } else {
-                        guard let documents = snapshot?.documents else {
-                            completion(false)
-                            return
-                        }
-                        for document in documents {
-                            document.reference.delete { error in
-                                if let error = error {
-                                    print("Error deleting follow document: \(error.localizedDescription)")
-                                    completion(false)
-                                } else {
-                                    completion(true)
-                                }
+                        return
+                    }
+                    for document in documents {
+                        document.reference.delete { error in
+                            if let error = error {
+                                print("Error deleting follow document: \(error.localizedDescription)")
+                                completion(false)
+                            } else {
+                                completion(true)
                             }
                         }
                     }
                 }
-        }
+            }
+    }
     func getEmail(for username: String, completion: @escaping (String?) -> Void) {
         let usersCollection = db.collection("users")
         usersCollection.whereField("userName", isEqualTo: username).getDocuments { (querySnapshot, error) in
@@ -261,6 +261,28 @@ public class DatabaseManager{
             completion(error == nil)
         }
     }
+    func fetchComment(with commentID: String, completion: @escaping (PostComment?) -> Void) {
+        let commentsRef = db.collection("postComments")
+        commentsRef.document(commentID).getDocument { documentSnapshot, error in
+            if let error = error {
+                print("Error fetching comment: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            guard let document = documentSnapshot, document.exists,
+                  let data = document.data() else {
+                print("Comment not found or no data available")
+                completion(nil)
+                return
+            }
+            guard let postComment = PostComment(from: data) else {
+                print("Error: Unable to convert document data to PostComment")
+                completion(nil)
+                return
+            }
+            completion(postComment)
+        }
+    }
     func reportComment(comment: PostComment, completion: @escaping (Bool) -> Void) {
         let commentData: [String: Any] = [
             "userName": comment.userName,
@@ -295,7 +317,6 @@ public class DatabaseManager{
                     completion(false)
                     return
                 }
-
                 let batch = self.db.batch()
                 batch.deleteDocument(commentDocument.reference)
                 likesSnapshot?.documents.forEach { likeDocument in
@@ -485,7 +506,7 @@ public class DatabaseManager{
                 }
             }
     }
-
+    
     func getFollowing(for userName: String, completion: @escaping ([FollowerFollowing]) -> Void) {
         db.collection("follows")
             .whereField("followerUserName", isEqualTo: userName)
@@ -732,32 +753,49 @@ public class DatabaseManager{
                 }
             }
     }
-
     func deleteComments(for postID: String, completion: @escaping (Bool) -> Void) {
-        db.collection("postComments")
-            .whereField("postIdentifier", isEqualTo: postID)
-            .getDocuments { querySnapshot, error in
-                if let error = error {
-                    print("Error fetching comments: \(error.localizedDescription)")
-                    completion(false)
-                    return
-                }
-                
-                let batch = self.db.batch()
-                querySnapshot?.documents.forEach { document in
-                    batch.deleteDocument(document.reference)
-                }
-                
-                batch.commit { error in
-                    if let error = error {
-                        print("Error deleting comments: \(error.localizedDescription)")
-                        completion(false)
-                    } else {
-                        completion(true)
+        let commentsRef = db.collection("postComments")
+        commentsRef.whereField("postIdentifier", isEqualTo: postID).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error fetching comments: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            let documents = querySnapshot?.documents ?? []
+            let totalComments = documents.count
+            if totalComments == 0 {
+                completion(true)
+                return
+            }
+            let dispatchGroup = DispatchGroup()
+            var deleteErrorOccurred = false
+            for document in documents {
+                dispatchGroup.enter()
+                let commentID = document.documentID
+                self.fetchComment(with: commentID) { fetchedComment in
+                    guard let fetchedComment = fetchedComment else {
+                        deleteErrorOccurred = true
+                        dispatchGroup.leave()
+                        return
+                    }
+                    self.deleteComment(from: postID, comment: fetchedComment) { success in
+                        if !success {
+                            deleteErrorOccurred = true
+                        }
+                        dispatchGroup.leave()
                     }
                 }
             }
+            dispatchGroup.notify(queue: .main) {
+                if deleteErrorOccurred {
+                    completion(false)
+                } else {
+                    completion(true)
+                }
+            }
+        }
     }
+
     func addNotification(to userName: String, from user: UserModel, type: String, post: PostSummary?,notificationText: String ,completion: @escaping (Bool) -> Void) {
         let notificationID = UUID().uuidString
         guard let post = post else{
@@ -780,13 +818,14 @@ public class DatabaseManager{
             "type": type,
             "text": notificationText,
             "userName": userName,
+            "fromUserName": user.userName,
             "profilePictureURL": user.profilePicture?.absoluteString ?? "",
             "identifier": post.identifier,
             "thumbnailImageURL": post.thumbnailImage.absoluteString,
             "postType": post.postType.rawValue,
             "timestamp": FieldValue.serverTimestamp()
         ]
-
+        
         db.collection("notifications").addDocument(data: notificationData) { error in
             completion(error == nil)
         }
@@ -912,4 +951,84 @@ public class DatabaseManager{
                 }
             }
     }
+    
+    func fetchNotificationsForUser(user: UserModel, completion: @escaping ([UserNotificationModel]) -> Void) {
+        db.collection("notifications")
+            .whereField("userName", isEqualTo: user.userName)
+            .order(by: "timestamp", descending: true)
+            .getDocuments { snapshot, error in
+                guard let documents = snapshot?.documents, error == nil else {
+                    print("Error fetching notifications: \(String(describing: error))")
+                    completion([])
+                    return
+                }
+                var notifications: [UserNotificationModel] = []
+                let group = DispatchGroup()
+                for document in documents {
+                    let data = document.data()
+                    guard let typeString = data["type"] as? String,
+                          let text = data["text"] as? String else {
+                        continue
+                    }
+                    group.enter()
+                    if typeString == "follow" {
+                        guard let followerUserName = data["followerUserName"] as? String else {
+                            group.leave()
+                            return
+                        }
+                        self.fetchUserData(with: followerUserName) { result in
+                            switch result {
+                            case .success(let fetchedUserData):
+                                let followState = user.isFollowing(userName: followerUserName)
+                                let followType: FollowState = followState ? .following : .notFollowing
+                                let notification = UserNotificationModel(
+                                    type: .follow(state: followType),
+                                    text: text,
+                                    user: fetchedUserData,
+                                    identifier: document.documentID
+                                )
+                                notifications.append(notification)
+                            case .failure(let error):
+                                print("Error fetching userData: \(error)")
+                            }
+                            group.leave()
+                        }
+                    } else if typeString == "like",
+                              let fromUserName = data["fromUserName"] as? String,
+                              let postIdentifier = data["identifier"] as? String,
+                              let thumbnailImageURLString = data["thumbnailImageURL"] as? String,
+                              let thumbnailImageURL = URL(string: thumbnailImageURLString),
+                              let postTypeRaw = data["postType"] as? String,
+                              let postType = UserPostType(rawValue: postTypeRaw) {
+                        
+                        self.fetchUserData(with: fromUserName) { result in
+                            switch result {
+                            case .success(let fetchedUserData):
+                                let post = PostSummary(
+                                    identifier: postIdentifier,
+                                    thumbnailImage: thumbnailImageURL,
+                                    postType: postType
+                                )
+                                let notification = UserNotificationModel(
+                                    type: .like(post: post),
+                                    text: text,
+                                    user: fetchedUserData,
+                                    identifier: document.documentID
+                                )
+                                notifications.append(notification)
+                            case .failure(let error):
+                                print("Error fetching userData: \(error)")
+                            }
+                            group.leave()
+                        }
+                    } else {
+                        group.leave()
+                    }
+                }
+                group.notify(queue: .main) {
+                    completion(notifications)
+                }
+            }
+    }
+    
 }

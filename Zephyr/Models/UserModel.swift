@@ -171,6 +171,36 @@ struct PostComment{
     let createdDate: Date
     var likes: [CommentLike]
     let commentIdentifier: String
+    init?(from dictionary: [String: Any]) {
+            guard
+                let postIdentifier = dictionary["postIdentifier"] as? String,
+                let userName = dictionary["userName"] as? String,
+                let profilePicture = dictionary["profilePicture"] as? String,
+                let text = dictionary["text"] as? String,
+                let createdDateTimestamp = dictionary["createdDate"] as? Timestamp,
+                let commentIdentifier = dictionary["commentIdentifier"] as? String
+            else {
+                return nil
+            }
+            let createdDate = createdDateTimestamp.dateValue()
+            var likes: [CommentLike] = []
+            self.postIdentifier = postIdentifier
+            self.userName = userName
+            self.profilePicture = profilePicture
+            self.text = text
+            self.createdDate = createdDate
+            self.likes = likes
+            self.commentIdentifier = commentIdentifier
+        }
+    init(postIdentifier: String, userName: String, profilePicture: String, text: String, createdDate: Date, likes: [CommentLike], commentIdentifier: String){
+        self.postIdentifier = postIdentifier
+        self.userName = userName
+        self.profilePicture = profilePicture
+        self.text = text
+        self.createdDate = createdDate
+        self.likes = likes
+        self.commentIdentifier = commentIdentifier
+    }
 }
 enum FollowState {
     case following, notFollowing

@@ -322,7 +322,7 @@ extension CommentsViewController: PostGeneralTableViewCellDelegate {
                     guard let self = self, let safeModel = self.model else { return }
                     if let commentIndex = self.model?.comments.firstIndex(where: { $0.commentIdentifier == model.commentIdentifier }) {
                         self.model?.comments[commentIndex].likes.append(CommentLike(userName: currentUser.userName, commentIdentifier: model.commentIdentifier))
-                        DatabaseManager.shared.addNotification(to: safeModel.owner.userName, from: currentUser, type: "like", post: PostSummary(identifier: safeModel.identifier, thumbnailImage: safeModel.thumbnailImage, postType: safeModel.postType), notificationText: "\(currentUser.userName) liked your comment on \(safeModel.owner.userName)'s post: \(model.text)") { success in
+                        DatabaseManager.shared.addNotification(to: model.userName, from: currentUser, type: "like", post: PostSummary(identifier: safeModel.identifier, thumbnailImage: safeModel.thumbnailImage, postType: safeModel.postType), notificationText: "\(currentUser.userName) liked your comment on \(safeModel.owner.userName)'s post: \(model.text)") { success in
                             if success{
                                 print("Successfully added notification to database")
                             } else{

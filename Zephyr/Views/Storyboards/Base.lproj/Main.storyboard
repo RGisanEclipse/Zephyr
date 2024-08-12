@@ -641,6 +641,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sd-aT-M2Y" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="185" y="436" width="60" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="WEV-Pf-i4N"/>
+                                    <constraint firstAttribute="height" constant="60" id="uM8-zW-Bmg"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="t8h-pL-Vhx">
+                                <rect key="frame" x="0.0" y="96" width="430" height="787"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationsCellIdentifier" id="WNc-vX-PjS">
+                                        <rect key="frame" x="0.0" y="50" width="430" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WNc-vX-PjS" id="ChE-pv-UJZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VNP-yN-lGN">
                                 <rect key="frame" x="0.0" y="426" width="430" height="80.333333333333314"/>
                                 <subviews>
@@ -660,43 +682,25 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="7zp-EQ-Lrs">
-                                <rect key="frame" x="196.66666666666666" y="447.66666666666669" width="37" height="37"/>
-                                <color key="tintColor" systemColor="labelColor"/>
-                            </activityIndicatorView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="t8h-pL-Vhx">
-                                <rect key="frame" x="0.0" y="96" width="430" height="787"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationsCellIdentifier" id="WNc-vX-PjS">
-                                        <rect key="frame" x="0.0" y="50" width="430" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WNc-vX-PjS" id="ChE-pv-UJZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="A7U-Jk-u1q"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="A7U-Jk-u1q" firstAttribute="trailing" secondItem="VNP-yN-lGN" secondAttribute="trailing" id="8Xc-gI-K5z"/>
-                            <constraint firstItem="7zp-EQ-Lrs" firstAttribute="centerY" secondItem="sAY-nm-2dE" secondAttribute="centerY" id="Bp4-YE-QSY"/>
+                            <constraint firstItem="1sd-aT-M2Y" firstAttribute="centerX" secondItem="sAY-nm-2dE" secondAttribute="centerX" id="NLQ-TT-tRt"/>
                             <constraint firstItem="t8h-pL-Vhx" firstAttribute="top" secondItem="A7U-Jk-u1q" secondAttribute="top" id="Xmg-Rh-APm"/>
-                            <constraint firstItem="7zp-EQ-Lrs" firstAttribute="centerX" secondItem="sAY-nm-2dE" secondAttribute="centerX" id="avl-mG-rUh"/>
                             <constraint firstItem="t8h-pL-Vhx" firstAttribute="leading" secondItem="A7U-Jk-u1q" secondAttribute="leading" id="dny-Oz-yL1"/>
                             <constraint firstItem="t8h-pL-Vhx" firstAttribute="trailing" secondItem="A7U-Jk-u1q" secondAttribute="trailing" id="eAg-Zi-EY1"/>
                             <constraint firstItem="VNP-yN-lGN" firstAttribute="leading" secondItem="A7U-Jk-u1q" secondAttribute="leading" id="gay-Jh-OB7"/>
                             <constraint firstItem="VNP-yN-lGN" firstAttribute="centerY" secondItem="sAY-nm-2dE" secondAttribute="centerY" id="i2q-zE-Kkv"/>
+                            <constraint firstItem="1sd-aT-M2Y" firstAttribute="centerY" secondItem="sAY-nm-2dE" secondAttribute="centerY" id="ozz-YC-qbh"/>
                             <constraint firstItem="t8h-pL-Vhx" firstAttribute="bottom" secondItem="A7U-Jk-u1q" secondAttribute="bottom" id="zhd-RI-xe0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Notifications" id="gKj-mO-AzA"/>
                     <connections>
+                        <outlet property="loadingSpinner" destination="1sd-aT-M2Y" id="TOW-2N-BZf"/>
                         <outlet property="noNotificationsView" destination="VNP-yN-lGN" id="IyE-xk-lcF"/>
-                        <outlet property="spinner" destination="7zp-EQ-Lrs" id="QmZ-Mr-loo"/>
                         <outlet property="tableView" destination="t8h-pL-Vhx" id="5GA-iX-DPG"/>
                         <segue destination="Xwk-ch-pAD" kind="show" identifier="notificationToPostVC" id="Ug1-UI-m2f"/>
                         <segue destination="X14-y1-u1j" kind="show" identifier="notificationToUserProfileVC" id="u7S-xn-D8d"/>
@@ -1296,8 +1300,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="yeI-wc-WIq"/>
         <segue reference="4f8-ZT-ak6"/>
-        <segue reference="wnf-Zi-rdj"/>
-        <segue reference="5km-SD-thz"/>
+        <segue reference="u7S-xn-D8d"/>
+        <segue reference="Ug1-UI-m2f"/>
         <segue reference="Q0E-0G-eJa"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BW"/>
