@@ -310,8 +310,8 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout{
 // MARK: - ProfileHeaderCollectionViewDelegate
 extension UserProfileViewController: UserProfileHeaderCollectionReusableViewDelegate{
     func userProfileHeaderDidTapFollowButton(_ header: UserProfileHeaderCollectionReusableView) {
-        guard let currentUser = self.currentUserData,
-              let viewedUser = self.userData else { return }
+        guard var currentUser = self.currentUserData,
+              var viewedUser = self.userData else { return }
         
         let currentUserName = currentUser.userName
         let viewedUserName = viewedUser.userName
@@ -320,7 +320,27 @@ extension UserProfileViewController: UserProfileHeaderCollectionReusableViewDele
             DatabaseManager.shared.unfollowUser(followerUserName: currentUserName, followedUserName: viewedUserName) { [weak self] success in
                 guard let self = self else { return }
                 if success {
+                    DatabaseManager.shared.fetchNotificationIDforFollow(for: viewedUserName, with: currentUserName) { notificationID in
+                        guard let notificationID = notificationID else { return }
+                        DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
+                            if success{
+                                print("Notification removed from database")
+                            } else{
+                                print("Failed to remove notification to database")
+                            }
+                        }
+                    }
+                    if let index = viewedUser.followers.firstIndex(where: { $0.userName == currentUserName }) {
+                        viewedUser.followers.remove(at: index)
+                    }
+                    
+                    if let index = currentUser.following.firstIndex(where: { $0.userName == viewedUserName }) {
+                        currentUser.following.remove(at: index)
+                    }
+                    self.currentUserData = currentUser
+                    self.userData = viewedUser
                     self.profileHeaderView?.configure(with: viewedUser, doesFollow: false)
+                    
                 } else {
                     print("Failed to unfollow user")
                 }
@@ -329,6 +349,17 @@ extension UserProfileViewController: UserProfileHeaderCollectionReusableViewDele
             DatabaseManager.shared.followUser(followerUserName: currentUserName, followedUserName: viewedUserName, followerProfilePicture: currentUser.profilePicture?.absoluteString ?? "", followedUserProfilePicture: viewedUser.profilePicture?.absoluteString ?? "") { [weak self] success in
                 guard let self = self else { return }
                 if success {
+                    DatabaseManager.shared.addNotification(to: viewedUserName, from: currentUser, type: "follow", post: nil, notificationText: "\(currentUserName) started following you.") { success in
+                        if success{
+                            print("Notification added to database")
+                        } else{
+                            print("Failed to add notification to database")
+                        }
+                    }
+                    viewedUser.followers.append(FollowerFollowing(userName: currentUserName, profilePicture: currentUser.profilePicture?.absoluteString ?? ""))
+                    currentUser.following.append(FollowerFollowing(userName: viewedUserName, profilePicture: viewedUser.profilePicture?.absoluteString ?? ""))
+                    self.currentUserData = currentUser
+                    self.userData = viewedUser
                     self.profileHeaderView?.configure(with: viewedUser, doesFollow: true)
                 } else {
                     print("Failed to follow user")

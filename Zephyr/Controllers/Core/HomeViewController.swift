@@ -385,22 +385,25 @@ extension HomeViewController: PostActionsTableViewCellDelegate {
                     newModel.likeCount = updatedLikeCount
                     self.feedRenderModels[indexPath.section - 1].post = PostRenderViewModel(renderType: .primaryContent(provider: newModel))
                     self.feedRenderModels[indexPath.section - 1].likes = PostRenderViewModel(renderType: .likes(provider: updatedLikeCount))
-                    DatabaseManager.shared.fetchNotificationID(for: safeUserData.userName, postIdentifier: model.identifier) { notificationID in
-                        if let notificationID = notificationID {
-                            DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
-                                if success {
-                                    DispatchQueue.main.async {
-                                        cell.configure(with: newModel, userName: safeUserData.userName, indexPath: indexPath)
-                                        let likesIndexPath = IndexPath(row: 3, section: indexPath.section)
-                                        self.tableView.reloadRows(at: [likesIndexPath], with: .none)
+                    if model.owner.userName != safeUserData.userName{
+                        DatabaseManager.shared.fetchNotificationIDforLike(for: model.owner.userName, by: safeUserData.userName, postIdentifier: model.identifier) { notificationID in
+                            if let notificationID = notificationID {
+                                DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
+                                    if success {
+                                        print("Removed notification from database")
+                                    } else {
+                                        print("Failed to remove notification")
                                     }
-                                } else {
-                                    print("Failed to remove notification")
                                 }
+                            } else {
+                                print("Notification ID not found")
                             }
-                        } else {
-                            print("Notification ID not found")
                         }
+                    }
+                    DispatchQueue.main.async {
+                        cell.configure(with: newModel, userName: safeUserData.userName, indexPath: indexPath)
+                        let likesIndexPath = IndexPath(row: 3, section: indexPath.section)
+                        self.tableView.reloadRows(at: [likesIndexPath], with: .none)
                     }
                 } else {
                     print("Failed to remove like")
@@ -416,16 +419,19 @@ extension HomeViewController: PostActionsTableViewCellDelegate {
                     self.feedRenderModels[indexPath.section - 1].post = PostRenderViewModel(renderType: .primaryContent(provider: newModel))
                     self.feedRenderModels[indexPath.section - 1].likes = PostRenderViewModel(renderType: .likes(provider: updatedLikeCount))
                     
-                    DatabaseManager.shared.addNotification(to: model.owner.userName, from: safeUserData, type: "like", post: PostSummary(identifier: model.identifier, thumbnailImage: model.thumbnailImage, postType: model.postType), notificationText: "\(safeUserData.userName) liked your post.") { success in
-                        if success {
-                            DispatchQueue.main.async {
-                                cell.configure(with: newModel, userName: safeUserData.userName, indexPath: indexPath)
-                                let likesIndexPath = IndexPath(row: 3, section: indexPath.section)
-                                self.tableView.reloadRows(at: [likesIndexPath], with: .none)
+                    if model.owner.userName != safeUserData.userName{
+                        DatabaseManager.shared.addNotification(to: model.owner.userName, from: safeUserData, type: "like", post: PostSummary(identifier: model.identifier, thumbnailImage: model.thumbnailImage, postType: model.postType), notificationText: "\(safeUserData.userName) liked your post.") { success in
+                            if success {
+                                print("Added notification to database")
+                            } else {
+                                print("Failed to add notification")
                             }
-                        } else {
-                            print("Failed to add notification")
                         }
+                    }
+                    DispatchQueue.main.async {
+                        cell.configure(with: newModel, userName: safeUserData.userName, indexPath: indexPath)
+                        let likesIndexPath = IndexPath(row: 3, section: indexPath.section)
+                        self.tableView.reloadRows(at: [likesIndexPath], with: .none)
                     }
                 } else {
                     print("Failed to add like")

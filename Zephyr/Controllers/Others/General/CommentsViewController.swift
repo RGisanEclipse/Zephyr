@@ -58,18 +58,18 @@ class CommentsViewController: UIViewController {
             // Empty comment scenario
             return
         }
-        guard let postID = model?.identifier, let currentUser = userData else {
+        guard let post = model, let currentUser = userData else {
             // Error fetching post or userData
             return
         }
-        let newComment = PostComment(postIdentifier: postID,
+        let newComment = PostComment(postIdentifier: post.identifier,
                                      userName: currentUser.userName,
                                      profilePicture: currentUser.profilePicture?.absoluteString ?? "",
                                      text: commentText,
                                      createdDate: Date(),
                                      likes: [],
                                      commentIdentifier: UUID().uuidString)
-        DatabaseManager.shared.addComment(to: postID, comment: newComment){ success in
+        DatabaseManager.shared.addComment(to: post.identifier, comment: newComment){ success in
             if success{
                 DispatchQueue.main.async {
                     self.commentsTextField.text = ""
@@ -77,7 +77,19 @@ class CommentsViewController: UIViewController {
                     newModel?.comments.insert(newComment, at: 0)
                     self.model = newModel
                     let indexSet = IndexSet(integer: 1)
-                    self.tableView.reloadSections(indexSet, with: .fade)
+                    if post.owner.userName == currentUser.userName{
+                        self.tableView.reloadSections(indexSet, with: .fade)
+                    } else{
+                        DatabaseManager.shared.addNotification(to: post.owner.userName, from: currentUser, type: "like", post: PostSummary(identifier: post.identifier, thumbnailImage: post.thumbnailImage, postType: post.postType), notificationText: "\(currentUser.userName) commented on your post: \(newComment.text)") { success in
+                            if success {
+                                DispatchQueue.main.async {
+                                    self.tableView.reloadSections(indexSet, with: .fade)
+                                }
+                            } else {
+                                print("Failed to add notification")
+                            }
+                        }
+                    }
                 }
             } else{
                 let alert = UIAlertController(title: "Error posting comment", message: "There was an internal server error while posting the comment", preferredStyle: .alert)
@@ -177,14 +189,30 @@ extension CommentsViewController: UITableViewDelegate{
         guard let commentToDelete = model?.comments[indexPath.row] else{
             return
         }
+        guard let safeUserData = userData else { return }
         DatabaseManager.shared.deleteComment(from: postID, comment: commentToDelete) { [weak self] success in
             if success {
                 DispatchQueue.main.async {
                     self?.model?.comments.remove(at: indexPath.row)
-                    self?.tableView.deleteRows(at: [indexPath], with: .fade)
                     guard let safeModel = self?.model else { return }
                     let safeComments = safeModel.comments
                     self?.delegate?.didUpdateComments(safeComments,safeModel)
+                    guard let safeModel = self?.model else { return }
+                    DatabaseManager.shared.fetchNotificationIDforComment(for: safeModel.owner.userName, by: safeUserData.userName, postIdentifier: safeModel.identifier, comment: commentToDelete.text) { notificationID in
+                        if let notificationID = notificationID {
+                            DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
+                                if success {
+                                    DispatchQueue.main.async {
+                                        self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                                    }
+                                } else {
+                                    print("Failed to remove notification")
+                                }
+                            }
+                        } else {
+                            print("Notification ID not found")
+                        }
+                    }
                 }
             } else {
                 let alert = UIAlertController(title: "Error", message: "Failed to delete the comment.", preferredStyle: .alert)
@@ -262,10 +290,21 @@ extension CommentsViewController: PostGeneralTableViewCellDelegate {
         if isLikedByCurrentUser {
             DatabaseManager.shared.removeCommentLike(from: model.commentIdentifier, by: currentUser) { [weak self] success in
                 if success {
-                    guard let self = self else { return }
+                    guard let self = self, let safePostModel = self.model else { return }
                     if let commentIndex = self.model?.comments.firstIndex(where: { $0.commentIdentifier == model.commentIdentifier }) {
                         print("Removing like from comment at index \(commentIndex)")
                         self.model?.comments[commentIndex].likes.removeAll { $0.userName == currentUser.userName }
+                        
+                        DatabaseManager.shared.fetchNotificationIDforCommentLike(for: safePostModel.owner.userName, by: currentUser.userName, post: safePostModel, comment: model.text) { notificationID in
+                            guard let notificationID = notificationID else { return }
+                            DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
+                                if success{
+                                    print("Successfully removed notification from database")
+                                } else{
+                                    print("Failed to remove notification from database")
+                                }
+                            }
+                        }
                         DispatchQueue.main.async {
                             cell.configure(with: self.model!.comments[commentIndex], userName: currentUser.userName)
                             self.delegate?.didUpdateComments(self.model!.comments, self.model!)
@@ -280,9 +319,16 @@ extension CommentsViewController: PostGeneralTableViewCellDelegate {
         } else {
             DatabaseManager.shared.addCommentLike(to: model.commentIdentifier, by: currentUser) { [weak self] success in
                 if success {
-                    guard let self = self else { return }
+                    guard let self = self, let safeModel = self.model else { return }
                     if let commentIndex = self.model?.comments.firstIndex(where: { $0.commentIdentifier == model.commentIdentifier }) {
                         self.model?.comments[commentIndex].likes.append(CommentLike(userName: currentUser.userName, commentIdentifier: model.commentIdentifier))
+                        DatabaseManager.shared.addNotification(to: safeModel.owner.userName, from: currentUser, type: "like", post: PostSummary(identifier: safeModel.identifier, thumbnailImage: safeModel.thumbnailImage, postType: safeModel.postType), notificationText: "\(currentUser.userName) liked your comment on \(safeModel.owner.userName)'s post: \(model.text)") { success in
+                            if success{
+                                print("Successfully added notification to database")
+                            } else{
+                                print("Failed to add notification to database")
+                            }
+                        }
                         DispatchQueue.main.async {
                             cell.configure(with: self.model!.comments[commentIndex], userName: currentUser.userName)
                             self.delegate?.didUpdateComments(self.model!.comments, self.model!)

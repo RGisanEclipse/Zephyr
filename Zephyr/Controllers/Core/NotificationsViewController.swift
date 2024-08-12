@@ -135,7 +135,16 @@ extension NotificationsViewController: NotificationFollowTableViewCellDelegate{
                     guard let self = self else { return }
                     if success {
                         self.updateFollowState(for: model, in: cell, to: .notFollowing)
-                        print("Successfully unfollowed user")
+                        DatabaseManager.shared.fetchNotificationIDforFollow(for: viewedUserName, with: currentUserName) { notificationID in
+                            guard let notificationID = notificationID else { return }
+                            DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
+                                if success{
+                                    print("Notification removed from database")
+                                } else{
+                                    print("Failed to remove notification to database")
+                                }
+                            }
+                        }
                     } else {
                         print("Failed to unfollow user")
                     }
@@ -144,7 +153,13 @@ extension NotificationsViewController: NotificationFollowTableViewCellDelegate{
                 DatabaseManager.shared.followUser(followerUserName: currentUserName, followedUserName: viewedUserName, followerProfilePicture: currentUser.profilePicture?.absoluteString ?? "", followedUserProfilePicture: model.user.profilePicture?.absoluteString ?? "") { success in
                     if success {
                         self.updateFollowState(for: model, in: cell, to: .following)
-                        print("Successfully followed user")
+                        DatabaseManager.shared.addNotification(to: viewedUserName, from: currentUser, type: "follow", post: nil, notificationText: "\(currentUserName) started following you.") { success in
+                            if success{
+                                print("Notification added to database")
+                            } else{
+                                print("Failed to add notification to database")
+                            }
+                        }
                     } else {
                         print("Failed to follow user")
                     }

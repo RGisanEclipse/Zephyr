@@ -154,8 +154,6 @@ public class DatabaseManager{
             "createDate": post.createDate,
             "taggedUsers": post.taggedUsers,
             "ownerUserName": post.owner.userName,
-            "likesPath": "posts/\(post.identifier)/likes",
-            "commentsPath": "posts/\(post.identifier)/comments"
         ]
         
         db.collection("posts").document(post.identifier).setData(postData) { error in
@@ -760,13 +758,28 @@ public class DatabaseManager{
                 }
             }
     }
-    func addNotification(to userName: String, from user: UserModel, type: String, post: PostSummary,notificationText: String ,completion: @escaping (Bool) -> Void) {
+    func addNotification(to userName: String, from user: UserModel, type: String, post: PostSummary?,notificationText: String ,completion: @escaping (Bool) -> Void) {
         let notificationID = UUID().uuidString
+        guard let post = post else{
+            let notificationData: [String: Any] = [
+                "notificationID": notificationID,
+                "type": type,
+                "text": notificationText,
+                "userName": userName,
+                "followerUserName": user.userName,
+                "profilePictureURL": user.profilePicture?.absoluteString ?? "",
+                "timestamp": FieldValue.serverTimestamp()
+            ]
+            db.collection("notifications").addDocument(data: notificationData) { error in
+                completion(error == nil)
+            }
+            return
+        }
         let notificationData: [String: Any] = [
             "notificationID": notificationID,
             "type": type,
             "text": notificationText,
-            "userName": user.userName,
+            "userName": userName,
             "profilePictureURL": user.profilePicture?.absoluteString ?? "",
             "identifier": post.identifier,
             "thumbnailImageURL": post.thumbnailImage.absoluteString,
@@ -778,7 +791,6 @@ public class DatabaseManager{
             completion(error == nil)
         }
     }
-
     func removeNotification(notificationID: String, completion: @escaping (Bool) -> Void) {
         let notificationRef = db.collection("notifications")
         notificationRef
@@ -825,10 +837,67 @@ public class DatabaseManager{
                 }
             }
     }
-    func fetchNotificationID(for userName: String, postIdentifier: String, completion: @escaping (String?) -> Void) {
+    func fetchNotificationIDforLike(for userName: String, by likerUserName: String,postIdentifier: String, completion: @escaping (String?) -> Void) {
         db.collection("notifications")
             .whereField("userName", isEqualTo: userName)
             .whereField("identifier", isEqualTo: postIdentifier)
+            .whereField("text", isEqualTo: "\(likerUserName) liked your post.")
+            .getDocuments { snapshot, error in
+                guard let documents = snapshot?.documents, error == nil else {
+                    print("Error fetching notifications: \(error?.localizedDescription ?? "No error description")")
+                    completion(nil)
+                    return
+                }
+                if let document = documents.first {
+                    let notificationID = document.data()["notificationID"] as? String
+                    completion(notificationID)
+                } else {
+                    completion(nil)
+                }
+            }
+    }
+    func fetchNotificationIDforComment(for userName: String, by commenterUserName: String, postIdentifier: String, comment: String, completion: @escaping (String?) -> Void) {
+        db.collection("notifications")
+            .whereField("userName", isEqualTo: userName)
+            .whereField("identifier", isEqualTo: postIdentifier)
+            .whereField("text", isEqualTo: "\(commenterUserName) commented on your post: \(comment)")
+            .getDocuments { snapshot, error in
+                guard let documents = snapshot?.documents, error == nil else {
+                    print("Error fetching notifications: \(error?.localizedDescription ?? "No error description")")
+                    completion(nil)
+                    return
+                }
+                if let document = documents.first {
+                    let notificationID = document.data()["notificationID"] as? String
+                    completion(notificationID)
+                } else {
+                    completion(nil)
+                }
+            }
+    }
+    func fetchNotificationIDforFollow(for userName: String, with followerUserName: String, completion: @escaping (String?) -> Void) {
+        db.collection("notifications")
+            .whereField("userName", isEqualTo: userName)
+            .whereField("followerUserName", isEqualTo: followerUserName)
+            .getDocuments { snapshot, error in
+                guard let documents = snapshot?.documents, error == nil else {
+                    print("Error fetching notifications: \(error?.localizedDescription ?? "No error description")")
+                    completion(nil)
+                    return
+                }
+                if let document = documents.first {
+                    let notificationID = document.data()["notificationID"] as? String
+                    completion(notificationID)
+                } else {
+                    completion(nil)
+                }
+            }
+    }
+    func fetchNotificationIDforCommentLike(for userName: String, by commenterUserName: String, post: UserPost, comment: String, completion: @escaping (String?) -> Void) {
+        db.collection("notifications")
+            .whereField("userName", isEqualTo: userName)
+            .whereField("identifier", isEqualTo: post.identifier)
+            .whereField("text", isEqualTo: "\(commenterUserName) liked your comment on \(post.owner.userName)'s post: \(comment)")
             .getDocuments { snapshot, error in
                 guard let documents = snapshot?.documents, error == nil else {
                     print("Error fetching notifications: \(error?.localizedDescription ?? "No error description")")

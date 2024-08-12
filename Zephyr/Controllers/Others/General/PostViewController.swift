@@ -354,7 +354,7 @@ extension PostViewController: PostActionsTableViewCellDelegate{
                     newModel.likeCount = updatedLikeCount
                     self.updateRenderModels(with: newModel)
                     
-                    DatabaseManager.shared.fetchNotificationID(for: safeUserData.userName, postIdentifier: model.identifier) { notificationID in
+                    DatabaseManager.shared.fetchNotificationIDforLike(for: model.owner.userName, by: safeUserData.userName, postIdentifier: model.identifier) { notificationID in
                         if let notificationID = notificationID {
                             DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
                                 if success {
