@@ -27,7 +27,7 @@ class CreatePostViewController: UIViewController {
         captionTextView.text = "Write a caption"
         loadAsset()
         spinner.isHidden = true
-        spinner.type = .circleStrokeSpin
+        spinner.type = .ballPulse
         spinner.color = .BW
         dimmedView.isHidden = true
         fetchUserData()
@@ -271,7 +271,7 @@ class CreatePostViewController: UIViewController {
                                postType: type,
                                thumbnailImage: thumbnail,
                                postURL: postURL,
-                               caption: caption,
+                               caption: caption == "Write a caption" ? "" : caption,
                                likeCount: [],
                                comments: [],
                                createDate: Date(),

@@ -133,6 +133,62 @@ extension NotificationsViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let user = currentUserData else {
+            return nil
+        }
+        
+        let notification = models[indexPath.row]
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completionHandler in
+            guard let self = self else { return }
+            
+            switch notification.type {
+            case .follow(_):
+                let viewedUserName = notification.user.userName
+                DatabaseManager.shared.fetchNotificationIDforFollow(for: user.userName, with: viewedUserName) { notificationID in
+                    guard let notificationID = notificationID else {
+                        completionHandler(false)
+                        return
+                    }
+                    DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
+                        if success {
+                            self.models.remove(at: indexPath.row)
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                            if self.models.isEmpty {
+                                self.noNotificationsView.isHidden = false
+                            }
+                        } else {
+                            print("Failed to delete notification")
+                        }
+                        completionHandler(success)
+                    }
+                }
+                
+            case .like(let post):
+                DatabaseManager.shared.fetchNotificationIDforLike(for: user.userName, by: notification.user.userName, postIdentifier: post.identifier) { notificationID in
+                    guard let notificationID = notificationID else {
+                        completionHandler(false)
+                        return
+                    }
+                    DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
+                        if success {
+                            self.models.remove(at: indexPath.row)
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                            if self.models.isEmpty {
+                                self.noNotificationsView.isHidden = false
+                            }
+                        } else {
+                            print("Failed to delete notification")
+                        }
+                        completionHandler(success)
+                    }
+                }
+            }
+        }
+        deleteAction.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
 }
 
 // MARK: - NotificationFollowTableViewCellDelegate

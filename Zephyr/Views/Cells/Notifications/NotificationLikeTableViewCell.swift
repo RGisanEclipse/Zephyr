@@ -50,7 +50,18 @@ class NotificationLikeTableViewCell: UITableViewCell {
         case.follow:
             break
         }
-        contentLabel.text = "\(model.text) \(formattedTimeAgo(from: model.date))"
+        let mainText = "\(model.text)  "
+        let timeAgo = formattedTimeAgo(from: model.date)
+        let attributedMainText = NSAttributedString(string: mainText, attributes: [
+            .foregroundColor: UIColor.label
+        ])
+        let attributedDateText = NSAttributedString(string: timeAgo, attributes: [
+            .foregroundColor: UIColor.systemGray
+        ])
+        let finalAttributedText = NSMutableAttributedString()
+        finalAttributedText.append(attributedMainText)
+        finalAttributedText.append(attributedDateText)
+        contentLabel.attributedText = finalAttributedText
         profilePictureButton.sd_setImage(with: model.user.profilePicture, for: .normal, completed: nil)
     }
     private func formattedTimeAgo(from date: Date) -> String {

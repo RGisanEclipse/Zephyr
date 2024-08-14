@@ -97,12 +97,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJ1-xf-IeB">
                                 <rect key="frame" x="0.0" y="96" width="430" height="784"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uploading Post" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a75-Ri-aYS">
-                                        <rect key="frame" x="148" y="323" width="134" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X90-xq-43z" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
                                         <rect key="frame" x="185" y="362" width="60" height="60"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -114,11 +108,8 @@
                                 </subviews>
                                 <color key="backgroundColor" name="WB"/>
                                 <constraints>
-                                    <constraint firstItem="a75-Ri-aYS" firstAttribute="centerX" secondItem="IJ1-xf-IeB" secondAttribute="centerX" id="0Wi-Ka-YX3"/>
                                     <constraint firstItem="X90-xq-43z" firstAttribute="centerX" secondItem="IJ1-xf-IeB" secondAttribute="centerX" id="5Jc-Kh-bw7"/>
                                     <constraint firstItem="X90-xq-43z" firstAttribute="centerY" secondItem="IJ1-xf-IeB" secondAttribute="centerY" id="RGr-wL-68e"/>
-                                    <constraint firstItem="X90-xq-43z" firstAttribute="top" secondItem="a75-Ri-aYS" secondAttribute="bottom" constant="15" id="pDY-vF-d9c"/>
-                                    <constraint firstItem="X90-xq-43z" firstAttribute="top" secondItem="a75-Ri-aYS" secondAttribute="bottom" constant="15" id="rab-YZ-Z2j"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7II-z9-IOO">
@@ -586,18 +577,10 @@
                                             <constraint firstAttribute="width" constant="60" id="amx-mj-aG9"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updating Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dV4-r8-Pn3">
-                                        <rect key="frame" x="144.66666666666666" y="350.66666666666669" width="140.99999999999997" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" name="WB"/>
                                 <constraints>
-                                    <constraint firstItem="dV4-r8-Pn3" firstAttribute="centerX" secondItem="tfM-4b-qpn" secondAttribute="centerX" id="UpU-Ew-97f"/>
                                     <constraint firstItem="aUd-P8-KfP" firstAttribute="centerY" secondItem="tfM-4b-qpn" secondAttribute="centerY" id="YKj-MT-wQA"/>
-                                    <constraint firstItem="aUd-P8-KfP" firstAttribute="top" secondItem="dV4-r8-Pn3" secondAttribute="bottom" constant="15" id="b6C-kz-kBR"/>
                                     <constraint firstItem="aUd-P8-KfP" firstAttribute="centerX" secondItem="tfM-4b-qpn" secondAttribute="centerX" id="zkR-3Y-sIf"/>
                                 </constraints>
                             </view>
