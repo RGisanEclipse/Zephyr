@@ -11,6 +11,7 @@ struct UserNotificationModel{
     let text: String
     let user: UserModel
     let identifier: String
+    let date: Date
 }
 enum UserNotificationType{
     case like(post: PostSummary)

@@ -967,7 +967,8 @@ public class DatabaseManager{
                 for document in documents {
                     let data = document.data()
                     guard let typeString = data["type"] as? String,
-                          let text = data["text"] as? String else {
+                          let text = data["text"] as? String,
+                    let timestamp = data["timestamp"] as? Timestamp else {
                         continue
                     }
                     group.enter()
@@ -985,7 +986,8 @@ public class DatabaseManager{
                                     type: .follow(state: followType),
                                     text: text,
                                     user: fetchedUserData,
-                                    identifier: document.documentID
+                                    identifier: document.documentID,
+                                    date: timestamp.dateValue()
                                 )
                                 notifications.append(notification)
                             case .failure(let error):
@@ -1013,7 +1015,8 @@ public class DatabaseManager{
                                     type: .like(post: post),
                                     text: text,
                                     user: fetchedUserData,
-                                    identifier: document.documentID
+                                    identifier: document.documentID,
+                                    date: timestamp.dateValue()
                                 )
                                 notifications.append(notification)
                             case .failure(let error):

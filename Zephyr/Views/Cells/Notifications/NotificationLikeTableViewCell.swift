@@ -50,7 +50,34 @@ class NotificationLikeTableViewCell: UITableViewCell {
         case.follow:
             break
         }
-        contentLabel.text = model.text
+        contentLabel.text = "\(model.text) \(formattedTimeAgo(from: model.date))"
         profilePictureButton.sd_setImage(with: model.user.profilePicture, for: .normal, completed: nil)
     }
+    private func formattedTimeAgo(from date: Date) -> String {
+        let secondsAgo = Int(Date().timeIntervalSince(date))
+        
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        let week = 7 * day
+        
+        if secondsAgo < minute {
+            return "\(secondsAgo)s"
+        } else if secondsAgo < hour {
+            return "\(secondsAgo / minute)m"
+        } else if secondsAgo < day {
+            return "\(secondsAgo / hour)h"
+        } else if secondsAgo < week {
+            return "\(secondsAgo / day)d"
+        } else {
+            let formatter = DateFormatter()
+            if Calendar.current.component(.year, from: date) == Calendar.current.component(.year, from: Date()) {
+                formatter.dateFormat = "MMM d"
+            } else {
+                formatter.dateFormat = "MMM yyyy"
+            }
+            return formatter.string(from: date)
+        }
+    }
+
 }
