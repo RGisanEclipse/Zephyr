@@ -27,7 +27,6 @@ class NotificationsViewController: UIViewController {
         loadingSpinner.color = .BW
         loadingSpinner.startAnimating()
         view.bringSubviewToFront(loadingSpinner)
-        fetchNotifications()
         tableView.register(UINib(nibName: Constants.Notifications.likeCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Notifications.likeCellIdentifier)
         tableView.register(UINib(nibName: Constants.Notifications.followCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Notifications.followCellIdentifier)
         tableView.dataSource = self
@@ -52,7 +51,6 @@ class NotificationsViewController: UIViewController {
         }
     }
     private func fetchNotifications() {
-        fetchCurrentUserData()
         guard let user = currentUserData else {
             print("Current user data not available")
             return
@@ -71,6 +69,10 @@ class NotificationsViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @IBAction func refreshButtonPressed(_ sender: UIButton) {
+        fetchNotifications()
     }
 }
 // MARK: - UITableViewDataSource

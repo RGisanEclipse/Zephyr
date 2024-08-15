@@ -183,7 +183,7 @@ struct PostComment{
                 return nil
             }
             let createdDate = createdDateTimestamp.dateValue()
-            var likes: [CommentLike] = []
+            let likes: [CommentLike] = []
             self.postIdentifier = postIdentifier
             self.userName = userName
             self.profilePicture = profilePicture
