@@ -12,6 +12,7 @@ class NotificationsViewController: UIViewController {
     @IBOutlet weak var loadingSpinner: NVActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noNotificationsView: UIStackView!
+    @IBOutlet weak var refreshButton: UIButton!
     private var refreshControl = UIRefreshControl()
     private var models = [UserNotificationModel]()
     private var postModel: PostSummary?
@@ -26,6 +27,8 @@ class NotificationsViewController: UIViewController {
         loadingSpinner.type = .circleStrokeSpin
         loadingSpinner.color = .BW
         loadingSpinner.startAnimating()
+        refreshButton.layer.cornerRadius = CGFloat(8)
+        refreshButton.backgroundColor = UIColor(named: "BW")
         view.bringSubviewToFront(loadingSpinner)
         tableView.register(UINib(nibName: Constants.Notifications.likeCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Notifications.likeCellIdentifier)
         tableView.register(UINib(nibName: Constants.Notifications.followCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Notifications.followCellIdentifier)
