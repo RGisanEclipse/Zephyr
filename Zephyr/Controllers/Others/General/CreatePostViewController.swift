@@ -85,14 +85,39 @@ class CreatePostViewController: UIViewController {
                 let generator = AVAssetImageGenerator(asset: avAsset)
                 generator.appliesPreferredTrackTransform = true
                 let time = CMTime(seconds: 0.5, preferredTimescale: 600)
-                do {
-                    let cgImage = try generator.copyCGImage(at: time, actualTime: nil)
+                generator.generateCGImageAsynchronously(for: time) { cgImage, CMTime, error in
+                    if let error = error {
+                        print("Error generating thumbnail: \(error.localizedDescription)")
+                        DispatchQueue.main.async {
+                            self.imageView.image = nil
+                        }
+                        return
+                    }
+                    
+                    guard let cgImage = cgImage else {
+                        print("Failed to generate CGImage")
+                        DispatchQueue.main.async {
+                            self.imageView.image = nil
+                        }
+                        return
+                    }
+                    
                     let thumbnail = UIImage(cgImage: cgImage)
-                    self.imageView.image = thumbnail
-                } catch let error {
-                    print("Error generating thumbnail: \(error.localizedDescription)")
-                    self.imageView.image = nil
+                    DispatchQueue.main.async {
+                        self.imageView.image = thumbnail
+                    }
                 }
+                
+                // copyCGImage was deprecated in iOS18
+                
+//                do {
+//                    let cgImage = try generator.copyCGImage(at: time, actualTime: nil)
+//                    let thumbnail = UIImage(cgImage: cgImage)
+//                    self.imageView.image = thumbnail
+//                } catch let error {
+//                    print("Error generating thumbnail: \(error.localizedDescription)")
+//                    self.imageView.image = nil
+//                }
             }
         }
     }
@@ -199,34 +224,55 @@ class CreatePostViewController: UIViewController {
                     let generator = AVAssetImageGenerator(asset: avAsset)
                     generator.appliesPreferredTrackTransform = true
                     let time = CMTime(seconds: 0.5, preferredTimescale: 600)
-                    do {
-                        let cgImage = try generator.copyCGImage(at: time, actualTime: nil)
-                        let thumbnail = UIImage(cgImage: cgImage)
-                        StorageManager.shared.uploadImage(data: thumbnail.jpegData(compressionQuality: 0.8)!) { [weak self] thumbnailURL in
-                            guard let self = self, let thumbnailURL = thumbnailURL else {
-                                print("Failed to upload thumbnail")
-                                DispatchQueue.main.async {
-                                    self?.spinner.stopAnimating()
-                                    self?.dimmedView.isHidden = true
-                                    self?.navigationController?.setNavigationBarHidden(false, animated: false)
-                                }
-                                return
-                            }
-                            print("Uploaded thumbnail successfully at \(thumbnailURL.absoluteString)")
-                            self.createPost(with: url, type: .video, caption: caption, thumbnailURL: thumbnailURL)
+                    generator.generateCGImageAsynchronously(for: time) { cgImage, CMTime, error in
+                        if let error = error {
+                            print("Error generating thumbnail: \(error.localizedDescription)")
                             DispatchQueue.main.async {
                                 self.spinner.stopAnimating()
                                 self.dimmedView.isHidden = true
                                 self.navigationController?.setNavigationBarHidden(false, animated: false)
-                                self.navigationController?.popToRootViewController(animated: true)
                             }
+                            return
                         }
-                    } catch let error {
-                        print("Error generating thumbnail: \(error.localizedDescription)")
-                        DispatchQueue.main.async {
-                            self.spinner.stopAnimating()
-                            self.dimmedView.isHidden = true
-                            self.navigationController?.setNavigationBarHidden(false, animated: false)
+                        guard let cgImage = cgImage else {
+                            print("Failed to generate CGImage")
+                            DispatchQueue.main.async {
+                                self.spinner.stopAnimating()
+                                self.dimmedView.isHidden = true
+                                self.navigationController?.setNavigationBarHidden(false, animated: false)
+                            }
+                            return
+                        }
+                        let thumbnail = UIImage(cgImage: cgImage)
+                        if let thumbnailData = thumbnail.jpegData(compressionQuality: 0.8) {
+                            StorageManager.shared.uploadImage(data: thumbnailData) { [weak self] thumbnailURL in
+                                guard let self = self else { return }
+                                
+                                if let thumbnailURL = thumbnailURL {
+                                    print("Uploaded thumbnail successfully at \(thumbnailURL.absoluteString)")
+                                    self.createPost(with: url, type: .video, caption: caption, thumbnailURL: thumbnailURL)
+                                    DispatchQueue.main.async {
+                                        self.spinner.stopAnimating()
+                                        self.dimmedView.isHidden = true
+                                        self.navigationController?.setNavigationBarHidden(false, animated: false)
+                                        self.navigationController?.popToRootViewController(animated: true)
+                                    }
+                                } else {
+                                    print("Failed to upload thumbnail")
+                                    DispatchQueue.main.async {
+                                        self.spinner.stopAnimating()
+                                        self.dimmedView.isHidden = true
+                                        self.navigationController?.setNavigationBarHidden(false, animated: false)
+                                    }
+                                }
+                            }
+                        } else {
+                            print("Failed to convert thumbnail to JPEG data")
+                            DispatchQueue.main.async {
+                                self.spinner.stopAnimating()
+                                self.dimmedView.isHidden = true
+                                self.navigationController?.setNavigationBarHidden(false, animated: false)
+                            }
                         }
                     }
                 }

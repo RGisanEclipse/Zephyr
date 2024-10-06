@@ -84,13 +84,40 @@ class UploadMediaCollectionViewCell: UICollectionViewCell {
                     let generator = AVAssetImageGenerator(asset: avAsset)
                     generator.appliesPreferredTrackTransform = true
                     let time = CMTime(seconds: 0.5, preferredTimescale: 600)
-                    do {
-                        let cgImage = try generator.copyCGImage(at: time, actualTime: nil)
+                    
+                    // copyCGImage was Deprecated in iOS18
+                    
+//                    do {
+//                        let cgImage = try generator.copyCGImage(at: time, actualTime: nil)
+//                        let thumbnail = UIImage(cgImage: cgImage)
+//                        self.imageView.image = thumbnail
+//                    } catch let error {
+//                        print("Error generating thumbnail: \(error.localizedDescription)")
+//                        self.imageView.image = nil
+//                    }
+                    
+                    generator.generateCGImageAsynchronously(for: time) { cgImage, CMTime, error in
+
+                        if let error = error {
+                            print("Error generating thumbnail: \(error.localizedDescription)")
+                            DispatchQueue.main.async {
+                                self.imageView.image = nil
+                            }
+                            return
+                        }
+
+                        guard let cgImage = cgImage else {
+                            print("Failed to generate CGImage")
+                            DispatchQueue.main.async {
+                                self.imageView.image = nil
+                            }
+                            return
+                        }
+
                         let thumbnail = UIImage(cgImage: cgImage)
-                        self.imageView.image = thumbnail
-                    } catch let error {
-                        print("Error generating thumbnail: \(error.localizedDescription)")
-                        self.imageView.image = nil
+                        DispatchQueue.main.async {
+                            self.imageView.image = thumbnail
+                        }
                     }
                 }
             }
