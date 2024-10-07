@@ -24,7 +24,7 @@ class ListViewController: UIViewController {
         fetchCurrentUserData()
         emptyView.isHidden = true
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.topItem?.title = " "
+        self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationItem.title = viewTitle ?? "List View"
         if data.isEmpty{
             tableView.isHidden = true
