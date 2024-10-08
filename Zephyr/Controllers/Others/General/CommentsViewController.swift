@@ -198,19 +198,26 @@ extension CommentsViewController: UITableViewDelegate{
                     let safeComments = safeModel.comments
                     self?.delegate?.didUpdateComments(safeComments,safeModel)
                     guard let safeModel = self?.model else { return }
-                    DatabaseManager.shared.fetchNotificationIDforComment(for: safeModel.owner.userName, by: safeUserData.userName, postIdentifier: safeModel.identifier, comment: commentToDelete.text) { notificationID in
-                        if let notificationID = notificationID {
-                            DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
-                                if success {
-                                    DispatchQueue.main.async {
-                                        self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                    guard let safeUserData = self?.userData else { return }
+                    if commentToDelete.userName != safeUserData.userName {
+                        DatabaseManager.shared.fetchNotificationIDforComment(for: safeModel.owner.userName, by: safeUserData.userName, postIdentifier: safeModel.identifier, comment: commentToDelete.text) { notificationID in
+                            if let notificationID = notificationID {
+                                DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
+                                    if success {
+                                        DispatchQueue.main.async {
+                                            self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                                        }
+                                    } else {
+                                        print("Failed to remove notification")
                                     }
-                                } else {
-                                    print("Failed to remove notification")
                                 }
+                            } else {
+                                print("Notification ID not found")
                             }
-                        } else {
-                            print("Notification ID not found")
+                        }
+                    } else{
+                        DispatchQueue.main.async {
+                            self?.tableView.deleteRows(at: [indexPath], with: .fade)
                         }
                     }
                 }

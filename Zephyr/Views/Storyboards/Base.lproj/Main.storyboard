@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MBn-Ii-JE3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MBn-Ii-JE3">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -315,8 +315,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                             </textField>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="y1u-HJ-TVr">
-                                <rect key="frame" x="15" y="839" width="35" height="33.666666666666629"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="y1u-HJ-TVr">
+                                <rect key="frame" x="15" y="838" width="35" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="FKa-Pm-cVX"/>
                                     <constraint firstAttribute="width" constant="35" id="H17-MF-QqB"/>
@@ -1298,7 +1298,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="yeI-wc-WIq"/>
         <segue reference="4f8-ZT-ak6"/>
-        <segue reference="u7S-xn-D8d"/>
+        <segue reference="pof-Wn-ZLp"/>
         <segue reference="Ug1-UI-m2f"/>
         <segue reference="Q0E-0G-eJa"/>
     </inferredMetricsTieBreakers>
@@ -1311,10 +1311,10 @@
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
-        <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="placeholder" width="360" height="360"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
+        <image name="userPlaceholder" width="133.33332824707031" height="121.66666412353516"/>
         <namedColor name="BW">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
