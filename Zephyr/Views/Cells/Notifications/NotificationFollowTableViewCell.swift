@@ -40,6 +40,7 @@ class NotificationFollowTableViewCell: UITableViewCell {
         delegate?.didTapFollowButton(with: model, cell: self)
     }
     func configure(with model: UserNotificationModel){
+        self.model = model
         let mainText = "\(model.text)  "
         let timeAgo = formattedTimeAgo(from: model.date)
         let attributedMainText = NSAttributedString(string: mainText, attributes: [

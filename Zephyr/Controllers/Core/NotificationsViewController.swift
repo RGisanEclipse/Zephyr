@@ -39,7 +39,6 @@ class NotificationsViewController: UIViewController {
     }
     @objc private func refreshData(_ sender: Any) {
         fetchNotifications()
-        self.refreshControl.endRefreshing()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -70,6 +69,7 @@ class NotificationsViewController: UIViewController {
                 } else {
                     self.noNotificationsView.isHidden = true
                 }
+                self.refreshControl.endRefreshing()
             }
         }
     }
