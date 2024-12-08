@@ -28,9 +28,7 @@ class ExploreViewController: UIViewController {
         collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        for _ in 0..<30{
-            postsData.append(PostSummary(identifier: "xyz", thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postType: .photo))
-        }
+        fetchPosts()
         searchController.searchResultsUpdater = self
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         collectionView.refreshControl = refreshControl
@@ -48,8 +46,18 @@ class ExploreViewController: UIViewController {
             self.userData = user
         }
     }
+    private func fetchPosts(){
+        DatabaseManager.shared.fetchAllPostSummaries { postSummaries in
+            if let postSummaries = postSummaries {
+                self.postsData = postSummaries
+                self.collectionView.reloadSections(IndexSet(integer: 0))
+            } else {
+                print("Failed to fetch post summaries.")
+            }
+        }
+    }
     @objc private func refreshData(_ sender: Any) {
-        // Fetch Posts
+        self.fetchPosts()
         self.refreshControl.endRefreshing()
     }
 }
@@ -62,6 +70,7 @@ extension ExploreViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Profile.cellIdentifier, for: indexPath) as! ProfileCollectionViewCell
+        print(indexPath.row)
         let post = postsData[indexPath.row]
         cell.configure(with: post)
         return cell

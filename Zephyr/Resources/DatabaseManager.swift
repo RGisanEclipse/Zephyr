@@ -710,6 +710,45 @@ public class DatabaseManager{
                 }
             }
     }
+    func fetchAllPostSummaries(completion: @escaping ([PostSummary]?) -> Void) {
+        db.collection("posts")
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching posts: \(error.localizedDescription)")
+                    completion(nil)
+                    return
+                }
+                
+                guard let documents = querySnapshot?.documents else {
+                    print("No posts found")
+                    completion(nil)
+                    return
+                }
+                
+                var postSummaries: [PostSummary] = []
+                let dispatchGroup = DispatchGroup()
+                
+                for document in documents {
+                    let postIdentifier = document.documentID
+                    
+                    dispatchGroup.enter()
+                    DatabaseManager.shared.fetchPostSummary(for: postIdentifier) { postSummary in
+                        if let postSummary = postSummary {
+                            postSummaries.append(postSummary)
+                        } else {
+                            print("Failed to fetch summary for post \(postIdentifier)")
+                        }
+                        dispatchGroup.leave()
+                    }
+                }
+                
+                dispatchGroup.notify(queue: .main) {
+                    let shuffledSummaries = postSummaries.shuffled()
+                    completion(shuffledSummaries)
+                }
+            }
+    }
+
     func fetchPostComments(for postIdentifier: String, completion: @escaping ([PostComment]?) -> Void) {
         db.collection("postComments")
             .whereField("postIdentifier", isEqualTo: postIdentifier)
