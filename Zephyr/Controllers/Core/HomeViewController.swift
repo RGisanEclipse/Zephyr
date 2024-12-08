@@ -23,7 +23,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         fetchUserData()
-        createMockModels()
+        fetchPosts()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: Constants.Post.headerCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.Post.headerCellIdentifier)
@@ -46,7 +46,7 @@ class HomeViewController: UIViewController {
         }
     }
     @objc private func refreshData(_ sender: Any) {
-        // Fetch Posts
+        fetchPosts()
         self.refreshControl.endRefreshing()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -62,30 +62,12 @@ class HomeViewController: UIViewController {
             }
         }
     }
-    private func createMockModels(){
-        DispatchQueue.global().async {
-            var comments = [PostComment]()
-            comments.append(PostComment(postIdentifier: "x", userName: "TheJoker", profilePicture: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885", text: "Wanna know how I got that smile?", createdDate: Date(), likes: [],commentIdentifier: "abc"))
-            comments.append(PostComment(postIdentifier: "y", userName: "TheRiddler", profilePicture: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509", text: "Let's meet at Iceberg Lounge :)", createdDate: Date(), likes: [], commentIdentifier: "bca"))
-            let post = UserPost(identifier: "abc", postType: .photo, thumbnailImage: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, postURL: URL(string: "https://im.rediff.com/movies/2022/mar/04the-batman1.jpg?w=670&h=900")!, caption: "The Batman (2022)", likeCount: [PostLike(userName: "TheJoker", profilePicture: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885", postIdentifier: "x"), PostLike(userName: "TheRiddler", profilePicture: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509", postIdentifier: "x")], comments: comments, createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts:[],followers: [], following: []))
-            let post2 = UserPost(identifier: "xyz", postType: .photo, thumbnailImage: URL(string: "https://www.cnet.com/a/img/resize/ea66ddc9276eef2884da221adc70ed1cf1545951/hub/2021/10/16/11804578-0dbc-42af-bcd1-3bc7b1394962/the-batman-2022-teaser-poster-batman-01-promo.jpg?auto=webp&fit=crop&height=675&width=1200")!, postURL: URL(string: "https://www.cnet.com/a/img/resize/ea66ddc9276eef2884da221adc70ed1cf1545951/hub/2021/10/16/11804578-0dbc-42af-bcd1-3bc7b1394962/the-batman-2022-teaser-poster-batman-01-promo.jpg?auto=webp&fit=crop&height=675&width=1200")!, caption: "The Batman (2022) post 2", likeCount: [PostLike(userName: "TheJoker", profilePicture: "https://cdna.artstation.com/p/assets/images/images/035/033/866/large/alexander-hodlmoser-square-color.jpg?1613934885", postIdentifier: "x"), PostLike(userName: "TheRiddler", profilePicture: "https://cdna.artstation.com/p/assets/covers/images/006/212/068/large/william-gray-gotham-riddler-square.jpg?1496839509", postIdentifier: "xy")], comments: comments, createDate: Date(), taggedUsers: [], owner: UserModel(userName: "TheBatman", profilePicture: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yWDu-i3sbrtGUoAnYqKyZcf-RbSRqsRtYg&s")!, bio: "", name: (first: "", last: ""), birthDate: Date(), gender: .male, counts: UserCount(posts: 1, followers: 1, following: 1), joinDate: Date(), posts:[],followers: [], following: []))
-            let viewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: post)),
-                                                post: PostRenderViewModel(renderType: .primaryContent(provider: post)),
-                                                actions: PostRenderViewModel(renderType: .actions(provider: post)),
-                                                likes: PostRenderViewModel(renderType: .likes(provider: post.likeCount)),
-                                                caption: PostRenderViewModel(renderType: .caption(provider: post.caption ?? "")),
-                                                comments: PostRenderViewModel(renderType: .comments(provider: post)))
-            let secondViewModel = HomeRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: post)),
-                                                      post: PostRenderViewModel(renderType: .primaryContent(provider: post2)),
-                                                      actions: PostRenderViewModel(renderType: .actions(provider: post2)),
-                                                      likes: PostRenderViewModel(renderType: .likes(provider: post2.likeCount)),
-                                                      caption: PostRenderViewModel(renderType: .caption(provider: post2.caption ?? "")),
-                                                      comments: PostRenderViewModel(renderType: .comments(provider: post2)))
-            self.feedRenderModels.append(viewModel)
-            self.feedRenderModels.append(secondViewModel)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+    private func fetchPosts() {
+        DatabaseManager.shared.fetchRandomPosts { [weak self] renderModels in
+            guard let self = self else { return }
+            self.feedRenderModels.removeAll()
+            self.feedRenderModels = renderModels
+            self.tableView.reloadData()
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

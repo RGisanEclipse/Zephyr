@@ -28,7 +28,15 @@ class PostTableViewCell: UITableViewCell {
     }
     override func prepareForReuse() {
         super.prepareForReuse()
+        player?.pause()
+        player = nil
+        playerLayer.removeFromSuperlayer()
+        postImageView.isHidden = false
+        postImageView.image = nil
+        speakerButton.isHidden = true
+        spinner.isHidden = true
     }
+
     func configure(with model: UserPost) {
         switch model.postType {
         case .photo:
@@ -53,9 +61,12 @@ class PostTableViewCell: UITableViewCell {
             DispatchQueue.main.async {
                 self.spinner.startAnimating()
                 self.spinner.isHidden = false
-                self.player = player
                 self.postImageView.isHidden = true
                 self.speakerButton.isHidden = false
+                if self.playerLayer.superlayer == nil {
+                    self.contentView.layer.addSublayer(self.playerLayer)
+                }
+                self.player = player
                 self.playerLayer.player = player
                 self.playerLayer.frame = self.contentView.bounds
                 self.player?.volume = 0
@@ -66,6 +77,7 @@ class PostTableViewCell: UITableViewCell {
             }
         }
     }
+
     
     override func layoutSubviews() {
         super.layoutSubviews()

@@ -604,6 +604,81 @@ public class DatabaseManager{
                 }
             }
     }
+    func fetchRandomPosts(completion: @escaping ([HomeRenderViewModel]) -> Void) {
+            db.collection("posts")
+                .getDocuments { querySnapshot, error in
+                    if let error = error {
+                        print("Error fetching posts: \(error.localizedDescription)")
+                        completion([])
+                        return
+                    }
+                    var posts: [UserPost] = []
+                    let dispatchGroup = DispatchGroup()
+                    for document in querySnapshot?.documents ?? [] {
+                        let postData = document.data()
+                        guard let ownerUserName = postData["ownerUserName"] as? String else {
+                            print("Owner userName not found in post data")
+                            continue
+                        }
+                        dispatchGroup.enter()
+                        self.fetchUserData(with: ownerUserName) { result in
+                            switch result {
+                            case .success(let ownerData):
+                                guard var userPost = UserPost(documentData: postData, ownerData: ownerData) else {
+                                    print("Error initializing UserPost")
+                                    dispatchGroup.leave()
+                                    return
+                                }
+                                let postDispatchGroup = DispatchGroup()
+                                postDispatchGroup.enter()
+                                self.fetchPostLikes(for: userPost.identifier) { likes in
+                                    if let likes = likes {
+                                        userPost.likeCount = likes
+                                    } else {
+                                        print("Error fetching post likes")
+                                    }
+                                    postDispatchGroup.leave()
+                                }
+                                
+                                postDispatchGroup.enter()
+                                self.fetchPostComments(for: userPost.identifier) { comments in
+                                    if let comments = comments {
+                                        userPost.comments = comments
+                                    } else {
+                                        print("Error fetching post comments")
+                                    }
+                                    postDispatchGroup.leave()
+                                }
+                                postDispatchGroup.notify(queue: .main) {
+                                    posts.append(userPost)
+                                    dispatchGroup.leave()
+                                }
+                            case .failure(let error):
+                                print("Error fetching owner data: \(error.localizedDescription)")
+                                dispatchGroup.leave()
+                            }
+                        }
+                    }
+                    dispatchGroup.notify(queue: .main) {
+                        let shuffledPosts = posts.shuffled()
+                        var renderModels: [HomeRenderViewModel] = []
+                        
+                        for post in shuffledPosts {
+                            let viewModel = HomeRenderViewModel(
+                                header: PostRenderViewModel(renderType: .header(provider: post)),
+                                post: PostRenderViewModel(renderType: .primaryContent(provider: post)),
+                                actions: PostRenderViewModel(renderType: .actions(provider: post)),
+                                likes: PostRenderViewModel(renderType: .likes(provider: post.likeCount)),
+                                caption: PostRenderViewModel(renderType: .caption(provider: post.caption ?? "")),
+                                comments: PostRenderViewModel(renderType: .comments(provider: post))
+                            )
+                            renderModels.append(viewModel)
+                        }
+                        completion(renderModels)
+                    }
+                }
+        }
+
     func fetchPostSummary(for postIdentifier: String, completion: @escaping (PostSummary?) -> Void) {
         db.collection("posts")
             .whereField("identifier", isEqualTo: postIdentifier)
