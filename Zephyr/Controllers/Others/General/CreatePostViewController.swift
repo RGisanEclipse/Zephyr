@@ -321,7 +321,6 @@ class CreatePostViewController: UIViewController {
                                likeCount: [],
                                comments: [],
                                createDate: Date(),
-                               taggedUsers: [],
                                owner: userData)
         
         DatabaseManager.shared.savePost(newPost) { success in

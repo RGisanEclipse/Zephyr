@@ -31,6 +31,8 @@
 		B91B50A62C21A98900DC212E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50A52C21A98900DC212E /* SettingsViewController.swift */; };
 		B91B50A82C21A99600DC212E /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50A72C21A99600DC212E /* ListViewController.swift */; };
 		B91B50AC2C21A9CC00DC212E /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B50AB2C21A9CC00DC212E /* SearchResultViewController.swift */; };
+		B92505622D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92505602D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.swift */; };
+		B92505632D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B92505612D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.xib */; };
 		B930612C2C246B5B001AA2A2 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930612B2C246B5B001AA2A2 /* SettingsModel.swift */; };
 		B933BD7A2C3BFA9E008D887D /* PostHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B933BD782C3BFA9E008D887D /* PostHeaderTableViewCell.swift */; };
 		B933BD7B2C3BFA9E008D887D /* PostHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B933BD792C3BFA9E008D887D /* PostHeaderTableViewCell.xib */; };
@@ -124,6 +126,8 @@
 		B91B50A52C21A98900DC212E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B91B50A72C21A99600DC212E /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		B91B50AB2C21A9CC00DC212E /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		B92505602D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUserProfileTabsCollectionReusableView.swift; sourceTree = "<group>"; };
+		B92505612D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewUserProfileTabsCollectionReusableView.xib; sourceTree = "<group>"; };
 		B930612B2C246B5B001AA2A2 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		B933BD782C3BFA9E008D887D /* PostHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		B933BD792C3BFA9E008D887D /* PostHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostHeaderTableViewCell.xib; sourceTree = "<group>"; };
@@ -226,6 +230,8 @@
 			children = (
 				B9152F0B2C315209006B22D6 /* ProfileTabsCollectionReusableView.swift */,
 				B9152F0C2C315209006B22D6 /* ProfileTabsCollectionReusableView.xib */,
+				B92505602D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.swift */,
+				B92505612D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.xib */,
 			);
 			path = ProfileTabs;
 			sourceTree = "<group>";
@@ -569,6 +575,7 @@
 				B933BD872C3BFB9F008D887D /* PostTableViewCell.xib in Resources */,
 				B9DE03CC2C3C2B3B00662FFE /* HomeLogoTableViewCell.xib in Resources */,
 				B97E45FE2C3FD93700EB274E /* CommentsHeaderTableViewCell.xib in Resources */,
+				B92505632D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.xib in Resources */,
 				B933BD832C3BFADF008D887D /* PostGeneralTableViewCell.xib in Resources */,
 				B9CADB762C3E6B900023B7E8 /* PostLikesTableViewCell.xib in Resources */,
 				B98FC0652C2815E5002B9194 /* ProfileCollectionViewCell.xib in Resources */,
@@ -598,6 +605,7 @@
 				B984836F2C24C4AE003570F3 /* SplashScreenViewController.swift in Sources */,
 				B9DE03CD2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift in Sources */,
 				B933BD7E2C3BFACF008D887D /* PostActionsTableViewCell.swift in Sources */,
+				B92505622D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.swift in Sources */,
 				B96C7CD82C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift in Sources */,
 				B9013D252C33141000700932 /* NotificationLikeTableViewCell.swift in Sources */,
 				B91B50932C21A7C800DC212E /* ExploreViewController.swift in Sources */,

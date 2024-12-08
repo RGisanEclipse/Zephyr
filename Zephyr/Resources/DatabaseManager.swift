@@ -152,7 +152,6 @@ public class DatabaseManager{
             "postURL": post.postURL.absoluteString,
             "caption": post.caption ?? "",
             "createDate": post.createDate,
-            "taggedUsers": post.taggedUsers,
             "ownerUserName": post.owner.userName,
         ]
         
@@ -368,6 +367,49 @@ public class DatabaseManager{
                 }
             }
     }
+    func addToSavedPosts(post postID: String, from userName: String, completion: @escaping (Bool) -> Void) {
+        let savedPostData: [String: Any] = [
+            "userName": userName,
+            "postIdentifier": postID,
+            "saveDate": Date()
+        ]
+        db.collection("savedPosts").addDocument(data: savedPostData) { error in
+            completion(error == nil)
+        }
+    }
+    
+    func removeFromSavedPosts(post identifier: String, from userName: String, completion: @escaping (Bool) -> Void) {
+        let query = db.collection("savedPosts")
+                      .whereField("postIdentifier", isEqualTo: identifier)
+                      .whereField("userName", isEqualTo: userName)
+        
+        query.getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error fetching saved post: \(error)")
+                completion(false)
+                return
+            }
+            
+            guard let snapshot = snapshot, !snapshot.isEmpty else {
+                print("No saved post found for the provided post ID and userName.")
+                completion(false)
+                return
+            }
+            
+            let document = snapshot.documents.first
+            document?.reference.delete { error in
+                if let error = error {
+                    print("Error deleting saved post: \(error)")
+                    completion(false)
+                } else {
+                    print("Successfully removed the saved post.")
+                    completion(true)
+                }
+            }
+        }
+    }
+
+    
     func fetchUserData(for email: String, completion: @escaping (Result<UserModel, Error>) -> Void) {
         fetchUserDocumentID(email: email) { documentID in
             guard let documentID = documentID else {
@@ -483,6 +525,20 @@ public class DatabaseManager{
                     completion([])
                 } else {
                     let posts = querySnapshot?.documents.compactMap { $0.data()["identifier"] as? String } ?? []
+                    completion(posts)
+                }
+            }
+    }
+    func getSavedPosts(for userName: String, completion: @escaping ([String]) -> Void){
+        db.collection("savedPosts")
+            .whereField("userName", isEqualTo: userName)
+            .order(by: "saveDate", descending: true)
+            .getDocuments() { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching saved posts: \(error.localizedDescription)")
+                    completion([])
+                } else {
+                    let posts = querySnapshot?.documents.compactMap { $0.data()["postIdentifier"] as? String } ?? []
                     completion(posts)
                 }
             }

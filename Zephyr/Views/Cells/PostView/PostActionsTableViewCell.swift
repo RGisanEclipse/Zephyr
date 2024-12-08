@@ -10,7 +10,7 @@ import UIKit
 protocol PostActionsTableViewCellDelegate: AnyObject{
     func didTapLikeButton(with model: UserPost, from: PostActionsTableViewCell, at: IndexPath)
     func didTapCommentButton(with model: UserPost)
-    func didTapSaveButton(with model: UserPost)
+    func didTapSaveButton(with model: UserPost, from: PostActionsTableViewCell, at: IndexPath)
 }
 
 class PostActionsTableViewCell: UITableViewCell {
@@ -28,7 +28,7 @@ class PostActionsTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
     }
-    func configure(with model: UserPost, userName: String, indexPath: IndexPath){
+    func configure(with model: UserPost, userName: String, isSaved: Bool, indexPath: IndexPath){
         self.model = model
         self.indexPath = indexPath
         let isLikedByCurrentUser = model.likeCount.contains { like in
@@ -42,6 +42,12 @@ class PostActionsTableViewCell: UITableViewCell {
             likeButton.tintColor = UIColor(named: "BW")
             likeButton.setBackgroundImage(UIImage(systemName: "suit.heart"), for: .normal)
             isLiked = false
+        }
+        saveButton.tintColor = UIColor(named: "BW")
+        if isSaved{
+            saveButton.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+        } else{
+            saveButton.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
         }
     }
     @IBAction func likeButtonPressed(_ sender: UIButton) {
@@ -57,9 +63,9 @@ class PostActionsTableViewCell: UITableViewCell {
         delegate?.didTapCommentButton(with: safeModel)
     }
     @IBAction func saveButtonPressed(_ sender: UIButton) {
-        guard let safeModel = model else{
+        guard let safeModel = model, let safeIndexPath = indexPath else{
             return
         }
-        delegate?.didTapSaveButton(with: safeModel)
+        delegate?.didTapSaveButton(with: safeModel, from: self, at: safeIndexPath)
     }
 }

@@ -16,7 +16,16 @@ class CurrentUserDataManager {
     func clearCachedUser(){
         cachedUser = nil
     }
-    
+    public func setCurrentUserData(_ user: UserModel?) {
+        if user == nil {
+            return
+        }
+        self.userData = user
+        self.cachedUser = user
+    }
+    public func getCurrentUserData() -> UserModel? {
+        return userData
+    }
     public func fetchLoggedInUserData(completion: @escaping (UserModel?, Bool) -> Void) {
         if let cachedUser = self.cachedUser {
             completion(cachedUser, true)
@@ -33,6 +42,7 @@ class CurrentUserDataManager {
                 let userName = user.userName
                 let dispatchGroup = DispatchGroup()
                 var posts: [String] = []
+                var savedPosts: [String] = []
                 var followers: [FollowerFollowing] = []
                 var following: [FollowerFollowing] = []
                 
@@ -41,6 +51,13 @@ class CurrentUserDataManager {
                     posts = fetchedPosts
                     dispatchGroup.leave()
                 }
+                
+                dispatchGroup.enter()
+                DatabaseManager.shared.getSavedPosts(for: userName){ fetchedSavedPosts in
+                    savedPosts = fetchedSavedPosts
+                    dispatchGroup.leave()
+                }
+                
                 dispatchGroup.enter()
                 DatabaseManager.shared.getFollowers(for: userName) { fetchedFollowers in
                     followers = fetchedFollowers
@@ -57,6 +74,7 @@ class CurrentUserDataManager {
                     let updatedCounts = UserCount(posts: posts.count, followers: followers.count, following: following.count)
                     var updatedUser = user
                     updatedUser.posts = posts
+                    updatedUser.savedPosts = savedPosts
                     updatedUser.followers = followers
                     updatedUser.following = following
                     updatedUser.counts = updatedCounts
@@ -85,12 +103,19 @@ class CurrentUserDataManager {
                 let dispatchGroup = DispatchGroup()
                 
                 var posts: [String] = []
+                var savedPosts: [String] = []
                 var followers: [FollowerFollowing] = []
                 var following: [FollowerFollowing] = []
                 
                 dispatchGroup.enter()
                 DatabaseManager.shared.getPosts(for: userName){ fetchedPosts in
                     posts = fetchedPosts
+                    dispatchGroup.leave()
+                }
+                
+                dispatchGroup.enter()
+                DatabaseManager.shared.getSavedPosts(for: userName){ fetchedSavedPosts in
+                    savedPosts = fetchedSavedPosts
                     dispatchGroup.leave()
                 }
                 
@@ -110,6 +135,7 @@ class CurrentUserDataManager {
                     let updatedCounts = UserCount(posts: posts.count, followers: followers.count, following: following.count)
                     var updatedUser = user
                     updatedUser.posts = posts
+                    updatedUser.savedPosts = savedPosts
                     updatedUser.followers = followers
                     updatedUser.following = following
                     updatedUser.counts = updatedCounts

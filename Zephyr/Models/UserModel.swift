@@ -19,6 +19,7 @@ struct UserModel{
     var followers: [FollowerFollowing]
     var following: [FollowerFollowing]
     var posts: [String]
+    var savedPosts: [String]
     func isFollower(userName: String) -> Bool {
         return followers.contains(where: { $0.userName == userName })
     }
@@ -50,13 +51,14 @@ struct UserModel{
         self.gender = Gender(rawValue: dictionary["gender"] as? String ?? "") ?? .other
         self.joinDate = dictionary["joinDate"] as? Date
         self.posts = dictionary["posts"] as? [String] ?? []
+        self.savedPosts = dictionary["savedPosts"] as? [String] ?? []
         self.followers = dictionary["followers"] as? [FollowerFollowing] ?? []
         self.following = dictionary["following"] as? [FollowerFollowing] ?? []
         self.counts = UserCount(posts: posts.count,
                                 followers: followers.count,
                                 following: following.count)
     }
-    init(userName: String, profilePicture: URL, bio: String, name: (first: String, last: String), birthDate: Date, gender: Gender, counts: UserCount, joinDate: Date, posts: [String], followers: [FollowerFollowing], following: [FollowerFollowing]) {
+    init(userName: String, profilePicture: URL, bio: String, name: (first: String, last: String), birthDate: Date, gender: Gender, counts: UserCount, joinDate: Date, posts: [String], savedPosts: [String], followers: [FollowerFollowing], following: [FollowerFollowing]) {
         self.userName = userName
         self.profilePicture = profilePicture
         self.bio = bio
@@ -66,6 +68,7 @@ struct UserModel{
         self.counts = counts
         self.joinDate = joinDate
         self.posts = posts
+        self.savedPosts = savedPosts
         self.followers = followers
         self.following = following
     }
@@ -96,7 +99,6 @@ struct UserPost {
     var likeCount: [PostLike]
     var comments: [PostComment]
     let createDate: Date
-    let taggedUsers: [String]
     let owner: UserModel
     init?(documentData: [String: Any], ownerData: UserModel){
         guard let identifier = documentData["identifier"] as? String else {
@@ -138,9 +140,8 @@ struct UserPost {
         self.caption = documentData["caption"] as? String
         self.likeCount = []
         self.comments = []
-        self.taggedUsers = documentData["taggedUsers"] as? [String] ?? []
     }
-    init(identifier: String, postType: UserPostType, thumbnailImage: URL, postURL: URL, caption: String?, likeCount: [PostLike], comments: [PostComment], createDate: Date, taggedUsers: [String], owner: UserModel) {
+    init(identifier: String, postType: UserPostType, thumbnailImage: URL, postURL: URL, caption: String?, likeCount: [PostLike], comments: [PostComment], createDate: Date, owner: UserModel) {
         self.identifier = identifier
         self.postType = postType
         self.thumbnailImage = thumbnailImage
@@ -149,7 +150,6 @@ struct UserPost {
         self.likeCount = likeCount
         self.comments = comments
         self.createDate = createDate
-        self.taggedUsers = taggedUsers
         self.owner = owner
     }
 }
@@ -226,5 +226,9 @@ struct FollowerFollowing {
 enum selectedView{
     case posts
     case videoPosts
-    case taggedUserPosts
+    case savedPosts
+}
+enum userProfileSelectedView{
+    case posts
+    case videoPosts
 }

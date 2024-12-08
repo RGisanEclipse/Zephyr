@@ -12,7 +12,7 @@ class ProfileViewController: UIViewController {
     private var followerFollowingData = [UserRelationship]()
     private var postsData = [PostSummary]()
     private var videosData = [PostSummary]()
-    private var taggedPostsData = [PostSummary]()
+    private var savedPostsData = [PostSummary]()
     private var userData: UserModel?
     private var profileHeaderView: ProfileHeaderCollectionReusableView?
     
@@ -46,6 +46,7 @@ class ProfileViewController: UIViewController {
                         self.userData = fetchedUserData
                         self.userNameTitleBarButton.title = self.userData?.userName
                         self.createPostsArray()
+                        self.createSavedPostsArray()
                         header.hideSkeletons()
                         let indexSet = IndexSet(integer: 0)
                         self.collectionView.reloadSections(indexSet)
@@ -72,6 +73,7 @@ class ProfileViewController: UIViewController {
                         self.userData = fetchedUserData
                         self.userNameTitleBarButton.title = self.userData?.userName
                         self.createPostsArray()
+                        self.createSavedPostsArray()
                         header.hideSkeletons()
                         let indexSet = IndexSet(integer: 0)
                         self.collectionView.reloadSections(indexSet)
@@ -122,6 +124,38 @@ class ProfileViewController: UIViewController {
             self.collectionView.reloadSections(indexSet)
         }
     }
+    
+    private func createSavedPostsArray() {
+        guard let userData = userData else { return }
+        var fetchedPosts: [String: PostSummary] = [:]
+        let dispatchGroup = DispatchGroup()
+
+        for postIdentifier in userData.savedPosts {
+            dispatchGroup.enter()
+            fetchPostSummary(for: postIdentifier) { fetchedPost in
+                defer {
+                    dispatchGroup.leave()
+                }
+                if let fetchedPost = fetchedPost {
+                    fetchedPosts[postIdentifier] = fetchedPost
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            var orderedSavedPosts: [PostSummary] = []
+            for postIdentifier in userData.savedPosts {
+                if let fetchedPost = fetchedPosts[postIdentifier] {
+                    orderedSavedPosts.append(fetchedPost)
+                }
+            }
+            self.savedPostsData = orderedSavedPosts
+            self.collectionView.reloadData()
+            let indexSet = IndexSet(integer: 1)
+            self.collectionView.reloadSections(indexSet)
+        }
+    }
+
     func fetchPostSummary(for identifier: String, completion: @escaping (PostSummary?) -> Void){
         DatabaseManager.shared.fetchPostSummary(for: identifier){ fetchedPost in
             guard let fetchedPost = fetchedPost else{
@@ -167,8 +201,8 @@ extension ProfileViewController: UICollectionViewDataSource{
                 return postsData.count
             case .videoPosts:
                 return videosData.count
-            case .taggedUserPosts:
-                return taggedPostsData.count
+            case .savedPosts:
+                return savedPostsData.count
             }
         }
     }
@@ -182,8 +216,8 @@ extension ProfileViewController: UICollectionViewDataSource{
             }
         case .videoPosts:
             post = videosData[indexPath.row]
-        case .taggedUserPosts:
-            post = taggedPostsData[indexPath.row]
+        case .savedPosts:
+            post = savedPostsData[indexPath.row]
         }
         if let post = post {
             cell.configure(with: post)
@@ -234,8 +268,8 @@ extension ProfileViewController: UICollectionViewDelegate{
             post = postsData[indexPath.row]
         case .videoPosts:
             post = videosData[indexPath.row]
-        case .taggedUserPosts:
-            post = taggedPostsData[indexPath.row]
+        case .savedPosts:
+            post = savedPostsData[indexPath.row]
         }
         self.postModel = post
         self.performSegue(withIdentifier: Constants.Profile.postSegue, sender: self)
@@ -329,8 +363,8 @@ extension ProfileViewController: ProfileTabsCollectionReusableViewDelegate{
         collectionView.reloadData()
     }
     
-    func didTapTaggedUserPostsButton() {
-        currentView = .taggedUserPosts
+    func didTapSavedPostsButton() {
+        currentView = .savedPosts
         collectionView.reloadData()
     }
 }

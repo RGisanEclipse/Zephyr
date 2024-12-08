@@ -127,7 +127,11 @@ extension HomeViewController: UITableViewDataSource{
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.actionsCellIdentifier, for: indexPath) as! PostActionsTableViewCell
                 if case .actions(let provider) = model.actions.renderType {
-                    cell.configure(with: provider, userName: userData?.userName ?? "", indexPath: indexPath)
+                    guard let safeUserData = userData else{
+                        return UITableViewCell()
+                    }
+                    let isSaved = safeUserData.savedPosts.contains(provider.identifier)
+                    cell.configure(with: provider, userName: safeUserData.userName, isSaved: isSaved, indexPath: indexPath)
                 }
                 cell.delegate = self
                 return cell
@@ -383,7 +387,8 @@ extension HomeViewController: PostActionsTableViewCellDelegate {
                         }
                     }
                     DispatchQueue.main.async {
-                        cell.configure(with: newModel, userName: safeUserData.userName, indexPath: indexPath)
+                        let isSaved = safeUserData.savedPosts.contains(model.identifier)
+                        cell.configure(with: newModel, userName: safeUserData.userName, isSaved: isSaved, indexPath: indexPath)
                         let likesIndexPath = IndexPath(row: 3, section: indexPath.section)
                         self.tableView.reloadRows(at: [likesIndexPath], with: .none)
                     }
@@ -411,7 +416,8 @@ extension HomeViewController: PostActionsTableViewCellDelegate {
                         }
                     }
                     DispatchQueue.main.async {
-                        cell.configure(with: newModel, userName: safeUserData.userName, indexPath: indexPath)
+                        let isSaved = safeUserData.savedPosts.contains(model.identifier)
+                        cell.configure(with: newModel, userName: safeUserData.userName, isSaved: isSaved, indexPath: indexPath)
                         let likesIndexPath = IndexPath(row: 3, section: indexPath.section)
                         self.tableView.reloadRows(at: [likesIndexPath], with: .none)
                     }
@@ -422,9 +428,49 @@ extension HomeViewController: PostActionsTableViewCellDelegate {
         }
     }
     
-    func didTapSaveButton(with model: UserPost) {
-        // Logic to save the post
+    func didTapSaveButton(with model: UserPost, from cell: PostActionsTableViewCell, at indexPath: IndexPath) {
+        guard var safeUserData = userData else {
+            print("User data not available")
+            return
+        }
+        print(safeUserData.savedPosts)
+        let isSavedByCurrentUser = safeUserData.savedPosts.contains(model.identifier)
+        if isSavedByCurrentUser {
+            DatabaseManager.shared.removeFromSavedPosts(post: model.identifier, from: safeUserData.userName) { success in
+                if success {
+                    print("Removed the post from saved posts successfully")
+                    if let index = safeUserData.savedPosts.firstIndex(of: model.identifier) {
+                        safeUserData.savedPosts.remove(at: index)
+                    }
+                    CurrentUserDataManager.shared.setCurrentUserData(safeUserData)
+                    self.userData = CurrentUserDataManager.shared.getCurrentUserData()
+                    cell.configure(with: model, userName: safeUserData.userName, isSaved: false, indexPath: indexPath)
+                    let bookmarkIndexPath = IndexPath(row: 3, section: indexPath.section)
+                    self.tableView.reloadRows(at: [bookmarkIndexPath], with: .none)
+                } else {
+                    print("Failed to remove the post from saved posts")
+                }
+            }
+        } else {
+            DatabaseManager.shared.addToSavedPosts(post: model.identifier, from: safeUserData.userName) { success in
+                if success {
+                    print("Saved the post successfully")
+                    
+                    DispatchQueue.main.async {
+                        safeUserData.savedPosts.append(model.identifier)
+                        CurrentUserDataManager.shared.setCurrentUserData(safeUserData)
+                        self.userData = CurrentUserDataManager.shared.getCurrentUserData()
+                        cell.configure(with: model, userName: safeUserData.userName, isSaved: true, indexPath: indexPath)
+                        let bookmarkIndexPath = IndexPath(row: 3, section: indexPath.section)
+                        self.tableView.reloadRows(at: [bookmarkIndexPath], with: .none)
+                    }
+                } else {
+                    print("Failed to save the post")
+                }
+            }
+        }
     }
+
 }
 
 

@@ -47,6 +47,7 @@ struct Constants{
         static let followingSegue = "toFollowingVC"
         static let headerIdentifier = "ProfileHeaderCollectionReusableView"
         static let tabsIdentifier = "ProfileTabsCollectionReusableView"
+        static let userProfileTabsIdentifier = "ViewUserProfileTabsCollectionReusableView"
         static let postSegue = "profileToPostVC"
         static let settingsSegue = "toSettingsView"
         static let editProfileSegue = "toEditProfileView"

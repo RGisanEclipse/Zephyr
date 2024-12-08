@@ -189,7 +189,6 @@ extension CommentsViewController: UITableViewDelegate{
         guard let commentToDelete = model?.comments[indexPath.row] else{
             return
         }
-        guard let safeUserData = userData else { return }
         DatabaseManager.shared.deleteComment(from: postID, comment: commentToDelete) { [weak self] success in
             if success {
                 DispatchQueue.main.async {

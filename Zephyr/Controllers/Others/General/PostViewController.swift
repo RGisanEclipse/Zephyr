@@ -147,7 +147,8 @@ extension PostViewController: UITableViewDataSource{
         switch model.renderType{
         case .actions(let actions):
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Post.actionsCellIdentifier, for: indexPath) as! PostActionsTableViewCell
-            cell.configure(with: actions, userName: safeUserData.userName, indexPath: indexPath)
+            let isSaved = safeUserData.savedPosts.contains(actions.identifier)
+            cell.configure(with: actions, userName: safeUserData.userName, isSaved: isSaved, indexPath: indexPath)
             cell.delegate = self
             return cell
         case .comments(let post):
@@ -417,10 +418,45 @@ extension PostViewController: PostActionsTableViewCellDelegate{
             renderModels[index] = renderModel
         }
     }
-    
-    func didTapSaveButton(with model: UserPost) {
-        // Logic to save the post
+    func didTapSaveButton(with model: UserPost, from cell: PostActionsTableViewCell, at indexPath: IndexPath) {
+        guard var safeUserData = userData else {
+            print("User data not available")
+            return
+        }
+        let isSavedByCurrentUser = safeUserData.savedPosts.contains(model.identifier)
+        if isSavedByCurrentUser {
+            DatabaseManager.shared.removeFromSavedPosts(post: model.identifier, from: safeUserData.userName) { success in
+                if success {
+                    print("Removed the post from saved posts successfully")
+                    if let index = safeUserData.savedPosts.firstIndex(of: model.identifier) {
+                        safeUserData.savedPosts.remove(at: index)
+                    }
+                    CurrentUserDataManager.shared.setCurrentUserData(safeUserData)
+                    self.userData = CurrentUserDataManager.shared.getCurrentUserData()
+                    cell.configure(with: model, userName: safeUserData.userName, isSaved: false, indexPath: indexPath)
+                    let bookmarkIndexPath = IndexPath(row: 2, section: indexPath.section)
+                    self.tableView.reloadRows(at: [bookmarkIndexPath], with: .none)
+                } else {
+                    print("Failed to remove the post from saved posts")
+                }
+            }
+        } else {
+            DatabaseManager.shared.addToSavedPosts(post: model.identifier, from: safeUserData.userName) { success in
+                if success {
+                    print("Saved the post successfully")
+                    safeUserData.savedPosts.append(model.identifier)
+                    CurrentUserDataManager.shared.setCurrentUserData(safeUserData)
+                    self.userData = CurrentUserDataManager.shared.getCurrentUserData()
+                    cell.configure(with: model, userName: safeUserData.userName, isSaved: true, indexPath: indexPath)
+                    let bookmarkIndexPath = IndexPath(row: 2, section: indexPath.section)
+                    self.tableView.reloadRows(at: [bookmarkIndexPath], with: .none)
+                } else {
+                    print("Failed to save the post")
+                }
+            }
+        }
     }
+
     
     func didTapCommentButton(with model: UserPost) {
         self.performSegue(withIdentifier: Constants.Post.commentsSegue, sender: self)

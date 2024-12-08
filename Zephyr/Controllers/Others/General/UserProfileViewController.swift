@@ -14,11 +14,9 @@ class UserProfileViewController: UIViewController {
     private var followerFollowingData = [UserRelationship]()
     private var postsData = [PostSummary]()
     private var videosData = [PostSummary]()
-    private var taggedPostsData = [PostSummary]()
     private var userData: UserModel?
     private var profileHeaderView: UserProfileHeaderCollectionReusableView?
-    
-    var currentView = selectedView.posts
+    var currentView = userProfileSelectedView.posts
     private var postModel: PostSummary?
     private var refreshControl = UIRefreshControl()
     
@@ -150,7 +148,7 @@ class UserProfileViewController: UIViewController {
         collectionView.register(UINib(nibName: Constants.Profile.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.Profile.cellIdentifier)
         collectionView.register(UINib(nibName: Constants.Profile.headerIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.headerIdentifier)
         collectionView.register(UINib(nibName: Constants.UserProfile.headerIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.UserProfile.headerIdentifier)
-        collectionView.register(UINib(nibName: Constants.Profile.tabsIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.tabsIdentifier)
+        collectionView.register(UINib(nibName: Constants.Profile.userProfileTabsIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.userProfileTabsIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.refreshControl = refreshControl
@@ -191,8 +189,6 @@ extension UserProfileViewController: UICollectionViewDataSource{
                 return postsData.count
             case .videoPosts:
                 return videosData.count
-            case .taggedUserPosts:
-                return taggedPostsData.count
             }
         }
     }
@@ -206,8 +202,6 @@ extension UserProfileViewController: UICollectionViewDataSource{
             }
         case .videoPosts:
             post = videosData[indexPath.row]
-        case .taggedUserPosts:
-            post = taggedPostsData[indexPath.row]
         }
         if let post = post {
             cell.configure(with: post)
@@ -221,7 +215,7 @@ extension UserProfileViewController: UICollectionViewDataSource{
         }
         
         if indexPath.section == 1 {
-            let tab = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.tabsIdentifier, for: indexPath) as! ProfileTabsCollectionReusableView
+            let tab = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.userProfileTabsIdentifier, for: indexPath) as! ViewUserProfileTabsCollectionReusableView
             tab.delegate = self
             return tab
         }
@@ -267,8 +261,6 @@ extension UserProfileViewController: UICollectionViewDelegate{
             post = postsData[indexPath.row]
         case .videoPosts:
             post = videosData[indexPath.row]
-        case .taggedUserPosts:
-            post = taggedPostsData[indexPath.row]
         }
         self.postModel = post
         self.performSegue(withIdentifier: Constants.UserProfile.postSegue, sender: self)
@@ -276,7 +268,7 @@ extension UserProfileViewController: UICollectionViewDelegate{
 }
 
 // MARK: - ProfileTabsCollectionViewDelegate
-extension UserProfileViewController: ProfileTabsCollectionReusableViewDelegate{
+extension UserProfileViewController: ViewUserProfileTabsCollectionReusableViewDelegate{
     func didTapPostsButton() {
         currentView = .posts
         collectionView.reloadData()
@@ -284,11 +276,6 @@ extension UserProfileViewController: ProfileTabsCollectionReusableViewDelegate{
     
     func didTapVideoPostsButton() {
         currentView = .videoPosts
-        collectionView.reloadData()
-    }
-    
-    func didTapTaggedUserPostsButton() {
-        currentView = .taggedUserPosts
         collectionView.reloadData()
     }
 }
