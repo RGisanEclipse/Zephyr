@@ -51,6 +51,7 @@ struct Constants{
         static let postSegue = "profileToPostVC"
         static let settingsSegue = "toSettingsView"
         static let editProfileSegue = "toEditProfileView"
+        static let noPostsYetIdentifier = "NoPostsYetCollectionReusableView"
     }
     struct Errors{
         static let emailAlreadyInUse = "Email already in use"
@@ -118,5 +119,13 @@ struct Constants{
     }
     struct SearchResult{
         static let cellNibName = "SearchResultTableViewCell"
+    }
+    struct NoPostsYet{
+        static let postsView = "postsView"
+        static let videoPostsView = "videoPostsView"
+        static let savedPostsView = "savedPostsView"
+        static let postsViewLabel = "No Posts Yet"
+        static let videoPostsViewLabel = "No Video Posts Yet"
+        static let savedPostsViewLabel = "No Saved Posts Yet"
     }
 }

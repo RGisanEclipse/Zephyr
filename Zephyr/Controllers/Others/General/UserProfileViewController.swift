@@ -149,6 +149,7 @@ class UserProfileViewController: UIViewController {
         collectionView.register(UINib(nibName: Constants.Profile.headerIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.headerIdentifier)
         collectionView.register(UINib(nibName: Constants.UserProfile.headerIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.UserProfile.headerIdentifier)
         collectionView.register(UINib(nibName: Constants.Profile.userProfileTabsIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.userProfileTabsIdentifier)
+        collectionView.register(UINib(nibName: Constants.Profile.noPostsYetIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.Profile.noPostsYetIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.refreshControl = refreshControl
@@ -178,10 +179,10 @@ class UserProfileViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension UserProfileViewController: UICollectionViewDataSource{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0{
+        if section == 0 || section == 2{
             return 0
         } else{
             switch currentView{
@@ -218,6 +219,21 @@ extension UserProfileViewController: UICollectionViewDataSource{
             let tab = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.userProfileTabsIdentifier, for: indexPath) as! ViewUserProfileTabsCollectionReusableView
             tab.delegate = self
             return tab
+        }else if indexPath.section == 2{
+            switch currentView{
+            case .posts:
+                if postsData.isEmpty{
+                    let noPostsYet = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.noPostsYetIdentifier, for: indexPath) as! NoPostsYetCollectionReusableView
+                    noPostsYet.configure(view: Constants.NoPostsYet.postsView)
+                    return noPostsYet
+                }
+            case .videoPosts:
+                if videosData.isEmpty{
+                    let noPostsYet = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.noPostsYetIdentifier, for: indexPath) as! NoPostsYetCollectionReusableView
+                    noPostsYet.configure(view: Constants.NoPostsYet.videoPostsView)
+                    return noPostsYet
+                }
+            }
         }
         if let currentUserData = currentUserData, let userData = userData, currentUserData.userName == userData.userName {
             let profileHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.headerIdentifier, for: indexPath) as! ProfileHeaderCollectionReusableView
@@ -246,7 +262,34 @@ extension UserProfileViewController: UICollectionViewDataSource{
             } else {
                 return CGSize(width: collectionView.frame.width, height: 200)
             }
+        } else if section == 2{
+            switch currentView{
+            case .posts:
+                if postsData.isEmpty{
+                    var heightOfHeaderView = CGFloat()
+                    if let profileHeaderView = profileHeaderView {
+                        let height = profileHeaderView.calculateHeight()
+                        heightOfHeaderView = height
+                    } else {
+                        heightOfHeaderView = 200
+                    }
+                    return CGSize(width: collectionView.frame.width, height: collectionView.frame.height - heightOfHeaderView - 130)
+                }
+            case .videoPosts:
+                if videosData.isEmpty{
+                    var heightOfHeaderView = CGFloat()
+                    if let profileHeaderView = profileHeaderView {
+                        let height = profileHeaderView.calculateHeight()
+                        heightOfHeaderView = height
+                    } else {
+                        heightOfHeaderView = 200
+                    }
+                    return CGSize(width: collectionView.frame.width, height: collectionView.frame.height - heightOfHeaderView - 130)
+                }
+            }
+            return CGSize(width: 0, height: 0)
         } else {
+            // Height for ProfileTabs
             return CGSize(width: collectionView.frame.width, height: 65)
         }
     }

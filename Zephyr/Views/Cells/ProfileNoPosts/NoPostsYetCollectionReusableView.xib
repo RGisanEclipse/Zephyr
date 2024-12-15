@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="NoPostsYetCollectionReusableView" customModule="Zephyr" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="189"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ahz-14-UKc">
+                    <rect key="frame" x="111.66666666666669" y="46.999999999999993" width="97" height="95.333333333333314"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HGr-s8-wdh">
+                            <rect key="frame" x="13.333333333333329" y="0.6666666666666643" width="70" height="68.666666666666686"/>
+                            <color key="tintColor" name="BW"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="70" id="Vql-8c-LYz"/>
+                                <constraint firstAttribute="height" constant="70" id="cSH-72-rsb"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Posts Yet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MN-ag-Mmw">
+                            <rect key="frame" x="0.0" y="75" width="97" height="20.333333333333329"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <constraints>
+                <constraint firstItem="ahz-14-UKc" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="Q8w-pB-K2P"/>
+                <constraint firstItem="ahz-14-UKc" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="pFy-I5-p1H"/>
+            </constraints>
+            <connections>
+                <outlet property="imageView" destination="HGr-s8-wdh" id="a75-2x-Rip"/>
+                <outlet property="textLabel" destination="4MN-ag-Mmw" id="dF0-GF-Wz7"/>
+            </connections>
+            <point key="canvasLocation" x="-809" y="30"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="camera.circle" catalog="system" width="128" height="123"/>
+        <namedColor name="BW">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

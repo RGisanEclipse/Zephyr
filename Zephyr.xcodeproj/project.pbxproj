@@ -81,6 +81,8 @@
 		B99085D42C469B7B00605D25 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = B99085D32C469B7B00605D25 /* SkeletonView */; };
 		B9951C822C64C6E600242FA6 /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9951C812C64C6E600242FA6 /* SearchResultTableViewCell.xib */; };
 		B9951C832C64C6E600242FA6 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9951C802C64C6E600242FA6 /* SearchResultTableViewCell.swift */; };
+		B99B43282D0D55970023B308 /* NoPostsYetCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B99B43272D0D55970023B308 /* NoPostsYetCollectionReusableView.xib */; };
+		B99B43292D0D55970023B308 /* NoPostsYetCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99B43262D0D55970023B308 /* NoPostsYetCollectionReusableView.swift */; };
 		B9AA62832C26077C00D35CD8 /* EditProfileFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA62822C26077C00D35CD8 /* EditProfileFormModel.swift */; };
 		B9BB8EB12C43C15B00AD3CEC /* CurrentUserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB8EB02C43C15B00AD3CEC /* CurrentUserDataManager.swift */; };
 		B9BCCA952C3969AC0027405B /* UserNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BCCA942C3969AC0027405B /* UserNotificationModel.swift */; };
@@ -166,6 +168,8 @@
 		B9907BE02C2E81D800984BB3 /* EmailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailModel.swift; sourceTree = "<group>"; };
 		B9951C802C64C6E600242FA6 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		B9951C812C64C6E600242FA6 /* SearchResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultTableViewCell.xib; sourceTree = "<group>"; };
+		B99B43262D0D55970023B308 /* NoPostsYetCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPostsYetCollectionReusableView.swift; sourceTree = "<group>"; };
+		B99B43272D0D55970023B308 /* NoPostsYetCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoPostsYetCollectionReusableView.xib; sourceTree = "<group>"; };
 		B9AA62822C26077C00D35CD8 /* EditProfileFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFormModel.swift; sourceTree = "<group>"; };
 		B9BB8EB02C43C15B00AD3CEC /* CurrentUserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserDataManager.swift; sourceTree = "<group>"; };
 		B9BCCA942C3969AC0027405B /* UserNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationModel.swift; sourceTree = "<group>"; };
@@ -443,6 +447,15 @@
 			path = SearchResult;
 			sourceTree = "<group>";
 		};
+		B99B432A2D0D559F0023B308 /* ProfileNoPosts */ = {
+			isa = PBXGroup;
+			children = (
+				B99B43262D0D55970023B308 /* NoPostsYetCollectionReusableView.swift */,
+				B99B43272D0D55970023B308 /* NoPostsYetCollectionReusableView.xib */,
+			);
+			path = ProfileNoPosts;
+			sourceTree = "<group>";
+		};
 		B9DE03C92C3C2B0200662FFE /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +482,7 @@
 				B959C4EC2C2A141E001C106E /* EditProfile */,
 				B959C4ED2C2A1432001C106E /* ProfileCollection */,
 				B9013D272C33141900700932 /* Notifications */,
+				B99B432A2D0D559F0023B308 /* ProfileNoPosts */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -568,6 +582,7 @@
 				B9152F062C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib in Resources */,
 				B96C7CD72C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib in Resources */,
 				B91B50832C21A61300DC212E /* Assets.xcassets in Resources */,
+				B99B43282D0D55970023B308 /* NoPostsYetCollectionReusableView.xib in Resources */,
 				B98194D92C21B10600C7D62C /* GoogleService-Info.plist in Resources */,
 				B9152F0D2C315209006B22D6 /* ProfileTabsCollectionReusableView.xib in Resources */,
 				B97AC6BA2C3EC66F004C175E /* PostCaptionTableViewCell.xib in Resources */,
@@ -645,6 +660,7 @@
 				B91B507C2C21A61200DC212E /* SceneDelegate.swift in Sources */,
 				B97E45FD2C3FD93700EB274E /* CommentsHeaderTableViewCell.swift in Sources */,
 				B91B50A82C21A99600DC212E /* ListViewController.swift in Sources */,
+				B99B43292D0D55970023B308 /* NoPostsYetCollectionReusableView.swift in Sources */,
 				B9907BE12C2E81D800984BB3 /* EmailModel.swift in Sources */,
 				B97EE49F2C277BAC00B3CF6F /* UserModel.swift in Sources */,
 				B97AC6B12C3EB820004C175E /* HomeCommentsTableViewCell.swift in Sources */,
