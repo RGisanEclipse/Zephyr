@@ -14,12 +14,14 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var forgotPasswordButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         updateErrors()
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        forgotPasswordButton.isHidden = true
     }
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         updateErrors()
@@ -51,6 +53,7 @@ class LoginViewController: UIViewController {
                         }
                     } else{
                         self.throwError(Constants.Onboarding.invalidError)
+                        self.forgotPasswordButton.isHidden = false
                     }
                     self.loginButton.isEnabled = true
                 }
@@ -63,6 +66,12 @@ class LoginViewController: UIViewController {
         emailTextField.text = Constants.empty
         passwordTextField.text = Constants.empty
         self.performSegue(withIdentifier: Constants.Onboarding.registerSegue, sender: self)
+    }
+    
+    
+    @IBAction func forgotPasswordButtonPressed(_ sender: UIButton) {
+        // Handle Forgot Password Scenario
+        self.performSegue(withIdentifier: Constants.Onboarding.otpSegueLogin, sender: self)
     }
     
     func throwError(_ text: String){

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B9013D252C33141000700932 /* NotificationLikeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9013D232C33141000700932 /* NotificationLikeTableViewCell.swift */; };
 		B9013D262C33141000700932 /* NotificationLikeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9013D242C33141000700932 /* NotificationLikeTableViewCell.xib */; };
+		B913009A2D0F10190023324A /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91300992D0F10190023324A /* OTPViewController.swift */; };
+		B913009D2D0F14AE0023324A /* DPOTPView in Frameworks */ = {isa = PBXBuildFile; productRef = B913009C2D0F14AE0023324A /* DPOTPView */; };
 		B9152F062C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9152F052C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib */; };
 		B9152F072C314780006B22D6 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9152F042C314780006B22D6 /* ProfileHeaderCollectionReusableView.swift */; };
 		B9152F0D2C315209006B22D6 /* ProfileTabsCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9152F0C2C315209006B22D6 /* ProfileTabsCollectionReusableView.xib */; };
@@ -89,6 +91,7 @@
 		B9C237452C235D7E00AAE120 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B9C237442C235D7E00AAE120 /* FirebaseFirestore */; };
 		B9CADB762C3E6B900023B7E8 /* PostLikesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9CADB752C3E6B900023B7E8 /* PostLikesTableViewCell.xib */; };
 		B9CADB772C3E6B900023B7E8 /* PostLikesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CADB742C3E6B900023B7E8 /* PostLikesTableViewCell.swift */; };
+		B9D2456B2D0F391D00AAF574 /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D2456A2D0F391D00AAF574 /* OTPTextField.swift */; };
 		B9DE03CC2C3C2B3B00662FFE /* HomeLogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9DE03CB2C3C2B3B00662FFE /* HomeLogoTableViewCell.xib */; };
 		B9DE03CD2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE03CA2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift */; };
 		B9DE03CF2C3C358100662FFE /* HomeRenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE03CE2C3C358100662FFE /* HomeRenderViewModel.swift */; };
@@ -104,6 +107,7 @@
 /* Begin PBXFileReference section */
 		B9013D232C33141000700932 /* NotificationLikeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationLikeTableViewCell.swift; sourceTree = "<group>"; };
 		B9013D242C33141000700932 /* NotificationLikeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationLikeTableViewCell.xib; sourceTree = "<group>"; };
+		B91300992D0F10190023324A /* OTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		B9152F042C314780006B22D6 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		B9152F052C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		B9152F0B2C315209006B22D6 /* ProfileTabsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabsCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -175,6 +179,7 @@
 		B9BCCA942C3969AC0027405B /* UserNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationModel.swift; sourceTree = "<group>"; };
 		B9CADB742C3E6B900023B7E8 /* PostLikesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLikesTableViewCell.swift; sourceTree = "<group>"; };
 		B9CADB752C3E6B900023B7E8 /* PostLikesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostLikesTableViewCell.xib; sourceTree = "<group>"; };
+		B9D2456A2D0F391D00AAF574 /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
 		B9DE03CA2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLogoTableViewCell.swift; sourceTree = "<group>"; };
 		B9DE03CB2C3C2B3B00662FFE /* HomeLogoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeLogoTableViewCell.xib; sourceTree = "<group>"; };
 		B9DE03CE2C3C358100662FFE /* HomeRenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRenderViewModel.swift; sourceTree = "<group>"; };
@@ -203,6 +208,7 @@
 				B9F2535D2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended in Frameworks */,
 				B943576A2C22EF5F00F52238 /* IQKeyboardManagerSwift in Frameworks */,
 				B9C237452C235D7E00AAE120 /* FirebaseFirestore in Frameworks */,
+				B913009D2D0F14AE0023324A /* DPOTPView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +302,7 @@
 				B9BCCA942C3969AC0027405B /* UserNotificationModel.swift */,
 				B933BD8A2C3BFEB1008D887D /* PostRenderViewModel.swift */,
 				B9DE03CE2C3C358100662FFE /* HomeRenderViewModel.swift */,
+				B9D2456A2D0F391D00AAF574 /* OTPTextField.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -355,6 +362,7 @@
 				B91B509D2C21A90400DC212E /* LoginViewController.swift */,
 				B91B509F2C21A90F00DC212E /* RegisterViewController.swift */,
 				B984836E2C24C4AE003570F3 /* SplashScreenViewController.swift */,
+				B91300992D0F10190023324A /* OTPViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -526,6 +534,7 @@
 				B9F2535A2C4A1F3D00107CF6 /* NVActivityIndicatorView */,
 				B9F2535C2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended */,
 				B96096CA2C64FF30007F55C6 /* FirebaseMessaging */,
+				B913009C2D0F14AE0023324A /* DPOTPView */,
 			);
 			productName = Zephyr;
 			productReference = B91B50762C21A61200DC212E /* Zephyr.app */;
@@ -561,6 +570,7 @@
 				B98FC0672C2817BB002B9194 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				B99085D22C469B7B00605D25 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				B9F253592C4A1F3D00107CF6 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
+				B913009B2D0F14AE0023324A /* XCRemoteSwiftPackageReference "DPOTPView" */,
 			);
 			productRefGroup = B91B50772C21A61200DC212E /* Products */;
 			projectDirPath = "";
@@ -612,6 +622,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B91861072C4050D000EE8BF7 /* CreatePostViewController.swift in Sources */,
+				B9D2456B2D0F391D00AAF574 /* OTPTextField.swift in Sources */,
 				B98FC0662C2815E5002B9194 /* ProfileCollectionViewCell.swift in Sources */,
 				B91B50A42C21A96800DC212E /* EditProfileViewController.swift in Sources */,
 				B97AC6B92C3EC66F004C175E /* PostCaptionTableViewCell.swift in Sources */,
@@ -661,6 +672,7 @@
 				B97E45FD2C3FD93700EB274E /* CommentsHeaderTableViewCell.swift in Sources */,
 				B91B50A82C21A99600DC212E /* ListViewController.swift in Sources */,
 				B99B43292D0D55970023B308 /* NoPostsYetCollectionReusableView.swift in Sources */,
+				B913009A2D0F10190023324A /* OTPViewController.swift in Sources */,
 				B9907BE12C2E81D800984BB3 /* EmailModel.swift in Sources */,
 				B97EE49F2C277BAC00B3CF6F /* UserModel.swift in Sources */,
 				B97AC6B12C3EB820004C175E /* HomeCommentsTableViewCell.swift in Sources */,
@@ -895,6 +907,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B913009B2D0F14AE0023324A /* XCRemoteSwiftPackageReference "DPOTPView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Datt1994/DPOTPView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.12;
+			};
+		};
 		B94357682C22EF5F00F52238 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
@@ -938,6 +958,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B913009C2D0F14AE0023324A /* DPOTPView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B913009B2D0F14AE0023324A /* XCRemoteSwiftPackageReference "DPOTPView" */;
+			productName = DPOTPView;
+		};
 		B94357692C22EF5F00F52238 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B94357682C22EF5F00F52238 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;

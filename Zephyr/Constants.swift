@@ -17,6 +17,7 @@ struct Constants{
         static let wrongPasswordError = "Wrong Password"
         static let smallPasswordError = "Password must be 8 characters or more"
         static let sucessEmailSubject = "Thanks for registering to Zephyr"
+        static let otpSegueLogin = "loginToOTPSegue"
     }
     struct FireStore{
         static let users = "users"
