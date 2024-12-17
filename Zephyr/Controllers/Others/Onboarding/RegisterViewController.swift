@@ -15,6 +15,11 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var registerButton: UIButton!
     
+    var segueUserName: String?
+    var segueEmail: String?
+    var seguePassword: String?
+    var OTP: String?
+    
     @IBAction func registerButtonPressed(_ sender: UIButton) {
         updateErrors()
         let areFieldsEmpty = checkIfEmptyInputs()
@@ -51,24 +56,24 @@ class RegisterViewController: UIViewController {
                 } else if NSPredicate(format: "SELF MATCHES %@", whitespaceRegex).evaluate(with: password) {
                     throwError(Constants.Onboarding.containsWhitespaceError)
                 } else {
+                    self.segueUserName = userNameTextField.text!
+                    self.segueEmail = emailTextField.text!
+                    self.seguePassword = password
                     registerButton.isEnabled = false
-                    AuthManager.shared.registerNewUser(userName: userNameTextField.text!, email: emailTextField.text!, password: password) { registered, error in
-                        if registered{
-                            DispatchQueue.main.async {
-                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController {
-                                    tabBarVC.modalPresentationStyle = .fullScreen
-                                    self.present(tabBarVC, animated: true, completion: nil)
-                                } else {
-                                    print("HomeViewController could not be instantiated")
-                                }
+                    AuthManager.shared.canRegisterNewUser(userName: userNameTextField.text!, email: emailTextField.text!, password: password) { canCreate, otp, error in
+                        if canCreate{
+                            self.OTP = otp
+                            DispatchQueue.main.async{
+                                self.performSegue(withIdentifier: Constants.Onboarding.otpSegueRegister, sender: self)
                             }
                         } else{
                             if let error = error as NSError? {
                                 self.throwError(error.domain)
                             }
                         }
-                        self.registerButton.isEnabled = true
+                        DispatchQueue.main.async{
+                            self.registerButton.isEnabled = true
+                        }
                     }
                 }
             }
@@ -104,6 +109,17 @@ class RegisterViewController: UIViewController {
     
     func updateErrors(){
         errorLabel.isHidden = true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Onboarding.otpSegueRegister{
+            let destinationVC = segue.destination as! OTPViewController
+            destinationVC.OTP = self.OTP
+            destinationVC.callerAction = Constants.OTP.verifyEmail
+            destinationVC.email = self.segueEmail
+            destinationVC.userName = self.segueUserName
+            destinationVC.password = self.seguePassword
+        }
     }
     
 }

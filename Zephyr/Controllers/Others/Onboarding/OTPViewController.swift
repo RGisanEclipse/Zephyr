@@ -25,6 +25,8 @@ class OTPViewController: UIViewController {
     var OTP: String?
     var callerAction: String?
     var email: String?
+    var userName: String?
+    var password: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +116,8 @@ class OTPViewController: UIViewController {
     @IBAction func resendOTPButtonPressed(_ sender: UIButton) {
         // Resend Logic
         guard let email = email else { return }
-        OTPManager.shared.sendOTP(to: email) { success, OTP, error in
+        guard let callerAction = callerAction else { return }
+        OTPManager.shared.sendOTP(to: email, callerAction: callerAction) { success, OTP, error in
             if success, let safeOTP = OTP {
                 DispatchQueue.main.async {
                     self.resetOTPtextFields()
@@ -139,31 +142,67 @@ class OTPViewController: UIViewController {
     
     @IBAction func submitButtonPressed(_ sender: UIButton) {
         // Submit Logic
-        var enteredOTP = "\(txtOtp1.text ?? "")\(txtOtp2.text ?? "")\(txtOtp3.text ?? "")\(txtOtp4.text ?? "")"
+        let enteredOTP = "\(txtOtp1.text ?? "")\(txtOtp2.text ?? "")\(txtOtp3.text ?? "")\(txtOtp4.text ?? "")"
         guard let safeEmail = email else {return}
-        if let validOTP = OTP, enteredOTP == validOTP {
-            AuthManager.shared.sendPasswordResetEmail(email: safeEmail) { success, error in
-                if success {
-                    print("Password reset email sent successfully!")
-                    let alert = UIAlertController(title: "Success!", message: "Please check your email's inbox or the spam folder to find your reset password link.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default){ _ in
-                        alert.dismiss(animated: true, completion: nil)
+        guard let safeCallerAction = callerAction else {return}
+        if safeCallerAction == Constants.OTP.resetPassword {
+            if let validOTP = OTP, enteredOTP == validOTP {
+                AuthManager.shared.sendPasswordResetEmail(email: safeEmail) { success, error in
+                    if success {
+                        print("Password reset email sent successfully!")
+                        let alert = UIAlertController(title: "Success!", message: "Please check your email's inbox or the spam folder to find your reset password link.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default){ _ in
+                            alert.dismiss(animated: true, completion: nil)
+                            DispatchQueue.main.async {
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+                                loginVC.modalPresentationStyle = .fullScreen
+                                self.present(loginVC, animated: true, completion: nil)
+                            }
+                        })
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        print("Failed to send password reset email: \(error ?? "Unknown error")")
+                    }
+                }
+            } else {
+                messageLabel.text = "Invalid OTP. Please try again."
+                messageLabel.textColor = .red
+                resetOTPtextFields()
+            }
+        }
+        else if callerAction == Constants.OTP.verifyEmail {
+            // In cases of Email Verification
+            guard let safeUserName = userName, let safePassword = password else { return }
+            if let validOTP = OTP, enteredOTP == validOTP {
+                AuthManager.shared.addNewUser(userName: safeUserName, email: safeEmail, password: safePassword) { success, error in
+                    if success{
+                        print("Added new user")
                         DispatchQueue.main.async {
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-                            loginVC.modalPresentationStyle = .fullScreen
-                            self.present(loginVC, animated: true, completion: nil)
+                            if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController {
+                                tabBarVC.modalPresentationStyle = .fullScreen
+                                self.present(tabBarVC, animated: true, completion: nil)
+                            } else {
+                                print("HomeViewController could not be instantiated")
+                            }
                         }
-                    })
-                    self.present(alert, animated: true, completion: nil)
-                } else {
-                    print("Failed to send password reset email: \(error ?? "Unknown error")")
+                    } else{
+                        guard let safeError = error else { return }
+                        let alert = UIAlertController(title: "Failed to create account!", message: "There was a problem creating a new account. Please try again later", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default){ _ in
+                            alert.dismiss(animated: true, completion: nil)
+                            DispatchQueue.main.async {
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+                                loginVC.modalPresentationStyle = .fullScreen
+                                self.present(loginVC, animated: true, completion: nil)
+                            }
+                        })
+                        print(safeError)
+                    }
                 }
             }
-        } else {
-            messageLabel.text = "Invalid OTP. Please try again."
-            messageLabel.textColor = .red
-            resetOTPtextFields()
         }
     }
 }

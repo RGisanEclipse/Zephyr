@@ -19,6 +19,7 @@ struct Constants{
         static let sucessEmailSubject = "Thanks for registering to Zephyr"
         static let OTPEmailSubject = "One Time Password for Zephyr"
         static let otpSegueLogin = "loginToOTPSegue"
+        static let otpSegueRegister = "registerToOTPSegue"
         static let passwordMismatchError = "Passwords don't match"
         static let largePasswordError = "Passwords exceed characters limit"
         static let noUppercaseError = "There are no uppercase characters in the password"

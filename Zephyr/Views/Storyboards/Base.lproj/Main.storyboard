@@ -1035,7 +1035,7 @@
                         <outlet property="passwordTextField" destination="twc-VA-XiR" id="0TN-pK-539"/>
                         <outlet property="registerButton" destination="aw2-GP-SKo" id="gRf-lb-cwB"/>
                         <outlet property="spinner" destination="DUj-x2-WcU" id="UY4-5S-cS7"/>
-                        <segue destination="d5I-TE-Wds" kind="presentation" identifier="loginToOTPSegue" modalPresentationStyle="fullScreen" id="LcW-wL-OF9"/>
+                        <segue destination="d5I-TE-Wds" kind="presentation" identifier="loginToOTPSegue" id="LcW-wL-OF9"/>
                         <segue destination="WmD-b2-ELX" kind="presentation" identifier="toRegisterView" id="FrY-Fy-icN"/>
                     </connections>
                 </viewController>
@@ -1316,6 +1316,7 @@
                         <outlet property="passwordTextField" destination="MVu-9M-W1Y" id="d8P-lg-rsp"/>
                         <outlet property="registerButton" destination="AYO-Ow-8WD" id="Gf5-Kx-FkZ"/>
                         <outlet property="userNameTextField" destination="EUx-om-tBh" id="fce-v6-kyI"/>
+                        <segue destination="d5I-TE-Wds" kind="presentation" identifier="registerToOTPSegue" modalPresentationStyle="fullScreen" id="ZCO-RH-sU6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jcu-JZ-siJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1482,6 +1483,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="TBl-5r-85d"/>
+        <segue reference="ZCO-RH-sU6"/>
         <segue reference="2KG-rs-HAn"/>
         <segue reference="wnf-Zi-rdj"/>
         <segue reference="cv7-7D-ed4"/>

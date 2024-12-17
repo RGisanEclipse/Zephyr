@@ -11,38 +11,51 @@ public class AuthManager{
     static let shared = AuthManager()
     
     // MARK: - Public
-    public func registerNewUser(userName: String, email: String, password: String, completion: @escaping (Bool, Error?) -> Void){
+    public func canRegisterNewUser(userName: String, email: String, password: String, completion: @escaping (Bool, String?, Error?) -> Void){
         DatabaseManager.shared.canCreateNewUser(with: email, userName: userName){ canCreate, error in
             if canCreate{
-                // Create an account and add to database
-                Auth.auth().createUser(withEmail: email, password: password) { result, error in
-                    guard error == nil, result != nil
-                    else {
-                        // Couldn't create account
-                        completion(false,error)
-                        return
-                    }
-                    DatabaseManager.shared.insertNewUser(with: email, userName: userName) { inserted in
-                        if inserted{
-                            let EmailModel = EmailModel(name: userName)
-                            BrevoManager.shared.sendEmail(to: email, subject: Constants.Onboarding.sucessEmailSubject, body: EmailModel.getEmailBody()) { result in
-                                switch result {
-                                    case .success():
-                                        print("Email sent successfully!")
-                                    case .failure(let error):
-                                        print("Error sending email: \(error.localizedDescription)")
-                                }
-                            }
-                            completion(true, error)
-                            return
-                        } else{
-                            completion(false, error)
-                            return
-                        }
+                // Can create a new account
+                let otp = String(format: "%04d", Int.random(in: 1000...9999))
+                let otpEmailModel = OTPEmailModel(OTP: otp, name: userName, action: Constants.OTP.verifyEmail)
+                BrevoManager.shared.sendEmail(to: email, subject: Constants.Onboarding.OTPEmailSubject, body: otpEmailModel.getEmailBody()) { result in
+                    switch result {
+                    case .success():
+                        print("OTP email sent successfully!")
+                        completion(true, otp, nil)
+                    case .failure(let error):
+                        print("Failed to send OTP email: \(error.localizedDescription)")
+                        completion(false, nil, error)
                     }
                 }
             } else{
-                completion(false, error!)
+                completion(false, nil, error)
+            }
+        }
+    }
+    public func addNewUser(userName: String, email: String, password: String, completion: @escaping (Bool, Error?) -> Void){
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            guard error == nil, result != nil
+            else {
+                completion(false,error)
+                return
+            }
+            DatabaseManager.shared.insertNewUser(with: email, userName: userName) { inserted in
+                if inserted{
+                    let EmailModel = EmailModel(name: userName)
+                    BrevoManager.shared.sendEmail(to: email, subject: Constants.Onboarding.sucessEmailSubject, body: EmailModel.getEmailBody()) { result in
+                        switch result {
+                            case .success():
+                                print("Email sent successfully!")
+                            case .failure(let error):
+                                print("Error sending email: \(error.localizedDescription)")
+                        }
+                    }
+                    completion(true, error)
+                    return
+                } else{
+                    completion(false, error)
+                    return
+                }
             }
         }
     }

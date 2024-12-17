@@ -10,12 +10,12 @@ import Foundation
 public class OTPManager{
     static let shared = OTPManager()
     
-    public func sendOTP(to email: String, completion: @escaping (Bool, String?, String?) -> Void){
+    public func sendOTP(to email: String, callerAction: String, completion: @escaping (Bool, String?, String?) -> Void){
         
         let otp = String(format: "%04d", Int.random(in: 1000...9999))
         DatabaseManager.shared.getUserName(for: email) { name in
             if let name {
-                let otpEmailModel = OTPEmailModel(OTP: otp, name: name, action: Constants.OTP.resetPassword)
+                let otpEmailModel = OTPEmailModel(OTP: otp, name: name, action: callerAction)
                 BrevoManager.shared.sendEmail(to: email, subject: Constants.Onboarding.OTPEmailSubject, body: otpEmailModel.getEmailBody()) { result in
                     switch result {
                     case .success():
