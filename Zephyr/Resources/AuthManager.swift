@@ -24,6 +24,15 @@ public class AuthManager{
                     }
                     DatabaseManager.shared.insertNewUser(with: email, userName: userName) { inserted in
                         if inserted{
+                            let EmailModel = EmailModel(name: userName)
+                            BrevoManager.shared.sendEmail(to: email, subject: Constants.Onboarding.sucessEmailSubject, body: EmailModel.getEmailBody()) { result in
+                                switch result {
+                                    case .success():
+                                        print("Email sent successfully!")
+                                    case .failure(let error):
+                                        print("Error sending email: \(error.localizedDescription)")
+                                }
+                            }
                             completion(true, error)
                             return
                         } else{
@@ -74,6 +83,50 @@ public class AuthManager{
         } catch{
             completion(false)
             return
+        }
+    }
+    public func forgotPassword(userName: String?, email: String?, completion: @escaping (Bool, String?, String?, String?) -> Void) {
+        let otp = String(format: "%04d", Int.random(in: 1000...9999))
+        
+        if let safeEmail = email {
+            DatabaseManager.shared.checkIfEmailExists(email: safeEmail) { exists in
+                if exists {
+                    DatabaseManager.shared.getUserName(for: safeEmail) { name in
+                        if let name {
+                            let otpEmailModel = OTPEmailModel(OTP: otp, name: name, action: Constants.OTP.resetPassword)
+                            BrevoManager.shared.sendEmail(to: safeEmail, subject: Constants.Onboarding.OTPEmailSubject, body: otpEmailModel.getEmailBody()) { result in
+                                switch result {
+                                case .success():
+                                    print("OTP email sent successfully!")
+                                    completion(true, otp, nil, safeEmail)
+                                case .failure(let error):
+                                    print("Failed to send OTP email: \(error.localizedDescription)")
+                                    completion(false, nil, "Error sending email", nil)
+                                }
+                            }
+                        } else{
+                            print("No username found for email")
+                            completion(false, nil, "No user found with the credentials", nil)
+                        }
+                    }
+                } else {
+                    print("Email not found in the database.")
+                    completion(false, nil, "No user found with the credentials", nil)
+                }
+            }
+        } else if let safeUserName = userName {
+            DatabaseManager.shared.getEmail(for: safeUserName) { fetchedEmail in
+                if let email = fetchedEmail {
+                    self.forgotPassword(userName: nil, email: email, completion: completion)
+                } else {
+                    print("Username not found.")
+                    completion(false, nil, "No user found with the credentials", nil)
+                }
+            }
+        } else {
+            // Shouldn't ideally get called
+            print("No email or username provided.")
+            completion(false, nil, "No email or username provided", nil)
         }
     }
 }

@@ -17,6 +17,7 @@ struct Constants{
         static let wrongPasswordError = "Wrong Password"
         static let smallPasswordError = "Password must be 8 characters or more"
         static let sucessEmailSubject = "Thanks for registering to Zephyr"
+        static let OTPEmailSubject = "One Time Password for Zephyr"
         static let otpSegueLogin = "loginToOTPSegue"
     }
     struct FireStore{
@@ -128,5 +129,11 @@ struct Constants{
         static let postsViewLabel = "No Posts Yet"
         static let videoPostsViewLabel = "No Video Posts Yet"
         static let savedPostsViewLabel = "No Saved Posts Yet"
+    }
+    struct OTP{
+        static let resetPassword = "forgotPassword"
+        static let verifyEmail = "verifyEmail"
+        static let resetPasswordText = "We've sent a 4-digit OTP to your email. The OTP is valid for 5 minutes. Please check your inbox and enter the code to reset your password."
+        static let resendOTPText = "We've re-sent a 4-digit OTP to your email. The OTP is valid for 5 minutes. Please check your inbox and enter the code to reset your password."
     }
 }

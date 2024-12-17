@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import NVActivityIndicatorView
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
@@ -15,13 +15,20 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var forgotPasswordButton: UIButton!
-    
+    @IBOutlet weak var dimmedView: UIView!
+    @IBOutlet weak var spinner: NVActivityIndicatorView!
+    @IBOutlet weak var registerButton: UIButton!
+    var OTP: String?
+    var segueEmail: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         updateErrors()
         emailTextField.delegate = self
         passwordTextField.delegate = self
         forgotPasswordButton.isHidden = true
+        dimmedView.isHidden = true
+        spinner.type = .circleStrokeSpin
+        spinner.color = .WB
     }
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         updateErrors()
@@ -68,10 +75,62 @@ class LoginViewController: UIViewController {
         self.performSegue(withIdentifier: Constants.Onboarding.registerSegue, sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Onboarding.otpSegueLogin{
+            let destinationVC = segue.destination as! OTPViewController
+            destinationVC.OTP = self.OTP
+            destinationVC.callerAction = Constants.OTP.resetPassword
+            destinationVC.email = self.segueEmail
+        }
+    }
     
     @IBAction func forgotPasswordButtonPressed(_ sender: UIButton) {
         // Handle Forgot Password Scenario
-        self.performSegue(withIdentifier: Constants.Onboarding.otpSegueLogin, sender: self)
+            DispatchQueue.main.async {
+                self.dimmedView.isHidden = false
+                self.spinner.startAnimating()
+                self.loginButton.isEnabled = false
+                self.registerButton.isEnabled = false
+            }
+
+            guard let inputText = emailTextField.text, !inputText.isEmpty else {
+                DispatchQueue.main.async {
+                    self.errorLabel.text = "Please enter your email/username & press forgot password"
+                    self.errorLabel.isHidden = false
+                    self.resetUI()
+                }
+                return
+            }
+
+            var userName: String?
+            var email: String?
+            if inputText.contains("@"), inputText.contains(".") {
+                email = inputText
+            } else {
+                userName = inputText
+            }
+
+            AuthManager.shared.forgotPassword(userName: userName, email: email) { success, otp, error, email in
+                DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                    self.resetUI()
+                    if success, let safeOTP = otp, let safeEmail = email {
+                        self.OTP = safeOTP
+                        self.segueEmail = safeEmail
+                        self.performSegue(withIdentifier: Constants.Onboarding.otpSegueLogin, sender: self)
+                    } else {
+                        if let safeError = error{
+                            self.throwError(safeError)
+                        }
+                    }
+                }
+            }
+    }
+    
+    func resetUI() {
+        spinner.stopAnimating()
+        dimmedView.isHidden = true
+        loginButton.isEnabled = true
+        registerButton.isEnabled = true
     }
     
     func throwError(_ text: String){

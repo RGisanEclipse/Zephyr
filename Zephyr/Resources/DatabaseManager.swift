@@ -380,8 +380,8 @@ public class DatabaseManager{
     
     func removeFromSavedPosts(post identifier: String, from userName: String, completion: @escaping (Bool) -> Void) {
         let query = db.collection("savedPosts")
-                      .whereField("postIdentifier", isEqualTo: identifier)
-                      .whereField("userName", isEqualTo: userName)
+            .whereField("postIdentifier", isEqualTo: identifier)
+            .whereField("userName", isEqualTo: userName)
         
         query.getDocuments { (snapshot, error) in
             if let error = error {
@@ -408,7 +408,7 @@ public class DatabaseManager{
             }
         }
     }
-
+    
     
     func fetchUserData(for email: String, completion: @escaping (Result<UserModel, Error>) -> Void) {
         fetchUserDocumentID(email: email) { documentID in
@@ -661,80 +661,80 @@ public class DatabaseManager{
             }
     }
     func fetchRandomPosts(completion: @escaping ([HomeRenderViewModel]) -> Void) {
-            db.collection("posts")
-                .getDocuments { querySnapshot, error in
-                    if let error = error {
-                        print("Error fetching posts: \(error.localizedDescription)")
-                        completion([])
-                        return
+        db.collection("posts")
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching posts: \(error.localizedDescription)")
+                    completion([])
+                    return
+                }
+                var posts: [UserPost] = []
+                let dispatchGroup = DispatchGroup()
+                for document in querySnapshot?.documents ?? [] {
+                    let postData = document.data()
+                    guard let ownerUserName = postData["ownerUserName"] as? String else {
+                        print("Owner userName not found in post data")
+                        continue
                     }
-                    var posts: [UserPost] = []
-                    let dispatchGroup = DispatchGroup()
-                    for document in querySnapshot?.documents ?? [] {
-                        let postData = document.data()
-                        guard let ownerUserName = postData["ownerUserName"] as? String else {
-                            print("Owner userName not found in post data")
-                            continue
-                        }
-                        dispatchGroup.enter()
-                        self.fetchUserData(with: ownerUserName) { result in
-                            switch result {
-                            case .success(let ownerData):
-                                guard var userPost = UserPost(documentData: postData, ownerData: ownerData) else {
-                                    print("Error initializing UserPost")
-                                    dispatchGroup.leave()
-                                    return
+                    dispatchGroup.enter()
+                    self.fetchUserData(with: ownerUserName) { result in
+                        switch result {
+                        case .success(let ownerData):
+                            guard var userPost = UserPost(documentData: postData, ownerData: ownerData) else {
+                                print("Error initializing UserPost")
+                                dispatchGroup.leave()
+                                return
+                            }
+                            let postDispatchGroup = DispatchGroup()
+                            postDispatchGroup.enter()
+                            self.fetchPostLikes(for: userPost.identifier) { likes in
+                                if let likes = likes {
+                                    userPost.likeCount = likes
+                                } else {
+                                    print("Error fetching post likes")
                                 }
-                                let postDispatchGroup = DispatchGroup()
-                                postDispatchGroup.enter()
-                                self.fetchPostLikes(for: userPost.identifier) { likes in
-                                    if let likes = likes {
-                                        userPost.likeCount = likes
-                                    } else {
-                                        print("Error fetching post likes")
-                                    }
-                                    postDispatchGroup.leave()
+                                postDispatchGroup.leave()
+                            }
+                            
+                            postDispatchGroup.enter()
+                            self.fetchPostComments(for: userPost.identifier) { comments in
+                                if let comments = comments {
+                                    userPost.comments = comments
+                                } else {
+                                    print("Error fetching post comments")
                                 }
-                                
-                                postDispatchGroup.enter()
-                                self.fetchPostComments(for: userPost.identifier) { comments in
-                                    if let comments = comments {
-                                        userPost.comments = comments
-                                    } else {
-                                        print("Error fetching post comments")
-                                    }
-                                    postDispatchGroup.leave()
-                                }
-                                postDispatchGroup.notify(queue: .main) {
-                                    posts.append(userPost)
-                                    dispatchGroup.leave()
-                                }
-                            case .failure(let error):
-                                print("Error fetching owner data: \(error.localizedDescription)")
+                                postDispatchGroup.leave()
+                            }
+                            postDispatchGroup.notify(queue: .main) {
+                                posts.append(userPost)
                                 dispatchGroup.leave()
                             }
+                        case .failure(let error):
+                            print("Error fetching owner data: \(error.localizedDescription)")
+                            dispatchGroup.leave()
                         }
-                    }
-                    dispatchGroup.notify(queue: .main) {
-                        let shuffledPosts = posts.shuffled()
-                        var renderModels: [HomeRenderViewModel] = []
-                        
-                        for post in shuffledPosts {
-                            let viewModel = HomeRenderViewModel(
-                                header: PostRenderViewModel(renderType: .header(provider: post)),
-                                post: PostRenderViewModel(renderType: .primaryContent(provider: post)),
-                                actions: PostRenderViewModel(renderType: .actions(provider: post)),
-                                likes: PostRenderViewModel(renderType: .likes(provider: post.likeCount)),
-                                caption: PostRenderViewModel(renderType: .caption(provider: post.caption ?? "")),
-                                comments: PostRenderViewModel(renderType: .comments(provider: post))
-                            )
-                            renderModels.append(viewModel)
-                        }
-                        completion(renderModels)
                     }
                 }
-        }
-
+                dispatchGroup.notify(queue: .main) {
+                    let shuffledPosts = posts.shuffled()
+                    var renderModels: [HomeRenderViewModel] = []
+                    
+                    for post in shuffledPosts {
+                        let viewModel = HomeRenderViewModel(
+                            header: PostRenderViewModel(renderType: .header(provider: post)),
+                            post: PostRenderViewModel(renderType: .primaryContent(provider: post)),
+                            actions: PostRenderViewModel(renderType: .actions(provider: post)),
+                            likes: PostRenderViewModel(renderType: .likes(provider: post.likeCount)),
+                            caption: PostRenderViewModel(renderType: .caption(provider: post.caption ?? "")),
+                            comments: PostRenderViewModel(renderType: .comments(provider: post))
+                        )
+                        renderModels.append(viewModel)
+                    }
+                    completion(renderModels)
+                }
+            }
+    }
+    
     func fetchPostSummary(for postIdentifier: String, completion: @escaping (PostSummary?) -> Void) {
         db.collection("posts")
             .whereField("identifier", isEqualTo: postIdentifier)
@@ -804,7 +804,7 @@ public class DatabaseManager{
                 }
             }
     }
-
+    
     func fetchPostComments(for postIdentifier: String, completion: @escaping ([PostComment]?) -> Void) {
         db.collection("postComments")
             .whereField("postIdentifier", isEqualTo: postIdentifier)
@@ -965,7 +965,7 @@ public class DatabaseManager{
             }
         }
     }
-
+    
     func addNotification(to userName: String, from user: UserModel, type: String, post: PostSummary?,notificationText: String ,completion: @escaping (Bool) -> Void) {
         let notificationID = UUID().uuidString
         guard let post = post else{
@@ -1138,7 +1138,7 @@ public class DatabaseManager{
                     let data = document.data()
                     guard let typeString = data["type"] as? String,
                           let text = data["text"] as? String,
-                    let timestamp = data["timestamp"] as? Timestamp else {
+                          let timestamp = data["timestamp"] as? Timestamp else {
                         continue
                     }
                     group.enter()
@@ -1203,5 +1203,20 @@ public class DatabaseManager{
                 }
             }
     }
-    
+    public func checkIfEmailExists(email: String, completion: @escaping (Bool) -> Void){
+        db.collection("users")
+            .whereField("email", isEqualTo: email)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                    completion(false)
+                    return
+                }
+                if let snapshot = snapshot, !snapshot.isEmpty {
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            }
+    }
 }

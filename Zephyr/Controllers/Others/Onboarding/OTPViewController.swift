@@ -19,12 +19,23 @@ class OTPViewController: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
     
     var countdownTime = 30
+    var otpExpiryTime = 300
     var timer: Timer?
+    var timer2: Timer?
+    var OTP: String?
+    var callerAction: String?
+    var email: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFields()
         startCountDownTimer()
+        startOTPExpiryTime()
+        if let callerAction = callerAction {
+            if callerAction == Constants.OTP.resetPassword{
+                messageLabel.text = Constants.OTP.resetPasswordText
+            }
+        }
     }
     
     func setupFields() {
@@ -61,20 +72,69 @@ class OTPViewController: UIViewController {
         countdownLabel.text = "You can resend OTP in \(countdownTime) seconds"
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCountdown), userInfo: nil, repeats: true)
     }
+    func startOTPExpiryTime() {
+        timer2 = Timer.scheduledTimer(timeInterval: TimeInterval(otpExpiryTime), target: self, selector: #selector(expireOTP), userInfo: nil, repeats: false)
+    }
     
     @objc func updateCountdown() {
         countdownTime -= 1
         countdownLabel.text = "Didn't receive the code? Resend in \(countdownTime) seconds"
         if countdownTime <= 0 {
             resendOTPButton.isEnabled = true
-            countdownLabel.text = "You can resend the OTP now"
+            countdownLabel.text = "You can request a new OTP now"
             timer?.invalidate()
             timer = nil
         }
     }
     
+    @objc func expireOTP() {
+        OTP = nil
+        timer2?.invalidate()
+        timer2 = nil
+        
+        DispatchQueue.main.async {
+            self.messageLabel.text = "The OTP has expired. Please request a new one."
+            self.messageLabel.textColor = .red
+            self.resendOTPButton.isEnabled = true
+            self.submitOTPButton.isEnabled = false
+        }
+    }
+    
+    func resetOTPtextFields() {
+        txtOtp1.text = ""
+        txtOtp2.text = ""
+        txtOtp3.text = ""
+        txtOtp4.text = ""
+        enableField(txtOtp1)
+        disableField(txtOtp2)
+        disableField(txtOtp3)
+        disableField(txtOtp4)
+    }
+    
     @IBAction func resendOTPButtonPressed(_ sender: UIButton) {
         // Resend Logic
+        guard let email = email else { return }
+        OTPManager.shared.sendOTP(to: email) { success, OTP, error in
+            if success, let safeOTP = OTP {
+                DispatchQueue.main.async {
+                    self.resetOTPtextFields()
+                }
+                self.OTP = safeOTP
+                self.startOTPExpiryTime()
+                DispatchQueue.main.async {
+                    self.messageLabel.text = Constants.OTP.resendOTPText
+                    self.messageLabel.textColor = UIColor(named: "Tabs")
+                    self.submitOTPButton.isEnabled = false
+                }
+            } else{
+                DispatchQueue.main.async {
+                    self.messageLabel.text = error
+                    self.messageLabel.textColor = .red
+                    self.resendOTPButton.isEnabled = true
+                    self.submitOTPButton.isEnabled = false
+                }
+            }
+        }
     }
     
     @IBAction func submitButtonPressed(_ sender: UIButton) {

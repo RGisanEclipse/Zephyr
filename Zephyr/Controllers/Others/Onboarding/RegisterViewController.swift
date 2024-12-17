@@ -29,15 +29,6 @@ class RegisterViewController: UIViewController {
                 AuthManager.shared.registerNewUser(userName: userNameTextField.text!, email: emailTextField.text!, password: password!) { registered, error in
                     if registered{
                         DispatchQueue.main.async {
-                            let EmailModel = EmailModel(name: self.userNameTextField.text!)
-                            BrevoManager.shared.sendEmail(to: self.emailTextField.text!, subject: Constants.Onboarding.sucessEmailSubject, body: EmailModel.getEmailBody()) { result in
-                                switch result {
-                                    case .success():
-                                        print("Email sent successfully!")
-                                    case .failure(let error):
-                                        print("Error sending email: \(error.localizedDescription)")
-                                }
-                            }
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
                             if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController {
                                 tabBarVC.modalPresentationStyle = .fullScreen

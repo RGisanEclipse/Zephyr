@@ -896,7 +896,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gou-Ew-BE8">
                                         <rect key="frame" x="50" y="60" width="293" height="61"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ybr-oU-CIG">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ybr-oU-CIG">
                                                 <rect key="frame" x="0.0" y="0.0" width="293" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.95690447092056274" green="0.21786379814147949" blue="0.078310392796993256" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -932,16 +932,15 @@
                                     <stackView opaque="NO" contentMode="left" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rfi-V8-XCz">
                                         <rect key="frame" x="123.33333333333333" y="195" width="146.33333333333337" height="32"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kXD-xd-nIp">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r2j-NT-A6s">
                                                 <rect key="frame" x="0.0" y="0.0" width="146.33333333333334" height="32"/>
+                                                <color key="tintColor" name="A1A1A1"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Forgot Password?">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="15"/>
-                                                    <color key="baseForegroundColor" name="ABB0BA"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="forgotPasswordButtonPressed:" destination="2Kt-iP-46d" eventType="touchUpInside" id="wmQ-9b-2eG"/>
-                                                    <action selector="registerButtonPressed:" destination="2Kt-iP-46d" eventType="touchUpInside" id="0dJ-Uo-iW3"/>
+                                                    <action selector="forgotPasswordButtonPressed:" destination="2Kt-iP-46d" eventType="touchUpInside" id="Zty-Dl-KnJ"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -992,6 +991,24 @@
                                     <constraint firstAttribute="trailing" secondItem="pCB-pl-fzo" secondAttribute="trailing" constant="50" id="qqv-H9-W3U"/>
                                 </constraints>
                             </stackView>
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PnX-8o-2lI">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DUj-x2-WcU" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                        <rect key="frame" x="161.66666666666666" y="391" width="70" height="70"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="734-q7-6wM"/>
+                                            <constraint firstAttribute="width" constant="70" id="x6y-90-teb"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" name="BW"/>
+                                <constraints>
+                                    <constraint firstItem="DUj-x2-WcU" firstAttribute="centerY" secondItem="PnX-8o-2lI" secondAttribute="centerY" id="78a-07-NVP"/>
+                                    <constraint firstItem="DUj-x2-WcU" firstAttribute="centerX" secondItem="PnX-8o-2lI" secondAttribute="centerX" id="WHz-fV-57F"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="o88-oB-e8V"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1001,23 +1018,30 @@
                             <constraint firstItem="RTU-PG-crw" firstAttribute="top" secondItem="m8G-5x-el1" secondAttribute="bottom" constant="50" id="2cs-6C-OJi"/>
                             <constraint firstItem="o88-oB-e8V" firstAttribute="trailing" secondItem="RTU-PG-crw" secondAttribute="trailing" id="86r-qy-IaO"/>
                             <constraint firstItem="m8G-5x-el1" firstAttribute="trailing" secondItem="o88-oB-e8V" secondAttribute="trailing" id="E7S-9j-5RI"/>
+                            <constraint firstItem="PnX-8o-2lI" firstAttribute="leading" secondItem="o88-oB-e8V" secondAttribute="leading" id="E7h-10-AfB"/>
+                            <constraint firstItem="PnX-8o-2lI" firstAttribute="top" secondItem="o88-oB-e8V" secondAttribute="top" id="JXh-iy-75p"/>
                             <constraint firstItem="m8G-5x-el1" firstAttribute="leading" secondItem="o88-oB-e8V" secondAttribute="leading" id="M71-PJ-aAT"/>
+                            <constraint firstItem="PnX-8o-2lI" firstAttribute="trailing" secondItem="o88-oB-e8V" secondAttribute="trailing" id="ZBp-Df-TJs"/>
+                            <constraint firstItem="o88-oB-e8V" firstAttribute="bottom" secondItem="PnX-8o-2lI" secondAttribute="bottom" id="qAh-ym-3YG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0g7-xA-3um"/>
                     <connections>
+                        <outlet property="dimmedView" destination="PnX-8o-2lI" id="WLg-t4-ny9"/>
                         <outlet property="emailTextField" destination="BAf-1f-mXU" id="vqc-cA-gN0"/>
                         <outlet property="errorLabel" destination="Ybr-oU-CIG" id="Vwj-XA-Tku"/>
-                        <outlet property="forgotPasswordButton" destination="kXD-xd-nIp" id="NNf-y8-R0U"/>
+                        <outlet property="forgotPasswordButton" destination="r2j-NT-A6s" id="njI-DA-JHr"/>
                         <outlet property="loginButton" destination="pCB-pl-fzo" id="2aO-U5-eCj"/>
                         <outlet property="passwordTextField" destination="twc-VA-XiR" id="0TN-pK-539"/>
-                        <segue destination="WmD-b2-ELX" kind="presentation" identifier="toRegisterView" id="AUe-XG-RPf"/>
+                        <outlet property="registerButton" destination="aw2-GP-SKo" id="gRf-lb-cwB"/>
+                        <outlet property="spinner" destination="DUj-x2-WcU" id="UY4-5S-cS7"/>
                         <segue destination="d5I-TE-Wds" kind="presentation" identifier="loginToOTPSegue" id="LcW-wL-OF9"/>
+                        <segue destination="WmD-b2-ELX" kind="presentation" identifier="toRegisterView" id="FrY-Fy-icN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MXx-JL-KQg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="913.95348837209303" y="-1127.2532188841203"/>
+            <point key="canvasLocation" x="913.74045801526711" y="-1127.4647887323945"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="XWz-Uw-ncE">
@@ -1045,7 +1069,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMB-X8-24D">
                                         <rect key="frame" x="121" y="54.666666666666686" width="91" height="15.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" name="ABB0BA"/>
+                                        <color key="textColor" name="ZephyrGray"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="bpF-hX-TNS">
@@ -1053,37 +1077,45 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Oua-Bn-tA4" customClass="OTPTextField" customModule="Zephyr" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="EjW-Ab-osY"/>
                                                     <constraint firstAttribute="width" constant="50" id="oza-mC-soB"/>
                                                 </constraints>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SN2-PG-nu0" customClass="OTPTextField" customModule="Zephyr" customModuleProvider="target">
                                                 <rect key="frame" x="65" y="0.0" width="50" height="50"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="R77-ms-SuA"/>
                                                     <constraint firstAttribute="width" constant="50" id="aHW-Bh-1Wb"/>
                                                 </constraints>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xPX-8Y-7st" customClass="OTPTextField" customModule="Zephyr" customModuleProvider="target">
                                                 <rect key="frame" x="130" y="0.0" width="50" height="50"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="50" id="Mqs-A2-xyh"/>
                                                     <constraint firstAttribute="height" constant="50" id="fst-NQ-s1S"/>
                                                 </constraints>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mii-p2-adV" customClass="OTPTextField" customModule="Zephyr" customModuleProvider="target">
                                                 <rect key="frame" x="195" y="0.0" width="50" height="50"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="1di-fG-ajG"/>
                                                     <constraint firstAttribute="width" constant="50" id="Dwa-P5-fNt"/>
                                                 </constraints>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                             </textField>
@@ -1092,7 +1124,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CountDownLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rKZ-Xq-Bja">
                                         <rect key="frame" x="0.0" y="170.33333333333331" width="333" height="15.666666666666657"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" name="ABB0BA"/>
+                                        <color key="textColor" name="ZephyrGray"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -1468,6 +1500,9 @@
         <image name="placeholder" width="360" height="360"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
         <image name="userPlaceholder" width="133.33332824707031" height="121.66666412353516"/>
+        <namedColor name="A1A1A1">
+            <color red="0.63137254901960782" green="0.63137254901960782" blue="0.63137254901960782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="ABB0BA">
             <color red="0.6705882352941176" green="0.69019607843137254" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -1476,6 +1511,9 @@
         </namedColor>
         <namedColor name="WB">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ZephyrGray">
+            <color red="0.69999998807907104" green="0.69999998807907104" blue="0.69999998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

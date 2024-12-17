@@ -85,6 +85,8 @@
 		B9951C832C64C6E600242FA6 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9951C802C64C6E600242FA6 /* SearchResultTableViewCell.swift */; };
 		B99B43282D0D55970023B308 /* NoPostsYetCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B99B43272D0D55970023B308 /* NoPostsYetCollectionReusableView.xib */; };
 		B99B43292D0D55970023B308 /* NoPostsYetCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99B43262D0D55970023B308 /* NoPostsYetCollectionReusableView.swift */; };
+		B9A2E5A12D112E98002BB0DA /* OTPEmailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A2E5A02D112E98002BB0DA /* OTPEmailModel.swift */; };
+		B9A2E5A32D114E3A002BB0DA /* OTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A2E5A22D114E3A002BB0DA /* OTPManager.swift */; };
 		B9AA62832C26077C00D35CD8 /* EditProfileFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA62822C26077C00D35CD8 /* EditProfileFormModel.swift */; };
 		B9BB8EB12C43C15B00AD3CEC /* CurrentUserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB8EB02C43C15B00AD3CEC /* CurrentUserDataManager.swift */; };
 		B9BCCA952C3969AC0027405B /* UserNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BCCA942C3969AC0027405B /* UserNotificationModel.swift */; };
@@ -174,6 +176,8 @@
 		B9951C812C64C6E600242FA6 /* SearchResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultTableViewCell.xib; sourceTree = "<group>"; };
 		B99B43262D0D55970023B308 /* NoPostsYetCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPostsYetCollectionReusableView.swift; sourceTree = "<group>"; };
 		B99B43272D0D55970023B308 /* NoPostsYetCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoPostsYetCollectionReusableView.xib; sourceTree = "<group>"; };
+		B9A2E5A02D112E98002BB0DA /* OTPEmailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPEmailModel.swift; sourceTree = "<group>"; };
+		B9A2E5A22D114E3A002BB0DA /* OTPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPManager.swift; sourceTree = "<group>"; };
 		B9AA62822C26077C00D35CD8 /* EditProfileFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFormModel.swift; sourceTree = "<group>"; };
 		B9BB8EB02C43C15B00AD3CEC /* CurrentUserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserDataManager.swift; sourceTree = "<group>"; };
 		B9BCCA942C3969AC0027405B /* UserNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationModel.swift; sourceTree = "<group>"; };
@@ -303,6 +307,8 @@
 				B933BD8A2C3BFEB1008D887D /* PostRenderViewModel.swift */,
 				B9DE03CE2C3C358100662FFE /* HomeRenderViewModel.swift */,
 				B9D2456A2D0F391D00AAF574 /* OTPTextField.swift */,
+				B9A2E5A02D112E98002BB0DA /* OTPEmailModel.swift */,
+				B9A2E5A22D114E3A002BB0DA /* OTPManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -627,6 +633,7 @@
 				B91B50A42C21A96800DC212E /* EditProfileViewController.swift in Sources */,
 				B97AC6B92C3EC66F004C175E /* PostCaptionTableViewCell.swift in Sources */,
 				B91B50A02C21A90F00DC212E /* RegisterViewController.swift in Sources */,
+				B9A2E5A12D112E98002BB0DA /* OTPEmailModel.swift in Sources */,
 				B930612C2C246B5B001AA2A2 /* SettingsModel.swift in Sources */,
 				B984836F2C24C4AE003570F3 /* SplashScreenViewController.swift in Sources */,
 				B9DE03CD2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift in Sources */,
@@ -677,6 +684,7 @@
 				B97EE49F2C277BAC00B3CF6F /* UserModel.swift in Sources */,
 				B97AC6B12C3EB820004C175E /* HomeCommentsTableViewCell.swift in Sources */,
 				B91B50A62C21A98900DC212E /* SettingsViewController.swift in Sources */,
+				B9A2E5A32D114E3A002BB0DA /* OTPManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
