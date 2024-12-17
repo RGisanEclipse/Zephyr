@@ -1,5 +1,5 @@
 {
-  "originHash" : "b260d891a7422c39e0070b170b2236e2e1f8a0152733a2a4d2601b783b97dccd",
+  "originHash" : "a1671b9e3e326a5b9085ce76f2604ac59e83745c8517a7d7c778b449756e29c3",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -17,15 +17,6 @@
       "state" : {
         "revision" : "3b62f154d00019ae29a71e9738800bb6f18b236d",
         "version" : "10.19.2"
-      }
-    },
-    {
-      "identity" : "dpotpview",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Datt1994/DPOTPView",
-      "state" : {
-        "revision" : "950ecde0feef20f96abdd20a7442aa0ac2461626",
-        "version" : "1.5.12"
       }
     },
     {

@@ -19,6 +19,16 @@ struct Constants{
         static let sucessEmailSubject = "Thanks for registering to Zephyr"
         static let OTPEmailSubject = "One Time Password for Zephyr"
         static let otpSegueLogin = "loginToOTPSegue"
+        static let passwordMismatchError = "Passwords don't match"
+        static let largePasswordError = "Passwords exceed characters limit"
+        static let noUppercaseError = "There are no uppercase characters in the password"
+        static let noLowercaseError = "There are no lowercase characters in the password"
+        static let noNumberError = "There is no number in the password"
+        static let noSpecialCharacterError = "There is no special character in the password"
+        static let repeatedCharacterError = "Too many repeated characters in the password"
+        static let commonPasswordError = "Your password is too easy to guess"
+        static let containsWhitespaceError = "Your password contains whitespaces"
+        static let successfulPasswordChange = "Your password changed successfully"
     }
     struct FireStore{
         static let users = "users"

@@ -129,4 +129,14 @@ public class AuthManager{
             completion(false, nil, "No email or username provided", nil)
         }
     }
+    public func sendPasswordResetEmail(email: String, completion: @escaping (Bool, String?) -> Void) {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                completion(false, error.localizedDescription)
+            } else {
+                print("Reset Password Email has been sent successfully")
+                completion(true, nil)
+            }
+        }
+    }
 }

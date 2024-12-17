@@ -123,7 +123,7 @@ class OTPViewController: UIViewController {
                 self.startOTPExpiryTime()
                 DispatchQueue.main.async {
                     self.messageLabel.text = Constants.OTP.resendOTPText
-                    self.messageLabel.textColor = UIColor(named: "Tabs")
+                    self.messageLabel.textColor = UIColor(named: "ZephyrGray")
                     self.submitOTPButton.isEnabled = false
                 }
             } else{
@@ -139,6 +139,32 @@ class OTPViewController: UIViewController {
     
     @IBAction func submitButtonPressed(_ sender: UIButton) {
         // Submit Logic
+        var enteredOTP = "\(txtOtp1.text ?? "")\(txtOtp2.text ?? "")\(txtOtp3.text ?? "")\(txtOtp4.text ?? "")"
+        guard let safeEmail = email else {return}
+        if let validOTP = OTP, enteredOTP == validOTP {
+            AuthManager.shared.sendPasswordResetEmail(email: safeEmail) { success, error in
+                if success {
+                    print("Password reset email sent successfully!")
+                    let alert = UIAlertController(title: "Success!", message: "Please check your email's inbox or the spam folder to find your reset password link.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default){ _ in
+                        alert.dismiss(animated: true, completion: nil)
+                        DispatchQueue.main.async {
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+                            loginVC.modalPresentationStyle = .fullScreen
+                            self.present(loginVC, animated: true, completion: nil)
+                        }
+                    })
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    print("Failed to send password reset email: \(error ?? "Unknown error")")
+                }
+            }
+        } else {
+            messageLabel.text = "Invalid OTP. Please try again."
+            messageLabel.textColor = .red
+            resetOTPtextFields()
+        }
     }
 }
 

@@ -8,7 +8,7 @@
 import UIKit
 import NVActivityIndicatorView
 class LoginViewController: UIViewController {
-
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -67,7 +67,7 @@ class LoginViewController: UIViewController {
             }
         }
     }
-
+    
     @IBAction func registerButtonPressed(_ sender: UIButton) {
         updateErrors()
         emailTextField.text = Constants.empty
@@ -86,44 +86,47 @@ class LoginViewController: UIViewController {
     
     @IBAction func forgotPasswordButtonPressed(_ sender: UIButton) {
         // Handle Forgot Password Scenario
+        DispatchQueue.main.async {
+            self.dimmedView.isHidden = false
+            self.spinner.startAnimating()
+            self.loginButton.isEnabled = false
+            self.registerButton.isEnabled = false
+        }
+        
+        guard let inputText = emailTextField.text, !inputText.isEmpty else {
             DispatchQueue.main.async {
-                self.dimmedView.isHidden = false
-                self.spinner.startAnimating()
-                self.loginButton.isEnabled = false
-                self.registerButton.isEnabled = false
+                self.errorLabel.text = "Please enter your email/username & press forgot password"
+                self.errorLabel.isHidden = false
+                self.resetUI()
             }
-
-            guard let inputText = emailTextField.text, !inputText.isEmpty else {
-                DispatchQueue.main.async {
-                    self.errorLabel.text = "Please enter your email/username & press forgot password"
-                    self.errorLabel.isHidden = false
-                    self.resetUI()
-                }
-                return
-            }
-
-            var userName: String?
-            var email: String?
-            if inputText.contains("@"), inputText.contains(".") {
-                email = inputText
-            } else {
-                userName = inputText
-            }
-
-            AuthManager.shared.forgotPassword(userName: userName, email: email) { success, otp, error, email in
-                DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                    self.resetUI()
-                    if success, let safeOTP = otp, let safeEmail = email {
-                        self.OTP = safeOTP
-                        self.segueEmail = safeEmail
-                        self.performSegue(withIdentifier: Constants.Onboarding.otpSegueLogin, sender: self)
-                    } else {
-                        if let safeError = error{
-                            self.throwError(safeError)
-                        }
+            return
+        }
+        
+        var userName: String?
+        var email: String?
+        if inputText.contains("@"), inputText.contains(".") {
+            email = inputText
+        } else {
+            userName = inputText
+        }
+        
+        AuthManager.shared.forgotPassword(userName: userName, email: email) { success, otp, error, email in
+            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                self.resetUI()
+                if success, let safeOTP = otp, let safeEmail = email {
+                    self.OTP = safeOTP
+                    self.segueEmail = safeEmail
+                    self.performSegue(withIdentifier: Constants.Onboarding.otpSegueLogin, sender: self)
+                } else {
+                    if let safeError = error{
+                        self.throwError(safeError)
                     }
                 }
             }
+        }
+        updateErrors()
+        emailTextField.text = Constants.empty
+        passwordTextField.text = Constants.empty
     }
     
     func resetUI() {
@@ -151,7 +154,7 @@ class LoginViewController: UIViewController {
     func updateErrors(){
         errorLabel.isHidden = true
     }
-
+    
 }
 
 // MARK: - UITextFieldDelegate

@@ -8,7 +8,7 @@
 import UIKit
 
 class RegisterViewController: UIViewController {
-
+    
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -24,25 +24,52 @@ class RegisterViewController: UIViewController {
             let password = passwordTextField.text
             if password!.count < 8{
                 throwError(Constants.Onboarding.smallPasswordError)
-            } else{
-                registerButton.isEnabled = false
-                AuthManager.shared.registerNewUser(userName: userNameTextField.text!, email: emailTextField.text!, password: password!) { registered, error in
-                    if registered{
-                        DispatchQueue.main.async {
-                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                            if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController {
-                                tabBarVC.modalPresentationStyle = .fullScreen
-                                self.present(tabBarVC, animated: true, completion: nil)
-                            } else {
-                                print("HomeViewController could not be instantiated")
+            } else if passwordTextField.text!.count > 32 {
+                throwError(Constants.Onboarding.largePasswordError)
+            } else {
+                let password = passwordTextField.text!
+                let uppercaseRegex = ".*[A-Z]+.*"
+                let lowercaseRegex = ".*[a-z]+.*"
+                let digitRegex = ".*[0-9]+.*"
+                let specialCharacterRegex = ".*[!@#$%^&*(),.?\":{}|<>]+.*"
+                let repeatedRegex = ".*(.)\\1{2,}.*"
+                let commonPasswords = PasswordManager.getCommonPasswords()
+                let whitespaceRegex = ".*\\s+.*"
+                
+                if !NSPredicate(format: "SELF MATCHES %@", uppercaseRegex).evaluate(with: password) {
+                    throwError(Constants.Onboarding.noUppercaseError)
+                } else if !NSPredicate(format: "SELF MATCHES %@", lowercaseRegex).evaluate(with: password) {
+                    throwError(Constants.Onboarding.noLowercaseError)
+                } else if !NSPredicate(format: "SELF MATCHES %@", digitRegex).evaluate(with: password) {
+                    throwError(Constants.Onboarding.noNumberError)
+                } else if !NSPredicate(format: "SELF MATCHES %@", specialCharacterRegex).evaluate(with: password) {
+                    throwError(Constants.Onboarding.noSpecialCharacterError)
+                } else if NSPredicate(format: "SELF MATCHES %@", repeatedRegex).evaluate(with: password) {
+                    throwError(Constants.Onboarding.repeatedCharacterError)
+                } else if commonPasswords.contains(password) {
+                    throwError(Constants.Onboarding.commonPasswordError)
+                } else if NSPredicate(format: "SELF MATCHES %@", whitespaceRegex).evaluate(with: password) {
+                    throwError(Constants.Onboarding.containsWhitespaceError)
+                } else {
+                    registerButton.isEnabled = false
+                    AuthManager.shared.registerNewUser(userName: userNameTextField.text!, email: emailTextField.text!, password: password) { registered, error in
+                        if registered{
+                            DispatchQueue.main.async {
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController {
+                                    tabBarVC.modalPresentationStyle = .fullScreen
+                                    self.present(tabBarVC, animated: true, completion: nil)
+                                } else {
+                                    print("HomeViewController could not be instantiated")
+                                }
+                            }
+                        } else{
+                            if let error = error as NSError? {
+                                self.throwError(error.domain)
                             }
                         }
-                    } else{
-                        if let error = error as NSError? {
-                            self.throwError(error.domain)
-                        }
+                        self.registerButton.isEnabled = true
                     }
-                    self.registerButton.isEnabled = true
                 }
             }
         }
