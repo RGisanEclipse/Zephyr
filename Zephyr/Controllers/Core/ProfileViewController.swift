@@ -129,7 +129,7 @@ class ProfileViewController: UIViewController {
         guard let userData = userData else { return }
         var fetchedPosts: [String: PostSummary] = [:]
         let dispatchGroup = DispatchGroup()
-
+        
         for postIdentifier in userData.savedPosts {
             dispatchGroup.enter()
             fetchPostSummary(for: postIdentifier) { fetchedPost in
@@ -155,7 +155,7 @@ class ProfileViewController: UIViewController {
             self.collectionView.reloadSections(indexSet)
         }
     }
-
+    
     func fetchPostSummary(for identifier: String, completion: @escaping (PostSummary?) -> Void){
         DatabaseManager.shared.fetchPostSummary(for: identifier){ fetchedPost in
             guard let fetchedPost = fetchedPost else{
@@ -230,41 +230,43 @@ extension ProfileViewController: UICollectionViewDataSource{
         guard kind == UICollectionView.elementKindSectionHeader else {
             return UICollectionReusableView()
         }
-        
-        if indexPath.section == 1 {
+        if indexPath.section == 0{
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.headerIdentifier, for: indexPath) as! ProfileHeaderCollectionReusableView
+            if let userData = self.userData {
+                header.configure(with: userData)
+                profileHeaderView = header
+            }
+            header.delegate = self
+            return header
+        }
+        else if indexPath.section == 1 {
             let tab = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.tabsIdentifier, for: indexPath) as! ProfileTabsCollectionReusableView
             tab.delegate = self
             return tab
         }
-        else if indexPath.section == 2{
-            switch currentView{
-            case .posts:
-                if postsData.isEmpty{
-                    let noPostsYet = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.noPostsYetIdentifier, for: indexPath) as! NoPostsYetCollectionReusableView
-                    noPostsYet.configure(view: Constants.NoPostsYet.postsView)
-                    return noPostsYet
-                }
-            case .videoPosts:
-                if videosData.isEmpty{
-                    let noPostsYet = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.noPostsYetIdentifier, for: indexPath) as! NoPostsYetCollectionReusableView
-                    noPostsYet.configure(view: Constants.NoPostsYet.videoPostsView)
-                    return noPostsYet
-                }
-            case .savedPosts:
-                if savedPostsData.isEmpty{
-                    let noPostsYet = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.noPostsYetIdentifier, for: indexPath) as! NoPostsYetCollectionReusableView
-                    noPostsYet.configure(view: Constants.NoPostsYet.savedPostsView)
-                    return noPostsYet
-                }
+        switch currentView{
+        case .posts:
+            if postsData.isEmpty{
+                let noPostsYet = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.noPostsYetIdentifier, for: indexPath) as! NoPostsYetCollectionReusableView
+                noPostsYet.configure(view: Constants.NoPostsYet.postsView)
+                return noPostsYet
+            }
+        case .videoPosts:
+            if videosData.isEmpty{
+                let noPostsYet = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.noPostsYetIdentifier, for: indexPath) as! NoPostsYetCollectionReusableView
+                noPostsYet.configure(view: Constants.NoPostsYet.videoPostsView)
+                return noPostsYet
+            }
+        case .savedPosts:
+            if savedPostsData.isEmpty{
+                let noPostsYet = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.noPostsYetIdentifier, for: indexPath) as! NoPostsYetCollectionReusableView
+                noPostsYet.configure(view: Constants.NoPostsYet.savedPostsView)
+                return noPostsYet
             }
         }
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.headerIdentifier, for: indexPath) as! ProfileHeaderCollectionReusableView
-        if let userData = self.userData {
-            header.configure(with: userData)
-            profileHeaderView = header
-        }
-        header.delegate = self
-        return header
+        let noPostsYet = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Profile.noPostsYetIdentifier, for: indexPath) as! NoPostsYetCollectionReusableView
+        noPostsYet.configure(view: Constants.NoPostsYet.postsView)
+        return noPostsYet
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

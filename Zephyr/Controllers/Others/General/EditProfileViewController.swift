@@ -19,7 +19,7 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
         tableView.register(UINib(nibName: Constants.Settings.EditProfile.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.Settings.EditProfile.cellIdentifier)
         configureModels()
         setupProfilePictureButton()
-        spinner.type = .ballPulse
+        spinner.type = .circleStrokeSpin
         spinner.color = .BW
         loadingView.isHidden = true
         spinner.isHidden = true

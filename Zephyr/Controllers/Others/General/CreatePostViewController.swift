@@ -27,7 +27,7 @@ class CreatePostViewController: UIViewController {
         captionTextView.text = "Write a caption"
         loadAsset()
         spinner.isHidden = true
-        spinner.type = .ballPulse
+        spinner.type = .circleStrokeSpin
         spinner.color = .BW
         dimmedView.isHidden = true
         fetchUserData()
