@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		B9013D252C33141000700932 /* NotificationLikeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9013D232C33141000700932 /* NotificationLikeTableViewCell.swift */; };
 		B9013D262C33141000700932 /* NotificationLikeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9013D242C33141000700932 /* NotificationLikeTableViewCell.xib */; };
+		B90B78012D12DAC100BE8EF6 /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B77FF2D12DAC100BE8EF6 /* ToggleTableViewCell.swift */; };
+		B90B78022D12DAC100BE8EF6 /* ToggleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90B78002D12DAC100BE8EF6 /* ToggleTableViewCell.xib */; };
+		B90B78062D13099400BE8EF6 /* SettingsSimpleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B78042D13099400BE8EF6 /* SettingsSimpleTableViewCell.swift */; };
+		B90B78072D13099400BE8EF6 /* SettingsSimpleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90B78052D13099400BE8EF6 /* SettingsSimpleTableViewCell.xib */; };
 		B913009A2D0F10190023324A /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91300992D0F10190023324A /* OTPViewController.swift */; };
 		B9152F062C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9152F052C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib */; };
 		B9152F072C314780006B22D6 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9152F042C314780006B22D6 /* ProfileHeaderCollectionReusableView.swift */; };
@@ -109,6 +113,10 @@
 /* Begin PBXFileReference section */
 		B9013D232C33141000700932 /* NotificationLikeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationLikeTableViewCell.swift; sourceTree = "<group>"; };
 		B9013D242C33141000700932 /* NotificationLikeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationLikeTableViewCell.xib; sourceTree = "<group>"; };
+		B90B77FF2D12DAC100BE8EF6 /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
+		B90B78002D12DAC100BE8EF6 /* ToggleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToggleTableViewCell.xib; sourceTree = "<group>"; };
+		B90B78042D13099400BE8EF6 /* SettingsSimpleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSimpleTableViewCell.swift; sourceTree = "<group>"; };
+		B90B78052D13099400BE8EF6 /* SettingsSimpleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSimpleTableViewCell.xib; sourceTree = "<group>"; };
 		B91300992D0F10190023324A /* OTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		B9152F042C314780006B22D6 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		B9152F052C314780006B22D6 /* ProfileHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -228,6 +236,24 @@
 				B96C7CD62C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib */,
 			);
 			path = Notifications;
+			sourceTree = "<group>";
+		};
+		B90B78032D12DACE00BE8EF6 /* ToggleTableView */ = {
+			isa = PBXGroup;
+			children = (
+				B90B77FF2D12DAC100BE8EF6 /* ToggleTableViewCell.swift */,
+				B90B78002D12DAC100BE8EF6 /* ToggleTableViewCell.xib */,
+			);
+			path = ToggleTableView;
+			sourceTree = "<group>";
+		};
+		B90B78082D13099900BE8EF6 /* SettingsSimple */ = {
+			isa = PBXGroup;
+			children = (
+				B90B78042D13099400BE8EF6 /* SettingsSimpleTableViewCell.swift */,
+				B90B78052D13099400BE8EF6 /* SettingsSimpleTableViewCell.xib */,
+			);
+			path = SettingsSimple;
 			sourceTree = "<group>";
 		};
 		B9152F032C31473D006B22D6 /* ProfileHeader */ = {
@@ -498,6 +524,8 @@
 				B959C4ED2C2A1432001C106E /* ProfileCollection */,
 				B9013D272C33141900700932 /* Notifications */,
 				B99B432A2D0D559F0023B308 /* ProfileNoPosts */,
+				B90B78032D12DACE00BE8EF6 /* ToggleTableView */,
+				B90B78082D13099900BE8EF6 /* SettingsSimple */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -609,9 +637,11 @@
 				B933BD832C3BFADF008D887D /* PostGeneralTableViewCell.xib in Resources */,
 				B9CADB762C3E6B900023B7E8 /* PostLikesTableViewCell.xib in Resources */,
 				B98FC0652C2815E5002B9194 /* ProfileCollectionViewCell.xib in Resources */,
+				B90B78072D13099400BE8EF6 /* SettingsSimpleTableViewCell.xib in Resources */,
 				B933BD7B2C3BFA9E008D887D /* PostHeaderTableViewCell.xib in Resources */,
 				B94DF7452C260E0B00C8EE94 /* FormTableViewCell.xib in Resources */,
 				B9358FF72C63BF250026AFA0 /* UserProfileHeaderCollectionReusableView.xib in Resources */,
+				B90B78022D12DAC100BE8EF6 /* ToggleTableViewCell.xib in Resources */,
 				B91B50862C21A61300DC212E /* Base in Resources */,
 				B959C4F12C2A1494001C106E /* ListTableViewCell.xib in Resources */,
 				B91B50812C21A61200DC212E /* Base in Resources */,
@@ -675,8 +705,10 @@
 				B9951C832C64C6E600242FA6 /* SearchResultTableViewCell.swift in Sources */,
 				B91B507A2C21A61200DC212E /* AppDelegate.swift in Sources */,
 				B933BD822C3BFADF008D887D /* PostGeneralTableViewCell.swift in Sources */,
+				B90B78012D12DAC100BE8EF6 /* ToggleTableViewCell.swift in Sources */,
 				B91B507C2C21A61200DC212E /* SceneDelegate.swift in Sources */,
 				B97E45FD2C3FD93700EB274E /* CommentsHeaderTableViewCell.swift in Sources */,
+				B90B78062D13099400BE8EF6 /* SettingsSimpleTableViewCell.swift in Sources */,
 				B91B50A82C21A99600DC212E /* ListViewController.swift in Sources */,
 				B99B43292D0D55970023B308 /* NoPostsYetCollectionReusableView.swift in Sources */,
 				B913009A2D0F10190023324A /* OTPViewController.swift in Sources */,

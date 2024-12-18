@@ -8,6 +8,7 @@
 import Foundation
 struct Constants{
     static let empty = ""
+    static let CurrentAppVersion = "Zephyr Version 1.0"
     struct Onboarding{
         static let registerSegue = "toRegisterView"
         static let launchLoginSegue = "toLoginVC"
@@ -42,10 +43,13 @@ struct Constants{
         static let bio = "bio"
     }
     struct Settings{
-        static let cellIdentifier = "settingsOptions"
+        static let cellIdentifier = "SettingsSimpleTableViewCell"
         static let logoutTitle = "Logout"
         static let logoutMessage = "Are you sure you want to log out?"
         static let toEditProfile = "toEditProfileVC"
+        static let toggleTableViewCellIdentifier = "ToggleTableViewCell"
+        static let SimpleType = "SimpleCell"
+        static let ToggleType = "ToggleCell"
         struct EditProfile{
             static let cellIdentifier = "editProfileTableViewCell"
             static let cellNibName = "FormTableViewCell"

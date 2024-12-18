@@ -439,31 +439,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="vlg-ox-Hv9">
-                                <rect key="frame" x="0.0" y="0.0" width="430" height="883"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="vlg-ox-Hv9">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingsOptions" id="zpg-Go-2DZ">
-                                        <rect key="frame" x="0.0" y="50" width="430" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zpg-Go-2DZ" id="CfS-wv-Kek">
-                                            <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="MN1-c5-rbP" kind="show" identifier="toEditProfileVC" id="4f8-ZT-ak6"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fU2-3V-gcl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vlg-ox-Hv9" firstAttribute="top" secondItem="YOd-h1-khQ" secondAttribute="top" id="PHK-bC-seM"/>
+                            <constraint firstAttribute="bottom" secondItem="vlg-ox-Hv9" secondAttribute="bottom" id="f6Z-UD-wqv"/>
+                            <constraint firstAttribute="trailing" secondItem="vlg-ox-Hv9" secondAttribute="trailing" id="g4M-OC-geK"/>
+                            <constraint firstItem="vlg-ox-Hv9" firstAttribute="leading" secondItem="fU2-3V-gcl" secondAttribute="leading" id="yOP-H9-W9x"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="always" id="kds-62-dEd"/>
                     <connections>
                         <outlet property="settingsTableView" destination="vlg-ox-Hv9" id="8XD-T8-Wvl"/>
+                        <segue destination="MN1-c5-rbP" kind="show" identifier="toEditProfileVC" id="6kO-W2-9Ue"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BMW-cR-uWw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1484,8 +1477,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="ZgJ-tn-cdZ"/>
         <segue reference="LcW-wL-OF9"/>
-        <segue reference="gQp-EX-G0A"/>
-        <segue reference="QhA-by-kL0"/>
+        <segue reference="6kO-W2-9Ue"/>
+        <segue reference="pof-Wn-ZLp"/>
         <segue reference="iJ4-yY-iRW"/>
         <segue reference="Q0E-0G-eJa"/>
     </inferredMetricsTieBreakers>

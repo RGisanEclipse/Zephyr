@@ -8,5 +8,6 @@
 import Foundation
 struct SettingsModel{
     let title: String?
+    let type: String?
     let handler: () -> Void
 }
