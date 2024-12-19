@@ -47,6 +47,7 @@ class HomeViewController: UIViewController {
     }
     @objc private func refreshData(_ sender: Any) {
         fetchPosts()
+        fetchUserData()
         self.refreshControl.endRefreshing()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -91,7 +92,7 @@ class HomeViewController: UIViewController {
 
 // MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate{
-    
+    // TableViewDelegate functions go here
 }
 
 // MARK: - UITableViewDataSource

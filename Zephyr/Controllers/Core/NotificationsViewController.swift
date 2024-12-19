@@ -75,6 +75,7 @@ class NotificationsViewController: UIViewController {
     }
     
     @IBAction func refreshButtonPressed(_ sender: UIButton) {
+        fetchCurrentUserData()
         fetchNotifications()
     }
 }

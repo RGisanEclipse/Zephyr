@@ -57,6 +57,7 @@ class ExploreViewController: UIViewController {
         }
     }
     @objc private func refreshData(_ sender: Any) {
+        fetchUserData()
         self.fetchPosts()
         self.refreshControl.endRefreshing()
     }
