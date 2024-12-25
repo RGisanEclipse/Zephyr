@@ -340,60 +340,56 @@ extension PostViewController: PostActionsTableViewCellDelegate{
             print("User data not available")
             return
         }
-        let isLikedByCurrentUser = model.likeCount.contains { like in
-            like.userName == safeUserData.userName
+        let isLikedByCurrentUser = model.likeCount.contains { $0.userName == safeUserData.userName }
+        let updateUI = { (newModel: UserPost) in
+            self.updateRenderModels(with: newModel)
+            DispatchQueue.main.async {
+                self.tableView.reloadSections([2, 3], with: .none)
+            }
         }
         
         if isLikedByCurrentUser {
             DatabaseManager.shared.removeLike(to: model.identifier, from: safeUserData) { success in
-                if success {
-                    var newModel = model
-                    var updatedLikeCount = model.likeCount
-                    updatedLikeCount.removeAll { like in
-                        like.userName == safeUserData.userName
-                    }
-                    newModel.likeCount = updatedLikeCount
-                    self.updateRenderModels(with: newModel)
-                    
+                guard success else {
+                    print("Failed to remove like")
+                    return
+                }
+                
+                var newModel = model
+                newModel.likeCount.removeAll { $0.userName == safeUserData.userName }
+                updateUI(newModel)
+                
+                if model.owner.userName != safeUserData.userName {
                     DatabaseManager.shared.fetchNotificationIDforLike(for: model.owner.userName, by: safeUserData.userName, postIdentifier: model.identifier) { notificationID in
-                        if let notificationID = notificationID {
-                            DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
-                                if success {
-                                    DispatchQueue.main.async {
-                                        self.tableView.reloadSections([2,3], with: .none)
-                                    }
-                                } else {
-                                    print("Failed to remove notification")
-                                }
-                            }
-                        } else {
+                        guard let notificationID = notificationID else {
                             print("Notification ID not found")
+                            return
+                        }
+                        DatabaseManager.shared.removeNotification(notificationID: notificationID) { success in
+                            if !success {
+                                print("Failed to remove notification")
+                            }
                         }
                     }
-                } else {
-                    print("Failed to remove like")
                 }
             }
         } else {
             DatabaseManager.shared.addLike(to: model.identifier, from: safeUserData) { success in
-                if success {
-                    var newModel = model
-                    var updatedLikeCount = model.likeCount
-                    updatedLikeCount.append(PostLike(userName: safeUserData.userName, profilePicture: safeUserData.profilePicture?.absoluteString, postIdentifier: model.identifier))
-                    newModel.likeCount = updatedLikeCount
-                    self.updateRenderModels(with: newModel)
-                    
+                guard success else {
+                    print("Failed to add like")
+                    return
+                }
+                
+                var newModel = model
+                let newLike = PostLike(userName: safeUserData.userName, profilePicture: safeUserData.profilePicture?.absoluteString, postIdentifier: model.identifier)
+                newModel.likeCount.append(newLike)
+                updateUI(newModel)
+                if model.owner.userName != safeUserData.userName {
                     DatabaseManager.shared.addNotification(to: model.owner.userName, from: safeUserData, type: "like", post: PostSummary(identifier: model.identifier, thumbnailImage: model.thumbnailImage, postType: model.postType), notificationText: "\(safeUserData.userName) liked your post.") { success in
-                        if success {
-                            DispatchQueue.main.async {
-                                self.tableView.reloadSections([2,3], with: .none)
-                            }
-                        } else {
+                        if !success {
                             print("Failed to add notification")
                         }
                     }
-                } else {
-                    print("Failed to add like")
                 }
             }
         }
