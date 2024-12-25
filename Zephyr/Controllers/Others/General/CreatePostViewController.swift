@@ -20,6 +20,7 @@ class CreatePostViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var dimmedView: UIView!
     @IBOutlet weak var spinner: NVActivityIndicatorView!
+    @IBOutlet weak var rephraseAIButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -317,7 +318,7 @@ class CreatePostViewController: UIViewController {
                                postType: type,
                                thumbnailImage: thumbnail,
                                postURL: postURL,
-                               caption: caption == "Write a caption" ? "" : caption,
+                               caption: caption == "Write a caption" ? Constants.empty : caption,
                                likeCount: [],
                                comments: [],
                                createDate: Date(),
@@ -331,14 +332,40 @@ class CreatePostViewController: UIViewController {
             }
         }
     }
-    
+    @IBAction func didTapRephraseAIButton(_ sender: UIButton) {
+        let inputText: String?
+        if captionTextView.text != Constants.empty && captionTextView.text != "Write a caption"{
+            inputText = captionTextView.text
+        } else {
+            return
+        }
+        guard let inputText else {
+            return
+        }
+        DispatchQueue.main.async {
+            self.captionTextView.text = Constants.empty
+        }
+        AIManager.shared.rephraseText(inputText: inputText) { rephrasedText in
+            guard let rephrasedText = rephrasedText else {
+                DispatchQueue.main.async {
+                    self.captionTextView.text = "No response from AI, please try again after sometime"
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self.captionTextView.text = rephrasedText
+            }
+        }
+    }
 }
 
 // MARK: - UITextFieldDelegate
 extension CreatePostViewController: UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        textView.text = ""
+        if textView.text == "Write a caption"{
+            textView.text = Constants.empty
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {

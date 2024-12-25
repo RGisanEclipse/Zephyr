@@ -131,7 +131,7 @@
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QfL-SN-pi2">
-                                <rect key="frame" x="15" y="418.33333333333331" width="363" height="119.99999999999994"/>
+                                <rect key="frame" x="15" y="418.33333333333331" width="304.33333333333331" height="119.99999999999994"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="R0I-q5-0m0"/>
                                 </constraints>
@@ -139,20 +139,33 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zb3-Lu-DGM">
+                                <rect key="frame" x="329.33333333333331" y="418.33333333333331" width="48.666666666666686" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="75S-bZ-gkI"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="sparkles" catalog="system"/>
+                                <connections>
+                                    <action selector="didTapRephraseAIButton:" destination="vof-8K-2iL" eventType="touchUpInside" id="aLm-0u-bxy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DQw-ji-I4V"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="zb3-Lu-DGM" firstAttribute="top" secondItem="7II-z9-IOO" secondAttribute="bottom" constant="20" id="6WK-ee-8b2"/>
                             <constraint firstItem="QfL-SN-pi2" firstAttribute="top" secondItem="7II-z9-IOO" secondAttribute="bottom" constant="20" id="KZp-vW-XN9"/>
+                            <constraint firstItem="zb3-Lu-DGM" firstAttribute="leading" secondItem="QfL-SN-pi2" secondAttribute="trailing" constant="10" id="ZqX-uL-bXr"/>
                             <constraint firstItem="IJ1-xf-IeB" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" id="ahK-et-Zc8"/>
                             <constraint firstItem="DQw-ji-I4V" firstAttribute="bottom" secondItem="IJ1-xf-IeB" secondAttribute="bottom" constant="3" id="cSS-lu-1uZ"/>
                             <constraint firstItem="7II-z9-IOO" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" id="d0L-Al-z7g"/>
                             <constraint firstItem="IJ1-xf-IeB" firstAttribute="top" secondItem="DQw-ji-I4V" secondAttribute="top" id="g0s-mB-nbY"/>
-                            <constraint firstItem="QfL-SN-pi2" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" constant="15" id="gyX-nm-zsb"/>
                             <constraint firstItem="IJ1-xf-IeB" firstAttribute="trailing" secondItem="DQw-ji-I4V" secondAttribute="trailing" id="i1R-ZN-VZQ"/>
                             <constraint firstItem="7II-z9-IOO" firstAttribute="top" secondItem="DQw-ji-I4V" secondAttribute="top" id="q64-ey-N1o"/>
                             <constraint firstItem="7II-z9-IOO" firstAttribute="trailing" secondItem="DQw-ji-I4V" secondAttribute="trailing" id="rna-an-ae3"/>
-                            <constraint firstItem="DQw-ji-I4V" firstAttribute="trailing" secondItem="QfL-SN-pi2" secondAttribute="trailing" constant="15" id="yW6-HK-jXJ"/>
+                            <constraint firstItem="QfL-SN-pi2" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" constant="15" id="tov-QI-ruV"/>
+                            <constraint firstItem="DQw-ji-I4V" firstAttribute="trailing" secondItem="zb3-Lu-DGM" secondAttribute="trailing" constant="15" id="vr1-gF-aWm"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="92g-m6-KyX">
@@ -168,12 +181,13 @@
                         <outlet property="dimmedView" destination="IJ1-xf-IeB" id="LJa-cP-67D"/>
                         <outlet property="imageView" destination="yJy-TC-JRo" id="ipW-AR-aTI"/>
                         <outlet property="mediaView" destination="7II-z9-IOO" id="Ggl-ef-hXg"/>
+                        <outlet property="rephraseAIButton" destination="zb3-Lu-DGM" id="Kfh-0Q-mMv"/>
                         <outlet property="spinner" destination="X90-xq-43z" id="F1x-R9-ZvY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lbv-rI-weF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1816.7441860465117" y="1919.7424892703864"/>
+            <point key="canvasLocation" x="1816.030534351145" y="1919.7183098591549"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="axS-dU-gjq">
@@ -1494,6 +1508,7 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="placeholder" width="360" height="360"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
+        <image name="sparkles" catalog="system" width="115" height="128"/>
         <image name="userPlaceholder" width="133.33332824707031" height="121.66666412353516"/>
         <namedColor name="A1A1A1">
             <color red="0.63137254901960782" green="0.63137254901960782" blue="0.63137254901960782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

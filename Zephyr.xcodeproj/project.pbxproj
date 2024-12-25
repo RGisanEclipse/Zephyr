@@ -52,6 +52,8 @@
 		B9358FF52C63BD950026AFA0 /* UserProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9358FF22C63BD950026AFA0 /* UserProfileHeaderCollectionReusableView.swift */; };
 		B9358FF72C63BF250026AFA0 /* UserProfileHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9358FF62C63BF250026AFA0 /* UserProfileHeaderCollectionReusableView.xib */; };
 		B943576A2C22EF5F00F52238 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B94357692C22EF5F00F52238 /* IQKeyboardManagerSwift */; };
+		B948B3D22D1C2DFA00B42785 /* AIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B948B3D12D1C2DFA00B42785 /* AIManager.swift */; };
+		B948B3D42D1C2E9400B42785 /* GPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = B948B3D32D1C2E9400B42785 /* GPT.swift */; };
 		B94DF7452C260E0B00C8EE94 /* FormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B94DF7442C260E0B00C8EE94 /* FormTableViewCell.xib */; };
 		B94DF7462C260E0B00C8EE94 /* FormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94DF7432C260E0B00C8EE94 /* FormTableViewCell.swift */; };
 		B94F80262C63AE4700D46349 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94F80252C63AE4700D46349 /* UserProfileViewController.swift */; };
@@ -157,6 +159,8 @@
 		B9358FED2C63B7180026AFA0 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		B9358FF22C63BD950026AFA0 /* UserProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		B9358FF62C63BF250026AFA0 /* UserProfileHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
+		B948B3D12D1C2DFA00B42785 /* AIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIManager.swift; sourceTree = "<group>"; };
+		B948B3D32D1C2E9400B42785 /* GPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT.swift; sourceTree = "<group>"; };
 		B94DF7432C260E0B00C8EE94 /* FormTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTableViewCell.swift; sourceTree = "<group>"; };
 		B94DF7442C260E0B00C8EE94 /* FormTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FormTableViewCell.xib; sourceTree = "<group>"; };
 		B94F80252C63AE4700D46349 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -319,6 +323,8 @@
 				B9BB8EB02C43C15B00AD3CEC /* CurrentUserDataManager.swift */,
 				B9358FED2C63B7180026AFA0 /* UserDataManager.swift */,
 				B9AE67052D1192EC00148A24 /* PasswordManager.swift */,
+				B948B3D12D1C2DFA00B42785 /* AIManager.swift */,
+				B948B3D32D1C2E9400B42785 /* GPT.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -667,6 +673,7 @@
 				B930612C2C246B5B001AA2A2 /* SettingsModel.swift in Sources */,
 				B984836F2C24C4AE003570F3 /* SplashScreenViewController.swift in Sources */,
 				B9DE03CD2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift in Sources */,
+				B948B3D22D1C2DFA00B42785 /* AIManager.swift in Sources */,
 				B933BD7E2C3BFACF008D887D /* PostActionsTableViewCell.swift in Sources */,
 				B92505622D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.swift in Sources */,
 				B96C7CD82C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift in Sources */,
@@ -708,6 +715,7 @@
 				B90B78012D12DAC100BE8EF6 /* ToggleTableViewCell.swift in Sources */,
 				B91B507C2C21A61200DC212E /* SceneDelegate.swift in Sources */,
 				B97E45FD2C3FD93700EB274E /* CommentsHeaderTableViewCell.swift in Sources */,
+				B948B3D42D1C2E9400B42785 /* GPT.swift in Sources */,
 				B90B78062D13099400BE8EF6 /* SettingsSimpleTableViewCell.swift in Sources */,
 				B91B50A82C21A99600DC212E /* ListViewController.swift in Sources */,
 				B99B43292D0D55970023B308 /* NoPostsYetCollectionReusableView.swift in Sources */,
