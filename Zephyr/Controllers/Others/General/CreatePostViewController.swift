@@ -318,7 +318,7 @@ class CreatePostViewController: UIViewController {
                                postType: type,
                                thumbnailImage: thumbnail,
                                postURL: postURL,
-                               caption: caption == "Write a caption" ? Constants.empty : caption,
+                               caption: caption == "Write a caption" || caption == Constants.Errors.noResponseFromAI ? Constants.empty : caption,
                                likeCount: [],
                                comments: [],
                                createDate: Date(),
@@ -348,7 +348,7 @@ class CreatePostViewController: UIViewController {
         AIManager.shared.rephraseText(inputText: inputText) { rephrasedText in
             guard let rephrasedText = rephrasedText else {
                 DispatchQueue.main.async {
-                    self.captionTextView.text = "No response from AI, please try again after sometime"
+                    self.captionTextView.text = Constants.Errors.noResponseFromAI
                 }
                 return
             }
@@ -363,7 +363,7 @@ class CreatePostViewController: UIViewController {
 extension CreatePostViewController: UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        if textView.text == "Write a caption"{
+        if textView.text == "Write a caption" || textView.text == Constants.Errors.noResponseFromAI {
             textView.text = Constants.empty
         }
     }

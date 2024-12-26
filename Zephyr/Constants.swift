@@ -75,6 +75,7 @@ struct Constants{
         static let userNameAlreadyExists = "Username taken"
         static let emailDoesntExist = "Email doesn't exist"
         static let failedToDownload = "Failed to download image"
+        static let noResponseFromAI = "No response from AI, please try again after sometime"
     }
     struct ErrorCodes{
         static let emailAlreadyInUse = 401

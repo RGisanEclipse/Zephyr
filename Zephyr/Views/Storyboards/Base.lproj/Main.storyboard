@@ -147,7 +147,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="sparkles" catalog="system"/>
                                 <connections>
-                                    <action selector="didTapRephraseAIButton:" destination="vof-8K-2iL" eventType="touchUpInside" id="aLm-0u-bxy"/>
+                                    <action selector="didTapRephraseAIButton:" destination="vof-8K-2iL" eventType="touchUpInside" id="BOt-mf-IVs"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -156,7 +156,7 @@
                         <constraints>
                             <constraint firstItem="zb3-Lu-DGM" firstAttribute="top" secondItem="7II-z9-IOO" secondAttribute="bottom" constant="20" id="6WK-ee-8b2"/>
                             <constraint firstItem="QfL-SN-pi2" firstAttribute="top" secondItem="7II-z9-IOO" secondAttribute="bottom" constant="20" id="KZp-vW-XN9"/>
-                            <constraint firstItem="zb3-Lu-DGM" firstAttribute="leading" secondItem="QfL-SN-pi2" secondAttribute="trailing" constant="10" id="ZqX-uL-bXr"/>
+                            <constraint firstItem="zb3-Lu-DGM" firstAttribute="leading" secondItem="QfL-SN-pi2" secondAttribute="trailing" constant="10" id="aJC-vz-ifW"/>
                             <constraint firstItem="IJ1-xf-IeB" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" id="ahK-et-Zc8"/>
                             <constraint firstItem="DQw-ji-I4V" firstAttribute="bottom" secondItem="IJ1-xf-IeB" secondAttribute="bottom" constant="3" id="cSS-lu-1uZ"/>
                             <constraint firstItem="7II-z9-IOO" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" id="d0L-Al-z7g"/>
@@ -164,7 +164,7 @@
                             <constraint firstItem="IJ1-xf-IeB" firstAttribute="trailing" secondItem="DQw-ji-I4V" secondAttribute="trailing" id="i1R-ZN-VZQ"/>
                             <constraint firstItem="7II-z9-IOO" firstAttribute="top" secondItem="DQw-ji-I4V" secondAttribute="top" id="q64-ey-N1o"/>
                             <constraint firstItem="7II-z9-IOO" firstAttribute="trailing" secondItem="DQw-ji-I4V" secondAttribute="trailing" id="rna-an-ae3"/>
-                            <constraint firstItem="QfL-SN-pi2" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" constant="15" id="tov-QI-ruV"/>
+                            <constraint firstItem="QfL-SN-pi2" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" constant="15" id="u1P-2m-0IG"/>
                             <constraint firstItem="DQw-ji-I4V" firstAttribute="trailing" secondItem="zb3-Lu-DGM" secondAttribute="trailing" constant="15" id="vr1-gF-aWm"/>
                         </constraints>
                     </view>
@@ -181,7 +181,7 @@
                         <outlet property="dimmedView" destination="IJ1-xf-IeB" id="LJa-cP-67D"/>
                         <outlet property="imageView" destination="yJy-TC-JRo" id="ipW-AR-aTI"/>
                         <outlet property="mediaView" destination="7II-z9-IOO" id="Ggl-ef-hXg"/>
-                        <outlet property="rephraseAIButton" destination="zb3-Lu-DGM" id="Kfh-0Q-mMv"/>
+                        <outlet property="rephraseAIButton" destination="zb3-Lu-DGM" id="xzQ-oY-yiM"/>
                         <outlet property="spinner" destination="X90-xq-43z" id="F1x-R9-ZvY"/>
                     </connections>
                 </viewController>
@@ -482,11 +482,11 @@
             <objects>
                 <viewController id="X14-y1-u1j" customClass="UserProfileViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UIZ-T3-yTq">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="l2u-s7-Sbb">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="803"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="iP4-Xt-VOp">
                                     <size key="itemSize" width="128" height="128"/>
@@ -533,11 +533,11 @@
             <objects>
                 <viewController id="MN1-c5-rbP" customClass="EditProfileViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ENF-1S-tAS">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zDq-P6-MgW">
-                                <rect key="frame" x="0.0" y="44" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zac-OU-9y6">
                                         <rect key="frame" x="141.66666666666666" y="0.0" width="110" height="110"/>
@@ -552,7 +552,7 @@
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1Az-5O-oMo">
-                                        <rect key="frame" x="0.0" y="120" width="393" height="639"/>
+                                        <rect key="frame" x="0.0" y="120" width="393" height="722"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="editProfileTableViewCell" id="PFX-hi-cbT">
@@ -574,10 +574,10 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tfM-4b-qpn">
-                                <rect key="frame" x="0.0" y="44" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUd-P8-KfP" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                        <rect key="frame" x="166.66666666666666" y="349.66666666666669" width="60" height="60"/>
+                                        <rect key="frame" x="166.66666666666666" y="391" width="60" height="60"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="VaP-7S-zSP"/>
@@ -1055,7 +1055,7 @@
             <objects>
                 <viewController storyboardIdentifier="OTPViewController" id="d5I-TE-Wds" customClass="OTPViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O6y-n8-khl">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoImage" translatesAutoresizingMaskIntoConstraints="NO" id="VW1-I8-0td">
@@ -1141,7 +1141,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVN-7B-hDi">
-                                <rect key="frame" x="50" y="733.33333333333337" width="293" height="34.333333333333371"/>
+                                <rect key="frame" x="50" y="743.33333333333337" width="293" height="34.333333333333371"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="paperplane.fill" catalog="system" title=" Resend OTP">
                                     <color key="baseForegroundColor" name="WB"/>
@@ -1152,7 +1152,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLz-40-yY2">
-                                <rect key="frame" x="50" y="787.66666666666663" width="293" height="34.333333333333371"/>
+                                <rect key="frame" x="50" y="797.66666666666663" width="293" height="34.333333333333371"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="  Submit">
@@ -1418,17 +1418,17 @@
             <objects>
                 <viewController id="7nC-wE-8Je" customClass="ListViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5fg-lY-BBi">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SHw-UX-IqO">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="803"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dIR-PX-VIw">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="803"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CR6-W4-mei">
-                                                <rect key="frame" x="196.66666666666666" y="0.0" width="0.0" height="803"/>
+                                                <rect key="frame" x="196.66666666666666" y="0.0" width="0.0" height="842"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="BW"/>
                                                 <nil key="highlightedColor"/>
@@ -1445,7 +1445,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IHn-D3-gSl">
-                                <rect key="frame" x="0.0" y="44" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listViewCell" id="NTE-M8-T3S">
@@ -1489,12 +1489,12 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yeI-wc-WIq"/>
-        <segue reference="LcW-wL-OF9"/>
-        <segue reference="6kO-W2-9Ue"/>
-        <segue reference="44U-oM-Z2Y"/>
-        <segue reference="WLz-h5-9iH"/>
-        <segue reference="Q0E-0G-eJa"/>
+        <segue reference="GJe-h6-jPX"/>
+        <segue reference="ZCO-RH-sU6"/>
+        <segue reference="2KG-rs-HAn"/>
+        <segue reference="QhA-by-kL0"/>
+        <segue reference="5km-SD-thz"/>
+        <segue reference="6L6-eE-TGL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BW"/>
     <resources>
