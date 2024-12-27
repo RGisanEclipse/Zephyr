@@ -9,7 +9,7 @@ import Foundation
 
 class AIManager{
     public static var shared = AIManager()
-    func rephraseText(inputText: String, completion: @escaping (String?) -> Void) {
+    func generateTextFromPrompt(inputText: String, completion: @escaping (String?) -> Void) {
         let apiKey = GPT.key
         let baseURL = GPT.url
         let endpoint = "\(baseURL)\(GPT.endpoint)"
@@ -25,7 +25,7 @@ class AIManager{
         let requestBody: [String: Any] = [
             "model": "pai-001-light",
             "messages": [
-                ["role": "user", "content": "Rephrase this: \(inputText)"]
+                ["role": "user", "content": "\(GPT.prompt) \(inputText)"]
             ]
         ]
         do {

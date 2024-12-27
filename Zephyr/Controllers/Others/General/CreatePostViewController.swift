@@ -21,15 +21,19 @@ class CreatePostViewController: UIViewController {
     @IBOutlet weak var dimmedView: UIView!
     @IBOutlet weak var spinner: NVActivityIndicatorView!
     @IBOutlet weak var rephraseAIButton: UIButton!
+    @IBOutlet weak var aiSpinner: NVActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         captionTextView.delegate = self
-        captionTextView.text = "Write a caption"
+        captionTextView.text = Constants.CreatePost.captionPlaceHolderText
         loadAsset()
         spinner.isHidden = true
         spinner.type = .circleStrokeSpin
         spinner.color = .BW
+        aiSpinner.isHidden = true
+        aiSpinner.type = .ballScaleMultiple
+        aiSpinner.color = .gray
         dimmedView.isHidden = true
         fetchUserData()
     }
@@ -111,14 +115,14 @@ class CreatePostViewController: UIViewController {
                 
                 // copyCGImage was deprecated in iOS18
                 
-//                do {
-//                    let cgImage = try generator.copyCGImage(at: time, actualTime: nil)
-//                    let thumbnail = UIImage(cgImage: cgImage)
-//                    self.imageView.image = thumbnail
-//                } catch let error {
-//                    print("Error generating thumbnail: \(error.localizedDescription)")
-//                    self.imageView.image = nil
-//                }
+                //                do {
+                //                    let cgImage = try generator.copyCGImage(at: time, actualTime: nil)
+                //                    let thumbnail = UIImage(cgImage: cgImage)
+                //                    self.imageView.image = thumbnail
+                //                } catch let error {
+                //                    print("Error generating thumbnail: \(error.localizedDescription)")
+                //                    self.imageView.image = nil
+                //                }
             }
         }
     }
@@ -318,7 +322,7 @@ class CreatePostViewController: UIViewController {
                                postType: type,
                                thumbnailImage: thumbnail,
                                postURL: postURL,
-                               caption: caption == "Write a caption" || caption == Constants.Errors.noResponseFromAI ? Constants.empty : caption,
+                               caption: caption == Constants.CreatePost.captionPlaceHolderText || caption == Constants.Errors.noResponseFromAI ? Constants.empty : caption,
                                likeCount: [],
                                comments: [],
                                createDate: Date(),
@@ -333,27 +337,43 @@ class CreatePostViewController: UIViewController {
         }
     }
     @IBAction func didTapRephraseAIButton(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            self.rephraseAIButton.isHidden = true
+            self.aiSpinner.startAnimating()
+        }
         let inputText: String?
-        if captionTextView.text != Constants.empty && captionTextView.text != "Write a caption"{
+        if captionTextView.text != Constants.empty && captionTextView.text != Constants.CreatePost.captionPlaceHolderText{
             inputText = captionTextView.text
         } else {
+            DispatchQueue.main.async {
+                self.rephraseAIButton.isHidden = false
+                self.aiSpinner.stopAnimating()
+            }
             return
         }
         guard let inputText else {
+            DispatchQueue.main.async {
+                self.rephraseAIButton.isHidden = false
+                self.aiSpinner.stopAnimating()
+            }
             return
         }
         DispatchQueue.main.async {
             self.captionTextView.text = Constants.empty
         }
-        AIManager.shared.rephraseText(inputText: inputText) { rephrasedText in
-            guard let rephrasedText = rephrasedText else {
+        AIManager.shared.generateTextFromPrompt(inputText: inputText) { generatedText in
+            guard let generatedText = generatedText else {
                 DispatchQueue.main.async {
                     self.captionTextView.text = Constants.Errors.noResponseFromAI
+                    self.rephraseAIButton.isHidden = false
+                    self.aiSpinner.stopAnimating()
                 }
                 return
             }
             DispatchQueue.main.async {
-                self.captionTextView.text = rephrasedText
+                self.captionTextView.text = generatedText
+                self.rephraseAIButton.isHidden = false
+                self.aiSpinner.stopAnimating()
             }
         }
     }
@@ -363,7 +383,7 @@ class CreatePostViewController: UIViewController {
 extension CreatePostViewController: UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        if textView.text == "Write a caption" || textView.text == Constants.Errors.noResponseFromAI {
+        if textView.text == Constants.CreatePost.captionPlaceHolderText || textView.text == Constants.Errors.noResponseFromAI {
             textView.text = Constants.empty
         }
     }
@@ -371,7 +391,7 @@ extension CreatePostViewController: UITextViewDelegate{
     func textViewDidEndEditing(_ textView: UITextView) {
         navigationController?.setNavigationBarHidden(false, animated: false)
         if textView.text.isEmpty{
-            textView.text = "Write a caption"
+            textView.text = Constants.CreatePost.captionPlaceHolderText
         }
     }
 }

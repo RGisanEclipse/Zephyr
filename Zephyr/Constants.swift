@@ -152,4 +152,7 @@ struct Constants{
         static let resetPasswordText = "We've sent a 4-digit OTP to your email. The OTP is valid for 5 minutes. Please check your inbox and enter the code to reset your password."
         static let resendOTPText = "We've re-sent a 4-digit OTP to your email. The OTP is valid for 5 minutes. Please check your inbox and enter the code to reset your password."
     }
+    struct CreatePost{
+       static let captionPlaceHolderText = "Write a caption or tap the Magic Button after writing a prompt to generate a caption that’s effortlessly creative and uniquely yours!"
+    }
 }

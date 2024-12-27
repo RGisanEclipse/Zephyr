@@ -131,9 +131,9 @@
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QfL-SN-pi2">
-                                <rect key="frame" x="15" y="418.33333333333331" width="304.33333333333331" height="119.99999999999994"/>
+                                <rect key="frame" x="15" y="418.33333333333331" width="304.33333333333331" height="99.999999999999943"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="R0I-q5-0m0"/>
+                                    <constraint firstAttribute="height" constant="100" id="aDu-0k-QxC"/>
                                 </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -150,16 +150,26 @@
                                     <action selector="didTapRephraseAIButton:" destination="vof-8K-2iL" eventType="touchUpInside" id="BOt-mf-IVs"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ql2-Th-sNe" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="329.33333333333331" y="418.33333333333331" width="48.666666666666686" height="35"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="m8S-pj-qiv"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DQw-ji-I4V"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="zb3-Lu-DGM" firstAttribute="top" secondItem="7II-z9-IOO" secondAttribute="bottom" constant="20" id="6WK-ee-8b2"/>
+                            <constraint firstItem="Ql2-Th-sNe" firstAttribute="leading" secondItem="QfL-SN-pi2" secondAttribute="trailing" constant="10" id="Ghk-bN-qKY"/>
+                            <constraint firstItem="DQw-ji-I4V" firstAttribute="trailing" secondItem="Ql2-Th-sNe" secondAttribute="trailing" constant="15" id="Gjg-em-P2t"/>
                             <constraint firstItem="QfL-SN-pi2" firstAttribute="top" secondItem="7II-z9-IOO" secondAttribute="bottom" constant="20" id="KZp-vW-XN9"/>
                             <constraint firstItem="zb3-Lu-DGM" firstAttribute="leading" secondItem="QfL-SN-pi2" secondAttribute="trailing" constant="10" id="aJC-vz-ifW"/>
                             <constraint firstItem="IJ1-xf-IeB" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" id="ahK-et-Zc8"/>
                             <constraint firstItem="DQw-ji-I4V" firstAttribute="bottom" secondItem="IJ1-xf-IeB" secondAttribute="bottom" constant="3" id="cSS-lu-1uZ"/>
                             <constraint firstItem="7II-z9-IOO" firstAttribute="leading" secondItem="DQw-ji-I4V" secondAttribute="leading" id="d0L-Al-z7g"/>
+                            <constraint firstItem="Ql2-Th-sNe" firstAttribute="top" secondItem="7II-z9-IOO" secondAttribute="bottom" constant="20" id="e0k-Og-gX7"/>
                             <constraint firstItem="IJ1-xf-IeB" firstAttribute="top" secondItem="DQw-ji-I4V" secondAttribute="top" id="g0s-mB-nbY"/>
                             <constraint firstItem="IJ1-xf-IeB" firstAttribute="trailing" secondItem="DQw-ji-I4V" secondAttribute="trailing" id="i1R-ZN-VZQ"/>
                             <constraint firstItem="7II-z9-IOO" firstAttribute="top" secondItem="DQw-ji-I4V" secondAttribute="top" id="q64-ey-N1o"/>
@@ -177,12 +187,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="aiSpinner" destination="Ql2-Th-sNe" id="aKE-qT-MGs"/>
                         <outlet property="captionTextView" destination="QfL-SN-pi2" id="ohb-dD-Q4C"/>
                         <outlet property="dimmedView" destination="IJ1-xf-IeB" id="LJa-cP-67D"/>
                         <outlet property="imageView" destination="yJy-TC-JRo" id="ipW-AR-aTI"/>
                         <outlet property="mediaView" destination="7II-z9-IOO" id="Ggl-ef-hXg"/>
                         <outlet property="rephraseAIButton" destination="zb3-Lu-DGM" id="xzQ-oY-yiM"/>
-                        <outlet property="spinner" destination="X90-xq-43z" id="F1x-R9-ZvY"/>
+                        <outlet property="spinner" destination="X90-xq-43z" id="wPe-NA-V3X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lbv-rI-weF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1055,7 +1066,7 @@
             <objects>
                 <viewController storyboardIdentifier="OTPViewController" id="d5I-TE-Wds" customClass="OTPViewController" customModule="Zephyr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O6y-n8-khl">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoImage" translatesAutoresizingMaskIntoConstraints="NO" id="VW1-I8-0td">
@@ -1141,7 +1152,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVN-7B-hDi">
-                                <rect key="frame" x="50" y="743.33333333333337" width="293" height="34.333333333333371"/>
+                                <rect key="frame" x="50" y="733.33333333333337" width="293" height="34.333333333333371"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="paperplane.fill" catalog="system" title=" Resend OTP">
                                     <color key="baseForegroundColor" name="WB"/>
@@ -1152,7 +1163,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLz-40-yY2">
-                                <rect key="frame" x="50" y="797.66666666666663" width="293" height="34.333333333333371"/>
+                                <rect key="frame" x="50" y="787.66666666666663" width="293" height="34.333333333333371"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="  Submit">
@@ -1490,7 +1501,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="GJe-h6-jPX"/>
-        <segue reference="ZCO-RH-sU6"/>
+        <segue reference="LcW-wL-OF9"/>
         <segue reference="2KG-rs-HAn"/>
         <segue reference="QhA-by-kL0"/>
         <segue reference="5km-SD-thz"/>
