@@ -54,9 +54,8 @@
 		B943576A2C22EF5F00F52238 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B94357692C22EF5F00F52238 /* IQKeyboardManagerSwift */; };
 		B948B3D22D1C2DFA00B42785 /* AIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B948B3D12D1C2DFA00B42785 /* AIManager.swift */; };
 		B948B3D42D1C2E9400B42785 /* GPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = B948B3D32D1C2E9400B42785 /* GPT.swift */; };
-		B94DF7452C260E0B00C8EE94 /* FormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B94DF7442C260E0B00C8EE94 /* FormTableViewCell.xib */; };
-		B94DF7462C260E0B00C8EE94 /* FormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94DF7432C260E0B00C8EE94 /* FormTableViewCell.swift */; };
 		B94F80262C63AE4700D46349 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94F80252C63AE4700D46349 /* UserProfileViewController.swift */; };
+		B95079F82D1F119400313032 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = B95079F72D1F119400313032 /* FirebaseFunctions */; };
 		B959C4F12C2A1494001C106E /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B959C4F02C2A1494001C106E /* ListTableViewCell.xib */; };
 		B959C4F22C2A1494001C106E /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959C4EF2C2A1494001C106E /* ListTableViewCell.swift */; };
 		B95DABCE2C22E34C00BB478F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DABCD2C22E34C00BB478F /* Constants.swift */; };
@@ -110,6 +109,10 @@
 		B9F16B402C401B28002497D7 /* UploadMediaCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9F16B3E2C401B28002497D7 /* UploadMediaCollectionViewCell.xib */; };
 		B9F2535B2C4A1F3D00107CF6 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = B9F2535A2C4A1F3D00107CF6 /* NVActivityIndicatorView */; };
 		B9F2535D2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = B9F2535C2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended */; };
+		B9FFE7722D1FDB8500C62D37 /* BioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FFE7702D1FDB8500C62D37 /* BioTableViewCell.swift */; };
+		B9FFE7732D1FDB8500C62D37 /* BioTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9FFE7712D1FDB8500C62D37 /* BioTableViewCell.xib */; };
+		B9FFE77A2D200F9500C62D37 /* FormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9FFE7792D200F9500C62D37 /* FormTableViewCell.xib */; };
+		B9FFE77B2D200F9500C62D37 /* FormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FFE7782D200F9500C62D37 /* FormTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -161,8 +164,6 @@
 		B9358FF62C63BF250026AFA0 /* UserProfileHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		B948B3D12D1C2DFA00B42785 /* AIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIManager.swift; sourceTree = "<group>"; };
 		B948B3D32D1C2E9400B42785 /* GPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT.swift; sourceTree = "<group>"; };
-		B94DF7432C260E0B00C8EE94 /* FormTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTableViewCell.swift; sourceTree = "<group>"; };
-		B94DF7442C260E0B00C8EE94 /* FormTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FormTableViewCell.xib; sourceTree = "<group>"; };
 		B94F80252C63AE4700D46349 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		B959C4EF2C2A1494001C106E /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		B959C4F02C2A1494001C106E /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
@@ -205,6 +206,10 @@
 		B9ED55952C21B77E00CC9D35 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		B9F16B3D2C401B28002497D7 /* UploadMediaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadMediaCollectionViewCell.swift; sourceTree = "<group>"; };
 		B9F16B3E2C401B28002497D7 /* UploadMediaCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UploadMediaCollectionViewCell.xib; sourceTree = "<group>"; };
+		B9FFE7702D1FDB8500C62D37 /* BioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioTableViewCell.swift; sourceTree = "<group>"; };
+		B9FFE7712D1FDB8500C62D37 /* BioTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BioTableViewCell.xib; sourceTree = "<group>"; };
+		B9FFE7782D200F9500C62D37 /* FormTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTableViewCell.swift; sourceTree = "<group>"; };
+		B9FFE7792D200F9500C62D37 /* FormTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FormTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B98194D52C21B08100C7D62C /* FirebaseCrashlytics in Frameworks */,
+				B95079F82D1F119400313032 /* FirebaseFunctions in Frameworks */,
 				B98FC06B2C2817BB002B9194 /* SDWebImageMapKit in Frameworks */,
 				B98FC06D2C2830D7002B9194 /* FirebaseStorage in Frameworks */,
 				B98194D12C21B08100C7D62C /* FirebaseAnalytics in Frameworks */,
@@ -418,8 +424,10 @@
 		B959C4EC2C2A141E001C106E /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
-				B94DF7432C260E0B00C8EE94 /* FormTableViewCell.swift */,
-				B94DF7442C260E0B00C8EE94 /* FormTableViewCell.xib */,
+				B9FFE7702D1FDB8500C62D37 /* BioTableViewCell.swift */,
+				B9FFE7712D1FDB8500C62D37 /* BioTableViewCell.xib */,
+				B9FFE7782D200F9500C62D37 /* FormTableViewCell.swift */,
+				B9FFE7792D200F9500C62D37 /* FormTableViewCell.xib */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -575,6 +583,7 @@
 				B9F2535A2C4A1F3D00107CF6 /* NVActivityIndicatorView */,
 				B9F2535C2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended */,
 				B96096CA2C64FF30007F55C6 /* FirebaseMessaging */,
+				B95079F72D1F119400313032 /* FirebaseFunctions */,
 			);
 			productName = Zephyr;
 			productReference = B91B50762C21A61200DC212E /* Zephyr.app */;
@@ -635,8 +644,10 @@
 				B98194D92C21B10600C7D62C /* GoogleService-Info.plist in Resources */,
 				B9152F0D2C315209006B22D6 /* ProfileTabsCollectionReusableView.xib in Resources */,
 				B97AC6BA2C3EC66F004C175E /* PostCaptionTableViewCell.xib in Resources */,
+				B9FFE7732D1FDB8500C62D37 /* BioTableViewCell.xib in Resources */,
 				B97AC6B22C3EB820004C175E /* HomeCommentsTableViewCell.xib in Resources */,
 				B933BD872C3BFB9F008D887D /* PostTableViewCell.xib in Resources */,
+				B9FFE77A2D200F9500C62D37 /* FormTableViewCell.xib in Resources */,
 				B9DE03CC2C3C2B3B00662FFE /* HomeLogoTableViewCell.xib in Resources */,
 				B97E45FE2C3FD93700EB274E /* CommentsHeaderTableViewCell.xib in Resources */,
 				B92505632D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.xib in Resources */,
@@ -645,7 +656,6 @@
 				B98FC0652C2815E5002B9194 /* ProfileCollectionViewCell.xib in Resources */,
 				B90B78072D13099400BE8EF6 /* SettingsSimpleTableViewCell.xib in Resources */,
 				B933BD7B2C3BFA9E008D887D /* PostHeaderTableViewCell.xib in Resources */,
-				B94DF7452C260E0B00C8EE94 /* FormTableViewCell.xib in Resources */,
 				B9358FF72C63BF250026AFA0 /* UserProfileHeaderCollectionReusableView.xib in Resources */,
 				B90B78022D12DAC100BE8EF6 /* ToggleTableViewCell.xib in Resources */,
 				B91B50862C21A61300DC212E /* Base in Resources */,
@@ -671,11 +681,13 @@
 				B9A2E5A12D112E98002BB0DA /* OTPEmailModel.swift in Sources */,
 				B9AE67062D1192EC00148A24 /* PasswordManager.swift in Sources */,
 				B930612C2C246B5B001AA2A2 /* SettingsModel.swift in Sources */,
+				B9FFE77B2D200F9500C62D37 /* FormTableViewCell.swift in Sources */,
 				B984836F2C24C4AE003570F3 /* SplashScreenViewController.swift in Sources */,
 				B9DE03CD2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift in Sources */,
 				B948B3D22D1C2DFA00B42785 /* AIManager.swift in Sources */,
 				B933BD7E2C3BFACF008D887D /* PostActionsTableViewCell.swift in Sources */,
 				B92505622D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.swift in Sources */,
+				B9FFE7722D1FDB8500C62D37 /* BioTableViewCell.swift in Sources */,
 				B96C7CD82C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift in Sources */,
 				B9013D252C33141000700932 /* NotificationLikeTableViewCell.swift in Sources */,
 				B91B50932C21A7C800DC212E /* ExploreViewController.swift in Sources */,
@@ -704,7 +716,6 @@
 				B9358FEE2C63B7180026AFA0 /* UserDataManager.swift in Sources */,
 				B98B4DA82C3F17DB0020B9E6 /* CommentsViewController.swift in Sources */,
 				B933BD862C3BFB9F008D887D /* PostTableViewCell.swift in Sources */,
-				B94DF7462C260E0B00C8EE94 /* FormTableViewCell.swift in Sources */,
 				B9CADB772C3E6B900023B7E8 /* PostLikesTableViewCell.swift in Sources */,
 				B9E2B7F92C2B75C300023DE8 /* Brevo.swift in Sources */,
 				B91B50992C21A80200DC212E /* ProfileViewController.swift in Sources */,
@@ -1002,6 +1013,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B94357682C22EF5F00F52238 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		B95079F72D1F119400313032 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B98194CF2C21B08100C7D62C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
 		};
 		B96096CA2C64FF30007F55C6 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;

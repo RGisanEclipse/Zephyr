@@ -1,19 +1,18 @@
 //
-//  FormTableViewCell.swift
+//  BioTableViewCell.swift
 //  Zephyr
 //
-//  Created by Eclipse on 22/06/24.
+//  Created by Eclipse on 28/12/24.
 //
 
 import UIKit
-
-protocol FormTableViewDelegate: AnyObject {
-    func formTableViewCell(_ cell: FormTableViewCell, didUpdateField updatedModel: EditProfileFormModel)
+protocol BioTableViewDelegate: AnyObject {
+    func bioTableViewCell(_ cell: BioTableViewCell, didUpdateField updatedModel: EditProfileFormModel)
 }
 
-class FormTableViewCell: UITableViewCell, UITextViewDelegate {
+class BioTableViewCell: UITableViewCell, UITextViewDelegate {
     
-    public weak var delegate: FormTableViewDelegate?
+    public weak var delegate: BioTableViewDelegate?
     var model: EditProfileFormModel?
     
     @IBOutlet weak var label: UILabel!
@@ -24,9 +23,11 @@ class FormTableViewCell: UITableViewCell, UITextViewDelegate {
         textField.delegate = self
         let textFieldWidthConstraint = textField.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/5)
         textFieldWidthConstraint.isActive = true
+        textField.textContainerInset = UIEdgeInsets.zero
+//        textField.textContainer.lineFragmentPadding = 0
         textField.textColor = .placeholderText
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -34,7 +35,7 @@ class FormTableViewCell: UITableViewCell, UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         model?.value = textView.text
         guard let model = model else { return }
-        delegate?.formTableViewCell(self, didUpdateField: model)
+        delegate?.bioTableViewCell(self, didUpdateField: model)
     }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let currentText = textView.text ?? ""
@@ -47,6 +48,4 @@ class FormTableViewCell: UITableViewCell, UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         textView.textColor = .placeholderText
     }
-    
 }
-

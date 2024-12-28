@@ -17,6 +17,7 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.register(UINib(nibName: Constants.Settings.EditProfile.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.Settings.EditProfile.cellIdentifier)
+        tableView.register(UINib(nibName: Constants.Settings.EditProfile.bioCell, bundle: nil), forCellReuseIdentifier: Constants.Settings.EditProfile.bioCell)
         configureModels()
         setupProfilePictureButton()
         spinner.type = .circleStrokeSpin
@@ -142,10 +143,17 @@ extension EditProfileViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = models[indexPath.section][indexPath.row]
+        if models[indexPath.section][indexPath.row].label == "Bio"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Settings.EditProfile.bioCell, for: indexPath) as! BioTableViewCell
+            cell.label.text = model.label
+            cell.textField.text = model.value ?? model.placeholder
+            cell.delegate = self
+            cell.model = model
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Settings.EditProfile.cellIdentifier, for: indexPath) as! FormTableViewCell
         cell.label.text = model.label
-        cell.textField.placeholder = model.placeholder
-        cell.textField.text = model.value
+        cell.textField.text = model.value ?? model.placeholder
         cell.delegate = self
         cell.model = model
         return cell
@@ -189,6 +197,15 @@ extension EditProfileViewController: UITableViewDelegate {
 // MARK: - FormTableViewCell
 extension EditProfileViewController: FormTableViewDelegate {
     func formTableViewCell(_ cell: FormTableViewCell, didUpdateField updatedModel: EditProfileFormModel) {
+        if let indexPath = tableView.indexPath(for: cell) {
+            models[indexPath.section][indexPath.row].value = updatedModel.value
+        }
+    }
+}
+
+// MARK: - BioTableViewCell
+extension EditProfileViewController: BioTableViewDelegate {
+    func bioTableViewCell(_ cell: BioTableViewCell, didUpdateField updatedModel: EditProfileFormModel) {
         if let indexPath = tableView.indexPath(for: cell) {
             models[indexPath.section][indexPath.row].value = updatedModel.value
         }

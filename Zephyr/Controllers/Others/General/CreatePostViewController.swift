@@ -14,7 +14,6 @@ class CreatePostViewController: UIViewController {
     var asset: PHAsset?
     private var userData: UserModel?
     
-    
     @IBOutlet weak var mediaView: UIView!
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var imageView: UIImageView!

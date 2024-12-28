@@ -55,6 +55,7 @@ struct Constants{
             static let cellNibName = "FormTableViewCell"
             static let editProfilePictureTitle = "Profile Picture"
             static let editProfilePictureMessage = "Change Profile Picture"
+            static let bioCell = "BioTableViewCell"
         }
     }
     struct Profile{
