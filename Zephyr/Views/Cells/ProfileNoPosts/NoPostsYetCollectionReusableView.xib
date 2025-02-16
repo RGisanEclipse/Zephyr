@@ -17,11 +17,11 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ahz-14-UKc">
                     <rect key="frame" x="111.66666666666669" y="46.999999999999993" width="97" height="95.333333333333314"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HGr-s8-wdh">
-                            <rect key="frame" x="13.333333333333329" y="0.6666666666666643" width="70" height="68.666666666666686"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HGr-s8-wdh">
+                            <rect key="frame" x="23.333333333333329" y="1" width="50" height="67.666666666666671"/>
                             <color key="tintColor" name="BW"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="70" id="Vql-8c-LYz"/>
+                                <constraint firstAttribute="width" constant="50" id="Vql-8c-LYz"/>
                                 <constraint firstAttribute="height" constant="70" id="cSH-72-rsb"/>
                             </constraints>
                         </imageView>
@@ -47,7 +47,7 @@
         </collectionReusableView>
     </objects>
     <resources>
-        <image name="camera.circle" catalog="system" width="128" height="123"/>
+        <image name="camera.fill" catalog="system" width="128" height="93"/>
         <namedColor name="BW">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

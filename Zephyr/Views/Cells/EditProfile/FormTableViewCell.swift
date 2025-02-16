@@ -39,6 +39,10 @@ class FormTableViewCell: UITableViewCell, UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let currentText = textView.text ?? ""
         let updatedText = (currentText as NSString).replacingCharacters(in: range, with: text)
+        if text == "\n" {
+                textView.resignFirstResponder()
+                return false
+            }
         return updatedText.count <= 120
     }
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -47,6 +51,5 @@ class FormTableViewCell: UITableViewCell, UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         textView.textColor = .placeholderText
     }
-    
 }
 

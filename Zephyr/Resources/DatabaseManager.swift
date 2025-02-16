@@ -1219,4 +1219,20 @@ public class DatabaseManager{
                 }
             }
     }
+    public func checkIfUserNameExists(_ userName: String, completion: @escaping (Bool) -> Void) {
+        let usersRef = DatabaseManager.shared.db.collection("users")
+        usersRef.whereField("userName", isEqualTo: userName).getDocuments { snapshot, error in
+            if let error = error {
+                print("Error checking username: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            if let documents = snapshot?.documents, !documents.isEmpty {
+                completion(true)
+            } else {
+                completion(false) 
+            }
+        }
+    }
 }

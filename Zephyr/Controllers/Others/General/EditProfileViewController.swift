@@ -103,7 +103,19 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
             updatedData["lastName"] = lastName
         }
         if let username = models[0][2].value {
-            updatedData["userName"] = username
+            if username.contains(" ") == true{
+                self.showOkAlert(title: "Whitespace Detected", message: "The username entered has a whitespace. Please remove it and try again.")
+                return
+            }
+            DatabaseManager.shared.checkIfUserNameExists(username) { exists in
+                if exists{
+                    self.showOkAlert(title: "Username Taken", message: "This username is already in use. Please choose another one.")
+                    self.spinner.stopAnimating()
+                    return
+                } else{
+                    updatedData["userName"] = username
+                }
+            }
         }
         if let bio = models[0][3].value {
             updatedData["bio"] = bio
@@ -131,6 +143,17 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
             }
             self.loadingView.isHidden = false
             self.spinner.isHidden = true
+        }
+    }
+    private func showOkAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default){ _ in
+            DispatchQueue.main.async {
+                self.loadingView.isHidden = true
+            }
+        })
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
         }
     }
 }

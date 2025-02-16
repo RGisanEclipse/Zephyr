@@ -57,6 +57,12 @@ class RegisterViewController: UIViewController {
                     throwError(Constants.Onboarding.containsWhitespaceError)
                 } else {
                     self.segueUserName = userNameTextField.text!
+                    if userNameTextField.text!.contains(" ") == true{
+                        DispatchQueue.main.async{
+                            self.errorLabel.text = "User name cannot contain spaces"
+                            return
+                        }
+                    }
                     self.segueEmail = emailTextField.text!
                     self.seguePassword = password
                     registerButton.isEnabled = false
