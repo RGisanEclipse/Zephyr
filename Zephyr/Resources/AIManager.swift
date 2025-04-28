@@ -25,6 +25,7 @@ class AIManager{
         let requestBody: [String: Any] = [
             "model": "pai-001-light",
             "messages": [
+                ["role": "system", "content": "\(GPT.prompt) \(inputText)"],
                 ["role": "user", "content": "\(GPT.prompt) \(inputText)"]
             ]
         ]
@@ -50,9 +51,11 @@ class AIManager{
             do {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let choices = json["choices"] as? [[String: Any]],
-                   let message = choices.first?["message"] as? [String: Any],
+                   let firstChoice = choices.first,
+                   let message = firstChoice["message"] as? [String: Any],
                    let content = message["content"] as? String {
                     completion(content)
+                    
                 } else {
                     print("Unexpected response format")
                     completion(nil)

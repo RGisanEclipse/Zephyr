@@ -18,6 +18,7 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
         tableView.dataSource = self
         tableView.register(UINib(nibName: Constants.Settings.EditProfile.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.Settings.EditProfile.cellIdentifier)
         tableView.register(UINib(nibName: Constants.Settings.EditProfile.bioCell, bundle: nil), forCellReuseIdentifier: Constants.Settings.EditProfile.bioCell)
+        tableView.register(UINib(nibName: Constants.Settings.EditProfile.genderCell, bundle: nil), forCellReuseIdentifier: Constants.Settings.EditProfile.genderCell)
         configureModels()
         setupProfilePictureButton()
         spinner.type = .circleStrokeSpin
@@ -51,7 +52,6 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
             print("userData is nil")
             return
         }
-        
         var sectionOne = [EditProfileFormModel]()
         sectionOne.append(EditProfileFormModel(label: "First Name", placeholder: userData.name?.first ?? "", value: nil))
         sectionOne.append(EditProfileFormModel(label: "Last Name", placeholder: userData.name?.last ?? "", value: nil))
@@ -59,12 +59,9 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
         sectionOne.append(EditProfileFormModel(label: "Bio", placeholder: userData.bio, value: nil))
         models.append(sectionOne)
         
-        let secondSectionLabels = ["Email", "Phone", "Gender"]
         var sectionTwo = [EditProfileFormModel]()
-        for label in secondSectionLabels {
-            let model = EditProfileFormModel(label: label, placeholder: "Enter \(label)", value: nil)
-            sectionTwo.append(model)
-        }
+        sectionTwo.append(EditProfileFormModel(label: "Email", placeholder: userData.email, value: nil))
+        sectionTwo.append(EditProfileFormModel(label: "Gender", placeholder: userData.gender?.rawValue ?? "Others", value: nil))
         models.append(sectionTwo)
     }
     
@@ -172,6 +169,13 @@ extension EditProfileViewController: UITableViewDataSource {
             cell.textField.text = model.value ?? model.placeholder
             cell.delegate = self
             cell.model = model
+            return cell
+        }
+        else if models[indexPath.section][indexPath.row].label == "Gender"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Settings.EditProfile.genderCell, for: indexPath) as! GenderTableViewCell
+            cell.label.text = model.label
+            let gender = userData?.gender?.rawValue ?? Gender.other.rawValue
+            cell.configure(with: gender)
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Settings.EditProfile.cellIdentifier, for: indexPath) as! FormTableViewCell

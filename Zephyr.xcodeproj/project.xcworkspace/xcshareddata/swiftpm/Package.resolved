@@ -1,5 +1,5 @@
 {
-  "originHash" : "a1671b9e3e326a5b9085ce76f2604ac59e83745c8517a7d7c778b449756e29c3",
+  "originHash" : "83ae2df17581ab337f6c6b2cca2c9cf4010ce827a73a09119e6314a1e4dc4b72",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -143,6 +143,15 @@
       "state" : {
         "revision" : "2f5274827d310e32c09325dd3e0007120940988e",
         "version" : "1.31.0"
+      }
+    },
+    {
+      "identity" : "stepslider",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/spromicky/StepSlider",
+      "state" : {
+        "revision" : "bb490b81515cb0dc87465938a36c43dcba11a274",
+        "version" : "1.8.0"
       }
     },
     {

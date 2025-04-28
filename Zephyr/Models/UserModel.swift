@@ -20,6 +20,7 @@ struct UserModel{
     var following: [FollowerFollowing]
     var posts: [String]
     var savedPosts: [String]
+    var email: String
     func isFollower(userName: String) -> Bool {
         return followers.contains(where: { $0.userName == userName })
     }
@@ -57,8 +58,9 @@ struct UserModel{
         self.counts = UserCount(posts: posts.count,
                                 followers: followers.count,
                                 following: following.count)
+        self.email = dictionary["email"] as? String ?? ""
     }
-    init(userName: String, profilePicture: URL, bio: String, name: (first: String, last: String), birthDate: Date, gender: Gender, counts: UserCount, joinDate: Date, posts: [String], savedPosts: [String], followers: [FollowerFollowing], following: [FollowerFollowing]) {
+    init(userName: String, profilePicture: URL, bio: String, name: (first: String, last: String), birthDate: Date, gender: Gender, counts: UserCount, joinDate: Date, posts: [String], savedPosts: [String], followers: [FollowerFollowing], following: [FollowerFollowing], email: String) {
         self.userName = userName
         self.profilePicture = profilePicture
         self.bio = bio
@@ -71,12 +73,13 @@ struct UserModel{
         self.savedPosts = savedPosts
         self.followers = followers
         self.following = following
+        self.email = email
     }
 }
 enum Gender: String{
-    case male = "male"
-    case female = "female"
-    case other = "other"
+    case male = "Male"
+    case female = "Female"
+    case other = "Other"
     static func fromString(_ string: String) -> Gender? {
         return Gender(rawValue: string)
     }

@@ -56,11 +56,14 @@
 		B948B3D42D1C2E9400B42785 /* GPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = B948B3D32D1C2E9400B42785 /* GPT.swift */; };
 		B94F80262C63AE4700D46349 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94F80252C63AE4700D46349 /* UserProfileViewController.swift */; };
 		B95079F82D1F119400313032 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = B95079F72D1F119400313032 /* FirebaseFunctions */; };
+		B958754C2DBF79EE00B7EA46 /* StepSlider in Frameworks */ = {isa = PBXBuildFile; productRef = B958754B2DBF79EE00B7EA46 /* StepSlider */; };
 		B959C4F12C2A1494001C106E /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B959C4F02C2A1494001C106E /* ListTableViewCell.xib */; };
 		B959C4F22C2A1494001C106E /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959C4EF2C2A1494001C106E /* ListTableViewCell.swift */; };
 		B95DABCE2C22E34C00BB478F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DABCD2C22E34C00BB478F /* Constants.swift */; };
 		B96096CB2C64FF30007F55C6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = B96096CA2C64FF30007F55C6 /* FirebaseMessaging */; };
 		B96230932C2B55990034F64A /* BrevoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96230922C2B55990034F64A /* BrevoManager.swift */; };
+		B969AA5A2DBF6BF700D1F4C1 /* GenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B969AA582DBF6BF700D1F4C1 /* GenderTableViewCell.swift */; };
+		B969AA5B2DBF6BF700D1F4C1 /* GenderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B969AA592DBF6BF700D1F4C1 /* GenderTableViewCell.xib */; };
 		B96C7CD72C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96C7CD62C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib */; };
 		B96C7CD82C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96C7CD52C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift */; };
 		B97AC6B12C3EB820004C175E /* HomeCommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97AC6AF2C3EB820004C175E /* HomeCommentsTableViewCell.swift */; };
@@ -169,6 +172,8 @@
 		B959C4F02C2A1494001C106E /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
 		B95DABCD2C22E34C00BB478F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B96230922C2B55990034F64A /* BrevoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrevoManager.swift; sourceTree = "<group>"; };
+		B969AA582DBF6BF700D1F4C1 /* GenderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderTableViewCell.swift; sourceTree = "<group>"; };
+		B969AA592DBF6BF700D1F4C1 /* GenderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenderTableViewCell.xib; sourceTree = "<group>"; };
 		B96C7CD52C343CDC00D5FAB5 /* NotificationFollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFollowTableViewCell.swift; sourceTree = "<group>"; };
 		B96C7CD62C343CDC00D5FAB5 /* NotificationFollowTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationFollowTableViewCell.xib; sourceTree = "<group>"; };
 		B97AC6AF2C3EB820004C175E /* HomeCommentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommentsTableViewCell.swift; sourceTree = "<group>"; };
@@ -219,6 +224,7 @@
 			files = (
 				B98194D52C21B08100C7D62C /* FirebaseCrashlytics in Frameworks */,
 				B95079F82D1F119400313032 /* FirebaseFunctions in Frameworks */,
+				B958754C2DBF79EE00B7EA46 /* StepSlider in Frameworks */,
 				B98FC06B2C2817BB002B9194 /* SDWebImageMapKit in Frameworks */,
 				B98FC06D2C2830D7002B9194 /* FirebaseStorage in Frameworks */,
 				B98194D12C21B08100C7D62C /* FirebaseAnalytics in Frameworks */,
@@ -428,6 +434,8 @@
 				B9FFE7712D1FDB8500C62D37 /* BioTableViewCell.xib */,
 				B9FFE7782D200F9500C62D37 /* FormTableViewCell.swift */,
 				B9FFE7792D200F9500C62D37 /* FormTableViewCell.xib */,
+				B969AA582DBF6BF700D1F4C1 /* GenderTableViewCell.swift */,
+				B969AA592DBF6BF700D1F4C1 /* GenderTableViewCell.xib */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -584,6 +592,7 @@
 				B9F2535C2C4A1F3D00107CF6 /* NVActivityIndicatorViewExtended */,
 				B96096CA2C64FF30007F55C6 /* FirebaseMessaging */,
 				B95079F72D1F119400313032 /* FirebaseFunctions */,
+				B958754B2DBF79EE00B7EA46 /* StepSlider */,
 			);
 			productName = Zephyr;
 			productReference = B91B50762C21A61200DC212E /* Zephyr.app */;
@@ -619,6 +628,7 @@
 				B98FC0672C2817BB002B9194 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				B99085D22C469B7B00605D25 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				B9F253592C4A1F3D00107CF6 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
+				B958754A2DBF79EE00B7EA46 /* XCRemoteSwiftPackageReference "StepSlider" */,
 			);
 			productRefGroup = B91B50772C21A61200DC212E /* Products */;
 			projectDirPath = "";
@@ -661,6 +671,7 @@
 				B91B50862C21A61300DC212E /* Base in Resources */,
 				B959C4F12C2A1494001C106E /* ListTableViewCell.xib in Resources */,
 				B91B50812C21A61200DC212E /* Base in Resources */,
+				B969AA5B2DBF6BF700D1F4C1 /* GenderTableViewCell.xib in Resources */,
 				B9013D262C33141000700932 /* NotificationLikeTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -684,6 +695,7 @@
 				B9FFE77B2D200F9500C62D37 /* FormTableViewCell.swift in Sources */,
 				B984836F2C24C4AE003570F3 /* SplashScreenViewController.swift in Sources */,
 				B9DE03CD2C3C2B3B00662FFE /* HomeLogoTableViewCell.swift in Sources */,
+				B969AA5A2DBF6BF700D1F4C1 /* GenderTableViewCell.swift in Sources */,
 				B948B3D22D1C2DFA00B42785 /* AIManager.swift in Sources */,
 				B933BD7E2C3BFACF008D887D /* PostActionsTableViewCell.swift in Sources */,
 				B92505622D059D17009F9D46 /* ViewUserProfileTabsCollectionReusableView.swift in Sources */,
@@ -974,6 +986,14 @@
 				minimumVersion = 7.0.3;
 			};
 		};
+		B958754A2DBF79EE00B7EA46 /* XCRemoteSwiftPackageReference "StepSlider" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/spromicky/StepSlider";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.0;
+			};
+		};
 		B98194CF2C21B08100C7D62C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1018,6 +1038,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B98194CF2C21B08100C7D62C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFunctions;
+		};
+		B958754B2DBF79EE00B7EA46 /* StepSlider */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B958754A2DBF79EE00B7EA46 /* XCRemoteSwiftPackageReference "StepSlider" */;
+			productName = StepSlider;
 		};
 		B96096CA2C64FF30007F55C6 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
