@@ -41,6 +41,7 @@ struct Constants{
         static let following = "following"
         static let joinDate = "joinDate"
         static let bio = "bio"
+        static let gender = "gender"
     }
     struct Settings{
         static let cellIdentifier = "SettingsSimpleTableViewCell"

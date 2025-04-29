@@ -7,7 +7,12 @@
 
 import UIKit
 import StepSlider
+protocol GenderTableViewDelegate: AnyObject {
+    func genderTableViewCell(_ cell: GenderTableViewCell, didUpdateField updatedModel: EditProfileFormModel)
+}
 class GenderTableViewCell: UITableViewCell {
+    
+    weak var delegate: GenderTableViewDelegate?
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var genderSlider: StepSlider!
@@ -46,6 +51,18 @@ class GenderTableViewCell: UITableViewCell {
     
     @IBAction func genderSliderValueChanged(_ sender: StepSlider) {
         let currentIndex = genderSlider.index
-        // Logic to update Gender in Database
+        switch currentIndex{
+        case 0:
+            gender = Gender.male.rawValue
+        case 1:
+            gender = Gender.female.rawValue
+        case 2:
+            gender = Gender.other.rawValue
+        default:
+            break
+        }
+        model?.value = gender
+        guard let model = model else { return }
+        delegate?.genderTableViewCell(self, didUpdateField: model)
     }
 }

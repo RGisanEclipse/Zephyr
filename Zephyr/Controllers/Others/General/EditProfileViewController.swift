@@ -117,6 +117,9 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
         if let bio = models[0][3].value {
             updatedData["bio"] = bio
         }
+        if let gender = models[1][1].value{
+            updatedData["gender"] = gender
+        }
         if let image = selectedImage, let imageData = image.jpegData(compressionQuality: 0.8) {
             StorageManager.shared.uploadImage(data: imageData) { url in
                 if let downloadURL = url {
@@ -176,6 +179,8 @@ extension EditProfileViewController: UITableViewDataSource {
             cell.label.text = model.label
             let gender = userData?.gender?.rawValue ?? Gender.other.rawValue
             cell.configure(with: gender)
+            cell.delegate = self
+            cell.model = model
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Settings.EditProfile.cellIdentifier, for: indexPath) as! FormTableViewCell
@@ -233,6 +238,15 @@ extension EditProfileViewController: FormTableViewDelegate {
 // MARK: - BioTableViewCell
 extension EditProfileViewController: BioTableViewDelegate {
     func bioTableViewCell(_ cell: BioTableViewCell, didUpdateField updatedModel: EditProfileFormModel) {
+        if let indexPath = tableView.indexPath(for: cell) {
+            models[indexPath.section][indexPath.row].value = updatedModel.value
+        }
+    }
+}
+
+// MARK: - GenderTableViewCell
+extension EditProfileViewController: GenderTableViewDelegate {
+    func genderTableViewCell(_ cell: GenderTableViewCell, didUpdateField updatedModel: EditProfileFormModel) {
         if let indexPath = tableView.indexPath(for: cell) {
             models[indexPath.section][indexPath.row].value = updatedModel.value
         }
