@@ -33,7 +33,7 @@ class PostGeneralTableViewCell: UITableViewCell {
     }
     func configure(with model: PostComment, userName: String) {
         self.model = model
-        profilePictureButton.sd_setImage(with: URL(string: model.profilePicture), for: .normal, placeholderImage: UIImage(systemName: "userPlaceholder"))
+        profilePictureButton.sd_setImage(with: URL(string: model.profilePicture), for: .normal, placeholderImage: UIImage(named: "userPlaceholder"))
         userNameLabel.setTitle(model.userName, for: .normal)
         commentLabel.text = model.text
         dateLabel.text = formattedDateString(from: model.createdDate)

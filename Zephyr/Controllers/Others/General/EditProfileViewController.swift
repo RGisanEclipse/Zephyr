@@ -41,7 +41,7 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
             self.presentImagePicker(sourceType: .photoLibrary)
         }))
         actionSheet.addAction(UIAlertAction(title: "Remove Profile Picture", style: .destructive, handler: { _ in
-            // Logic to remove profilePicture
+            self.removeProfilePicture()
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(actionSheet, animated: true)
@@ -131,7 +131,24 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
             saveUserData(updatedData: updatedData, for: userData.userName)
         }
     }
-    
+    private func removeProfilePicture(){
+        guard let safeUserData = userData else{
+            return
+        }
+        guard let profilePicture = safeUserData.profilePicture else{
+            return
+        }
+        DatabaseManager.shared.removeProfilePicture(for: profilePicture){ success in
+            if success{
+                print("Removed profile picture successfully")
+                var updatedData: [String: Any] = [:]
+                updatedData["profilePicture"] = Constants.empty
+                self.saveUserData(updatedData: updatedData, for: safeUserData.userName)
+            } else{
+                print("Failed to remove profile picture")
+            }
+        }
+    }
     private func saveUserData(updatedData: [String: Any], for userName: String) {
         DatabaseManager.shared.updateUserData(for: userName, with: updatedData) { success in
             if success {

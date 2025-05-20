@@ -14,9 +14,6 @@ public class StorageManager{
     
     public let downloadFailureError = NSError(domain: Constants.Errors.failedToDownload, code: Constants.ErrorCodes.failedToDownload)
     
-    func uploadUserPhotoPost(model: UserPost, completion: @escaping(Result< URL,Error >)-> Void){
-        
-    }
     public func downloadImage(with reference: String, completion: @escaping(Result< URL, Error >)-> Void){
         bucket.child(reference).downloadURL { url, error in
             guard let url = url, error == nil
@@ -52,12 +49,7 @@ public class StorageManager{
             }
         }
     }
-    public func deleteImage(reference: String, completion: @escaping (Bool) -> Void) {
-        let storageRef = bucket.child(reference)
-        storageRef.delete { error in
-            completion(error == nil)
-        }
-    }
+    
     public func deleteMedia(reference: String, isVideo: Bool, completion: @escaping (Bool) -> Void) {
         let mediaType = isVideo ? "videos" : "images"
         let storageRef = bucket.child("\(mediaType)/\(reference)")
@@ -69,5 +61,15 @@ public class StorageManager{
                 completion(true)
             }
         }
+    }
+    func extractStoragePath(from url: URL) -> String? {
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+        guard let pathComponent = urlComponents.path.split(separator: "/").last else {
+            return nil
+        }
+        let decodedPath = pathComponent.removingPercentEncoding
+        return decodedPath
     }
 }

@@ -248,8 +248,8 @@ extension HomeViewController: PostHeaderTableViewCellDelegate{
     private func deletePost(post: UserPost) {
         let mediaURL = post.postURL
         let thumbnailURL = post.thumbnailImage
-        guard let storagePath = extractStoragePath(from: mediaURL) else { return }
-        guard let thumbnailStoragePath = extractStoragePath(from: thumbnailURL) else { return }
+        guard let storagePath = StorageManager.shared.extractStoragePath(from: mediaURL) else { return }
+        guard let thumbnailStoragePath = StorageManager.shared.extractStoragePath(from: thumbnailURL) else { return }
         let isVideo = post.postType == .video
         DatabaseManager.shared.deletePost(with: post.identifier) { [weak self] success in
             guard success else {
@@ -301,16 +301,7 @@ extension HomeViewController: PostHeaderTableViewCellDelegate{
             }
         }
     }
-    func extractStoragePath(from url: URL) -> String? {
-        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
-            return nil
-        }
-        guard let pathComponent = urlComponents.path.split(separator: "/").last else {
-            return nil
-        }
-        let decodedPath = pathComponent.removingPercentEncoding
-        return decodedPath
-    }
+    
     func reportPost(post: UserPost) {
         let alert = UIAlertController(title: "Confirm Report", message: "Are you sure you want to report this post? It will be hidden from you.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

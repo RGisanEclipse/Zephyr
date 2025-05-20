@@ -1236,4 +1236,21 @@ public class DatabaseManager{
             }
         }
     }
+    public func removeProfilePicture(for imageReference: URL, completion: @escaping (Bool) -> Void){
+        if imageReference == URL(string: Constants.empty){
+            completion(false)
+            print("Empty image reference")
+            return
+        }
+        guard let imageReferencePath = StorageManager.shared.extractStoragePath(from: imageReference) else {return}
+        StorageManager.shared.deleteMedia(reference: imageReferencePath, isVideo: false) { success in
+            if success{
+                completion(true)
+                return
+            } else{
+                completion(false)
+                return
+            }
+        }
+    }
 }
