@@ -40,16 +40,16 @@ Zephyr is a sleek, feature-rich iOS social media application inspired by Instagr
 ### Home and Explore Screen
   
 <div>
-  <img src="https://github.com/user-attachments/assets/8253a8a1-5679-43b2-94df-8311b030991c" alt="Feed View" width="300"/>
-  <img src="https://github.com/user-attachments/assets/bea1f387-5d08-4953-bbfe-619902a7487f" alt="Feed View" width="300"/>
+  <img src="https://github.com/user-attachments/assets/8253a8a1-5679-43b2-94df-8311b030991c" alt="Feed View" width="250"/>
+  <img src="https://github.com/user-attachments/assets/bea1f387-5d08-4953-bbfe-619902a7487f" alt="Feed View" width="250"/>
 </div>
 
 ### Create Post Screens
 
 <div>
-  <img src="https://github.com/user-attachments/assets/a4a1ea14-676b-4ce5-af65-7d4d401b45ff" alt="Feed View" width="300"/>
-  <img src="https://github.com/user-attachments/assets/36ee570e-8c02-4e9d-8419-7f37c17ba2d5" alt="Feed View" width="300"/>
-  <img src="https://github.com/user-attachments/assets/752fad1d-c913-46eb-98fc-e66684f4ccb8" alt="Feed View" width="300"/>
+  <img src="https://github.com/user-attachments/assets/a4a1ea14-676b-4ce5-af65-7d4d401b45ff" alt="Feed View" width="250"/>
+  <img src="https://github.com/user-attachments/assets/36ee570e-8c02-4e9d-8419-7f37c17ba2d5" alt="Feed View" width="250"/>
+  <img src="https://github.com/user-attachments/assets/752fad1d-c913-46eb-98fc-e66684f4ccb8" alt="Feed View" width="250"/>
 </div>
 
 ### Notifications, Post & Comments
@@ -64,9 +64,9 @@ Zephyr is a sleek, feature-rich iOS social media application inspired by Instagr
 ### Profile & Settings
 
 <div>
-  <img src="https://github.com/user-attachments/assets/c86afdf3-9a16-4019-b6e9-fc73614dfe85" alt="Feed View" width="300"/>
-  <img src="https://github.com/user-attachments/assets/4cf1b851-8293-4e30-90df-6a53d22ad77c" alt="Feed View" width="300"/>
-  <img src="https://github.com/user-attachments/assets/23679043-6472-4c85-8d04-ba85bcb4a39b" alt="Feed View" width="300"/>
+  <img src="https://github.com/user-attachments/assets/c86afdf3-9a16-4019-b6e9-fc73614dfe85" alt="Feed View" width="250"/>
+  <img src="https://github.com/user-attachments/assets/4cf1b851-8293-4e30-90df-6a53d22ad77c" alt="Feed View" width="250"/>
+  <img src="https://github.com/user-attachments/assets/23679043-6472-4c85-8d04-ba85bcb4a39b" alt="Feed View" width="250"/>
 </div>
 
 ## 🔮 Future Plans
