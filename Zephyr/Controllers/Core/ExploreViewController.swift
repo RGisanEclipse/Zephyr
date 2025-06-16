@@ -113,9 +113,11 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout{
 // MARK: - UISearchResultsUpdating
 extension ExploreViewController: UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
-        let searchVC = searchController.searchResultsController as! SearchResultViewController
-        searchVC.query = text
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            guard let text = searchController.searchBar.text else { return }
+            let searchVC = searchController.searchResultsController as! SearchResultViewController
+            searchVC.query = text
+        }
     }
 }
 

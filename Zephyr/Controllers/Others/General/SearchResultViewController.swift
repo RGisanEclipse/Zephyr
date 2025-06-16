@@ -10,12 +10,16 @@ protocol SearchResultViewControllerDelegate{
     func didSelectUser(userName: String)
 }
 class SearchResultViewController: UIViewController {
+    deinit{
+        print("No memory leaks!!")
+    }
     var query: String? {
             didSet {
                 performSearch()
             }
         }
     var queryResult: [UserModel] = []
+    var searches: [String:[UserModel]] = [:]
     var userProfileSegueUserName: String?
     var delegate: SearchResultViewControllerDelegate?
     
@@ -29,25 +33,31 @@ class SearchResultViewController: UIViewController {
         performSearch()
     }
     func performSearch() {
-            guard let query = query, !query.isEmpty else {
-                queryResult = []
-                tableView.reloadData()
-                return
-            }
-            DatabaseManager.shared.fetchUsers(matching: query) { [weak self] result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let users):
-                        self?.queryResult = users
-                        self?.tableView.reloadData()
-                    case .failure(let error):
-                        print("Error fetching user data: \(error.localizedDescription)")
-                        self?.queryResult = []
-                        self?.tableView.reloadData()
-                    }
+        guard let query = query, !query.isEmpty else {
+            queryResult = []
+            tableView.reloadData()
+            return
+        }
+        if searches[query] != nil{
+            self.queryResult = searches[query] ?? []
+            self.tableView.reloadData()
+            return
+        }
+        DatabaseManager.shared.fetchUsers(matching: query) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let users):
+                    self?.queryResult = users
+                    self?.searches[query] = users
+                    self?.tableView.reloadData()
+                case .failure(let error):
+                    print("Error fetching user data: \(error.localizedDescription)")
+                    self?.queryResult = []
+                    self?.tableView.reloadData()
                 }
             }
         }
+    }
 }
 
 // MARK: - UITableViewDataSource
